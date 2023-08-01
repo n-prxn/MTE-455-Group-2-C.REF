@@ -6,7 +6,8 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
     private Camera cam;
-    private Vector3 dragOrigin;
+    private Vector3 dragOrigin, Origin, Difference, newCam;
+    private bool drag = false;
 
     [SerializeField] private float kbSpeed;
     [SerializeField] private float mouseSpeed;
@@ -16,6 +17,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float maxZoomSize;
 
     [SerializeField] private float zoomModifier;
+
 
     void Awake()
     {
@@ -32,7 +34,8 @@ public class CameraController : MonoBehaviour
     {
         Zoom();
         MoveByKB();
-        MoveByMouse();
+        // MoveByMouse();
+        MoveDrag();
     }
 
     private void MoveByKB()
@@ -66,18 +69,43 @@ public class CameraController : MonoBehaviour
         transform.position = smoothPos;
     }
 
+    private void MoveDrag()
+    {
+        if (Input.GetMouseButton(2)) //Move by middle Muse button
+        {
+            dragOrigin = Input.mousePosition;
+            Difference = (cam.ScreenToWorldPoint(dragOrigin)) - cam.transform.position;
+            if (drag == false)
+            {
+                drag = true;
+                Origin = cam.ScreenToWorldPoint(dragOrigin);
+            }
+        }
+        else
+        {
+            drag = false;
+        }
+
+        if (drag)
+        {
+            newCam = Origin - Difference;
+            cam.transform.position = newCam;
+        }
+
+    }
+
     private void Zoom()
     {
-        zoomModifier = Input.GetAxis("Mouse ScrollWheel");
+        zoomModifier = -Input.GetAxis("Mouse ScrollWheel");
         if (Input.GetKey(KeyCode.Z))
             zoomModifier = 0.01f;
         if (Input.GetKey(KeyCode.X))
             zoomModifier = -0.01f;
 
         float zoomSize = cam.orthographicSize;
-        if(zoomSize < minZoomSize && zoomModifier < 0f)
+        if (zoomSize < minZoomSize && zoomModifier < 0f)
             return;
-        else if(zoomSize > maxZoomSize && zoomModifier > 0f)
+        else if (zoomSize > maxZoomSize && zoomModifier > 0f)
             return;
 
         cam.orthographicSize += zoomModifier;

@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     private Vector3 dragOrigin, Origin, Difference, newCam;
     private bool drag = false;
 
+    [SerializeField] private Transform lowLeft, topRight, font, back;
+
     [SerializeField] private float kbSpeed;
     [SerializeField] private float mouseSpeed;
     [SerializeField] private float smoothSpeed = 0.125f;
@@ -89,6 +91,9 @@ public class CameraController : MonoBehaviour
         if (drag)
         {
             newCam = Origin - Difference;
+            newCam.x = Mathf.Clamp(newCam.x, lowLeft.position.x, topRight.position.x);
+            newCam.y = Mathf.Clamp(newCam.y, lowLeft.position.y, topRight.position.y);
+            newCam.z = Mathf.Clamp(newCam.z, lowLeft.position.z, topRight.position.z);
             cam.transform.position = newCam;
         }
 

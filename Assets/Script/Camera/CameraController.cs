@@ -6,10 +6,19 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
     private Camera cam;
+    private Vector3 dragOrigin;
 
-    [SerializeField] private float camSpeed;
+    [SerializeField] private float kbSpeed;
+    [SerializeField] private float mouseSpeed;
+    [SerializeField] private float smoothSpeed = 0.125f;
 
-    void Awake(){
+    [SerializeField] private float minZoomSize;
+    [SerializeField] private float maxZoomSize;
+
+    [SerializeField] private float zoomModifier;
+
+    void Awake()
+    {
         instance = this;
     }
     // Start is called before the first frame update
@@ -21,22 +30,56 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Zoom();
         MoveByKB();
+        MoveByMouse();
     }
 
-    private void MoveByKB(){
+    private void MoveByKB()
+    {
         float xInput = Input.GetAxis("Horizontal");
         float zInput = Input.GetAxis("Vertical");
 
-        Vector3 dir = transform.forward * zInput + transform.right * xInput;
-        transform.position += dir * camSpeed * Time.deltaTime;
-        //transform.position = Clamp(corner1.position,corner2.position);
+        Vector3 dir = transform.up * zInput + transform.right * xInput;
+        Vector3 desiredPos = transform.position;
+        desiredPos += dir * kbSpeed * Time.deltaTime;
+
+        Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
+        transform.position = smoothPos;
     }
 
-    /*Vector3 Clamp(Vector3 lowerLeft, Vector3 topRight){
-        Vector3 pos = new Vector3(Mathf.Clamp(transform.position.x,lowerLeft.x,topRight.x),
-                            transform.position.y,
-                            Mathf.Clamp(transform.position.z,lowerLeft.z,topRight.z));
-        return pos;
-    }*/
+    private void MoveByMouse()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            dragOrigin = Input.mousePosition;
+            return;
+        }
+
+        if (!Input.GetMouseButton(0))
+            return;
+
+        Vector3 pos = cam.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+        Vector3 move = new Vector3(pos.x * mouseSpeed, 0, pos.y * mouseSpeed);
+
+        Vector3 smoothPos = Vector3.Lerp(transform.position, transform.position - move, smoothSpeed);
+        transform.position = smoothPos;
+    }
+
+    private void Zoom()
+    {
+        zoomModifier = Input.GetAxis("Mouse ScrollWheel");
+        if (Input.GetKey(KeyCode.Z))
+            zoomModifier = 0.01f;
+        if (Input.GetKey(KeyCode.X))
+            zoomModifier = -0.01f;
+
+        float zoomSize = cam.orthographicSize;
+        if(zoomSize < minZoomSize && zoomModifier < 0f)
+            return;
+        else if(zoomSize > maxZoomSize && zoomModifier > 0f)
+            return;
+
+        cam.orthographicSize += zoomModifier;
+    }
 }

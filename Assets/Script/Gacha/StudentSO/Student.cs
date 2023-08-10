@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public enum Rarity
 {
@@ -28,7 +29,7 @@ public class Student : ScriptableObject
 {
     public byte id;
     public new string name;
-    public Sprite portrait;
+    [JsonIgnore] public Sprite portrait;
     public School school;
     public string detail;
     public Rarity rarity;
@@ -39,7 +40,9 @@ public class Student : ScriptableObject
     public int comStat;
     public int stamina;
 
+    [JsonIgnore]
     private float gachaRate;
+    [JsonIgnore]
     public float GachaRate{
         get{return gachaRate;}
         set{gachaRate = value;}

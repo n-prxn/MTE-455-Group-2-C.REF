@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
+using Newtonsoft.Json;
 
+[System.Serializable]
 public class GachaPool : MonoBehaviour
 {
     [SerializeField] TMP_Text rollCountText;
@@ -23,7 +26,7 @@ public class GachaPool : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        InitializeWeight(studentsPool);
+        CountRarity(studentsPool);
         InitializeGachaRate(studentsPool);
     }
 
@@ -38,7 +41,8 @@ public class GachaPool : MonoBehaviour
         rollCountText.text = "Roll : " + rollCount.ToString();
     }
 
-    private void InitializeWeight(List<Student> students)
+    //Define how many of students in each rarity
+    private void CountRarity(List<Student> students)
     {
         foreach (Student student in students)
         {
@@ -57,6 +61,7 @@ public class GachaPool : MonoBehaviour
         }
     }
 
+    //Define the weight of gacha by calculating from Rate/Amount
     private void InitializeGachaRate(List<Student> students)
     {
         foreach (Student student in students)
@@ -76,6 +81,7 @@ public class GachaPool : MonoBehaviour
         }
     }
 
+    //Gacha Method to Finding what Player will get (Only 1)
     private int PullStudentIndex(List<Student> students)
     {
         float weightSum = 0f;
@@ -96,6 +102,7 @@ public class GachaPool : MonoBehaviour
         return index;
     }
 
+    //Pull 1 Roll
     public void PullOne()
     {
         if (GameManager.instance.pyroxenes >= 120)
@@ -113,9 +120,11 @@ public class GachaPool : MonoBehaviour
                 card.GetComponent<GachaCardDisplay>().student = pulledStudent;
             }
             rollCount++;
+            SaveIntoJson();
         }
     }
 
+    //Pull 10 Roll
     public void PullTen()
     {
         if (GameManager.instance.pyroxenes >= 1200)
@@ -133,9 +142,11 @@ public class GachaPool : MonoBehaviour
                 card.GetComponent<GachaCardDisplay>().student = pulledStudent;
             }
             rollCount += 10;
+            SaveIntoJson();
         }
     }
 
+    //Delete Gacha Result
     public void DeleteAllGachaResult()
     {
         if (gachaCardParent.transform.childCount > 0)
@@ -147,7 +158,27 @@ public class GachaPool : MonoBehaviour
         }
     }
 
-    public void AddPyroxene(int pyroxenes){
+    //Dev tool
+    public void AddPyroxene(int pyroxenes)
+    {
         GameManager.instance.pyroxenes += pyroxenes;
+    }
+
+    //Save Gacha History To Log
+    public void SaveIntoJson()
+    {
+        string documentName = Application.dataPath + "/gachaLog.txt";
+        if (!File.Exists(documentName))
+        {
+            File.WriteAllText(documentName, "Gacha Log\n\n");
+        }
+
+        string strOuput = JsonConvert.SerializeObject(PulledStudents, Formatting.Indented, new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        });
+
+        File.AppendAllText(documentName, strOuput);
+
     }
 }

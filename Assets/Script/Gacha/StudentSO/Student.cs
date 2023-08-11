@@ -31,14 +31,14 @@ public class Student : ScriptableObject
     public new string name;
     [JsonIgnore] public Sprite portrait;
     public School school;
-    public string detail;
+    [JsonIgnore] public string detail;
     public Rarity rarity;
 
     //Status
-    public int phyStat;
-    public int intStat;
-    public int comStat;
-    public int stamina;
+    [JsonIgnore] public int phyStat;
+    [JsonIgnore] public int intStat;
+    [JsonIgnore] public int comStat;
+    [JsonIgnore] public int stamina;
 
     [JsonIgnore]
     private float gachaRate;

@@ -22,9 +22,8 @@ public class GachaPool : MonoBehaviour
     int rollCount = 0;
 
     private List<Student> PulledStudents = new List<Student>();
-    private List<Student> SavePulledStudents = new List<Student>();
 
-    string documentName = Application.dataPath + "/gachaLog.json";
+    private string documentName = Application.dataPath + "/gachaLog.json";
 
     // Start is called before the first frame update
     void Awake()
@@ -92,15 +91,16 @@ public class GachaPool : MonoBehaviour
         for (int i = 0; i < students.Count; i++)
             weightSum += students[i].GachaRate;
 
-        int index = 0;
         int lastIndex = students.Count - 1;
-        while (index < lastIndex)
+        int index = Random.Range(0, students.Count);
+        while (index <= lastIndex)
         {
             if (Random.Range(0, weightSum) < students[index].GachaRate)
             {
                 return index;
             }
-            weightSum -= students[index++].GachaRate;
+            // weightSum -= students[index].GachaRate;
+            index = Random.Range(0, students.Count);
         }
 
         return index;
@@ -168,24 +168,12 @@ public class GachaPool : MonoBehaviour
     //Save Gacha History To Log
     public void SaveIntoJson()
     {
-        SavePulledStudents.Clear();
-        
-        string json = File.ReadAllText(documentName);
-        SavePulledStudents.AddRange(JsonConvert.DeserializeObject<List<Student>>(json));
-        SavePulledStudents.AddRange(PulledStudents);
-
-        // string strU = JsonUtility.ToJson(SavePulledStudents.ToArray());
-        // Debug.Log(strU);
-
-
-        string strOuput = JsonConvert.SerializeObject(SavePulledStudents, Formatting.Indented, new JsonSerializerSettings
+        string strOuput = JsonConvert.SerializeObject(PulledStudents, Formatting.Indented, new JsonSerializerSettings
         {
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         });
 
-        File.WriteAllText(documentName, strOuput);
-
-        SavePulledStudents.Clear();
+        File.AppendAllText(documentName, strOuput);
 
     }
 
@@ -196,7 +184,7 @@ public class GachaPool : MonoBehaviour
             File.WriteAllText(documentName, "");
         }
 
-        string strOuput = JsonConvert.SerializeObject(SavePulledStudents, Formatting.Indented, new JsonSerializerSettings
+        string strOuput = JsonConvert.SerializeObject(PulledStudents, Formatting.Indented, new JsonSerializerSettings
         {
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         });

@@ -22,12 +22,16 @@ public class GachaPool : MonoBehaviour
     int rollCount = 0;
 
     private List<Student> PulledStudents = new List<Student>();
+    private List<Student> SavePulledStudents = new List<Student>();
+
+    string documentName = Application.dataPath + "/gachaLog.json";
 
     // Start is called before the first frame update
     void Awake()
     {
         CountRarity(studentsPool);
         InitializeGachaRate(studentsPool);
+        SetJsonFile();
     }
 
     void Start()
@@ -164,18 +168,39 @@ public class GachaPool : MonoBehaviour
     //Save Gacha History To Log
     public void SaveIntoJson()
     {
-        string documentName = Application.dataPath + "/gachaLog.txt";
-        if (!File.Exists(documentName))
-        {
-            File.WriteAllText(documentName, "Gacha Log\n\n");
-        }
+        SavePulledStudents.Clear();
+        
+        string json = File.ReadAllText(documentName);
+        SavePulledStudents.AddRange(JsonConvert.DeserializeObject<List<Student>>(json));
+        SavePulledStudents.AddRange(PulledStudents);
 
-        string strOuput = JsonConvert.SerializeObject(PulledStudents, Formatting.Indented, new JsonSerializerSettings
+        // string strU = JsonUtility.ToJson(SavePulledStudents.ToArray());
+        // Debug.Log(strU);
+
+
+        string strOuput = JsonConvert.SerializeObject(SavePulledStudents, Formatting.Indented, new JsonSerializerSettings
         {
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         });
 
-        File.AppendAllText(documentName, strOuput);
+        File.WriteAllText(documentName, strOuput);
 
+        SavePulledStudents.Clear();
+
+    }
+
+    public void SetJsonFile()
+    {
+        if (!File.Exists(documentName))
+        {
+            File.WriteAllText(documentName, "");
+        }
+
+        string strOuput = JsonConvert.SerializeObject(SavePulledStudents, Formatting.Indented, new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        });
+
+        File.WriteAllText(documentName, strOuput);
     }
 }

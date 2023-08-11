@@ -6,7 +6,7 @@ using System.IO;
 using Newtonsoft.Json;
 
 [System.Serializable]
-public class GachaPool : MonoBehaviour
+public class GachaPool : MonoBehaviour, IData
 {
     [SerializeField] TMP_Text rollCountText;
     [SerializeField] int rollCost = 120;
@@ -42,6 +42,16 @@ public class GachaPool : MonoBehaviour
     void Update()
     {
         rollCountText.text = "Roll : " + rollCount.ToString();
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.rollCost = data.rollCount;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.rollCount = this.rollCost;
     }
 
     //Define how many of students in each rarity

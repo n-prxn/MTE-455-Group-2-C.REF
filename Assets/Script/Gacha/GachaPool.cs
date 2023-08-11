@@ -107,18 +107,15 @@ public class GachaPool : MonoBehaviour
     {
         if (GameManager.instance.pyroxenes >= 120)
         {
-            GameManager.instance.pyroxenes -= rollCost * 10;
+            GameManager.instance.pyroxenes -= rollCost; //Edit Amount
             DeleteAllGachaResult();
             PulledStudents.Clear();
-            for (int i = 0; i < 10; i++)
-            {
-                PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
-            }
-            foreach (Student pulledStudent in PulledStudents)
-            {
-                GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-                card.GetComponent<GachaCardDisplay>().student = pulledStudent;
-            }
+
+            //Edit roll count
+            PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
+            GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
+            card.GetComponent<GachaCardDisplay>().student = PulledStudents[0];
+
             rollCount++;
             SaveIntoJson();
         }

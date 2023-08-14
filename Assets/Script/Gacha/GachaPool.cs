@@ -46,12 +46,12 @@ public class GachaPool : MonoBehaviour, IData
 
     public void LoadData(GameData data)
     {
-        this.rollCost = data.rollCount;
+        this.rollCount = data.rollCount;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.rollCount = this.rollCost;
+        data.rollCount = this.rollCount;
     }
 
     //Define how many of students in each rarity

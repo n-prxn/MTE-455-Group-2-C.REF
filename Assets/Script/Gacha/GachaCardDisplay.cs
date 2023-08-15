@@ -9,7 +9,7 @@ public class GachaCardDisplay : MonoBehaviour
     [SerializeField] private Image gachaPortrait;
     [SerializeField] private Image gachaBackground;
     [SerializeField] private Image gachaBackgroundPyroxenes;
-    [SerializeField] private TextMeshPro pyroxenesText;
+    [SerializeField] private TMP_Text pyroxenesText;
     [SerializeField] private GameObject pyroxenesPanel;
 
 
@@ -34,7 +34,7 @@ public class GachaCardDisplay : MonoBehaviour
         if (student.collexted)
         {
             GachaPyroxenesBGSelect();
-            // pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
+            pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
             pyroxenesPanel.SetActive(true);
             GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
         }

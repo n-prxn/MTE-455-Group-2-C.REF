@@ -55,7 +55,7 @@ public class DataMenager : MonoBehaviour
         {
             dataOBJ.SaveData(ref gameData);
         }
-        
+
         fileHandler.Save(gameData);
     }
 
@@ -72,5 +72,5 @@ public class DataMenager : MonoBehaviour
         IEnumerable<IData> dataObject = FindObjectsOfType<MonoBehaviour>().OfType<IData>();
         return new List<IData>(dataObject);
     }
-
+    
 }

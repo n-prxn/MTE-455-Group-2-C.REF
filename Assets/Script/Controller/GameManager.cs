@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public int credits = 0;
     public int pyroxenes = 0;
+    public int rollCost = 0;
 
     public static GameManager instance;
 

@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 public class GachaPool : MonoBehaviour, IData
 {
     [SerializeField] TMP_Text rollCountText;
-    [SerializeField] int rollCost = 120;
+    [SerializeField] int rollCost;
     [SerializeField] GameObject gachaCard;
     [SerializeField] GameObject gachaCardParent;
     [SerializeField] List<Student> studentsPool;
@@ -35,7 +35,7 @@ public class GachaPool : MonoBehaviour, IData
 
     void Start()
     {
-
+        rollCost = GameManager.instance.rollCost;
     }
 
     // Update is called once per frame
@@ -47,11 +47,23 @@ public class GachaPool : MonoBehaviour, IData
     public void LoadData(GameData data)
     {
         this.rollCount = data.rollCount;
+        foreach (Student student in studentsPool)
+        {
+            data.studentCollexted.TryGetValue(student.id, out student.collexted);
+        }
     }
 
     public void SaveData(ref GameData data)
     {
         data.rollCount = this.rollCount;
+        foreach (Student student in studentsPool)
+        {
+            if (data.studentCollexted.ContainsKey(student.id))
+            {
+                data.studentCollexted.Remove(student.id);
+            }
+            data.studentCollexted.Add(student.id, student.collexted);
+        }
     }
 
     //Define how many of students in each rarity
@@ -107,52 +119,72 @@ public class GachaPool : MonoBehaviour, IData
         {
             if (Random.Range(0, weightSum) < students[index].GachaRate)
             {
-                return index;
+                break;
             }
             // weightSum -= students[index].GachaRate;
             index = Random.Range(0, students.Count);
         }
-
         return index;
     }
 
     //Pull 1 Roll
-    public void PullOne()
-    {
-        if (GameManager.instance.pyroxenes >= 120)
-        {
-            GameManager.instance.pyroxenes -= rollCost; //Edit Amount
-            DeleteAllGachaResult();
-            PulledStudents.Clear();
+    // public void PullOne()
+    // {
+    //     if (GameManager.instance.pyroxenes >= 120)
+    //     {
+    //         GameManager.instance.pyroxenes -= rollCost; //Edit Amount
+    //         DeleteAllGachaResult();
+    //         PulledStudents.Clear();
 
-            //Edit roll count
-            PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
-            GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-            card.GetComponent<GachaCardDisplay>().student = PulledStudents[0];
+    //         //Edit roll count
+    //         PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
+    //         GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
+    //         card.GetComponent<GachaCardDisplay>().student = PulledStudents[0];
 
-            rollCount++;
-            SaveIntoJson();
-        }
-    }
+    //         rollCount++;
+    //         SaveIntoJson();
+    //     }
+    // }
 
     //Pull 10 Roll
-    public void PullTen()
+    // public void PullTen()
+    // {
+    //     if (GameManager.instance.pyroxenes >= 1200)
+    //     {
+    //         GameManager.instance.pyroxenes -= rollCost * 10;
+    //         DeleteAllGachaResult();
+    //         PulledStudents.Clear();
+    //         for (int i = 0; i < 10; i++)
+    //         {
+    //             PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
+    //         }
+    //         foreach (Student pulledStudent in PulledStudents)
+    //         {
+    //             GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
+    //             card.GetComponent<GachaCardDisplay>().student = pulledStudent;
+    //         }
+    //         rollCount += 10;
+    //         SaveIntoJson();
+    //     }
+    // }
+
+    //Pull by Amount
+    public void Pull(int pullAmount)
     {
-        if (GameManager.instance.pyroxenes >= 1200)
+        if (GameManager.instance.pyroxenes >= rollCost * pullAmount)
         {
-            GameManager.instance.pyroxenes -= rollCost * 10;
+            GameManager.instance.pyroxenes -= rollCost * pullAmount;
             DeleteAllGachaResult();
             PulledStudents.Clear();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < pullAmount; i++)
             {
                 PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
-            }
-            foreach (Student pulledStudent in PulledStudents)
-            {
                 GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-                card.GetComponent<GachaCardDisplay>().student = pulledStudent;
+                card.GetComponent<GachaCardDisplay>().student = PulledStudents[i];
+
+                rollCount++;
             }
-            rollCount += 10;
+
             SaveIntoJson();
         }
     }
@@ -200,5 +232,18 @@ public class GachaPool : MonoBehaviour, IData
         });
 
         File.WriteAllText(documentName, strOuput);
+    }
+
+    public void SaveBTN()
+    {
+        DataMenager.instance.SaveGame();
+    }
+    public void ClearBTN()
+    {
+        this.rollCount = 0;
+        foreach (Student student in studentsPool)
+        {
+            student.collexted = false;
+        }
     }
 }

@@ -33,6 +33,7 @@ public class Student : ScriptableObject
     public School school;
     [JsonIgnore] public string detail;
     public Rarity rarity;
+    public bool collexted;
 
     //Status
     [JsonIgnore] public int phyStat;

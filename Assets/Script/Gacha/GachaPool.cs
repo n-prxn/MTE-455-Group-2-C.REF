@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 public class GachaPool : MonoBehaviour, IData
 {
     [SerializeField] TMP_Text rollCountText;
-    [SerializeField] int rollCost;
+    private int rollCost; //Move to GameManeger
     [SerializeField] GameObject gachaCard;
     [SerializeField] GameObject gachaCardParent;
     [SerializeField] List<Student> studentsPool;

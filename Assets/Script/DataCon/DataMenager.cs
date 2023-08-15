@@ -8,25 +8,34 @@ public class DataMenager : MonoBehaviour
     private GameData gameData;
     private List<IData> dataObject;
 
+    private FileHandler fileHandler;
+
     public static DataMenager instance { get; private set; }
 
     private void Awake()
     {
         instance = this;
     }
+
+    //Call LoadGame() at start
     private void Start()
     {
+        this.fileHandler = new FileHandler();
         this.dataObject = FindAllDataObject();
         LoadGame();
     }
 
+    //Call Wheme gamedata is null
     public void NewGame()
     {
         this.gameData = new GameData();
     }
 
+    //Load gameData from GameDataSave.json whene exists
     public void LoadGame()
     {
+        this.gameData = fileHandler.Load();
+
         if (this.gameData == null)
         {
             Debug.Log("No Data");
@@ -37,26 +46,27 @@ public class DataMenager : MonoBehaviour
         {
             dataOBJ.LoadData(gameData);
         }
-
-        Debug.Log("Roll count on Load " + gameData.rollCount);
     }
 
+    //save All gameData from all script Have MonoBehaviour and IData interface
     public void SaveGame()
     {
         foreach (IData dataOBJ in dataObject)
         {
             dataOBJ.SaveData(ref gameData);
         }
-
-        Debug.Log("Roll count on Save " + gameData.rollCount);
+        
+        fileHandler.Save(gameData);
     }
 
+    //call saveGame() on quit game
     private void OnApplicationQuit()
     {
         SaveGame();
     }
 
 
+    //Make a list of All script Have MonoBehaviour and IData interface
     private List<IData> FindAllDataObject()
     {
         IEnumerable<IData> dataObject = FindObjectsOfType<MonoBehaviour>().OfType<IData>();

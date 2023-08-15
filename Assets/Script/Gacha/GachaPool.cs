@@ -23,7 +23,7 @@ public class GachaPool : MonoBehaviour, IData
 
     private List<Student> PulledStudents = new List<Student>();
 
-    private string documentName = Application.dataPath + "/gachaLog.json";
+    private string documentName = Path.Combine(Application.dataPath, "gachaLog.json");
 
     // Start is called before the first frame update
     void Awake()

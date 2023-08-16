@@ -5,11 +5,11 @@ using UnityEngine;
 public class GameData
 {
     public int rollCount;
-    public Dictionary<int, bool> studentCollexted;
+    public Dictionary<int, bool> studentCollected;
 
     public GameData()
     {
         this.rollCount = 0;
-        studentCollexted = new Dictionary<int, bool>();
+        studentCollected = new Dictionary<int, bool>();
     }
 }

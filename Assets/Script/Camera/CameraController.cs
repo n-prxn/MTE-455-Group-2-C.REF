@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public static CameraController instance;
     private Camera cam;
-    private Vector3 dragOrigin, Origin, Difference, newCam;
+    private Vector3 dragOrigin, Origin, Difference, newCam, resetCam;
     private bool drag = false;
 
     [SerializeField] private Transform lowLeft, topRight, font, back;
@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        resetCam = cam.transform.position;
     }
 
     // Update is called once per frame
@@ -92,6 +93,7 @@ public class CameraController : MonoBehaviour
         {
             newCam = Origin - Difference;
             newCam.x = Mathf.Clamp(newCam.x, lowLeft.position.x, topRight.position.x);
+            // newCam.y = resetCam.y;
             newCam.y = Mathf.Clamp(newCam.y, lowLeft.position.y, topRight.position.y);
             newCam.z = Mathf.Clamp(newCam.z, lowLeft.position.z, topRight.position.z);
             cam.transform.position = newCam;

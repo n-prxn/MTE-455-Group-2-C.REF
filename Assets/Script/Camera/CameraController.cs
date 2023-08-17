@@ -36,40 +36,7 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         Zoom();
-        MoveByKB();
-        // MoveByMouse();
         MoveDrag();
-    }
-
-    private void MoveByKB()
-    {
-        float xInput = Input.GetAxis("Horizontal");
-        float zInput = Input.GetAxis("Vertical");
-
-        Vector3 dir = transform.up * zInput + transform.right * xInput;
-        Vector3 desiredPos = transform.position;
-        desiredPos += dir * kbSpeed * Time.deltaTime;
-
-        Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smoothSpeed);
-        transform.position = smoothPos;
-    }
-
-    private void MoveByMouse()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            dragOrigin = Input.mousePosition;
-            return;
-        }
-
-        if (!Input.GetMouseButton(0))
-            return;
-
-        Vector3 pos = cam.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-        Vector3 move = new Vector3(pos.x * mouseSpeed, 0, pos.y * mouseSpeed);
-
-        Vector3 smoothPos = Vector3.Lerp(transform.position, transform.position - move, smoothSpeed);
-        transform.position = smoothPos;
     }
 
     private void MoveDrag()

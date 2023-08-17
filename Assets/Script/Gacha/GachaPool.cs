@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 [System.Serializable]
 public class GachaPool : MonoBehaviour, IData
 {
+    [Header("Developer Tool")]
     [SerializeField] TMP_Text rollCountText;
     private int rollCost; //Move to GameManeger
     [SerializeField] GameObject gachaCard;
@@ -17,6 +18,9 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] float commonRate = 78.5f;
     [SerializeField] float uncommonRate = 18.5f;
     [SerializeField] float rareRate = 3f;
+
+    [Header("UI Panel")]
+    [SerializeField] GameObject gachaPanel;
 
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;
@@ -127,47 +131,6 @@ public class GachaPool : MonoBehaviour, IData
         return index;
     }
 
-    //Pull 1 Roll
-    // public void PullOne()
-    // {
-    //     if (GameManager.instance.pyroxenes >= 120)
-    //     {
-    //         GameManager.instance.pyroxenes -= rollCost; //Edit Amount
-    //         DeleteAllGachaResult();
-    //         PulledStudents.Clear();
-
-    //         //Edit roll count
-    //         PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
-    //         GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-    //         card.GetComponent<GachaCardDisplay>().student = PulledStudents[0];
-
-    //         rollCount++;
-    //         SaveIntoJson();
-    //     }
-    // }
-
-    //Pull 10 Roll
-    // public void PullTen()
-    // {
-    //     if (GameManager.instance.pyroxenes >= 1200)
-    //     {
-    //         GameManager.instance.pyroxenes -= rollCost * 10;
-    //         DeleteAllGachaResult();
-    //         PulledStudents.Clear();
-    //         for (int i = 0; i < 10; i++)
-    //         {
-    //             PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
-    //         }
-    //         foreach (Student pulledStudent in PulledStudents)
-    //         {
-    //             GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-    //             card.GetComponent<GachaCardDisplay>().student = pulledStudent;
-    //         }
-    //         rollCount += 10;
-    //         SaveIntoJson();
-    //     }
-    // }
-
     //Pull by Amount
     public void Pull(int pullAmount)
     {
@@ -245,5 +208,14 @@ public class GachaPool : MonoBehaviour, IData
         {
             student.collected = false;
         }
+    }
+
+    public void OpenGachaPanel(){
+        if(gachaPanel.activeSelf){
+            gachaPanel.SetActive(false);
+        }else{
+            gachaPanel.SetActive(true);
+        }
+        Debug.Log("Toggle");
     }
 }

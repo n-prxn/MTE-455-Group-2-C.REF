@@ -21,6 +21,7 @@ public class GachaPool : MonoBehaviour, IData
 
     [Header("UI Panel")]
     [SerializeField] GameObject gachaPanel;
+    [SerializeField] GameObject gachaScene;
 
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;
@@ -136,6 +137,7 @@ public class GachaPool : MonoBehaviour, IData
     {
         if (GameManager.instance.pyroxenes >= rollCost * pullAmount)
         {
+            ToggleGachaScene();
             GameManager.instance.pyroxenes -= rollCost * pullAmount;
             DeleteAllGachaResult();
             PulledStudents.Clear();
@@ -216,6 +218,11 @@ public class GachaPool : MonoBehaviour, IData
         }else{
             gachaPanel.SetActive(true);
         }
-        Debug.Log("Toggle");
+    }
+
+    public void ToggleGachaScene(){
+        if(!gachaScene.activeSelf){
+            gachaScene.SetActive(true);
+        }
     }
 }

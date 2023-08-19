@@ -27,15 +27,24 @@ public enum School
 [CreateAssetMenu(fileName = "New Student", menuName = "Student")]
 public class Student : ScriptableObject
 {
+    [Header("Student Info")]
     public byte id;
     public new string name;
     [JsonIgnore] public Sprite portrait;
     public School school;
     [JsonIgnore] public string detail;
+
+    [Header("Gacha Info")]
     public Rarity rarity;
-    public bool collected;
+    private bool collected;
+    public bool Collected
+    {
+        get { return collected; }
+        set { collected = value; }
+    }
 
     //Status
+    [Header("Basic Stats")]
     [JsonIgnore] public int phyStat;
     [JsonIgnore] public int intStat;
     [JsonIgnore] public int comStat;
@@ -44,8 +53,9 @@ public class Student : ScriptableObject
     [JsonIgnore]
     private float gachaRate;
     [JsonIgnore]
-    public float GachaRate{
-        get{return gachaRate;}
-        set{gachaRate = value;}
+    public float GachaRate
+    {
+        get { return gachaRate; }
+        set { gachaRate = value; }
     }
 }

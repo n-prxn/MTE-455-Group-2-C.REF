@@ -31,14 +31,14 @@ public class GachaCardDisplay : MonoBehaviour
     {
         GachaBGSelect();
         gachaPortrait.sprite = student.portrait;
-        if (student.collected)
+        if (student.Collected)
         {
             GachaPyroxenesBGSelect();
             pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
             pyroxenesPanel.SetActive(true);
             GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
         }
-        student.collected = true;
+        student.Collected = true;
     }
 
     private void GachaBGSelect()

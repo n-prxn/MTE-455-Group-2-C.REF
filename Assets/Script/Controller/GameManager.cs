@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
     public int maxXP = 1000;
     public int rank = 1;
 
-
     public static GameManager instance;
 
     // Start is called before the first frame update
@@ -35,5 +34,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void NextTurn(){
+        if(currentTurn < lastTurn){
+            currentTurn = currentTurn + 1;
+        }
     }
 }

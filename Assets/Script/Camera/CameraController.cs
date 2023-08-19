@@ -20,7 +20,6 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private float zoomModifier;
 
-
     void Awake()
     {
         instance = this;

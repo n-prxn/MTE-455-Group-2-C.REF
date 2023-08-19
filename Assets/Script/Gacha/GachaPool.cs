@@ -54,7 +54,9 @@ public class GachaPool : MonoBehaviour, IData
         this.rollCount = data.rollCount;
         foreach (Student student in studentsPool)
         {
-            data.studentCollected.TryGetValue(student.id, out student.collected);
+            bool studentCollected;
+            data.studentCollected.TryGetValue(student.id, out studentCollected);
+            student.Collected = studentCollected;
         }
     }
 
@@ -67,7 +69,7 @@ public class GachaPool : MonoBehaviour, IData
             {
                 data.studentCollected.Remove(student.id);
             }
-            data.studentCollected.Add(student.id, student.collected);
+            data.studentCollected.Add(student.id, student.Collected);
         }
     }
 
@@ -208,7 +210,7 @@ public class GachaPool : MonoBehaviour, IData
         this.rollCount = 0;
         foreach (Student student in studentsPool)
         {
-            student.collected = false;
+            student.Collected = false;
         }
     }
 

@@ -31,12 +31,14 @@ public class Student : ScriptableObject
     public byte id;
     public new string name;
     [JsonIgnore] public Sprite portrait;
+    [JsonIgnore] public Sprite artwork;
+    public string club;
     public School school;
-    [JsonIgnore] public string detail;
+    [JsonIgnore] [TextArea] public string detail;
 
     [Header("Gacha Info")]
     public Rarity rarity;
-    private bool collected;
+    [SerializeField]private bool collected;
     public bool Collected
     {
         get { return collected; }

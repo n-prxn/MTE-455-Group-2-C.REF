@@ -30,7 +30,7 @@ public class GachaCardDisplay : MonoBehaviour
     {
         GachaBGSelect();
         gachaPortrait.sprite = student.portrait;
-        if (student.Collected)
+        if (student.SquadCoolect)
         {
             GachaPyroxenesBGSelect();
             pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
@@ -38,6 +38,7 @@ public class GachaCardDisplay : MonoBehaviour
             GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
         }else{
             SquadController.instance.Receive(student);
+            student.SquadCoolect = true;
         }
         student.Collected = true;
     }

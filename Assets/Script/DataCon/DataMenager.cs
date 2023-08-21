@@ -59,6 +59,12 @@ public class DataMenager : MonoBehaviour
         fileHandler.Save(gameData);
     }
 
+    public void ClearColleted()
+    {
+        gameData.studentCollected.Clear();
+        fileHandler.Save(gameData);
+    }
+
     //call saveGame() on quit game
     private void OnApplicationQuit()
     {
@@ -72,5 +78,5 @@ public class DataMenager : MonoBehaviour
         IEnumerable<IData> dataObject = FindObjectsOfType<MonoBehaviour>().OfType<IData>();
         return new List<IData>(dataObject);
     }
-    
+
 }

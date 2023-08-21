@@ -45,6 +45,12 @@ public class Student : ScriptableObject
         get { return collected; }
         set { collected = value; }
     }
+    [SerializeField] private bool squadCoolect;
+    public bool SquadCoolect
+    {
+        get { return squadCoolect; }
+        set { squadCoolect = value; }
+    }
 
     //Status
     [Header("Basic Stats")]
@@ -88,7 +94,8 @@ public class Student : ScriptableObject
         set { gachaRate = value; }
     }
 
-    public void InitializeStartStats(){
+    public void InitializeStartStats()
+    {
         currentPHYStat = phyStat;
         currentINTStat = intStat;
         currentCOMStat = intStat;

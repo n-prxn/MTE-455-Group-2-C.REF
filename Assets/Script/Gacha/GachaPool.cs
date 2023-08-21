@@ -54,6 +54,10 @@ public class GachaPool : MonoBehaviour, IData
         this.rollCount = data.rollCount;
         foreach (Student student in studentsPool)
         {
+            bool studentSquad;
+            data.studentSquad.TryGetValue(student.id, out studentSquad);
+            student.SquadCoolect = studentSquad;
+
             bool studentCollected;
             data.studentCollected.TryGetValue(student.id, out studentCollected);
             student.Collected = studentCollected;
@@ -65,11 +69,20 @@ public class GachaPool : MonoBehaviour, IData
         data.rollCount = this.rollCount;
         foreach (Student student in studentsPool)
         {
+            if (data.studentSquad.ContainsKey(student.id))
+            {
+                data.studentSquad.Remove(student.id);
+            }
+
+
             if (data.studentCollected.ContainsKey(student.id))
             {
                 data.studentCollected.Remove(student.id);
             }
             data.studentCollected.Add(student.id, student.Collected);
+
+
+            data.studentSquad.Add(student.id, student.SquadCoolect);
         }
     }
 
@@ -210,20 +223,34 @@ public class GachaPool : MonoBehaviour, IData
         this.rollCount = 0;
         foreach (Student student in studentsPool)
         {
-            student.Collected = false;
+            student.SquadCoolect = false;
         }
     }
+    public void ClearColletedBTN()
+    {
+        foreach (Student student in studentsPool)
+        {
+            student.Collected = false;
+        }
+        DataMenager.instance.ClearColleted();
+    }
 
-    public void OpenGachaPanel(){
-        if(gachaPanel.activeSelf){
+    public void OpenGachaPanel()
+    {
+        if (gachaPanel.activeSelf)
+        {
             gachaPanel.SetActive(false);
-        }else{
+        }
+        else
+        {
             gachaPanel.SetActive(true);
         }
     }
 
-    public void ToggleGachaScene(){
-        if(!gachaScene.activeSelf){
+    public void ToggleGachaScene()
+    {
+        if (!gachaScene.activeSelf)
+        {
             gachaScene.SetActive(true);
         }
     }

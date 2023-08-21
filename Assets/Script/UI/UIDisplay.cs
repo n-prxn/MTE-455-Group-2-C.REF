@@ -38,6 +38,7 @@ public class UIDisplay : MonoBehaviour
 
         //Update Rank
         rankText.text = "RANK " + GameManager.instance.rank.ToString();
-        xpBar.GetComponent<RectTransform>().sizeDelta = new Vector2(GameManager.instance.currentXP * 350/GameManager.instance.maxXP,xpBar.rectTransform.rect.height);
+        xpBar.fillAmount = (float)GameManager.instance.currentXP/(float)GameManager.instance.maxXP;
+        //Debug.Log(GameManager.instance.currentXP/GameManager.instance.maxXP);
     }
 }

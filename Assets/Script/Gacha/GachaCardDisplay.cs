@@ -39,6 +39,7 @@ public class GachaCardDisplay : MonoBehaviour
             GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
         }
         student.Collected = true;
+
     }
 
     private void GachaBGSelect()

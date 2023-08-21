@@ -56,8 +56,8 @@ public class GachaPool : MonoBehaviour, IData
         {
             bool studentSquad;
             data.studentSquad.TryGetValue(student.id, out studentSquad);
-            student.SquadCoolect = studentSquad;
-            if (student.SquadCoolect)
+            student.SquadCollect = studentSquad;
+            if (student.SquadCollect)
             {
                 SquadController.instance.Receive(student);
             }
@@ -85,8 +85,7 @@ public class GachaPool : MonoBehaviour, IData
             }
             data.studentCollected.Add(student.id, student.Collected);
 
-
-            data.studentSquad.Add(student.id, student.SquadCoolect);
+            data.studentSquad.Add(student.id, student.SquadCollect);
         }
     }
 
@@ -227,7 +226,7 @@ public class GachaPool : MonoBehaviour, IData
         this.rollCount = 0;
         foreach (Student student in studentsPool)
         {
-            student.SquadCoolect = false;
+            student.SquadCollect = false;
         }
     }
     public void ClearColletedBTN()

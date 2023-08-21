@@ -19,6 +19,10 @@ public class SquadController : MonoBehaviour
         instance = this;
     }
 
+    void Start(){
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -27,5 +31,9 @@ public class SquadController : MonoBehaviour
 
     public void Receive(Student s){
         students.Add(s);
+    }
+
+    public void ClearStudentList(){
+        students.Clear();
     }
 }

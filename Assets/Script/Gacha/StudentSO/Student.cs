@@ -45,11 +45,11 @@ public class Student : ScriptableObject
         get { return collected; }
         set { collected = value; }
     }
-    [SerializeField] private bool squadCoolect;
-    public bool SquadCoolect
+    [SerializeField] private bool squadCollect;
+    public bool SquadCollect
     {
-        get { return squadCoolect; }
-        set { squadCoolect = value; }
+        get { return squadCollect; }
+        set { squadCollect = value; }
     }
 
     //Status

@@ -60,10 +60,10 @@ public class CollectionController : MonoBehaviour
 
     void UpdateStatusBar(int i)
     {
-        PHYBar.GetComponent<RectTransform>().sizeDelta = new Vector2(students[i].phyStat * 350f / 60f, 25);
-        INTBar.GetComponent<RectTransform>().sizeDelta = new Vector2(students[i].intStat * 350f / 60f, 25);
-        COMBar.GetComponent<RectTransform>().sizeDelta = new Vector2(students[i].comStat * 350f / 60f, 25);
-        STABar.GetComponent<RectTransform>().sizeDelta = new Vector2(students[i].stamina * 350f / 150f, 25);
+        PHYBar.fillAmount = (float)students[i].phyStat/60f;
+        INTBar.fillAmount = (float)students[i].intStat/60f;
+        COMBar.fillAmount = (float)students[i].comStat/60f;
+        STABar.fillAmount = (float)students[i].stamina/150f;
     }
 
     void UpdateBanner(int i)
@@ -114,7 +114,7 @@ public class CollectionController : MonoBehaviour
                 collected++;
         }
         progression.text = collected.ToString() + "/" + students.Count.ToString();
-        progressBar.rectTransform.sizeDelta = new Vector2(collected * 350f / 50f, 25);
+        progressBar.fillAmount = (float)collected/50f;
     }
 
     void HideUncollectedStudent(int i)

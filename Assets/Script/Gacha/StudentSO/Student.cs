@@ -31,14 +31,15 @@ public class Student : ScriptableObject
     public byte id;
     public new string name;
     [JsonIgnore] public Sprite portrait;
+    //[JsonIgnore] public Sprite portraitBig;
     [JsonIgnore] public Sprite artwork;
     public string club;
     public School school;
-    [JsonIgnore] [TextArea] public string detail;
+    [JsonIgnore][TextArea] public string detail;
 
     [Header("Gacha Info")]
     public Rarity rarity;
-    [SerializeField]private bool collected;
+    [SerializeField] private bool collected;
     public bool Collected
     {
         get { return collected; }
@@ -52,6 +53,32 @@ public class Student : ScriptableObject
     [JsonIgnore] public int comStat;
     [JsonIgnore] public int stamina;
 
+    [Header("Current Stats")]
+    private int currentPHYStat;
+    public int CurrentPHYStat
+    {
+        get { return currentPHYStat; }
+        set { currentPHYStat = value; }
+    }
+    private int currentINTStat;
+    public int CurrentINTStat
+    {
+        get { return currentINTStat; }
+        set { currentINTStat = value; }
+    }
+    private int currentCOMStat;
+    public int CurrentCOMStat
+    {
+        get { return currentCOMStat; }
+        set { currentCOMStat = value; }
+    }
+    private int currentStamina;
+    public int CurrentStamina
+    {
+        get { return currentStamina; }
+        set { currentStamina = value; }
+    }
+
     [JsonIgnore]
     private float gachaRate;
     [JsonIgnore]
@@ -59,5 +86,12 @@ public class Student : ScriptableObject
     {
         get { return gachaRate; }
         set { gachaRate = value; }
+    }
+
+    public void InitializeStartStats(){
+        currentPHYStat = phyStat;
+        currentINTStat = intStat;
+        currentCOMStat = intStat;
+        currentStamina = stamina;
     }
 }

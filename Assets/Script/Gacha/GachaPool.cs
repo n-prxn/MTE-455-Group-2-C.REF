@@ -57,6 +57,10 @@ public class GachaPool : MonoBehaviour, IData
             bool studentSquad;
             data.studentSquad.TryGetValue(student.id, out studentSquad);
             student.SquadCoolect = studentSquad;
+            if (student.SquadCoolect)
+            {
+                SquadController.instance.Receive(student);
+            }
 
             bool studentCollected;
             data.studentCollected.TryGetValue(student.id, out studentCollected);

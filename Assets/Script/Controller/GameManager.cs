@@ -21,23 +21,26 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     // Start is called before the first frame update
-    void Awake(){
+    void Awake()
+    {
         instance = this;
     }
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void NextTurn(){
-        if(currentTurn < lastTurn){
+    public void NextTurn()
+    {
+        if (currentTurn < lastTurn)
+        {
             currentTurn = currentTurn + 1;
         }
     }

@@ -12,7 +12,6 @@ public class GachaCardDisplay : MonoBehaviour
     [SerializeField] private TMP_Text pyroxenesText;
     [SerializeField] private GameObject pyroxenesPanel;
 
-
     [SerializeField] private Sprite[] BG;
     public Student student;
     // Start is called before the first frame update
@@ -37,9 +36,10 @@ public class GachaCardDisplay : MonoBehaviour
             pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
             pyroxenesPanel.SetActive(true);
             GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
+        }else{
+            SquadController.instance.Receive(student);
         }
         student.Collected = true;
-
     }
 
     private void GachaBGSelect()

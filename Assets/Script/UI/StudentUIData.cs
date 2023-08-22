@@ -41,6 +41,10 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
         portraitImage.sprite = studentData.portrait;
     }
 
+    public void SetColor(Color color){
+        portraitImage.color = color;
+    }
+
     public void Select()
     {
         borderImage.enabled = true;

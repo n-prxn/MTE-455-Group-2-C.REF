@@ -21,7 +21,7 @@ public class RequestUI : MonoBehaviour
     [SerializeField] Image COMReqBar;
 
     [SerializeField] GameObject selectionPanel;
-    [SerializeField] List<SquadSlotData> squadSlots = new List<SquadSlotData>(4);
+    [SerializeField] List<SquadSlotData> squadSlots = new List<SquadSlotData>();
 
     //[SerializeField] private RequestSO currentRequest;
 
@@ -29,6 +29,7 @@ public class RequestUI : MonoBehaviour
     void Start()
     {
         InitializeSquad();
+        RequestManager.instance.UpdateRequest();
     }
 
     // Update is called once per frame
@@ -45,6 +46,7 @@ public class RequestUI : MonoBehaviour
             SquadSlotData squadSlot = slot.GetComponent<SquadSlotData>();
             squadSlot.SetData(i, "Assign", null);
             squadSlot.OnSlotClicked += HandleSlotSelection;
+            squadSlot.ShowBlankSlot();
             squadSlots.Add(squadSlot);
         }
     }
@@ -84,13 +86,15 @@ public class RequestUI : MonoBehaviour
         currentPHYBar.fillAmount = (float)PHYStat / 300f;
         currentINTBar.fillAmount = (float)INTStat / 300f;
         currentCOMBar.fillAmount = (float)COMStat / 300f;
+        //Debug.Log(currentPHYBar.fillAmount);
     }
 
     void HandleSlotSelection(SquadSlotData obj)
     {
-        selectionPanel.GetComponent<StudentSelectionUI>().CurrentSelectedStudent = obj.Student;
-        selectionPanel.GetComponent<StudentSelectionUI>().SlotIndex = obj.Index;
         ToggleSelectionPanel();
+        selectionPanel.GetComponent<StudentSelectionUI>().CurrentSelectedStudent = obj.Student;
+        //selectionPanel.GetComponent<StudentSelectionUI>().Select(obj.Student);
+        selectionPanel.GetComponent<StudentSelectionUI>().SlotIndex = obj.Index;
     }
 
     void ToggleSelectionPanel()
@@ -102,5 +106,6 @@ public class RequestUI : MonoBehaviour
     {
         RequestManager.instance.CurrentRequest.ResetSquad();
         RequestManager.instance.ClearTotalStatus();
+        RequestManager.instance.UpdateRequest();
     }
 }

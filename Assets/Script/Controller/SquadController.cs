@@ -36,4 +36,10 @@ public class SquadController : MonoBehaviour
     public void ClearStudentList(){
         students.Clear();
     }
+
+    public void ResetAssignStateAll(){
+        foreach(Student student in students){
+            student.IsAssign = false;
+        }
+    }
 }

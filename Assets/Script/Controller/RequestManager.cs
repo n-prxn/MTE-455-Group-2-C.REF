@@ -36,30 +36,41 @@ public class RequestManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        currentRequest.ResetSquad();
     }
     void Start()
     {
-        currentRequest.ResetSquad();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        requestUI.UpdateRequestInfo(currentRequest);
+        
     }
 
-    public void AddStatusToRequest(Student student)
-    {
+    // public void AddStatusToRequest(Student student)
+    // {
+    //     totalPHYStat += student.CurrentPHYStat;
+    //     totalINTStat += student.CurrentINTStat;
+    //     totalCOMStat += student.CurrentCOMStat;
+    // }
 
-        totalPHYStat += student.CurrentPHYStat;
-        totalINTStat += student.CurrentINTStat;
-        totalCOMStat += student.CurrentCOMStat;
-    }
+    // public void DecreaseStatus(Student student){
+    //     totalPHYStat -= student.CurrentPHYStat;
+    //     totalINTStat -= student.CurrentINTStat;
+    //     totalCOMStat -= student.CurrentCOMStat;
+    // }
 
-    public void DecreaseStatus(Student student){
-        totalPHYStat -= student.CurrentPHYStat;
-        totalINTStat -= student.CurrentINTStat;
-        totalCOMStat -= student.CurrentCOMStat;
+    public void Calculate(){
+        ClearTotalStatus();
+        foreach(Student student in currentRequest.squad){
+            if(student != null){
+                totalPHYStat += student.CurrentPHYStat;
+                totalINTStat += student.CurrentINTStat;
+                totalCOMStat += student.CurrentCOMStat;
+            }
+        }
     }
 
     public void ClearTotalStatus()
@@ -67,5 +78,9 @@ public class RequestManager : MonoBehaviour
         totalPHYStat = 0;
         totalINTStat = 0;
         totalCOMStat = 0;
+    }
+
+    public void UpdateRequest(){
+        requestUI.UpdateRequestInfo(currentRequest);
     }
 }

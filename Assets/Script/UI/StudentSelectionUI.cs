@@ -15,9 +15,10 @@ public class StudentSelectionUI : MonoBehaviour
     [SerializeField] int slotIndex;
     private List<StudentUIData> studentUIDatas = new List<StudentUIData>();
     private Student currentSelectedStudent;
-    public Student CurrentSelectedStudent{
-        get{ return currentSelectedStudent; }
-        set{ currentSelectedStudent = value;}
+    public Student CurrentSelectedStudent
+    {
+        get { return currentSelectedStudent; }
+        set { currentSelectedStudent = value; }
     }
     public int SlotIndex
     {
@@ -31,6 +32,7 @@ public class StudentSelectionUI : MonoBehaviour
         InitializeStudents();
         //studentDescription.ResetDescription();
         studentDescription.SetDescription(SquadController.instance.Students[0]);
+        CheckAssign();
     }
 
     // Update is called once per frame
@@ -49,6 +51,24 @@ public class StudentSelectionUI : MonoBehaviour
             studentUIData.SetData(student);
             studentUIData.OnStudentClicked += HandleStudentSelection;
             studentUIDatas.Add(studentUIData);
+
+            //if (studentUIData.StudentData.id == currentSelectedStudent.id)
+             //   StartSelectStudent(studentUIData);
+        }
+    }
+
+    void CheckAssign()
+    {
+        foreach (StudentUIData studentUIData in studentUIDatas)
+        {
+            if (studentUIData.StudentData.IsAssign)
+            {
+                studentUIData.SetColor(Color.gray);
+            }
+            else
+            {
+                studentUIData.SetColor(Color.white);
+            }
         }
     }
 
@@ -56,13 +76,28 @@ public class StudentSelectionUI : MonoBehaviour
     {
         ResetSelection();
         studentDescription.SetDescription(obj.StudentData);
-        if(obj.StudentData.IsAssign)
-            studentDescription.SetRemove();
-        else
-            studentDescription.SetAssign();
         currentSelectedStudent = obj.StudentData;
+        if (obj.StudentData.IsAssign)
+        {
+            studentDescription.SetRemove();
+        }
+        else
+        {
+            studentDescription.SetAssign();
+        }
         obj.Select();
     }
+
+    // public void Select(Student student){
+    //     foreach(StudentUIData studentUIData in studentUIDatas){
+    //         if(studentUIData.StudentData.id == student.id){
+    //             studentUIData.Select();
+    //             studentDescription.SetDescription(student);
+    //             studentDescription.SetRemove();
+    //             break;
+    //         }
+    //     }
+    // }
 
     public void Show()
     {
@@ -89,22 +124,34 @@ public class StudentSelectionUI : MonoBehaviour
         }
     }
 
+    private void StartSelectStudent(StudentUIData studentUIData)
+    {
+        studentUIData.Select();
+        CheckAssign();
+        studentDescription.SetRemove();
+    }
+
     public void AssignStudent()
     {
-        currentSelectedStudent.IsAssign = true;
         RequestManager.instance.CurrentRequest.squad[slotIndex] = currentSelectedStudent;
-        RequestManager.instance.AddStatusToRequest(currentSelectedStudent);
+        RequestManager.instance.Calculate();
+        currentSelectedStudent.IsAssign = true;
+        RequestManager.instance.UpdateRequest();
         CloseSelectionPanel();
     }
 
-    public void RemoveStudent(){
-        currentSelectedStudent.IsAssign = false;
+    public void RemoveStudent()
+    {
         RequestManager.instance.CurrentRequest.squad[slotIndex] = null;
-        RequestManager.instance.DecreaseStatus(currentSelectedStudent);
+        RequestManager.instance.Calculate();
+        currentSelectedStudent.IsAssign = false;
+        RequestManager.instance.UpdateRequest();
         CloseSelectionPanel();
     }
 
-    public void CloseSelectionPanel(){
+    public void CloseSelectionPanel()
+    {
+        CheckAssign();
         this.gameObject.SetActive(false);
     }
 }

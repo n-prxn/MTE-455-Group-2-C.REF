@@ -34,4 +34,14 @@ public class RequestSO : ScriptableObject
     public int happiness;
     public int crimeRate;
     public int pyroxene;
+
+    [Header("Squad")]
+    public List<Student> squad = new List<Student>();
+
+    public void ResetSquad(){
+        squad.Clear();
+        for(int i = 0; i < 4 ; i++){
+            squad.Add(null);
+        }
+    }
 }

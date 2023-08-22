@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEditor.PackageManager.Requests;
 
 public class RequestUI : MonoBehaviour
 {
+    [Header("Prefab")]
+    [SerializeField] GameObject slotParent;
+    [SerializeField] GameObject slotPrefab;
+
     [Header("UI")]
     [SerializeField] Image currentPHYBar;
     [SerializeField] Image currentINTBar;
@@ -14,27 +20,87 @@ public class RequestUI : MonoBehaviour
     [SerializeField] Image INTReqBar;
     [SerializeField] Image COMReqBar;
 
-    [SerializeField] private RequestSO currentRequest;
+    [SerializeField] GameObject selectionPanel;
+    [SerializeField] List<SquadSlotData> squadSlots = new List<SquadSlotData>(4);
+
+    //[SerializeField] private RequestSO currentRequest;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        InitializeSquad();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateRequestInfo();
+        //UpdateRequestInfo();
     }
 
-    void UpdateRequestInfo(){
-        UpdateRequestRequirement();
+    void InitializeSquad()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject slot = Instantiate(slotPrefab, slotParent.transform);
+            SquadSlotData squadSlot = slot.GetComponent<SquadSlotData>();
+            squadSlot.SetData(i, "Assign", null);
+            squadSlot.OnSlotClicked += HandleSlotSelection;
+            squadSlots.Add(squadSlot);
+        }
+    }
+    public void UpdateRequestInfo(RequestSO request)
+    {
+        UpdateRequestRequirement(request);
+        UpdateSquadUI(RequestManager.instance.CurrentRequest);
+        UpdateCurrentStat(RequestManager.instance.TotalPHYStat, RequestManager.instance.TotalINTStat, RequestManager.instance.TotalCOMStat);
     }
 
-    void UpdateRequestRequirement(){
-        PHYReqBar.rectTransform.localPosition = new Vector2((float)currentRequest.phyStat/300f * 485f, PHYReqBar.rectTransform.localPosition.y);
-        INTReqBar.rectTransform.localPosition = new Vector2((float)currentRequest.intStat/300f * 485f, INTReqBar.rectTransform.localPosition.y);
-        COMReqBar.rectTransform.localPosition = new Vector2((float)currentRequest.comStat/300f * 485f, COMReqBar.rectTransform.localPosition.y);
+    void UpdateSquadUI(RequestSO request)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (RequestManager.instance.CurrentRequest.squad[i] == null)
+            {
+                squadSlots[i].ShowBlankSlot();
+            }
+            else
+            {
+                Student student = RequestManager.instance.CurrentRequest.squad[i];
+                squadSlots[i].SetData(i, student);
+                squadSlots[i].ShowStudent();
+            }
+        }
+    }
+
+    void UpdateRequestRequirement(RequestSO request)
+    {
+        PHYReqBar.rectTransform.localPosition = new Vector2((float)request.phyStat / 300f * 485f, PHYReqBar.rectTransform.localPosition.y);
+        INTReqBar.rectTransform.localPosition = new Vector2((float)request.intStat / 300f * 485f, INTReqBar.rectTransform.localPosition.y);
+        COMReqBar.rectTransform.localPosition = new Vector2((float)request.comStat / 300f * 485f, COMReqBar.rectTransform.localPosition.y);
+    }
+
+    void UpdateCurrentStat(int PHYStat, int INTStat, int COMStat)
+    {
+        currentPHYBar.fillAmount = (float)PHYStat / 300f;
+        currentINTBar.fillAmount = (float)INTStat / 300f;
+        currentCOMBar.fillAmount = (float)COMStat / 300f;
+    }
+
+    void HandleSlotSelection(SquadSlotData obj)
+    {
+        selectionPanel.GetComponent<StudentSelectionUI>().CurrentSelectedStudent = obj.Student;
+        selectionPanel.GetComponent<StudentSelectionUI>().SlotIndex = obj.Index;
+        ToggleSelectionPanel();
+    }
+
+    void ToggleSelectionPanel()
+    {
+        selectionPanel.SetActive(true);
+    }
+
+    public void ClearSquad()
+    {
+        RequestManager.instance.CurrentRequest.ResetSquad();
+        RequestManager.instance.ClearTotalStatus();
     }
 }

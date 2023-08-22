@@ -94,11 +94,18 @@ public class Student : ScriptableObject
         set { gachaRate = value; }
     }
 
+    [Header("Squad")]
+    [SerializeField] private bool isAssign = false;
+    public bool IsAssign{
+        get { return isAssign; }
+        set { isAssign = value; }
+    }
+
     public void InitializeStartStats()
     {
         currentPHYStat = phyStat;
         currentINTStat = intStat;
-        currentCOMStat = intStat;
+        currentCOMStat = comStat;
         currentStamina = stamina;
     }
 }

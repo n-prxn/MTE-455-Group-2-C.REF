@@ -77,8 +77,6 @@ public class GachaPool : MonoBehaviour, IData
 
             data.studentSquad.Add(student.id, student.Collected);
             data.studentCollected.Add(student.id, student.Collected);
-
-            data.studentSquad.Add(student.id, student.SquadCollect);
         }
     }
 

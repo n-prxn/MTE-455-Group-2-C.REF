@@ -37,10 +37,11 @@ public class RequestManager : MonoBehaviour
     {
         instance = this;
         currentRequest.ResetSquad();
+        
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -48,19 +49,6 @@ public class RequestManager : MonoBehaviour
     {
         
     }
-
-    // public void AddStatusToRequest(Student student)
-    // {
-    //     totalPHYStat += student.CurrentPHYStat;
-    //     totalINTStat += student.CurrentINTStat;
-    //     totalCOMStat += student.CurrentCOMStat;
-    // }
-
-    // public void DecreaseStatus(Student student){
-    //     totalPHYStat -= student.CurrentPHYStat;
-    //     totalINTStat -= student.CurrentINTStat;
-    //     totalCOMStat -= student.CurrentCOMStat;
-    // }
 
     public void Calculate(){
         ClearTotalStatus();

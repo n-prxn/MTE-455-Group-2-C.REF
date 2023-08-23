@@ -29,7 +29,7 @@ public class RequestUI : MonoBehaviour
     void Start()
     {
         InitializeSquad();
-        RequestManager.instance.UpdateRequest();
+        UpdateRequestInfo(RequestManager.instance.CurrentRequest);
     }
 
     // Update is called once per frame
@@ -64,6 +64,7 @@ public class RequestUI : MonoBehaviour
             if (RequestManager.instance.CurrentRequest.squad[i] == null)
             {
                 squadSlots[i].ShowBlankSlot();
+                squadSlots[i].Student = null;
             }
             else
             {
@@ -92,9 +93,13 @@ public class RequestUI : MonoBehaviour
     void HandleSlotSelection(SquadSlotData obj)
     {
         ToggleSelectionPanel();
-        selectionPanel.GetComponent<StudentSelectionUI>().CurrentSelectedStudent = obj.Student;
-        //selectionPanel.GetComponent<StudentSelectionUI>().Select(obj.Student);
         selectionPanel.GetComponent<StudentSelectionUI>().SlotIndex = obj.Index;
+        if (obj.Student != null)
+        {
+            selectionPanel.GetComponent<StudentSelectionUI>().CurrentSelectedStudent = obj.Student;
+            selectionPanel.GetComponent<StudentSelectionUI>().Select(obj.Student);
+        }
+
     }
 
     void ToggleSelectionPanel()

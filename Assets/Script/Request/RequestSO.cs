@@ -39,6 +39,10 @@ public class RequestSO : ScriptableObject
     public List<Student> squad = new List<Student>();
 
     public void ResetSquad(){
+        for(int i = 0; i < 4 ; i++){
+            if(squad[i] != null)
+                squad[i].IsAssign = false;
+        }
         squad.Clear();
         for(int i = 0; i < 4 ; i++){
             squad.Add(null);

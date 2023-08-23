@@ -14,7 +14,7 @@ public class StudentSelectionUI : MonoBehaviour
 
     [SerializeField] int slotIndex;
     private List<StudentUIData> studentUIDatas = new List<StudentUIData>();
-    private Student currentSelectedStudent;
+    [SerializeField] private Student currentSelectedStudent;
     public Student CurrentSelectedStudent
     {
         get { return currentSelectedStudent; }
@@ -31,7 +31,6 @@ public class StudentSelectionUI : MonoBehaviour
     {
         InitializeStudents();
         //studentDescription.ResetDescription();
-        studentDescription.SetDescription(SquadController.instance.Students[0]);
         CheckAssign();
     }
 
@@ -43,6 +42,7 @@ public class StudentSelectionUI : MonoBehaviour
 
     void InitializeStudents()
     {
+        currentSelectedStudent = null;
         studentUIDatas.Clear();
         foreach (Student student in SquadController.instance.Students)
         {
@@ -51,10 +51,8 @@ public class StudentSelectionUI : MonoBehaviour
             studentUIData.SetData(student);
             studentUIData.OnStudentClicked += HandleStudentSelection;
             studentUIDatas.Add(studentUIData);
-
-            //if (studentUIData.StudentData.id == currentSelectedStudent.id)
-             //   StartSelectStudent(studentUIData);
         }
+        ResetSelection();
     }
 
     void CheckAssign()
@@ -78,36 +76,20 @@ public class StudentSelectionUI : MonoBehaviour
         studentDescription.SetDescription(obj.StudentData);
         currentSelectedStudent = obj.StudentData;
         if (obj.StudentData.IsAssign)
-        {
             studentDescription.SetRemove();
-        }
         else
-        {
             studentDescription.SetAssign();
-        }
         obj.Select();
     }
 
-    // public void Select(Student student){
-    //     foreach(StudentUIData studentUIData in studentUIDatas){
-    //         if(studentUIData.StudentData.id == student.id){
-    //             studentUIData.Select();
-    //             studentDescription.SetDescription(student);
-    //             studentDescription.SetRemove();
-    //             break;
-    //         }
-    //     }
-    // }
-
-    public void Show()
+    public void Select(Student student)
     {
-        gameObject.SetActive(true);
-        ResetSelection();
-    }
-
-    public void Hide()
-    {
-        gameObject.SetActive(false);
+        if (currentSelectedStudent != null)
+        {
+            studentDescription.SetDescription(currentSelectedStudent);
+            studentDescription.SetRemove();
+            studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
+        }
     }
 
     private void ResetSelection()
@@ -118,34 +100,44 @@ public class StudentSelectionUI : MonoBehaviour
 
     private void DeselectAllStudents()
     {
-        foreach (Transform student in studentListParent.GetComponent<Transform>())
+        foreach (StudentUIData student in studentUIDatas)
         {
-            student.GetComponent<StudentUIData>().Deselect();
+            student.Deselect();
         }
-    }
-
-    private void StartSelectStudent(StudentUIData studentUIData)
-    {
-        studentUIData.Select();
-        CheckAssign();
-        studentDescription.SetRemove();
     }
 
     public void AssignStudent()
     {
+        if (RequestManager.instance.CurrentRequest.squad[slotIndex] != null)
+        {
+            RequestManager.instance.CurrentRequest.squad[slotIndex].IsAssign = false;
+        }
         RequestManager.instance.CurrentRequest.squad[slotIndex] = currentSelectedStudent;
         RequestManager.instance.Calculate();
         currentSelectedStudent.IsAssign = true;
         RequestManager.instance.UpdateRequest();
+        studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
+        currentSelectedStudent = null;
         CloseSelectionPanel();
     }
 
     public void RemoveStudent()
     {
-        RequestManager.instance.CurrentRequest.squad[slotIndex] = null;
+        for (int i = 0; i < 4; i++)
+        {
+            if (RequestManager.instance.CurrentRequest.squad[i] != null)
+            {
+                if (RequestManager.instance.CurrentRequest.squad[i].id == currentSelectedStudent.id)
+                    RequestManager.instance.CurrentRequest.squad[i] = null;
+                else
+                    continue;
+            }
+        }
         RequestManager.instance.Calculate();
         currentSelectedStudent.IsAssign = false;
         RequestManager.instance.UpdateRequest();
+        studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
+        currentSelectedStudent = null;
         CloseSelectionPanel();
     }
 

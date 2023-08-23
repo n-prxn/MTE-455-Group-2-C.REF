@@ -18,7 +18,7 @@ public class SquadSlotData : MonoBehaviour, IPointerClickHandler
         get{ return index; }
         set{ index = value;}
     }
-    private Student student;
+    [SerializeField] private Student student;
     public Student Student{
         get{ return student; }
         set{ student = value;}
@@ -42,14 +42,15 @@ public class SquadSlotData : MonoBehaviour, IPointerClickHandler
     }
 
     public void SetData(int index, Student student){
+        this.student = student;
         this.index = index;
-        this.studentName.text = student.name;
-        portraitImage.sprite = student.portrait;
+        studentName.text = this.student.name;
+        portraitImage.sprite = this.student.portrait;
     }
 
     public void SetData(int index, string name, Sprite portrait){
         this.index = index;
-        this.studentName.text = name;
+        studentName.text = name;
         portraitImage.sprite = portrait;
     }
 
@@ -65,7 +66,7 @@ public class SquadSlotData : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData data)
     {
-        PointerEventData pointerEventData = (PointerEventData)data;
+        PointerEventData pointerEventData = data;
         if (pointerEventData.button == PointerEventData.InputButton.Left)
         {
             OnSlotClicked?.Invoke(this);

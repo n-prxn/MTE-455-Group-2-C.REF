@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     public int maxXP = 1000;
     public int rank = 1;
 
+    [Header("Capacity")]
+    public int requestPerTurn = 3;
+    public int maxRequestCapacity = 9;
+
     public static GameManager instance;
 
     // Start is called before the first frame update

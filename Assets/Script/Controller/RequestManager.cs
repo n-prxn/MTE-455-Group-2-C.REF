@@ -6,6 +6,12 @@ public class RequestManager : MonoBehaviour
 {
     public static RequestManager instance;
     [SerializeField] private RequestSO currentRequest;
+    private List<RequestSO> todayRequests = new List<RequestSO>();
+    public List<RequestSO> TodayRequests
+    {
+        get { return todayRequests; }
+        set { todayRequests = value; }
+    }
     public RequestSO CurrentRequest
     {
         get { return currentRequest; }
@@ -36,8 +42,6 @@ public class RequestManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        currentRequest.ResetSquad();
-        
     }
     void Start()
     {
@@ -47,13 +51,16 @@ public class RequestManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void Calculate(){
+    public void Calculate()
+    {
         ClearTotalStatus();
-        foreach(Student student in currentRequest.squad){
-            if(student != null){
+        foreach (Student student in currentRequest.squad)
+        {
+            if (student != null)
+            {
                 totalPHYStat += student.CurrentPHYStat;
                 totalINTStat += student.CurrentINTStat;
                 totalCOMStat += student.CurrentCOMStat;
@@ -68,7 +75,8 @@ public class RequestManager : MonoBehaviour
         totalCOMStat = 0;
     }
 
-    public void UpdateRequest(){
+    public void UpdateRequest()
+    {
         requestUI.UpdateRequestInfo(currentRequest);
     }
 }

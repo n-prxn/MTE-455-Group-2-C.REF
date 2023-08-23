@@ -21,7 +21,18 @@ public class RequestUI : MonoBehaviour
     [SerializeField] Image COMReqBar;
 
     [SerializeField] GameObject selectionPanel;
-    [SerializeField] List<SquadSlotData> squadSlots = new List<SquadSlotData>();
+
+    [Header("Detail UI")]
+    [SerializeField] TextMeshProUGUI requestText;
+    [SerializeField] TextMeshProUGUI requesterText;
+    [SerializeField] TextMeshProUGUI descriptionText;
+    [SerializeField] TextMeshProUGUI creditText;
+    [SerializeField] TextMeshProUGUI pyroxeneText;
+    [SerializeField] TextMeshProUGUI expText;
+    [SerializeField] TextMeshProUGUI happinessText;
+    [SerializeField] TextMeshProUGUI crimeRateText;
+    
+    List<SquadSlotData> squadSlots = new List<SquadSlotData>();
 
     //[SerializeField] private RequestSO currentRequest;
 
@@ -55,6 +66,19 @@ public class RequestUI : MonoBehaviour
         UpdateRequestRequirement(request);
         UpdateSquadUI(RequestManager.instance.CurrentRequest);
         UpdateCurrentStat(RequestManager.instance.TotalPHYStat, RequestManager.instance.TotalINTStat, RequestManager.instance.TotalCOMStat);
+        UpdateDescription(request);
+    }
+
+    void UpdateDescription(RequestSO request)
+    {
+        requestText.text = request.name;
+        requesterText.text = request.requesterName;
+        descriptionText.text = request.description;
+        creditText.text = request.credit.ToString();
+        pyroxeneText.text = request.pyroxene.ToString();
+        expText.text = request.xp.ToString();
+        happinessText.text = request.happiness.ToString();
+        crimeRateText.text = request.crimeRate.ToString();
     }
 
     void UpdateSquadUI(RequestSO request)

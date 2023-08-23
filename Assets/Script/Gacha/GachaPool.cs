@@ -20,7 +20,6 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] float rareRate = 3f;
 
     [Header("UI Panel")]
-    [SerializeField] GameObject gachaPanel;
     [SerializeField] GameObject gachaScene;
 
     float common = 0, uncommon = 0, rare = 0;
@@ -51,12 +50,16 @@ public class GachaPool : MonoBehaviour, IData
 
     public void LoadData(GameData data)
     {
+        SquadController.instance.Students.Clear();
         this.rollCount = data.rollCount;
         foreach (Student student in studentsPool)
         {
             bool studentSquad;
             data.studentSquad.TryGetValue(student.id, out studentSquad);
-            student.Collected = studentSquad;
+            student.SquadCollect = studentSquad;
+
+            if(student.SquadCollect)
+                SquadController.instance.Students.Add(student);
         }
     }
 
@@ -227,18 +230,6 @@ public class GachaPool : MonoBehaviour, IData
             student.Collected = false;
         }
         DataMenager.instance.ClearColleted();
-    }
-
-    public void OpenGachaPanel()
-    {
-        if (gachaPanel.activeSelf)
-        {
-            gachaPanel.SetActive(false);
-        }
-        else
-        {
-            gachaPanel.SetActive(true);
-        }
     }
 
     public void ToggleGachaScene()

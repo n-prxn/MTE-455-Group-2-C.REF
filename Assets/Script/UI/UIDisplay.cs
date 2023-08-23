@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class UIDisplay : MonoBehaviour
 {
+    [Header("Panel")]
+    [SerializeField] GameObject gachaPanel;
+    [SerializeField] GameObject requestListPanel;
+
     [Header("Turn UI")]
     [SerializeField] TMP_Text turnText;
 
@@ -41,4 +45,20 @@ public class UIDisplay : MonoBehaviour
         xpBar.fillAmount = (float)GameManager.instance.currentXP/(float)GameManager.instance.maxXP;
         //Debug.Log(GameManager.instance.currentXP/GameManager.instance.maxXP);
     }
+
+     public void ToggleGachaPanel()
+    {
+        if (gachaPanel.activeSelf)
+            gachaPanel.SetActive(false);
+        else
+            gachaPanel.SetActive(true);
+    }
+
+    public void ToggleRequestListPanel(){
+        if (requestListPanel.activeSelf)
+            requestListPanel.SetActive(false);
+        else
+            requestListPanel.SetActive(true);
+    }
+
 }

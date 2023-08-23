@@ -17,6 +17,7 @@ public class RequestSO : ScriptableObject
     [Header("Request Info")]
     public byte id;
     public new string name;
+    public Sprite portrait;
     public new string description;
     public new string requesterName;
     public new Difficulty difficulty;
@@ -38,7 +39,17 @@ public class RequestSO : ScriptableObject
     [Header("Squad")]
     public List<Student> squad = new List<Student>();
 
+    private bool isRead;
+    public bool IsRead{
+        get {return isRead; }
+        set {isRead = value;}
+    }
+
     public void ResetSquad(){
+        if(squad.Count == 0){
+            for(int i = 0; i < 4 ; i++)
+                squad.Add(null);
+        }
         for(int i = 0; i < 4 ; i++){
             if(squad[i] != null)
                 squad[i].IsAssign = false;

@@ -56,8 +56,7 @@ public class RequestJSONImport : MonoBehaviour
 
             JSONtoRequestSO(requestSO, requestJSON);
 
-            string fileName = requestSO.id + "_" + requestSO.name.Replace(" ", "_");
-            string path = "Assets/ScriptableObject/" + fileName + ".asset";
+            string path = "Assets/ScriptableObject/" + int.Parse(requestJSON.id).ToString("00") + ".asset";
             AssetDatabase.CreateAsset(requestSO, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

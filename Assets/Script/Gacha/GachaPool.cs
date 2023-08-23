@@ -56,15 +56,7 @@ public class GachaPool : MonoBehaviour, IData
         {
             bool studentSquad;
             data.studentSquad.TryGetValue(student.id, out studentSquad);
-            student.SquadCollect = studentSquad;
-            if (student.SquadCollect)
-            {
-                SquadController.instance.Receive(student);
-            }
-
-            bool studentCollected;
-            data.studentCollected.TryGetValue(student.id, out studentCollected);
-            student.Collected = studentCollected;
+            student.Collected = studentSquad;
         }
     }
 
@@ -78,11 +70,12 @@ public class GachaPool : MonoBehaviour, IData
                 data.studentSquad.Remove(student.id);
             }
 
-
             if (data.studentCollected.ContainsKey(student.id))
             {
                 data.studentCollected.Remove(student.id);
             }
+
+            data.studentSquad.Add(student.id, student.Collected);
             data.studentCollected.Add(student.id, student.Collected);
 
             data.studentSquad.Add(student.id, student.SquadCollect);

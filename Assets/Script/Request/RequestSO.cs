@@ -18,7 +18,7 @@ public class RequestSO : ScriptableObject
     public byte id;
     public new string name;
     public Sprite portrait;
-    public new string description;
+    [TextArea] public new string description;
     public new string requesterName;
     public new Difficulty difficulty;
     public bool isRepeatable = false;

@@ -24,6 +24,8 @@ public class RequestJSON
     public string happiness;
     public string crimeRate;
     public string pyroxene;
+
+    public string portrait;
 }
 
 public class RequestJSONImport : MonoBehaviour
@@ -70,6 +72,7 @@ public class RequestJSONImport : MonoBehaviour
         requestSO.name = data.name;
         requestSO.description = data.description;
         requestSO.requesterName = data.requester;
+        requestSO.portrait = AssetDatabase.LoadAssetAtPath<Sprite>(data.portrait);
 
         switch (data.difficulty)
         {

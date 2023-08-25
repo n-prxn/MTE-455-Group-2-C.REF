@@ -1,22 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class RequestManager : MonoBehaviour
 {
     public static RequestManager instance;
-    [SerializeField] private RequestSO currentRequest;
     private List<RequestSO> todayRequests = new List<RequestSO>();
     public List<RequestSO> TodayRequests
     {
         get { return todayRequests; }
         set { todayRequests = value; }
     }
+
+    [SerializeField] private RequestSO currentRequest;
     public RequestSO CurrentRequest
     {
         get { return currentRequest; }
         set { currentRequest = value; }
     }
+
+    [SerializeField] private List<RequestSO> operatingRequests = new List<RequestSO>();
+    public List<RequestSO> OperatingRequests
+    {
+        get { return operatingRequests; }
+        set { operatingRequests = value; }
+    }
+
     [SerializeField] private RequestUI requestUI;
 
     private int totalPHYStat = 0;
@@ -78,5 +88,9 @@ public class RequestManager : MonoBehaviour
     public void UpdateRequest()
     {
         requestUI.UpdateRequestInfo(currentRequest);
+    }
+
+    public void AddOperatingQuest(){
+        operatingRequests.Add(currentRequest);
     }
 }

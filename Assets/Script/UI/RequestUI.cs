@@ -51,6 +51,8 @@ public class RequestUI : MonoBehaviour
 
     void InitializeSquad()
     {
+        RequestManager.instance.CurrentRequest.ResetSquad();
+        RequestManager.instance.ClearTotalStatus();
         for (int i = 0; i < 4; i++)
         {
             GameObject slot = Instantiate(slotPrefab, slotParent.transform);

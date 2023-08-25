@@ -19,7 +19,8 @@ public class RequestPool : MonoBehaviour
 
     void Awake()
     {
-        for (int i = 0; i < GameManager.instance.requestPerTurn; i++)
+        RequestManager.instance.TodayRequests.Add(requestsPool[0]);
+        for (int i = 0; i < GameManager.instance.requestPerTurn - 1; i++)
         {
             RequestManager.instance.TodayRequests.Add(requestsPool[Random.Range(0, 101)]);
         }

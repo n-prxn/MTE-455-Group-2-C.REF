@@ -22,6 +22,7 @@ public class RequestSO : ScriptableObject
     public new string requesterName;
     public new Difficulty difficulty;
     public bool isRepeatable = false;
+    public int duration = 0;
 
     [Header("Status Requirement")]
     public int phyStat;
@@ -38,6 +39,19 @@ public class RequestSO : ScriptableObject
 
     [Header("Squad")]
     public List<Student> squad = new List<Student>();
+
+    [Header("Progress")]
+    private bool isOperating = false;
+    public bool IsOperating {
+        get{ return isOperating; }
+        set{ isOperating = value;}
+    }
+
+    private int currentTurn = 0;
+    public int CurrentTurn{
+        get{ return currentTurn; }
+        set{ currentTurn = value;}
+    }
 
     private bool isRead;
     public bool IsRead{

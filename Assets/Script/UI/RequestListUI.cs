@@ -55,5 +55,6 @@ public class RequestListUI : MonoBehaviour
         RequestManager.instance.CurrentRequest = currentSelectedRequest.RequestData;
         RequestManager.instance.CurrentRequest.ResetSquad();
         squadPanel.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

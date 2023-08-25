@@ -26,6 +26,7 @@ public class RequestListUI : MonoBehaviour
 
     void Awake()
     {
+        contentParent.GetComponent<VerticalLayoutGroup>().spacing += 0.01f;
         //GenerateRequestCard();
     }
 
@@ -59,7 +60,7 @@ public class RequestListUI : MonoBehaviour
         else
             inProgressParent.SetActive(true);
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
+        contentParent.GetComponent<VerticalLayoutGroup>().spacing -= 0.01f;
     }
 
     private void HandleCardSelection(RequestCardData data)

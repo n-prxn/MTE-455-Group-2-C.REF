@@ -21,6 +21,7 @@ public class RequestUI : MonoBehaviour
     [SerializeField] Image COMReqBar;
 
     [SerializeField] GameObject selectionPanel;
+    [SerializeField] GameObject requestListPanel;
 
     [Header("Detail UI")]
     [SerializeField] TextMeshProUGUI requestText;
@@ -65,8 +66,9 @@ public class RequestUI : MonoBehaviour
     }
     public void UpdateRequestInfo(RequestSO request)
     {
+        request.CurrentTurn = request.duration;
         UpdateRequestRequirement(request);
-        UpdateSquadUI(RequestManager.instance.CurrentRequest);
+        UpdateSquadUI(request);
         UpdateCurrentStat(RequestManager.instance.TotalPHYStat, RequestManager.instance.TotalINTStat, RequestManager.instance.TotalCOMStat);
         UpdateDescription(request);
     }
@@ -138,5 +140,17 @@ public class RequestUI : MonoBehaviour
         RequestManager.instance.CurrentRequest.ResetSquad();
         RequestManager.instance.ClearTotalStatus();
         RequestManager.instance.UpdateRequest();
+    }
+
+    public void SendSquad(){
+        RequestManager.instance.AddOperatingQuest();
+        RequestManager.instance.CurrentRequest = null;
+        Back();
+    }
+
+    public void Back(){
+        requestListPanel.GetComponent<RequestListUI>().GenerateRequestCard();
+        requestListPanel.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

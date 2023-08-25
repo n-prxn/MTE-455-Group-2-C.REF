@@ -52,6 +52,7 @@ public class RequestManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        operatingRequests.Clear();
     }
     void Start()
     {
@@ -92,5 +93,10 @@ public class RequestManager : MonoBehaviour
 
     public void AddOperatingQuest(){
         operatingRequests.Add(currentRequest);
+        currentRequest.IsOperating = true;
+        foreach(Student student in currentRequest.squad){
+            if(student != null)
+                student.stamina -= currentRequest.stamina;
+        }
     }
 }

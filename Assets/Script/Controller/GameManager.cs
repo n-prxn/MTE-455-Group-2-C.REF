@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [Header("Resource Amount")]
     public int credits = 0;
     public int pyroxenes = 0;
+    public int happiness = 50;
+    public int crimeRate = 50;
     public int rollCost = 0;
 
     [Header("Schale Rank")]
@@ -46,6 +48,26 @@ public class GameManager : MonoBehaviour
         if (currentTurn < lastTurn)
         {
             currentTurn = currentTurn + 1;
+            UpdateRequest();
         }
+    }
+
+    public void UpdateRequest(){
+        foreach(RequestSO request in RequestManager.instance.OperatingRequests){
+            request.CurrentTurn--;
+            if(request.CurrentTurn <= 0){
+                ReceiveRewards(request);
+                request.ResetSquad();
+                Debug.Log(request.name + " has finished!");
+            }
+        }
+    }
+
+    void ReceiveRewards(RequestSO request){
+        credits += request.credit;
+        pyroxenes += request.pyroxene;
+        currentXP += request.xp;
+        happiness += request.happiness;
+        crimeRate -= request.crimeRate;
     }
 }

@@ -24,7 +24,7 @@ public class RequestJSON
     public string happiness;
     public string crimeRate;
     public string pyroxene;
-
+    public string duration;
     public string portrait;
 }
 
@@ -58,11 +58,10 @@ public class RequestJSONImport : MonoBehaviour
 
             JSONtoRequestSO(requestSO, requestJSON);
 
-            string path = "Assets/ScriptableObject/" + int.Parse(requestJSON.id).ToString("00") + ".asset";
+            string path = "Assets/Script/Request/RequestSO/" + int.Parse(requestJSON.id).ToString("00") + ".asset";
             AssetDatabase.CreateAsset(requestSO, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            break;
         }
     }
 
@@ -73,6 +72,7 @@ public class RequestJSONImport : MonoBehaviour
         requestSO.description = data.description;
         requestSO.requesterName = data.requester;
         requestSO.portrait = AssetDatabase.LoadAssetAtPath<Sprite>(data.portrait);
+        requestSO.duration = data.duration == null ? 0 : int.Parse(data.duration);
 
         switch (data.difficulty)
         {

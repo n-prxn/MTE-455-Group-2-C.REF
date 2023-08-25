@@ -13,31 +13,44 @@ public class RequestPool : MonoBehaviour
     [SerializeField] GameObject requestSquadPanel;
 
     [SerializeField] private List<RequestSO> requestsPool = new List<RequestSO>();
-    
+
     string path = "";
     // Start is called before the first frame update
 
     void Awake()
     {
         RequestManager.instance.TodayRequests.Add(requestsPool[0]);
-        for (int i = 0; i < GameManager.instance.requestPerTurn - 1; i++)
-        {
-            RequestManager.instance.TodayRequests.Add(requestsPool[Random.Range(0, 101)]);
-        }
+        GenerateRequests();
     }
 
     void Start()
     {
-        foreach (RequestSO request in requestsPool)
-        {
-            path += AssetDatabase.GetAssetPath(request.portrait) + "\n";
-        }
-        Debug.Log(path);
+        ResetOperatedRequest();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    public void GenerateRequests()
+    {
+        for (int i = 0; i < GameManager.instance.requestPerTurn ; i++)
+        {
+            RequestSO request;
+            do
+            {
+                request = requestsPool[Random.Range(0, 101)];
+            } while (request.IsOperating);
+            request.IsRead = false;
+            RequestManager.instance.TodayRequests.Add(request);
+        }
+    }
+
+    public void ResetOperatedRequest(){
+        foreach(RequestSO request in requestsPool){
+            request.IsOperating = false;
+        }
     }
 }

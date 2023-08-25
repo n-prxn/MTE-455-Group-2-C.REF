@@ -1,5 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Unity.VisualScripting;
+using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class RequestPool : MonoBehaviour
@@ -9,6 +13,8 @@ public class RequestPool : MonoBehaviour
     [SerializeField] GameObject requestSquadPanel;
 
     [SerializeField] private List<RequestSO> requestsPool = new List<RequestSO>();
+    
+    string path = "";
     // Start is called before the first frame update
 
     void Awake()
@@ -21,7 +27,11 @@ public class RequestPool : MonoBehaviour
 
     void Start()
     {
-
+        foreach (RequestSO request in requestsPool)
+        {
+            path += AssetDatabase.GetAssetPath(request.portrait) + "\n";
+        }
+        Debug.Log(path);
     }
 
     // Update is called once per frame

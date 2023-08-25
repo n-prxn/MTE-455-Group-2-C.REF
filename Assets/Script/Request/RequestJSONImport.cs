@@ -60,6 +60,7 @@ public class RequestJSONImport : MonoBehaviour
             AssetDatabase.CreateAsset(requestSO, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+            break;
         }
     }
 

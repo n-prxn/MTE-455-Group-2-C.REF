@@ -34,8 +34,7 @@ public class RequestListDescription : MonoBehaviour
     }
 
     public void SetDescription(RequestSO request){
-        if(request.portrait != null)
-            requesterPortrait.sprite = request.portrait;
+        requesterPortrait.sprite = request.portrait;
         requestText.text = request.name;
         requesterText.text = request.requesterName;
         descriptionText.text = request.description;
@@ -47,7 +46,6 @@ public class RequestListDescription : MonoBehaviour
     }
 
     public void ResetDescription(){
-        requesterPortrait.sprite = null;
         requestText.text = "";
         requesterText.text = "";
         descriptionText.text = "";

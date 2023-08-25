@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class RequestManager : MonoBehaviour
 {
+    [Header("Capacity")]
+    public int requestPerTurn = 3;
+    public int maxRequestCapacity = 9;
     public static RequestManager instance;
-    private List<RequestSO> todayRequests = new List<RequestSO>();
+    [SerializeField] private List<RequestSO> todayRequests = new List<RequestSO>();
     public List<RequestSO> TodayRequests
     {
         get { return todayRequests; }
@@ -28,6 +31,7 @@ public class RequestManager : MonoBehaviour
     }
 
     [SerializeField] private RequestUI requestUI;
+    [SerializeField] private RequestPool requestPool;
 
     private int totalPHYStat = 0;
     public int TotalPHYStat
@@ -86,17 +90,70 @@ public class RequestManager : MonoBehaviour
         totalCOMStat = 0;
     }
 
+    public int CalculateSuccessRate()
+    {
+        float successRate = 100f;
+        if (totalPHYStat < currentRequest.phyStat)
+        {
+            successRate -= 10f;
+            successRate -= (currentRequest.phyStat - totalPHYStat) * 100f / currentRequest.TotalStat();
+        }
+        if (totalINTStat < currentRequest.intStat)
+        {
+            successRate -= 10f;
+            successRate -= (currentRequest.intStat - totalINTStat) * 100f / currentRequest.TotalStat();
+        }
+        if (totalCOMStat < currentRequest.comStat)
+        {
+            successRate -= 10f;
+            successRate -= (currentRequest.comStat - totalCOMStat) * 100f / currentRequest.TotalStat();
+        }
+
+        return successRate < 0 ? 0 : (int)successRate;
+    }
+
     public void UpdateRequest()
     {
         requestUI.UpdateRequestInfo(currentRequest);
     }
 
-    public void AddOperatingQuest(){
+    public void AddOperatingQuest()
+    {
         operatingRequests.Add(currentRequest);
         currentRequest.IsOperating = true;
-        foreach(Student student in currentRequest.squad){
-            if(student != null)
+        foreach (Student student in currentRequest.squad)
+        {
+            if (student != null)
                 student.stamina -= currentRequest.stamina;
         }
+    }
+
+    public void ClearSquad()
+    {
+        currentRequest.ResetSquad();
+        ClearTotalStatus();
+        UpdateRequest();
+    }
+
+    public void RemoveRequest(RequestSO request){
+        RequestSO targetRequest = TodayRequests.Find(x => x.id == request.id);
+        if(targetRequest != null){
+            todayRequests.Remove(targetRequest);
+        }
+    }
+
+    public void SendSquad()
+    {
+        AddOperatingQuest();
+        currentRequest.SuccessRate = CalculateSuccessRate();
+        currentRequest = null;
+    }
+
+    public bool isNotice(){
+        foreach(RequestSO request in todayRequests){
+            if(!request.IsRead)
+                return true;
+        }
+        return false;
     }
 }

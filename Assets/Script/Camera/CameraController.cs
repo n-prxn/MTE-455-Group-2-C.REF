@@ -18,7 +18,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minZoomSize;
     [SerializeField] private float maxZoomSize;
 
-    [SerializeField] private float zoomModifier;
+    private float zoomModifier;
+    [SerializeField] private float zoomMultiplier = 1f;
 
     void Awake()
     {
@@ -71,9 +72,9 @@ public class CameraController : MonoBehaviour
     {
         zoomModifier = -Input.GetAxis("Mouse ScrollWheel");
         if (Input.GetKey(KeyCode.Z))
-            zoomModifier = 0.01f;
+            zoomModifier = 0.01f * zoomMultiplier;
         if (Input.GetKey(KeyCode.X))
-            zoomModifier = -0.01f;
+            zoomModifier = -0.01f * zoomMultiplier;
 
         float zoomSize = cam.orthographicSize;
         if (zoomSize < minZoomSize && zoomModifier < 0f)

@@ -12,6 +12,7 @@ public class RequestListUI : MonoBehaviour
     [Header("UI")]
     [SerializeField] GameObject cardParent;
     [SerializeField] RequestListDescription requestListDescription;
+    [SerializeField] RequestUI requestUI;
     [SerializeField] GameObject squadPanel;
     [SerializeField] GameObject inProgressParent;
     [SerializeField] GameObject contentParent;
@@ -27,6 +28,7 @@ public class RequestListUI : MonoBehaviour
     void Awake()
     {
         contentParent.GetComponent<VerticalLayoutGroup>().spacing += 0.01f;
+        GameManager.instance.IsPlayable = false;
         //GenerateRequestCard();
     }
 
@@ -46,6 +48,7 @@ public class RequestListUI : MonoBehaviour
                 parent = inProgressParent.transform;
             else
                 parent = cardParent.transform;
+
             GameObject requestCard = Instantiate(requestCardPrefab, parent);
             RequestCardData requestCardData = requestCard.GetComponent<RequestCardData>();
             requestCardData.SetData(requestSO);
@@ -79,12 +82,14 @@ public class RequestListUI : MonoBehaviour
         RequestManager.instance.CurrentRequest = currentSelectedRequest.RequestData;
         RequestManager.instance.CurrentRequest.ResetSquad();
         squadPanel.SetActive(true);
+        RequestManager.instance.UpdateRequest();
         gameObject.SetActive(false);
     }
 
     public void ClosePanel()
     {
         gameObject.SetActive(false);
+        GameManager.instance.IsPlayable = true;
     }
 
     public void ResetList()

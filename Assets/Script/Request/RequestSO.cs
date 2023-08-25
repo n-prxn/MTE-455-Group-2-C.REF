@@ -22,7 +22,8 @@ public class RequestSO : ScriptableObject
     public new string requesterName;
     public new Difficulty difficulty;
     public bool isRepeatable = false;
-    public int duration = 0;
+    public int duration = 1;
+    public int availableDuration = 10;
 
     [Header("Status Requirement")]
     public int phyStat;
@@ -46,6 +47,11 @@ public class RequestSO : ScriptableObject
         get{ return isOperating; }
         set{ isOperating = value;}
     }
+    private int successRate = 0;
+    public int SuccessRate {
+        get{ return successRate; }
+        set{ successRate = value;}
+    }
 
     private int currentTurn = 0;
     public int CurrentTurn{
@@ -53,10 +59,28 @@ public class RequestSO : ScriptableObject
         set{ currentTurn = value;}
     }
 
-    private bool isRead;
+    private int expiredCount = 0;
+    public int ExpireCount{
+        get{ return expiredCount; }
+        set{ expiredCount = value;}
+    }
+
+    private bool isRead = false;
     public bool IsRead{
         get {return isRead; }
         set {isRead = value;}
+    }
+
+    private bool isDone = false;
+    public bool IsDone{
+        get{return isDone;}
+        set {isDone = value;}
+    }
+
+    private bool isShow = false;
+    public bool IsShow{
+        get{ return isShow; }
+        set {isShow = value;}
     }
 
     public void ResetSquad(){
@@ -72,5 +96,9 @@ public class RequestSO : ScriptableObject
         for(int i = 0; i < 4 ; i++){
             squad.Add(null);
         }
+    }
+
+    public int TotalStat(){
+        return phyStat + intStat + comStat;
     }
 }

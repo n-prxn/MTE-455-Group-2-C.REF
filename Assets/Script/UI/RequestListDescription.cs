@@ -16,6 +16,7 @@ public class RequestListDescription : MonoBehaviour
     [SerializeField] TextMeshProUGUI expText;
     [SerializeField] TextMeshProUGUI happinessText;
     [SerializeField] TextMeshProUGUI crimeRateText;
+    [SerializeField] TextMeshProUGUI leftDayText;
 
     // Start is called before the first frame update
 
@@ -43,6 +44,7 @@ public class RequestListDescription : MonoBehaviour
         expText.text = request.xp.ToString();
         happinessText.text = request.happiness.ToString();
         crimeRateText.text = request.crimeRate.ToString();
+        leftDayText.text = (request.availableDuration - request.ExpireCount).ToString() + " Left Day(s).";
     }
 
     public void ResetDescription(){
@@ -54,5 +56,6 @@ public class RequestListDescription : MonoBehaviour
         expText.text = "";
         happinessText.text = "";
         crimeRateText.text = "";
+        leftDayText.text = "";
     }
 }

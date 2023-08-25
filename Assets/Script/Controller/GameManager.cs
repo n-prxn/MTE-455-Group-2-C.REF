@@ -20,9 +20,15 @@ public class GameManager : MonoBehaviour
     public int maxXP = 1000;
     public int rank = 1;
 
-    [Header("Capacity")]
-    public int requestPerTurn = 3;
-    public int maxRequestCapacity = 9;
+    [Header("Pools")]
+    [SerializeField] RequestPool requestPool;
+
+    private bool isPlayable = true;
+    public bool IsPlayable
+    {
+        get { return isPlayable; }
+        set { isPlayable = value; }
+    }
 
     public static GameManager instance;
 
@@ -45,25 +51,55 @@ public class GameManager : MonoBehaviour
 
     public void NextTurn()
     {
-        if (currentTurn < lastTurn)
+        if (isPlayable)
         {
-            currentTurn = currentTurn + 1;
-            UpdateRequest();
-        }
-    }
-
-    public void UpdateRequest(){
-        foreach(RequestSO request in RequestManager.instance.OperatingRequests){
-            request.CurrentTurn--;
-            if(request.CurrentTurn <= 0){
-                ReceiveRewards(request);
-                request.ResetSquad();
-                Debug.Log(request.name + " has finished!");
+            if (currentTurn < lastTurn)
+            {
+                currentTurn = currentTurn + 1;
+                UpdateRequest();
+                requestPool.DecreaseDays();
+                requestPool.GenerateRequests();
             }
         }
     }
 
-    void ReceiveRewards(RequestSO request){
+
+    public void UpdateRequest()
+    {
+        foreach (RequestSO request in RequestManager.instance.OperatingRequests)
+        {
+            Result(request);
+        }
+    }
+
+    void Result(RequestSO request)
+    {
+        request.CurrentTurn--;
+        if (request.CurrentTurn <= 0)
+        {
+            if (Random.Range(0, 100) <= request.SuccessRate)
+            {
+                Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
+                ReceiveRewards(request);
+            }
+            else
+            {
+                Debug.Log(request.name + " has failed! with " + request.SuccessRate + "%");
+            }
+
+            request.ResetSquad();
+            request.CurrentTurn = request.duration;
+            request.SuccessRate = 100;
+            request.IsOperating = false;
+            if (!request.isRepeatable)
+                request.IsDone = true;
+            RequestManager.instance.RemoveRequest(request);
+            ;
+        }
+    }
+
+    void ReceiveRewards(RequestSO request)
+    {
         credits += request.credit;
         pyroxenes += request.pyroxene;
         currentXP += request.xp;

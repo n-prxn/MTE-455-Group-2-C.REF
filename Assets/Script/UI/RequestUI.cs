@@ -20,8 +20,8 @@ public class RequestUI : MonoBehaviour
     [SerializeField] Image INTReqBar;
     [SerializeField] Image COMReqBar;
 
-    [SerializeField] GameObject selectionPanel;
-    [SerializeField] GameObject requestListPanel;
+    [SerializeField] StudentSelectionUI selectionPanel;
+    [SerializeField] RequestListUI requestListPanel;
 
     [Header("Detail UI")]
     [SerializeField] TextMeshProUGUI requestText;
@@ -32,7 +32,8 @@ public class RequestUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI expText;
     [SerializeField] TextMeshProUGUI happinessText;
     [SerializeField] TextMeshProUGUI crimeRateText;
-    
+    [SerializeField] TextMeshProUGUI successRate;
+
     List<SquadSlotData> squadSlots = new List<SquadSlotData>();
 
     //[SerializeField] private RequestSO currentRequest;
@@ -40,8 +41,13 @@ public class RequestUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    void Awake()
+    {
+        GameManager.instance.IsPlayable = false;
         InitializeSquad();
-        UpdateRequestInfo(RequestManager.instance.CurrentRequest);
     }
 
     // Update is called once per frame
@@ -50,7 +56,7 @@ public class RequestUI : MonoBehaviour
         //UpdateRequestInfo();
     }
 
-    void InitializeSquad()
+    public void InitializeSquad()
     {
         RequestManager.instance.CurrentRequest.ResetSquad();
         RequestManager.instance.ClearTotalStatus();
@@ -89,15 +95,15 @@ public class RequestUI : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            if (RequestManager.instance.CurrentRequest.squad[i] == null)
+            Student stdInSquad = RequestManager.instance.CurrentRequest.squad[i];
+            if (stdInSquad == null)
             {
                 squadSlots[i].ShowBlankSlot();
                 squadSlots[i].Student = null;
             }
             else
             {
-                Student student = RequestManager.instance.CurrentRequest.squad[i];
-                squadSlots[i].SetData(i, student);
+                squadSlots[i].SetData(i, stdInSquad);
                 squadSlots[i].ShowStudent();
             }
         }
@@ -108,6 +114,7 @@ public class RequestUI : MonoBehaviour
         PHYReqBar.rectTransform.localPosition = new Vector2((float)request.phyStat / 300f * 485f, PHYReqBar.rectTransform.localPosition.y);
         INTReqBar.rectTransform.localPosition = new Vector2((float)request.intStat / 300f * 485f, INTReqBar.rectTransform.localPosition.y);
         COMReqBar.rectTransform.localPosition = new Vector2((float)request.comStat / 300f * 485f, COMReqBar.rectTransform.localPosition.y);
+        successRate.text = "Success Rate : " + RequestManager.instance.CalculateSuccessRate() + "%";
     }
 
     void UpdateCurrentStat(int PHYStat, int INTStat, int COMStat)
@@ -121,36 +128,33 @@ public class RequestUI : MonoBehaviour
     void HandleSlotSelection(SquadSlotData obj)
     {
         ToggleSelectionPanel();
-        selectionPanel.GetComponent<StudentSelectionUI>().SlotIndex = obj.Index;
+        selectionPanel.SlotIndex = obj.Index;
         if (obj.Student != null)
         {
-            selectionPanel.GetComponent<StudentSelectionUI>().CurrentSelectedStudent = obj.Student;
-            selectionPanel.GetComponent<StudentSelectionUI>().Select(obj.Student);
+            selectionPanel.CurrentSelectedStudent = obj.Student;
+            selectionPanel.Select(obj.Student);
         }
 
     }
 
     void ToggleSelectionPanel()
     {
-        selectionPanel.SetActive(true);
+        selectionPanel.gameObject.SetActive(true);
     }
 
-    public void ClearSquad()
+    public void SendSquad()
     {
-        RequestManager.instance.CurrentRequest.ResetSquad();
-        RequestManager.instance.ClearTotalStatus();
-        RequestManager.instance.UpdateRequest();
+        if (RequestManager.instance.CurrentRequest.squad.Count > 0)
+        {
+            RequestManager.instance.SendSquad();
+            Back();
+        }
     }
 
-    public void SendSquad(){
-        RequestManager.instance.AddOperatingQuest();
-        RequestManager.instance.CurrentRequest = null;
-        Back();
-    }
-
-    public void Back(){
-        requestListPanel.GetComponent<RequestListUI>().GenerateRequestCard();
-        requestListPanel.SetActive(true);
+    public void Back()
+    {
+        requestListPanel.GenerateRequestCard();
+        requestListPanel.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 }

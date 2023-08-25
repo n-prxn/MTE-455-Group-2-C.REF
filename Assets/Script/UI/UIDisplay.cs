@@ -20,19 +20,39 @@ public class UIDisplay : MonoBehaviour
     [Header("Player Info UI")]
     [SerializeField] TMP_Text rankText;
     [SerializeField] Image xpBar;
+
+    [Header("Side Menu")]
+    [SerializeField] GameObject gachaButton;
+    [SerializeField] GameObject requestButton;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateUIResource();
+        UpdateButton();
     }
 
-    void UpdateUIResource(){
+    void UpdateButton(){
+        if(GameManager.instance.pyroxenes >= 1200){
+            gachaButton.transform.GetChild(1).gameObject.SetActive(true);
+        }else{
+            gachaButton.transform.GetChild(1).gameObject.SetActive(false);
+        }
+
+        if(RequestManager.instance.isNotice()){
+            requestButton.transform.GetChild(1).gameObject.SetActive(true);
+        }else{
+            requestButton.transform.GetChild(1).gameObject.SetActive(false);
+        }
+    }
+
+    void UpdateUIResource()
+    {
         //Update Turn
         turnText.text = GameManager.instance.currentTurn.ToString();
 
@@ -42,11 +62,11 @@ public class UIDisplay : MonoBehaviour
 
         //Update Rank
         rankText.text = "RANK " + GameManager.instance.rank.ToString();
-        xpBar.fillAmount = (float)GameManager.instance.currentXP/(float)GameManager.instance.maxXP;
+        xpBar.fillAmount = (float)GameManager.instance.currentXP / (float)GameManager.instance.maxXP;
         //Debug.Log(GameManager.instance.currentXP/GameManager.instance.maxXP);
     }
 
-     public void ToggleGachaPanel()
+    public void ToggleGachaPanel()
     {
         if (gachaPanel.activeSelf)
             gachaPanel.SetActive(false);
@@ -54,11 +74,15 @@ public class UIDisplay : MonoBehaviour
             gachaPanel.SetActive(true);
     }
 
-    public void ToggleRequestListPanel(){
+    public void ToggleRequestListPanel()
+    {
         if (requestListPanel.activeSelf)
             requestListPanel.SetActive(false);
         else
+        {
+            requestListPanel.GetComponent<RequestListUI>().GenerateRequestCard(); 
             requestListPanel.SetActive(true);
+        }
     }
 
 }

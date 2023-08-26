@@ -146,7 +146,7 @@ public class RequestManager : MonoBehaviour
     {
         AddOperatingQuest();
         currentRequest.SuccessRate = CalculateSuccessRate();
-        currentRequest = null;
+        //currentRequest = null;
     }
 
     public bool isNotice(){

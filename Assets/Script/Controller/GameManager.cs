@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Pools")]
     [SerializeField] RequestPool requestPool;
+    [SerializeField] RequestListUI requestListUI;
 
     private bool isPlayable = true;
     public bool IsPlayable
@@ -68,15 +69,20 @@ public class GameManager : MonoBehaviour
     {
         foreach (RequestSO request in RequestManager.instance.OperatingRequests)
         {
-            Result(request);
+            RequestProcess(request);
         }
     }
 
-    void Result(RequestSO request)
+    void CheckResult(){
+
+    }
+
+    void RequestProcess(RequestSO request)
     {
         request.CurrentTurn--;
         if (request.CurrentTurn <= 0)
         {
+            requestListUI.GenerateCompleteCard(request);
             if (Random.Range(0, 100) <= request.SuccessRate)
             {
                 Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
@@ -91,8 +97,7 @@ public class GameManager : MonoBehaviour
             request.CurrentTurn = request.duration;
             request.SuccessRate = 100;
             request.IsOperating = false;
-            if (!request.isRepeatable)
-                request.IsDone = true;
+            request.IsDone = true;
             RequestManager.instance.RemoveRequest(request);
             ;
         }

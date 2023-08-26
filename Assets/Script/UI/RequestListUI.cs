@@ -15,6 +15,7 @@ public class RequestListUI : MonoBehaviour
     [SerializeField] RequestUI requestUI;
     [SerializeField] GameObject squadPanel;
     [SerializeField] GameObject inProgressParent;
+    [SerializeField] GameObject completeParent;
     [SerializeField] GameObject contentParent;
 
     List<RequestCardData> requestCardDatas = new List<RequestCardData>();
@@ -28,14 +29,22 @@ public class RequestListUI : MonoBehaviour
     void Awake()
     {
         contentParent.GetComponent<VerticalLayoutGroup>().spacing += 0.01f;
-        GameManager.instance.IsPlayable = false;
         //GenerateRequestCard();
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameManager.instance.IsPlayable = false;
+    }
 
+    public void GenerateCompleteCard(RequestSO request)
+    {
+        GameObject completeCard = Instantiate(requestCardPrefab, completeParent.transform);
+        RequestCardData requestCardData = completeCard.GetComponent<RequestCardData>();
+        requestCardData.SetData(request);
+        requestCardData.HideNoticeSymbol();
+        requestCardData.OnCardClicked += HandleCardSelection;
     }
 
     public void GenerateRequestCard()
@@ -69,12 +78,42 @@ public class RequestListUI : MonoBehaviour
     private void HandleCardSelection(RequestCardData data)
     {
         currentSelectedRequest = data;
-        requestListDescription.SetDescription(data.RequestData);
+        //requestListDescription.SetDescription(data.RequestData , RequestMode.Available);
+        //Debug.Log(data.transform.parent.name);
+
+        UpdateDescription(data);
+
         if (!data.RequestData.IsRead)
         {
             data.RequestData.IsRead = true;
         }
         currentSelectedRequest.HideNoticeSymbol();
+    }
+
+    public void UpdateDescription(RequestCardData data)
+    {
+        if (data.transform.parent.name == "GeneralList")
+            requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
+
+        if (data.transform.parent.name == "OngoingList")
+            requestListDescription.SetDescription(data.RequestData, RequestMode.InProgress);
+
+        if (data.transform.parent.name == "SuccessList")
+            requestListDescription.SetDescription(data.RequestData, RequestMode.WaitResult);
+    }
+
+    public void UpdateDescription(RequestSO request)
+    {
+        RequestCardData data = requestCardDatas.Find(x => x.RequestData.id == request.id);
+        Debug.Log(data.transform.parent.name);
+        if (data.transform.parent.name == "GeneralList")
+            requestListDescription.SetDescription(request, RequestMode.Available);
+
+        if (data.transform.parent.name == "OngoingList")
+            requestListDescription.SetDescription(request, RequestMode.InProgress);
+
+        if (data.transform.parent.name == "SuccessList")
+            requestListDescription.SetDescription(request, RequestMode.WaitResult);
     }
 
     public void AcceptRequest()

@@ -43,7 +43,7 @@ public class RequestPool : MonoBehaviour
                 do
                 {
                     request = requestsPool[Random.Range(0, 101)];
-                } while (request.IsOperating || request.IsDone || request.IsShow);
+                } while (request.IsOperating || (request.IsDone && !request.isRepeatable) || request.IsShow);
                 request.IsRead = false;
                 request.IsShow = true;
                 RequestManager.instance.TodayRequests.Add(request);

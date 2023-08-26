@@ -146,6 +146,7 @@ public class RequestUI : MonoBehaviour
     {
         if (RequestManager.instance.CurrentRequest.squad.Count > 0)
         {
+            requestListPanel.UpdateDescription(RequestManager.instance.CurrentRequest);
             RequestManager.instance.SendSquad();
             Back();
         }
@@ -154,6 +155,7 @@ public class RequestUI : MonoBehaviour
     public void Back()
     {
         requestListPanel.GenerateRequestCard();
+        //requestListPanel.UpdateDescription(RequestManager.instance.CurrentRequest);
         requestListPanel.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }

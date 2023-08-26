@@ -81,6 +81,7 @@ public class UIDisplay : MonoBehaviour
         else
         {
             requestListPanel.GetComponent<RequestListUI>().GenerateRequestCard(); 
+            requestListPanel.GetComponent<RequestListUI>().ShowIdleWindow();
             requestListPanel.SetActive(true);
         }
     }

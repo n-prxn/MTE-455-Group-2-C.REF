@@ -73,10 +73,12 @@ public class RequestPool : MonoBehaviour
     {
         foreach (RequestSO request in requestsPool)
         {
+            request.ResetSquad();
             request.IsOperating = false;
             request.IsShow = false;
             request.IsDone = false;
             request.ExpireCount = 0;
+            request.CurrentTurn = 0;
         }
     }
 

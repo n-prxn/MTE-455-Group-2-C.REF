@@ -9,11 +9,17 @@ public class RequestListUI : MonoBehaviour
     [Header("Prefab")]
     [SerializeField] GameObject requestCardPrefab;
 
-    [Header("UI")]
-    [SerializeField] GameObject cardParent;
+    [Header("Panel")]
+    [SerializeField] GameObject idlePanel;
+    [SerializeField] GameObject requestPanel;
+    [SerializeField] GameObject squadPanel;
+
+    [Header("Script")]
     [SerializeField] RequestListDescription requestListDescription;
     [SerializeField] RequestUI requestUI;
-    [SerializeField] GameObject squadPanel;
+
+    [Header("Parent")]
+    [SerializeField] GameObject cardParent;
     [SerializeField] GameObject inProgressParent;
     [SerializeField] GameObject completeParent;
     [SerializeField] GameObject contentParent;
@@ -28,6 +34,7 @@ public class RequestListUI : MonoBehaviour
 
     void Awake()
     {
+        ShowIdleWindow();
         contentParent.GetComponent<VerticalLayoutGroup>().spacing += 0.01f;
         //GenerateRequestCard();
     }
@@ -77,6 +84,7 @@ public class RequestListUI : MonoBehaviour
 
     private void HandleCardSelection(RequestCardData data)
     {
+        ShowDescriptionWindow();
         currentSelectedRequest = data;
         //requestListDescription.SetDescription(data.RequestData , RequestMode.Available);
         //Debug.Log(data.transform.parent.name);
@@ -105,7 +113,6 @@ public class RequestListUI : MonoBehaviour
     public void UpdateDescription(RequestSO request)
     {
         RequestCardData data = requestCardDatas.Find(x => x.RequestData.id == request.id);
-        Debug.Log(data.transform.parent.name);
         if (data.transform.parent.name == "GeneralList")
             requestListDescription.SetDescription(request, RequestMode.Available);
 
@@ -146,5 +153,17 @@ public class RequestListUI : MonoBehaviour
         }
 
         requestCardDatas.Clear();
+    }
+
+    public void ShowIdleWindow()
+    {
+        idlePanel.SetActive(true);
+        requestPanel.SetActive(false);
+    }
+
+    public void ShowDescriptionWindow()
+    {
+        idlePanel.SetActive(false);
+        requestPanel.SetActive(true);
     }
 }

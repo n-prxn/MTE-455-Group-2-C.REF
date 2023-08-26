@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEditor.PackageManager.Requests;
 
 public enum RequestMode
 {
@@ -26,6 +27,9 @@ public class RequestListDescription : MonoBehaviour
     [SerializeField] TextMeshProUGUI leftDayText;
     [SerializeField] GameObject acceptButton;
     [SerializeField] GameObject resultButton;
+    [SerializeField] GameObject squadPanel;
+    [SerializeField] GameObject squadPortraitPrefab;
+    [SerializeField] GameObject squadPortraitParent;
 
     // Start is called before the first frame update
 
@@ -55,22 +59,49 @@ public class RequestListDescription : MonoBehaviour
         expText.text = request.xp.ToString();
         happinessText.text = request.happiness.ToString();
         crimeRateText.text = request.crimeRate.ToString();
-        leftDayText.text = (request.availableDuration - request.ExpireCount).ToString() + " Left Day(s).";
 
         if (mode == RequestMode.Available)
         {
+            leftDayText.text = (request.availableDuration - request.ExpireCount).ToString() + " Left Day(s).";
+            squadPanel.SetActive(false);
             acceptButton.SetActive(true);
             resultButton.SetActive(false);
         }
 
-        if(mode == RequestMode.InProgress){
+        if (mode == RequestMode.InProgress)
+        {
+            leftDayText.text = "Complete in " + request.CurrentTurn.ToString() + " Day(s).";
+            ResetSquadImages();
+            foreach (Student student in request.squad)
+            {
+                if (student != null)
+                {
+                    GameObject squadImage = Instantiate(squadPortraitPrefab, squadPortraitParent.transform);
+                    squadImage.transform.GetChild(0).GetComponent<Image>().sprite = student.portrait;
+                }
+            }
+            squadPanel.SetActive(true);
             acceptButton.SetActive(false);
             resultButton.SetActive(false);
         }
 
-        if(mode == RequestMode.WaitResult){
+        if (mode == RequestMode.WaitResult)
+        {
+            leftDayText.text = "";
+            squadPanel.SetActive(false);
             acceptButton.SetActive(false);
             resultButton.SetActive(true);
+        }
+    }
+
+    public void ResetSquadImages()
+    {
+        if (squadPanel.transform.childCount >= 0)
+        {
+            foreach (Transform image in squadPortraitParent.transform)
+            {
+                Destroy(image.gameObject);
+            }
         }
     }
 

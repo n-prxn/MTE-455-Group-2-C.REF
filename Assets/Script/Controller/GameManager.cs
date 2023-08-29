@@ -86,29 +86,18 @@ public class GameManager : MonoBehaviour
             if (Random.Range(0, 100) <= request.SuccessRate)
             {
                 Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
-                ReceiveRewards(request);
+                //ReceiveRewards(request);
             }
             else
             {
                 Debug.Log(request.name + " has failed! with " + request.SuccessRate + "%");
             }
 
-            request.ResetSquad();
-            request.CurrentTurn = request.duration;
-            request.SuccessRate = 100;
+            //request.ResetSquad();
             request.IsOperating = false;
             request.IsDone = true;
             RequestManager.instance.RemoveRequest(request);
             ;
         }
-    }
-
-    void ReceiveRewards(RequestSO request)
-    {
-        credits += request.credit;
-        pyroxenes += request.pyroxene;
-        currentXP += request.xp;
-        happiness += request.happiness;
-        crimeRate -= request.crimeRate;
     }
 }

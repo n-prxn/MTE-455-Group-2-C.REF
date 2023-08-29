@@ -46,13 +46,13 @@ public class RequestUI : MonoBehaviour
 
     void Awake()
     {
-        GameManager.instance.IsPlayable = false;
         InitializeSquad();
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameManager.instance.IsPlayable = false;
         //UpdateRequestInfo();
     }
 

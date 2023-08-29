@@ -16,7 +16,7 @@ public class RequestListUI : MonoBehaviour
 
     [Header("Script")]
     [SerializeField] RequestListDescription requestListDescription;
-    [SerializeField] RequestUI requestUI;
+    [SerializeField] ResultUI resultUI;
 
     [Header("Parent")]
     [SerializeField] GameObject cardParent;
@@ -129,6 +129,13 @@ public class RequestListUI : MonoBehaviour
         RequestManager.instance.CurrentRequest.ResetSquad();
         squadPanel.SetActive(true);
         RequestManager.instance.UpdateRequest();
+        gameObject.SetActive(false);
+    }
+
+    public void ShowResult(){
+        RequestManager.instance.CurrentRequest = currentSelectedRequest.RequestData;
+        resultUI.InitializeResult();
+        resultUI.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 

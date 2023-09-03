@@ -9,6 +9,7 @@ public class UIDisplay : MonoBehaviour
     [Header("Panel")]
     [SerializeField] GameObject gachaPanel;
     [SerializeField] GameObject requestListPanel;
+    [SerializeField] GameObject blackBackground;
 
     [Header("Turn UI")]
     [SerializeField] TMP_Text turnText;
@@ -37,16 +38,23 @@ public class UIDisplay : MonoBehaviour
         UpdateButton();
     }
 
-    void UpdateButton(){
-        if(GameManager.instance.pyroxenes >= 1200){
+    void UpdateButton()
+    {
+        if (GameManager.instance.pyroxenes >= 1200)
+        {
             gachaButton.transform.GetChild(1).gameObject.SetActive(true);
-        }else{
+        }
+        else
+        {
             gachaButton.transform.GetChild(1).gameObject.SetActive(false);
         }
 
-        if(RequestManager.instance.isNotice()){
+        if (RequestManager.instance.isNotice())
+        {
             requestButton.transform.GetChild(1).gameObject.SetActive(true);
-        }else{
+        }
+        else
+        {
             requestButton.transform.GetChild(1).gameObject.SetActive(false);
         }
     }
@@ -69,25 +77,45 @@ public class UIDisplay : MonoBehaviour
     public void ToggleGachaPanel()
     {
         if (gachaPanel.activeSelf)
+        {
             gachaPanel.SetActive(false);
+            blackBackground.SetActive(false);
+        }
         else
+        {
             gachaPanel.SetActive(true);
+            blackBackground.SetActive(true);
+        }
     }
 
     public void ToggleRequestListPanel()
     {
         if (requestListPanel.activeSelf)
+        {
             requestListPanel.SetActive(false);
+            blackBackground.SetActive(false);
+        }
         else
         {
-            requestListPanel.GetComponent<RequestListUI>().GenerateRequestCard(); 
+            requestListPanel.GetComponent<RequestListUI>().GenerateRequestCard();
             requestListPanel.GetComponent<RequestListUI>().ShowIdleWindow();
             requestListPanel.SetActive(true);
+            blackBackground.SetActive(true);
         }
     }
 
-    public void TogglePanel(GameObject panel){
-        panel.SetActive(!panel.activeSelf);
+    public void TogglePanel(GameObject panel)
+    {
+        if (panel.activeSelf)
+        {
+            panel.SetActive(false);
+            blackBackground.SetActive(false);
+        }
+        else
+        {
+            panel.SetActive(true);
+            blackBackground.SetActive(true);
+        }
     }
 
 }

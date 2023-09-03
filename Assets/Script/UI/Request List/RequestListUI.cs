@@ -156,12 +156,6 @@ public class RequestListUI : MonoBehaviour
         }
     }
 
-    public void ClosePanel()
-    {
-        gameObject.SetActive(false);
-        GameManager.instance.IsPlayable = true;
-    }
-
     public void ResetList()
     {
         foreach (Transform transform in cardParent.transform)

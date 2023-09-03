@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class GachaPool : MonoBehaviour, IData
@@ -21,6 +22,7 @@ public class GachaPool : MonoBehaviour, IData
 
     [Header("UI Panel")]
     [SerializeField] GameObject gachaScene;
+    [SerializeField] GameObject warningBox;
 
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;

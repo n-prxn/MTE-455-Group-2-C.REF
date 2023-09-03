@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,7 @@ public class RequestListUI : MonoBehaviour
     [Header("Panel")]
     [SerializeField] GameObject idlePanel;
     [SerializeField] GameObject requestPanel;
-    [SerializeField] GameObject squadPanel;
+    [SerializeField] RequestUI squadPanel;
 
     [Header("Script")]
     [SerializeField] RequestListDescription requestListDescription;
@@ -25,6 +26,7 @@ public class RequestListUI : MonoBehaviour
     [SerializeField] GameObject contentParent;
 
     List<RequestCardData> requestCardDatas = new List<RequestCardData>();
+    List<RequestCardData> completeCardDatas = new List<RequestCardData>();
     RequestCardData currentSelectedRequest;
     // Start is called before the first frame update
     void Start()
@@ -127,16 +129,31 @@ public class RequestListUI : MonoBehaviour
     {
         RequestManager.instance.CurrentRequest = currentSelectedRequest.RequestData;
         RequestManager.instance.CurrentRequest.ResetSquad();
-        squadPanel.SetActive(true);
+        squadPanel.gameObject.SetActive(true);
+        RequestManager.instance.ClearTotalStatus();
         RequestManager.instance.UpdateRequest();
         gameObject.SetActive(false);
     }
 
-    public void ShowResult(){
+    public void ShowResult()
+    {
         RequestManager.instance.CurrentRequest = currentSelectedRequest.RequestData;
         resultUI.InitializeResult();
         resultUI.gameObject.SetActive(true);
+        DeleteCompleteRequest();
         gameObject.SetActive(false);
+    }
+
+    public void DeleteCompleteRequest()
+    {
+        foreach (Transform requestCard in completeParent.transform)
+        {
+            if (requestCard.GetComponent<RequestCardData>() != null)
+            {
+                if (requestCard.gameObject.GetComponent<RequestCardData>().RequestData.id == currentSelectedRequest.RequestData.id)
+                    Destroy(requestCard.gameObject);
+            }
+        }
     }
 
     public void ClosePanel()

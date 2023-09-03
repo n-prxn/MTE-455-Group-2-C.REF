@@ -86,4 +86,8 @@ public class UIDisplay : MonoBehaviour
         }
     }
 
+    public void TogglePanel(GameObject panel){
+        panel.SetActive(!panel.activeSelf);
+    }
+
 }

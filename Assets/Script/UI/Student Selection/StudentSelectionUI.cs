@@ -11,7 +11,8 @@ public class StudentSelectionUI : MonoBehaviour
     [SerializeField] GameObject studentListParent;
     [SerializeField] GameObject studentPortraitPrefab;
     [SerializeField] StudentDescription studentDescription;
-
+    [SerializeField] GameObject idlePanel;
+    [SerializeField] GameObject headerPanel;
     [SerializeField] int slotIndex;
     private List<StudentUIData> studentUIDatas = new List<StudentUIData>();
     [SerializeField] private Student currentSelectedStudent;
@@ -36,19 +37,21 @@ public class StudentSelectionUI : MonoBehaviour
 
     void Awake()
     {
-        GameManager.instance.IsPlayable = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        GameManager.instance.IsPlayable = false;
     }
 
-    void InitializeStudents()
+    public void InitializeStudents()
     {
         currentSelectedStudent = null;
         studentUIDatas.Clear();
+        headerPanel.SetActive(false);
+        idlePanel.SetActive(true);
         foreach (Student student in SquadController.instance.Students)
         {
             GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
@@ -78,6 +81,9 @@ public class StudentSelectionUI : MonoBehaviour
     void HandleStudentSelection(StudentUIData obj)
     {
         ResetSelection();
+        headerPanel.SetActive(true);
+        idlePanel.SetActive(false);
+
         studentDescription.SetDescription(obj.StudentData);
         currentSelectedStudent = obj.StudentData;
         if (obj.StudentData.IsAssign)
@@ -100,6 +106,7 @@ public class StudentSelectionUI : MonoBehaviour
     private void ResetSelection()
     {
         studentDescription.ResetDescription();
+
         DeselectAllStudents();
     }
 

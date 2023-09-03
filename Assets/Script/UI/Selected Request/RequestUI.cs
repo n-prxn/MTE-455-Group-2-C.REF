@@ -139,6 +139,7 @@ public class RequestUI : MonoBehaviour
 
     void ToggleSelectionPanel()
     {
+        selectionPanel.InitializeStudents();
         selectionPanel.gameObject.SetActive(true);
     }
 
@@ -155,6 +156,7 @@ public class RequestUI : MonoBehaviour
     {
         requestListPanel.GenerateRequestCard();
         requestListPanel.UpdateDescription(RequestManager.instance.CurrentRequest);
+        requestListPanel.ShowIdleWindow();
         requestListPanel.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }

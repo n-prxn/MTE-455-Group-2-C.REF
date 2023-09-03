@@ -11,7 +11,7 @@ public class ResultUI : MonoBehaviour
     [SerializeField] GameObject studentStaminaPrefab;
 
     [Header("Panel")]
-    [SerializeField] GameObject requestListPanel;
+    [SerializeField] RequestListUI requestListPanel;
 
     [Header("UI")]
     [SerializeField] TextMeshProUGUI requestText;
@@ -71,7 +71,9 @@ public class ResultUI : MonoBehaviour
 
     public void ClosePanel()
     {
-        requestListPanel.SetActive(true);
+        currentSelectedRequest.ResetSquad();
+        requestListPanel.gameObject.SetActive(true);
+        requestListPanel.ShowIdleWindow();
         gameObject.SetActive(false);
     }
 

@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
             }
 
             //request.ResetSquad();
+            request.DecreaseStamina();
             request.IsOperating = false;
             request.IsDone = true;
             RequestManager.instance.RemoveRequest(request);

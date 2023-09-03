@@ -83,6 +83,13 @@ public class RequestSO : ScriptableObject
         set {isShow = value;}
     }
 
+    public void DecreaseStamina(){
+        for(int i = 0 ; i < 4 ; i++){
+            if(squad[i] != null)
+                squad[i].CurrentStamina -= stamina;
+        }
+    }
+
     public void ResetSquad(){
         if(squad.Count == 0){
             for(int i = 0; i < 4 ; i++)

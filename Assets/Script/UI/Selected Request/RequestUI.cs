@@ -52,7 +52,7 @@ public class RequestUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameManager.instance.IsPlayable = false;
+        //GameManager.instance.IsPlayable = false;
         //UpdateRequestInfo();
     }
 
@@ -127,19 +127,18 @@ public class RequestUI : MonoBehaviour
 
     void HandleSlotSelection(SquadSlotData obj)
     {
-        ToggleSelectionPanel();
         selectionPanel.SlotIndex = obj.Index;
         if (obj.Student != null)
         {
             selectionPanel.CurrentSelectedStudent = obj.Student;
             selectionPanel.Select(obj.Student);
         }
+        ToggleSelectionPanel();
 
     }
 
     void ToggleSelectionPanel()
     {
-        selectionPanel.InitializeStudents();
         selectionPanel.gameObject.SetActive(true);
     }
 

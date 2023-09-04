@@ -19,6 +19,7 @@ public class RequestSO : ScriptableObject
     public new string name;
     public Sprite portrait;
     [TextArea] public new string description;
+    [TextArea] public new string chatStatus;
     public new string requesterName;
     public new Difficulty difficulty;
     public bool isRepeatable = false;

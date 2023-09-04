@@ -25,6 +25,10 @@ public class ResultUI : MonoBehaviour
         
     }
 
+    void OnEnable(){
+        InitializeResult();
+    }
+
     void Awake()
     {
         //squadParent.GetComponent<VerticalLayoutGroup>().spacing += 0.1f;
@@ -33,13 +37,15 @@ public class ResultUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameManager.instance.IsPlayable = false;
+        //GameManager.instance.IsPlayable = false;
     }
 
     public void InitializeResult()
     {
         currentSelectedRequest = RequestManager.instance.CurrentRequest;
+        currentSelectedRequest.DecreaseStamina();
         ClearSquadInfo();
+        
         for (int i = 0; i < 4; i++)
         {
             Student student = currentSelectedRequest.squad[i];

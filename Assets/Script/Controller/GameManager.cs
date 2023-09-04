@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         {
             if (currentTurn < lastTurn)
             {
-                currentTurn = currentTurn + 1;
+                currentTurn++;
                 UpdateRequest();
                 requestPool.DecreaseDays();
                 requestPool.GenerateRequests();
@@ -67,13 +67,18 @@ public class GameManager : MonoBehaviour
 
     public void UpdateRequest()
     {
-        foreach (RequestSO request in RequestManager.instance.OperatingRequests)
+        if (RequestManager.instance.OperatingRequests.Count > 0)
         {
-            RequestProcess(request);
+            foreach (RequestSO request in RequestManager.instance.OperatingRequests)
+            {
+                RequestProcess(request);
+            }
         }
+
     }
 
-    void CheckResult(){
+    void CheckResult()
+    {
 
     }
 
@@ -82,7 +87,12 @@ public class GameManager : MonoBehaviour
         request.CurrentTurn--;
         if (request.CurrentTurn <= 0)
         {
-            requestListUI.GenerateCompleteCard(request);
+
+            if (requestListUI.CompleteCardDatas.Find(x => x.RequestData.id == request.id) == null)
+            {
+                requestListUI.GenerateCompleteCard(request);
+            }
+
             if (Random.Range(0, 100) <= request.SuccessRate)
             {
                 Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
@@ -94,7 +104,6 @@ public class GameManager : MonoBehaviour
             }
 
             //request.ResetSquad();
-            request.DecreaseStamina();
             request.IsOperating = false;
             request.IsDone = true;
             RequestManager.instance.RemoveRequest(request);

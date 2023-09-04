@@ -30,8 +30,11 @@ public class StudentSelectionUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+    }
+
+    void OnEnable(){
         InitializeStudents();
-        //studentDescription.ResetDescription();
         CheckAssign();
     }
 
@@ -43,15 +46,19 @@ public class StudentSelectionUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameManager.instance.IsPlayable = false;
+        //GameManager.instance.IsPlayable = false;
     }
 
     public void InitializeStudents()
     {
         currentSelectedStudent = null;
         studentUIDatas.Clear();
+        ClearStudentUI();
+
         headerPanel.SetActive(false);
         idlePanel.SetActive(true);
+        studentDescription.HideButton();
+
         foreach (Student student in SquadController.instance.Students)
         {
             GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
@@ -63,7 +70,13 @@ public class StudentSelectionUI : MonoBehaviour
         ResetSelection();
     }
 
-    void CheckAssign()
+    public void ClearStudentUI(){
+        foreach(Transform studentCard in studentListParent.transform){
+            Destroy(studentCard.gameObject);
+        }
+    }
+
+    public void CheckAssign()
     {
         foreach (StudentUIData studentUIData in studentUIDatas)
         {
@@ -124,6 +137,7 @@ public class StudentSelectionUI : MonoBehaviour
         {
             RequestManager.instance.CurrentRequest.squad[slotIndex].IsAssign = false;
         }
+
         RequestManager.instance.CurrentRequest.squad[slotIndex] = currentSelectedStudent;
         RequestManager.instance.Calculate();
         currentSelectedStudent.IsAssign = true;
@@ -155,7 +169,6 @@ public class StudentSelectionUI : MonoBehaviour
 
     public void CloseSelectionPanel()
     {
-        CheckAssign();
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

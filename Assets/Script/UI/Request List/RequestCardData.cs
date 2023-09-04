@@ -40,7 +40,7 @@ public class RequestCardData : MonoBehaviour, IPointerClickHandler
     public void SetData(RequestSO request){
         requestData = request;
         requesterText.text = requestData.requesterName;
-        requesterStatus.text = "Help!";
+        requesterStatus.text = request.chatStatus;
         portraitImage.sprite = requestData.portrait;
         
         if(!requestData.IsRead){

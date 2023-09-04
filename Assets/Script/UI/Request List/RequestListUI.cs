@@ -27,6 +27,10 @@ public class RequestListUI : MonoBehaviour
 
     List<RequestCardData> requestCardDatas = new List<RequestCardData>();
     List<RequestCardData> completeCardDatas = new List<RequestCardData>();
+    public List<RequestCardData> CompleteCardDatas{
+        get{ return completeCardDatas; }
+        set{ completeCardDatas = value;}
+    }
     RequestCardData currentSelectedRequest;
     // Start is called before the first frame update
     void Start()
@@ -44,7 +48,7 @@ public class RequestListUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameManager.instance.IsPlayable = false;
+        //GameManager.instance.IsPlayable = false;
     }
 
     public void GenerateCompleteCard(RequestSO request)
@@ -54,6 +58,8 @@ public class RequestListUI : MonoBehaviour
         requestCardData.SetData(request);
         requestCardData.HideNoticeSymbol();
         requestCardData.OnCardClicked += HandleCardSelection;
+
+        completeCardDatas.Add(requestCardData);
     }
 
     public void GenerateRequestCard()
@@ -138,7 +144,6 @@ public class RequestListUI : MonoBehaviour
     public void ShowResult()
     {
         RequestManager.instance.CurrentRequest = currentSelectedRequest.RequestData;
-        resultUI.InitializeResult();
         resultUI.gameObject.SetActive(true);
         DeleteCompleteRequest();
         gameObject.SetActive(false);

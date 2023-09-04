@@ -121,11 +121,6 @@ public class RequestManager : MonoBehaviour
     {
         operatingRequests.Add(currentRequest);
         currentRequest.IsOperating = true;
-        foreach (Student student in currentRequest.squad)
-        {
-            if (student != null)
-                student.stamina -= currentRequest.stamina;
-        }
     }
 
     public void ClearSquad()
@@ -138,7 +133,7 @@ public class RequestManager : MonoBehaviour
     public void RemoveRequest(RequestSO request){
         RequestSO targetRequest = TodayRequests.Find(x => x.id == request.id);
         if(targetRequest != null){
-            todayRequests.Remove(targetRequest);
+            operatingRequests.Remove(targetRequest);
         }
     }
 

@@ -62,6 +62,11 @@ public class StudentDescription : MonoBehaviour
         staminaText.text = "0";
     }
 
+    public void HideButton(){
+        assignBtn.SetActive(false);
+        removeBtn.SetActive(false);
+    }
+
     public void SetAssign()
     {
         assignBtn.SetActive(true);

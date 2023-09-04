@@ -8,10 +8,19 @@ public class FurniturePlacementManager : MonoBehaviour
     [SerializeField] private GameObject furniturePrefab;
     [SerializeField] private GameObject furnitureParent;
     private Camera cam;
-    private Vector3 currentCursorPos;
+    [SerializeField] private Vector3 currentCursorPos;
+    public Vector3 CurrentCursorPos{
+        get{ return currentCursorPos; }
+    }
     private bool isPlacing;
+    private GameObject furnitureModel;
 
     public GameObject buildingCursor;
+    public static FurniturePlacementManager instance;
+
+    void Awake(){
+        instance = this;
+    }
 
     void Start(){
         cam = Camera.main;
@@ -20,23 +29,58 @@ public class FurniturePlacementManager : MonoBehaviour
     void Update(){
         currentCursorPos = GridPlacement.instance.GetCurrentTilePosition();
 
+        if(Input.GetKeyDown(KeyCode.Escape))
+            CancelPlacement();
+
         if(isPlacing){
             buildingCursor.transform.position = currentCursorPos;
             gridPlane.SetActive(true);
         }else{
             gridPlane.SetActive(false);
         }
-    
+
+        OnLeftClick();
+        OnRightClick();
     }
 
     public void FurniturePlacement(GameObject furniturePrefab){
         isPlacing = true;
 
         this.furniturePrefab = furniturePrefab;
-        GameObject furnitureModel = Instantiate(this.furniturePrefab, currentCursorPos, Quaternion.identity);
-        furnitureModel.GetComponent<FurniturePlacement>().Plane.SetActive(true);
+        furnitureModel = Instantiate(this.furniturePrefab, currentCursorPos, Quaternion.identity);
+        FurniturePlacement furniturePlacement = furnitureModel.GetComponent<FurniturePlacement>();
+        furniturePlacement.Plane.SetActive(true);
 
         buildingCursor = furnitureModel;
         buildingCursor.SetActive(true);
+    }
+
+    private void Place(){
+        if(!buildingCursor.GetComponent<FurniturePlacement>().CanBuild)
+            return;
+
+        GameObject furnitureObj = Instantiate(furniturePrefab, currentCursorPos, Quaternion.identity, furnitureParent.transform);
+    }
+
+    private void OnLeftClick(){
+        if(Input.GetMouseButtonUp(0)){
+            if(isPlacing)
+                Place();
+        }
+    }
+
+    private void OnRightClick(){
+        if(Input.GetMouseButtonDown(1)){
+            CancelPlacement();
+        }
+    }
+
+    private void CancelPlacement(){
+        isPlacing = false;
+        if(buildingCursor != null)
+            buildingCursor.SetActive(false);
+
+        if(furnitureModel != null)
+            Destroy(furnitureModel);
     }
 }

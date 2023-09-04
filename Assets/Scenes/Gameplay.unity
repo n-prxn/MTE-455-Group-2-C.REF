@@ -109,7 +109,7 @@ NavMeshSettings:
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.75
+    agentClimb: 0.3
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -21644,7 +21644,7 @@ MonoBehaviour:
   smoothSpeed: 0.25
   minZoomSize: 4
   maxZoomSize: 15
-  zoomMultiplier: 100
+  zoomMultiplier: 1000
 --- !u!1 &1584940212
 GameObject:
   m_ObjectHideFlags: 0
@@ -24693,7 +24693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6098492120720723085, guid: 32401666da3657b40915901505af94d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.42
       objectReference: {fileID: 0}
     - target: {fileID: 6098492120720723085, guid: 32401666da3657b40915901505af94d8, type: 3}
       propertyPath: m_LocalPosition.y

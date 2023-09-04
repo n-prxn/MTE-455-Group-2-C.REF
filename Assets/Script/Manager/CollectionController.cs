@@ -155,19 +155,4 @@ public class CollectionController : MonoBehaviour
         }
         UpdateCollectionUI(currentStudentID);
     }
-
-    /*public void LoadData(GameData data)
-    {
-        foreach (Student student in students)
-        {
-            bool studentCollected;
-            data.studentCollected.TryGetValue(student.id, out studentCollected);
-            student.Collected = studentCollected;
-        }
-    }
-
-    public void SaveData(ref GameData data)
-    {
-
-    }*/
 }

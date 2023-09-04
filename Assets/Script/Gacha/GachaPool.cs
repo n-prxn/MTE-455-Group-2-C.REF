@@ -47,7 +47,7 @@ public class GachaPool : MonoBehaviour, IData
     // Update is called once per frame
     void Update()
     {
-        rollCountText.text = "Roll : " + rollCount.ToString();
+        //rollCountText.text = "Roll : " + rollCount.ToString();
     }
 
     public void LoadData(GameData data)

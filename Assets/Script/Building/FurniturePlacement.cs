@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class FurniturePlacement : MonoBehaviour
 {
-    [SerializeField] private int widthGrid = 1;
-    [SerializeField] private int lengthGrid = 1;
     [SerializeField] private GameObject plane;
     public GameObject Plane
     {
@@ -36,8 +34,7 @@ public class FurniturePlacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isCollided)
-            CheckOutsideGrid(FurniturePlacementManager.instance.CurrentCursorPos, widthGrid, lengthGrid);
+        
     }
 
     private void ChangeColor(bool flag, Color color)
@@ -46,23 +43,9 @@ public class FurniturePlacement : MonoBehaviour
         canBuild = flag;
     }
 
-    public void CheckOutsideGrid(Vector3 pos, int objWidth, int objLength)
-    {
-        if (pos.x > (10 - widthGrid / 2) || pos.z > (10 - widthGrid / 2) - 1 || pos.x < (-10 + lengthGrid / 2) || pos.z < (-10 + lengthGrid / 2))
-        {
-            planeRenderer.material.color = Color.red;
-            canBuild = false;
-        }
-        else
-        {
-            planeRenderer.material.color = Color.green;
-            canBuild = true;
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Furniture")
+        if (other.tag == "Furniture" || other.tag == "Border")
         {
             isCollided = true;
             ChangeColor(false, Color.red);
@@ -71,7 +54,7 @@ public class FurniturePlacement : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Furniture")
+        if (other.tag == "Furniture" || other.tag == "Border")
         {
             isCollided = true;
             ChangeColor(false, Color.red);
@@ -80,7 +63,7 @@ public class FurniturePlacement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Furniture")
+        if (other.tag == "Furniture" || other.tag == "Border")
         {
             isCollided = false;
             ChangeColor(true, Color.green);

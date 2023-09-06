@@ -13,6 +13,10 @@ public enum Building
 public class Furniture : MonoBehaviour
 {
     [SerializeField] private byte id;
+    public byte ID{
+        get{ return id; }
+        set{ id = value;}
+    }
     [SerializeField] private new string name;
     public string Name
     {

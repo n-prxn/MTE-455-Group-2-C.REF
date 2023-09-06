@@ -9,6 +9,11 @@ using UnityEngine.EventSystems;
 public class FurnitureCardData : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Furniture furniture;
+    private GameObject furniturePrefab;
+    public GameObject FurniturePrefab{
+        get { return furniturePrefab;}
+        set { furniturePrefab = value;}
+    }
     public Furniture Furniture{
         get { return furniture;}
         set { furniture = value;}
@@ -27,8 +32,9 @@ public class FurnitureCardData : MonoBehaviour, IPointerClickHandler
         
     }
 
-    public void SetData(Furniture furniture){
+    public void SetData(Furniture furniture, GameObject prefab){
         this.furniture = furniture;
+        furniturePrefab = prefab;
         furnitureImage.sprite = furniture.FurnitureSprite;
         if(furniture.IsPlaced){
             furnitureImage.color = Color.black;

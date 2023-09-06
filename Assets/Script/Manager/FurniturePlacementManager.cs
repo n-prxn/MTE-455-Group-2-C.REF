@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FurniturePlacementManager : MonoBehaviour
 {
     [SerializeField] private GameObject gridPlane;
     [SerializeField] private GameObject furniturePrefab;
     [SerializeField] private GameObject furnitureParent;
+    [SerializeField] private GameObject furnitureWarehouseUI;
     private Camera cam;
     [SerializeField] private Vector3 currentCursorPos;
     public Vector3 CurrentCursorPos{
@@ -35,18 +37,18 @@ public class FurniturePlacementManager : MonoBehaviour
         if(isPlacing){
             buildingCursor.transform.position = currentCursorPos;
             gridPlane.SetActive(true);
+            OnRightClick();
+            OnLeftClick();
         }else{
             gridPlane.SetActive(false);
         }
-
-        OnLeftClick();
-        OnRightClick();
     }
 
     public void FurniturePlacement(GameObject furniturePrefab){
         isPlacing = true;
 
         this.furniturePrefab = furniturePrefab;
+        
         furnitureModel = Instantiate(this.furniturePrefab, currentCursorPos, Quaternion.identity);
         FurniturePlacement furniturePlacement = furnitureModel.GetComponent<FurniturePlacement>();
         furniturePlacement.Plane.SetActive(true);
@@ -59,7 +61,14 @@ public class FurniturePlacementManager : MonoBehaviour
         if(!buildingCursor.GetComponent<FurniturePlacement>().CanBuild)
             return;
 
-        GameObject furnitureObj = Instantiate(furniturePrefab, currentCursorPos, Quaternion.identity, furnitureParent.transform);
+        GameObject furnitureObj = Instantiate(furnitureModel, currentCursorPos, furnitureModel.transform.rotation, furnitureParent.transform);
+        furnitureObj.GetComponent<FurniturePlacement>().Plane.SetActive(false);
+        CancelPlacement();
+    }
+
+    private void RotateBuilding()
+    {
+        furnitureModel.transform.rotation *= Quaternion.Euler(Vector3.up * 90);
     }
 
     private void OnLeftClick(){
@@ -71,7 +80,7 @@ public class FurniturePlacementManager : MonoBehaviour
 
     private void OnRightClick(){
         if(Input.GetMouseButtonDown(1)){
-            CancelPlacement();
+            RotateBuilding();
         }
     }
 
@@ -82,5 +91,7 @@ public class FurniturePlacementManager : MonoBehaviour
 
         if(furnitureModel != null)
             Destroy(furnitureModel);
+
+        UIDisplay.instance.TogglePanel(furnitureWarehouseUI);
     }
 }

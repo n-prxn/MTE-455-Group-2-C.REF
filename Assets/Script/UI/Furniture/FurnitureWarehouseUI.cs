@@ -8,9 +8,14 @@ public class FurnitureWarehouseUI : MonoBehaviour
     [SerializeField] private GameObject cardParent;
 
     [SerializeField] private FurnitureDescription furnitureDescription;
+    private GameObject currentSelectedFurniture;
+    public GameObject CurrentSelectedFurniture
+    {
+        get { return currentSelectedFurniture; }
+        set { currentSelectedFurniture = value; }
+    }
 
     private List<FurnitureCardData> furnitureCardDatas = new List<FurnitureCardData>();
-
     void OnEnable()
     {
         InitializeWarehouse();
@@ -36,11 +41,12 @@ public class FurnitureWarehouseUI : MonoBehaviour
     public void InitializeWarehouse()
     {
         ResetWarehouse();
+        currentSelectedFurniture = null;
         foreach (GameObject furniture in FurnitureManager.instance.FurnitureList)
         {
             GameObject furnitureCard = Instantiate(cardPrefab, cardParent.transform);
             FurnitureCardData furnitureCardData = furnitureCard.GetComponent<FurnitureCardData>();
-            furnitureCardData.SetData(furniture.GetComponent<Furniture>());
+            furnitureCardData.SetData(furniture.GetComponent<Furniture>() , furniture);
             furnitureCardData.OnFurnitureCardClicked += HandleFurnitureCardSelected;
 
             furnitureCardDatas.Add(furnitureCardData);
@@ -62,5 +68,15 @@ public class FurnitureWarehouseUI : MonoBehaviour
     public void HandleFurnitureCardSelected(FurnitureCardData obj)
     {
         furnitureDescription.SetDescription(obj.Furniture);
+        currentSelectedFurniture = obj.FurniturePrefab;
+    }
+
+    public void PlaceFurniture(){
+        FurniturePlacementManager.instance.FurniturePlacement(currentSelectedFurniture);
+        
+        FurnitureManager.instance.RemoveFurniture(currentSelectedFurniture.GetComponent<Furniture>());
+        furnitureCardDatas.Remove(furnitureCardDatas.Find(x => x.Furniture.ID == currentSelectedFurniture.GetComponent<Furniture>().ID));
+        
+        UIDisplay.instance.TogglePanel(gameObject);
     }
 }

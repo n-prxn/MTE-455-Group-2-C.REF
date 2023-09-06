@@ -25,6 +25,12 @@ public class UIDisplay : MonoBehaviour
     [Header("Side Menu")]
     [SerializeField] GameObject gachaButton;
     [SerializeField] GameObject requestButton;
+    public static UIDisplay instance;
+
+    void Awake(){
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -117,5 +123,4 @@ public class UIDisplay : MonoBehaviour
             blackBackground.SetActive(true);
         }
     }
-
 }

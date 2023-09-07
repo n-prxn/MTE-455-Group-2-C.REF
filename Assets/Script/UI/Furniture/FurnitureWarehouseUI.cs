@@ -77,11 +77,7 @@ public class FurnitureWarehouseUI : MonoBehaviour
     public void PlaceFurniture()
     {
         FurniturePlacementManager.instance.FurniturePlacement(currentSelectedFurniture);
-
-        //FurnitureManager.instance.RemoveFurniture(currentSelectedFurniture.GetComponent<Furniture>());
         currentSelectedFurniture.GetComponent<Furniture>().IsPlaced = true;
-        //furnitureCardDatas.Remove(furnitureCardDatas.Find(x => x.Furniture.ID == currentSelectedFurniture.GetComponent<Furniture>().ID));
-
         UIDisplay.instance.TogglePanel(gameObject);
     }
 }

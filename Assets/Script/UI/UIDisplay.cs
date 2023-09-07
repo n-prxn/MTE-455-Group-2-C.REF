@@ -25,9 +25,20 @@ public class UIDisplay : MonoBehaviour
     [Header("Side Menu")]
     [SerializeField] GameObject gachaButton;
     [SerializeField] GameObject requestButton;
+    [SerializeField] GameObject sidePanel;
+    [SerializeField] GameObject nextButton;
+    
+    [Header("Mode Header")]
+    [SerializeField] GameObject placingMode;
+    [SerializeField] GameObject movingMode;
+    [SerializeField] GameObject storingMode;
+
+    [Header("Character")]
+    [SerializeField] GameObject characterParent;
     public static UIDisplay instance;
 
-    void Awake(){
+    void Awake()
+    {
         instance = this;
     }
 
@@ -122,5 +133,56 @@ public class UIDisplay : MonoBehaviour
             panel.SetActive(true);
             blackBackground.SetActive(true);
         }
+    }
+
+    public void ToggleSidePanel()
+    {
+        if (sidePanel.activeSelf && nextButton.activeSelf)
+        {
+            sidePanel.SetActive(false);
+            nextButton.SetActive(false);
+        }
+        else
+        {
+            sidePanel.SetActive(true);
+            nextButton.SetActive(true);
+        }
+    }
+
+    public void EnableMode(int mode){
+        
+        sidePanel.SetActive(false);
+        nextButton.SetActive(false);
+        
+        placingMode.SetActive(false);
+        movingMode.SetActive(false);
+        storingMode.SetActive(false);
+
+        characterParent.SetActive(false);
+
+        switch(mode){
+            case 0:
+                placingMode.SetActive(true);
+                break;
+            case 1:
+                movingMode.SetActive(true);
+                break;
+            case 2:
+                storingMode.SetActive(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void DisableMode(){
+        sidePanel.SetActive(true);
+        nextButton.SetActive(true);
+
+        placingMode.SetActive(false);
+        movingMode.SetActive(false);
+        storingMode.SetActive(false);
+
+        characterParent.SetActive(true);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor.VersionControl;
 
 public class FurniturePlacementManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class FurniturePlacementManager : MonoBehaviour
     }
     private bool isPlacing;
     private bool isEditing;
+    private bool isStoring;
     private GameObject furnitureModel;
 
     public GameObject buildingCursor;
@@ -37,9 +39,6 @@ public class FurniturePlacementManager : MonoBehaviour
     {
         currentCursorPos = GridPlacement.instance.GetCurrentTilePosition();
 
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.green);
-
         if (Input.GetKeyDown(KeyCode.Escape))
             CancelPlacement();
 
@@ -47,33 +46,65 @@ public class FurniturePlacementManager : MonoBehaviour
         {
             buildingCursor.transform.position = currentCursorPos;
             gridPlane.SetActive(true);
+            UIDisplay.instance.EnableMode(0);
 
             OnRightClick();
             OnLeftClick();
         }
         else if (isEditing)
         {
+            UIDisplay.instance.EnableMode(1);
             if (buildingCursor == null)
             {
-                Debug.Log("Find Furniture");
-                if (Input.GetMouseButtonUp(0))
-                    MoveFurniture();
+                MoveFurniture();
             }
             else
             {
-                Debug.Log("Ready to Place");
                 buildingCursor.transform.position = currentCursorPos;
 
                 OnRightClick();
                 OnLeftClick();
             }
         }
+        else if (isStoring)
+        {
+            UIDisplay.instance.EnableMode(2);
+            StoreFurniture();
+        }
         else
         {
+            UIDisplay.instance.DisableMode();
             gridPlane.SetActive(false);
         }
     }
 
+    #region Editing Mode
+    public void MoveFurniture()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.green);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Furniture")))
+        {
+            GameObject obj = hit.collider.gameObject;
+            Debug.Log(obj.name);
+
+            if (obj.tag == "Furniture")
+            {
+                if (Input.GetMouseButtonUp(0))
+                {
+                    furnitureModel = Instantiate(obj, currentCursorPos, obj.transform.rotation);
+                    FurniturePlacement furniturePlacement = furnitureModel.GetComponent<FurniturePlacement>();
+                    furniturePlacement.Plane.SetActive(true);
+
+                    buildingCursor = furnitureModel;
+                    Destroy(obj);
+                }
+            }
+        }
+    }
     public void EnableEditMode()
     {
         gridPlane.SetActive(true);
@@ -81,32 +112,9 @@ public class FurniturePlacementManager : MonoBehaviour
         UIDisplay.instance.TogglePanel(furnitureWarehouseUI);
     }
 
-    public void MoveFurniture()
-    {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+    #endregion
 
-        if (Physics.Raycast(ray, out hit, 10000))
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            GameObject obj = hit.collider.gameObject;
-
-            if (obj.tag == "Furniture")
-            {
-                furnitureModel = Instantiate(obj, currentCursorPos, obj.transform.rotation);
-                FurniturePlacement furniturePlacement = furnitureModel.GetComponent<FurniturePlacement>();
-                furniturePlacement.Plane.SetActive(true);
-
-                buildingCursor = furnitureModel;
-                Destroy(obj);
-
-                Debug.Log("Move");
-            }
-        }
-    }
-
+    #region Placement Mode
     public void FurniturePlacement(GameObject furniturePrefab)
     {
         isPlacing = true;
@@ -126,8 +134,17 @@ public class FurniturePlacementManager : MonoBehaviour
             return;
 
         GameObject furnitureObj = Instantiate(furnitureModel, currentCursorPos, furnitureModel.transform.rotation, furnitureParent.transform);
+        furnitureObj.name = furnitureObj.GetComponent<Furniture>().Name;
         furnitureObj.GetComponent<FurniturePlacement>().Plane.SetActive(false);
-        
+
+        if (isEditing)
+        {
+            buildingCursor = null;
+            Destroy(furnitureModel);
+
+            return;
+        }
+
         CancelPlacement();
     }
 
@@ -136,6 +153,56 @@ public class FurniturePlacementManager : MonoBehaviour
         furnitureModel.transform.rotation *= Quaternion.Euler(Vector3.up * 90);
     }
 
+    private void CancelPlacement()
+    {
+        isPlacing = false;
+        isEditing = false;
+        isStoring = false;
+        buildingCursor = null;
+
+        if (furnitureModel != null)
+            Destroy(furnitureModel);
+
+        UIDisplay.instance.TogglePanel(furnitureWarehouseUI);
+    }
+
+    #endregion
+
+    #region Store Mode
+
+    public void StoreFurniture()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.green);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Furniture")))
+        {
+            GameObject obj = hit.collider.gameObject;
+
+            if (obj.tag == "Furniture")
+            {
+                if (Input.GetMouseButtonUp(0))
+                {
+                    FurnitureManager.instance.FurnitureList.Find
+                    (x => x.GetComponent<Furniture>().ID == obj.GetComponent<Furniture>().ID)
+                    .GetComponent<Furniture>().IsPlaced = false;
+                    Destroy(obj);
+                }
+            }
+        }
+    }
+
+    public void EnableStoreMode()
+    {
+        gridPlane.SetActive(true);
+        isStoring = true;
+        UIDisplay.instance.TogglePanel(furnitureWarehouseUI);
+    }
+    #endregion
+
+    #region Mouse Controller
     private void OnLeftClick()
     {
         if (Input.GetMouseButtonUp(0))
@@ -152,16 +219,5 @@ public class FurniturePlacementManager : MonoBehaviour
             RotateBuilding();
         }
     }
-
-    private void CancelPlacement()
-    {
-        isPlacing = false;
-        isEditing = false;
-        buildingCursor = null;
-
-        if (furnitureModel != null)
-            Destroy(furnitureModel);
-
-        UIDisplay.instance.TogglePanel(furnitureWarehouseUI);
-    }
+    #endregion
 }

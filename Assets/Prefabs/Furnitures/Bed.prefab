@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3287570750703758615}
   - component: {fileID: 7945217552284440963}
   - component: {fileID: 7620456017030292109}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bed
   m_TagString: Furniture
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -114,8 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1c9df817ebf274c9267739bb43f787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  widthGrid: 5
-  lengthGrid: 7
   plane: {fileID: 5617392989699047314}
 --- !u!114 &7620456017030292109
 MonoBehaviour:

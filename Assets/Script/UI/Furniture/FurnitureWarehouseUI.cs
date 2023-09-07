@@ -44,12 +44,15 @@ public class FurnitureWarehouseUI : MonoBehaviour
         currentSelectedFurniture = null;
         foreach (GameObject furniture in FurnitureManager.instance.FurnitureList)
         {
-            GameObject furnitureCard = Instantiate(cardPrefab, cardParent.transform);
-            FurnitureCardData furnitureCardData = furnitureCard.GetComponent<FurnitureCardData>();
-            furnitureCardData.SetData(furniture.GetComponent<Furniture>() , furniture);
-            furnitureCardData.OnFurnitureCardClicked += HandleFurnitureCardSelected;
+            if (!furniture.GetComponent<Furniture>().IsPlaced)
+            {
+                GameObject furnitureCard = Instantiate(cardPrefab, cardParent.transform);
+                FurnitureCardData furnitureCardData = furnitureCard.GetComponent<FurnitureCardData>();
+                furnitureCardData.SetData(furniture.GetComponent<Furniture>(), furniture);
+                furnitureCardData.OnFurnitureCardClicked += HandleFurnitureCardSelected;
 
-            furnitureCardDatas.Add(furnitureCardData);
+                furnitureCardDatas.Add(furnitureCardData);
+            }
         }
     }
 
@@ -71,12 +74,14 @@ public class FurnitureWarehouseUI : MonoBehaviour
         currentSelectedFurniture = obj.FurniturePrefab;
     }
 
-    public void PlaceFurniture(){
+    public void PlaceFurniture()
+    {
         FurniturePlacementManager.instance.FurniturePlacement(currentSelectedFurniture);
-        
-        FurnitureManager.instance.RemoveFurniture(currentSelectedFurniture.GetComponent<Furniture>());
-        furnitureCardDatas.Remove(furnitureCardDatas.Find(x => x.Furniture.ID == currentSelectedFurniture.GetComponent<Furniture>().ID));
-        
+
+        //FurnitureManager.instance.RemoveFurniture(currentSelectedFurniture.GetComponent<Furniture>());
+        currentSelectedFurniture.GetComponent<Furniture>().IsPlaced = true;
+        //furnitureCardDatas.Remove(furnitureCardDatas.Find(x => x.Furniture.ID == currentSelectedFurniture.GetComponent<Furniture>().ID));
+
         UIDisplay.instance.TogglePanel(gameObject);
     }
 }

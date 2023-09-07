@@ -28,6 +28,11 @@ public class FurnitureManager : MonoBehaviour
     {
 
     }
+    
+    public void AddFurniture(GameObject furniture)
+    {
+        furnitureList.Add(furniture);
+    }
 
     public void RemoveFurniture(Furniture furniture){
         furnitureList.Remove(furnitureList.Find(x => x.GetComponent<Furniture>().ID == furniture.ID));

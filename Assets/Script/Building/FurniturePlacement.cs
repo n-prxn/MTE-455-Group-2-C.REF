@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FurniturePlacement : MonoBehaviour
 {
@@ -34,9 +35,8 @@ public class FurniturePlacement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
+    }
     private void ChangeColor(bool flag, Color color)
     {
         planeRenderer.material.color = color;

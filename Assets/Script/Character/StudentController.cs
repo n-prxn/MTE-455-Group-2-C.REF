@@ -32,19 +32,19 @@ public class StudentController : MonoBehaviour
     }
 
     void OnMouseOver(){
-        bubble.SetActive(true);
+        //bubble.SetActive(true);
     }
 
     void OnMouseExit(){
-        bubble.SetActive(false);
+        //bubble.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         Wander();
-        if(Input.GetMouseButtonDown(0))
-            ShowStudentUI();
+        //if(Input.GetMouseButtonDown(0))
+            //ShowStudentUI();
     }
 
     void Wander()

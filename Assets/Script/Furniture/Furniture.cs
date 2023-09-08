@@ -30,10 +30,6 @@ public class Furniture : MonoBehaviour
         set { description = value; }
     }
     [SerializeField] private int cost;
-    public int Cost{
-        get {return cost;}
-        set {cost = value;}
-    }
     [SerializeField] private Building building;
     [SerializeField] private Sprite furnitureSprite;
     public Sprite FurnitureSprite

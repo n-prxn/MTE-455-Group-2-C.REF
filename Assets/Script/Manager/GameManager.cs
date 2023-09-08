@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
                 UpdateRequest();
                 requestPool.DecreaseDays();
                 requestPool.GenerateRequests();
-                ShopManager.instance.GenerateTodayFurnitures();
             }
         }
     }

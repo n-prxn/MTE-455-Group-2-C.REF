@@ -5,11 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class FurnitureShelfData : MonoBehaviour, IPointerClickHandler
+public class FurnitureShelfData : ItemShelfData
 {
-    [SerializeField] TextMeshProUGUI furnitureNameText;
-    [SerializeField] TextMeshProUGUI furnitureDescText;
-    [SerializeField] TextMeshProUGUI costText;
     private Furniture furniture;
     private GameObject furniturePrefab;
     public GameObject FurniturePrefab
@@ -18,14 +15,6 @@ public class FurnitureShelfData : MonoBehaviour, IPointerClickHandler
         set { furniturePrefab = value; }
     }
 
-    private bool isPurchased = false;
-    public bool IsPurchased
-    {
-        get { return isPurchased; }
-        set { isPurchased = value; }
-    }
-
-    [SerializeField] private Image furnitureImage;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,18 +32,9 @@ public class FurnitureShelfData : MonoBehaviour, IPointerClickHandler
         furniturePrefab = furniture;
         this.furniture = furniture.GetComponent<Furniture>();
 
-        furnitureNameText.text = this.furniture.Name;
-        furnitureDescText.text = this.furniture.Description;
+        itemNameText.text = this.furniture.Name;
+        itemDescText.text = this.furniture.Description;
         costText.text = this.furniture.Cost.ToString();
-        furnitureImage.sprite = this.furniture.FurnitureSprite;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        PointerEventData pointerEventData = eventData;
-        if (pointerEventData.button == PointerEventData.InputButton.Left)
-        {
-
-        }
+        itemImage.sprite = this.furniture.FurnitureSprite;
     }
 }

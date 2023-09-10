@@ -21,6 +21,8 @@ public class UIDisplay : MonoBehaviour
     [Header("Resource UI")]
     [SerializeField] TMP_Text creditAmountText;
     [SerializeField] TMP_Text pyroxeneAmountText;
+    [SerializeField] TMP_Text crimeRateText;
+    [SerializeField] TMP_Text happinessText;
 
     [Header("Player Info UI")]
     [SerializeField] TMP_Text locationText;
@@ -109,7 +111,12 @@ public class UIDisplay : MonoBehaviour
         //Update Rank
         rankText.text = "RANK " + GameManager.instance.rank.ToString();
         xpBar.fillAmount = (float)GameManager.instance.currentXP / (float)GameManager.instance.maxXP;
+
+        crimeRateText.text = GameManager.instance.crimeRate.ToString() + "%";
+        happinessText.text = GameManager.instance.happiness.ToString() + "%";
+
         //Debug.Log(GameManager.instance.currentXP/GameManager.instance.maxXP);
+
     }
 
     public void ToggleGachaPanel()

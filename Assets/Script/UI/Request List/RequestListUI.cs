@@ -45,6 +45,11 @@ public class RequestListUI : MonoBehaviour
         //GenerateRequestCard();
     }
 
+    void OnEnable(){
+        GenerateRequestCard();
+        ShowIdleWindow();
+    }
+
     // Update is called once per frame
     void Update()
     {

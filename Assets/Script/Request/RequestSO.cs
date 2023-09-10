@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public enum Difficulty{
+public enum Difficulty
+{
     Easy,
     Extreme,
     Hardcore,
@@ -25,6 +26,8 @@ public class RequestSO : ScriptableObject
     public bool isRepeatable = false;
     public int duration = 1;
     public int availableDuration = 10;
+    public int demeritHappiness = 0;
+    public int demeritCrimeRate = 0;
 
     [Header("Status Requirement")]
     public int phyStat;
@@ -44,69 +47,90 @@ public class RequestSO : ScriptableObject
 
     [Header("Progress")]
     private bool isOperating = false;
-    public bool IsOperating {
-        get{ return isOperating; }
-        set{ isOperating = value;}
+    public bool IsOperating
+    {
+        get { return isOperating; }
+        set { isOperating = value; }
     }
     private int successRate = 0;
-    public int SuccessRate {
-        get{ return successRate; }
-        set{ successRate = value;}
+    public int SuccessRate
+    {
+        get { return successRate; }
+        set { successRate = value; }
     }
 
     private int currentTurn = 0;
-    public int CurrentTurn{
-        get{ return currentTurn; }
-        set{ currentTurn = value;}
+    public int CurrentTurn
+    {
+        get { return currentTurn; }
+        set { currentTurn = value; }
     }
 
     private int expiredCount = 0;
-    public int ExpireCount{
-        get{ return expiredCount; }
-        set{ expiredCount = value;}
+    public int ExpireCount
+    {
+        get { return expiredCount; }
+        set { expiredCount = value; }
     }
 
     private bool isRead = false;
-    public bool IsRead{
-        get {return isRead; }
-        set {isRead = value;}
+    public bool IsRead
+    {
+        get { return isRead; }
+        set { isRead = value; }
     }
 
     private bool isDone = false;
-    public bool IsDone{
-        get{return isDone;}
-        set {isDone = value;}
+    public bool IsDone
+    {
+        get { return isDone; }
+        set { isDone = value; }
     }
 
     private bool isShow = false;
-    public bool IsShow{
-        get{ return isShow; }
-        set {isShow = value;}
+    public bool IsShow
+    {
+        get { return isShow; }
+        set { isShow = value; }
     }
 
-    public void DecreaseStamina(){
-        for(int i = 0 ; i < 4 ; i++){
-            if(squad[i] != null)
+    private bool isSuccess = false;
+    public bool IsSuccess
+    {
+        get { return isSuccess; }
+        set { isSuccess = value; }
+    }
+
+    public void DecreaseStamina()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (squad[i] != null)
                 squad[i].CurrentStamina -= stamina;
         }
     }
 
-    public void ResetSquad(){
-        if(squad.Count == 0){
-            for(int i = 0; i < 4 ; i++)
+    public void ResetSquad()
+    {
+        if (squad.Count == 0)
+        {
+            for (int i = 0; i < 4; i++)
                 squad.Add(null);
         }
-        for(int i = 0; i < 4 ; i++){
-            if(squad[i] != null)
+        for (int i = 0; i < 4; i++)
+        {
+            if (squad[i] != null)
                 squad[i].IsAssign = false;
         }
         squad.Clear();
-        for(int i = 0; i < 4 ; i++){
+        for (int i = 0; i < 4; i++)
+        {
             squad.Add(null);
         }
     }
 
-    public int TotalStat(){
+    public int TotalStat()
+    {
         return phyStat + intStat + comStat;
     }
 }

@@ -39,9 +39,9 @@ public class RequestUI : MonoBehaviour
     //[SerializeField] private RequestSO currentRequest;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+
     }
 
     void Awake()
@@ -147,16 +147,17 @@ public class RequestUI : MonoBehaviour
         if (RequestManager.instance.CurrentRequest.squad.Count > 0)
         {
             RequestManager.instance.SendSquad();
-            Back();
+            requestListPanel.UpdateDescription(RequestManager.instance.CurrentRequest);
+            requestListPanel.gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 
     public void Back()
     {
-        requestListPanel.GenerateRequestCard();
         requestListPanel.UpdateDescription(RequestManager.instance.CurrentRequest);
-        requestListPanel.ShowIdleWindow();
         requestListPanel.gameObject.SetActive(true);
+        RequestManager.instance.CurrentRequest.ResetSquad();
         gameObject.SetActive(false);
     }
 }

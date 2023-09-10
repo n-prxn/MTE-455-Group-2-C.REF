@@ -12,6 +12,7 @@ public class RequestCardData : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject noticeSymbol;
     [SerializeField] private TextMeshProUGUI requesterText;
     [SerializeField] private TextMeshProUGUI requesterStatus;
+    [SerializeField] private Image border;
     private RequestSO requestData;
     public RequestSO RequestData
     {
@@ -45,6 +46,21 @@ public class RequestCardData : MonoBehaviour, IPointerClickHandler
         
         if(!requestData.IsRead){
             noticeSymbol.SetActive(true);
+        }
+
+        switch(request.difficulty){
+            case Difficulty.Easy:
+                border.color = new Color32(97,197,21,255);
+                break;
+            case Difficulty.Hardcore:
+                border.color = new Color32(255,154,0,255);
+                break;
+            case Difficulty.Extreme:
+                border.color = new Color32(234,78,52,255);
+                break;
+            case Difficulty.Insane:
+                border.color = new Color32(121,76,207,255);
+                break;
         }
     }
 

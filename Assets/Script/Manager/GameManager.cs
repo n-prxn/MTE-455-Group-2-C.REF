@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,8 +19,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Schale Rank")]
     public int currentXP = 0;
-    public int maxXP = 1000;
-    public int rank = 1;
+    public int maxXP = 220;
+    public int rank = 0;
 
     [Header("Pools")]
     [SerializeField] RequestPool requestPool;
@@ -49,7 +50,9 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-        }else{
+        }
+        else
+        {
             Destroy(gameObject);
         }
     }
@@ -62,7 +65,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        RankUp();
     }
 
     public void NextTurn()
@@ -96,11 +99,30 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void CheckResult()
+    void RankUp()
     {
+        if(currentXP >= maxXP){
+            rank++;
+            if(rank > 10)
+                rank = 10;
 
+            pyroxenes += 1200;
+            credits += 40000;
+
+            ShopManager.instance.MaxItem++;
+            RequestManager.instance.maxRequestCapacity++;
+
+            if(rank == 3){
+                RequestManager.instance.requestPerTurn++;
+            }else if(rank == 6){
+                RequestManager.instance.requestPerTurn++;
+            }
+
+            currentXP = currentXP - maxXP;
+            //Add Item
+        }
     }
-
+    
     void RequestProcess(RequestSO request)
     {
         request.CurrentTurn--;
@@ -114,11 +136,13 @@ public class GameManager : MonoBehaviour
 
             if (Random.Range(0, 100) <= request.SuccessRate)
             {
+                request.IsSuccess = true;
                 Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
                 //ReceiveRewards(request);
             }
             else
             {
+                request.IsSuccess = false;
                 Debug.Log(request.name + " has failed! with " + request.SuccessRate + "%");
             }
 
@@ -126,12 +150,15 @@ public class GameManager : MonoBehaviour
             request.IsOperating = false;
             request.IsDone = true;
             RequestManager.instance.RemoveRequest(request);
-            ;
         }
     }
 
     public void BackToPreviousScene()
     {
         sceneManager.LoadPreviousScene();
+    }
+
+    public void IncreaseXP(int xp){
+        currentXP += xp;
     }
 }

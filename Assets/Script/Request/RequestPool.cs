@@ -46,6 +46,47 @@ public class RequestPool : MonoBehaviour
                 } while (request.IsOperating || (request.IsDone && !request.isRepeatable) || request.IsShow);
                 request.IsRead = false;
                 request.IsShow = true;
+
+                float multiplier = 0f;
+                int happiness = GameManager.instance.happiness;
+                if (happiness >= 70)
+                {
+                    multiplier = 1f;
+                }
+                else if (happiness >= 50)
+                {
+                    multiplier = 1.05f;
+                }
+                else if (happiness >= 30)
+                {
+                    multiplier = 1.1f;
+                }
+                else
+                    multiplier = 1.2f;
+
+                request.phyStat = (int)(request.phyStat * multiplier) <= 300 ? (int)(request.phyStat * multiplier) : 300;
+                request.intStat = (int)(request.intStat * multiplier) <= 300 ? (int)(request.phyStat * multiplier) : 300;
+                request.comStat = (int)(request.comStat * multiplier) <= 300 ? (int)(request.phyStat * multiplier) : 300;
+
+                if (request.id != 0)
+                {
+                    switch (request.difficulty)
+                    {
+                        case Difficulty.Easy:
+                            request.credit = Random.Range(5000, 10000);
+                            break;
+                        case Difficulty.Hardcore:
+                            request.credit = Random.Range(30000, 50000);
+                            break;
+                        case Difficulty.Extreme:
+                            request.credit = Random.Range(50000, 100000);
+                            break;
+                        case Difficulty.Insane:
+                            request.credit = Random.Range(100000, 200000);
+                            break;
+                    }
+                }
+
                 RequestManager.instance.TodayRequests.Add(request);
             }
         }

@@ -12,6 +12,10 @@ public class ResultUI : MonoBehaviour
 
     [Header("Panel")]
     [SerializeField] RequestListUI requestListPanel;
+    [SerializeField] GameObject successPanel;
+    [SerializeField] GameObject failedPanel;
+    [SerializeField] GameObject rewardPanel;
+    [SerializeField] GameObject demeritPanel;
 
     [Header("UI")]
     [SerializeField] TextMeshProUGUI requestText;
@@ -22,10 +26,11 @@ public class ResultUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    void OnEnable(){
+    void OnEnable()
+    {
         InitializeResult();
     }
 
@@ -45,7 +50,7 @@ public class ResultUI : MonoBehaviour
         currentSelectedRequest = RequestManager.instance.CurrentRequest;
         currentSelectedRequest.DecreaseStamina();
         ClearSquadInfo();
-        
+
         for (int i = 0; i < 4; i++)
         {
             Student student = currentSelectedRequest.squad[i];
@@ -62,6 +67,21 @@ public class ResultUI : MonoBehaviour
         currentSelectedRequest.ResetSquad();
         currentSelectedRequest.CurrentTurn = currentSelectedRequest.duration;
         currentSelectedRequest.SuccessRate = 100;
+
+        if (currentSelectedRequest.IsSuccess)
+        {
+            successPanel.SetActive(true);
+            failedPanel.SetActive(false);
+            rewardPanel.SetActive(true);
+            demeritPanel.SetActive(false);
+        }
+        else
+        {
+            successPanel.SetActive(false);
+            failedPanel.SetActive(true);
+            rewardPanel.SetActive(false);
+            demeritPanel.SetActive(true);
+        }
 
         //squadParent.GetComponent<VerticalLayoutGroup>().spacing -= 0.1f;
     }
@@ -89,6 +109,6 @@ public class ResultUI : MonoBehaviour
         GameManager.instance.pyroxenes += request.pyroxene;
         GameManager.instance.currentXP += request.xp;
         GameManager.instance.happiness += request.happiness;
-        GameManager.instance.crimeRate -= request.crimeRate;
+        GameManager.instance.crimeRate += request.crimeRate;
     }
 }

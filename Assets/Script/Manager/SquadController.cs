@@ -17,6 +17,7 @@ public class SquadController : MonoBehaviour
     void Awake()
     {
         instance = this;
+        InitializeStudentStat();
     }
 
     void Start(){
@@ -27,6 +28,15 @@ public class SquadController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void InitializeStudentStat(){
+        foreach(Student student in students){
+            student.CurrentPHYStat = student.phyStat;
+            student.CurrentINTStat = student.intStat;
+            student.CurrentCOMStat = student.comStat;
+            student.CurrentStamina = student.stamina;
+        }
     }
 
     public void Receive(Student s){

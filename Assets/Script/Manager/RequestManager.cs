@@ -6,8 +6,8 @@ using UnityEngine;
 public class RequestManager : MonoBehaviour
 {
     [Header("Capacity")]
-    public int requestPerTurn = 3;
-    public int maxRequestCapacity = 9;
+    public int requestPerTurn = 1;
+    public int maxRequestCapacity = 3;
     public static RequestManager instance;
     [SerializeField] private List<RequestSO> todayRequests = new List<RequestSO>();
     public List<RequestSO> TodayRequests

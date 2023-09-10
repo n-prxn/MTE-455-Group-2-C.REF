@@ -46,7 +46,11 @@ public class ShopManager : MonoBehaviour
         set { todayTicketWarehouse = value; }
     }
 
-    [SerializeField] private int maxItem = 3;
+    [SerializeField] private int maxItem = 1;
+    public int MaxItem{
+        get {return maxItem;}
+        set {maxItem = value;}
+    }
     void Awake()
     {
         instance = this;

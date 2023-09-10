@@ -25,6 +25,9 @@ public class RequestJSON
     public string crimeRate;
     public string pyroxene;
     public string duration;
+    public string expiration;
+    public string deHappiness;
+    public string deCrimeRate;
     public string portrait;
 }
 
@@ -78,18 +81,23 @@ public class RequestJSONImport : MonoBehaviour
         {
             case "Easy":
                 requestSO.difficulty = Difficulty.Easy;
+                requestSO.stamina = 10;
                 break;
             case "Extreme":
                 requestSO.difficulty = Difficulty.Extreme;
+                requestSO.stamina = 20;
                 break;
             case "Hardcore":
                 requestSO.difficulty = Difficulty.Hardcore;
+                requestSO.stamina = 30;
                 break;
             case "Insane":
                 requestSO.difficulty = Difficulty.Insane;
+                requestSO.stamina = 40;
                 break;
             case "Emergency":
                 requestSO.difficulty = Difficulty.Emergency;
+                requestSO.stamina = 50;
                 break;
         }
 
@@ -101,7 +109,12 @@ public class RequestJSONImport : MonoBehaviour
         requestSO.xp = data.xp == null ? 0 : int.Parse(data.xp);
         requestSO.happiness = data.happiness == null ? 0 : int.Parse(data.happiness);
         requestSO.crimeRate = data.crimeRate == null ? 0 : int.Parse(data.crimeRate);
+        requestSO.credit = 0;
         requestSO.pyroxene = data.pyroxene == null ? 0 : int.Parse(data.pyroxene);
+        requestSO.availableDuration = data.duration == null ? 0 : int.Parse(data.duration);
+        requestSO.duration = data.expiration == null ? 0 : int.Parse(data.expiration);
+        requestSO.demeritHappiness = data.deHappiness == null ? 0 : int.Parse(data.deHappiness);
+        requestSO.demeritCrimeRate = data.deCrimeRate == null ? 0 : int.Parse(data.deCrimeRate);
     }
 
 }

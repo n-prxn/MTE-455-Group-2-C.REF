@@ -43,10 +43,9 @@ public class StudentSelectionUI : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //GameManager.instance.IsPlayable = false;
+
     }
 
     public void InitializeStudents()

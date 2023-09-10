@@ -116,6 +116,7 @@ public class RequestJSONImport : MonoBehaviour
         requestSO.duration = data.expiration == null ? 0 : int.Parse(data.expiration);
         requestSO.demeritHappiness = data.deHappiness == null ? 0 : int.Parse(data.deHappiness);
         requestSO.demeritCrimeRate = data.deCrimeRate == null ? 0 : int.Parse(data.deCrimeRate);
+        requestSO.chatStatus = data.statusText;
     }
 
 }

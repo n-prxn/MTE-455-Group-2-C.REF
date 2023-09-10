@@ -8,6 +8,10 @@ public class FurnitureShopUI : ItemShopUI
     // Start is called before the first frame update
     void OnEnable()
     {
+        
+    }
+
+    void Start(){
         InitializeFurnitureShelf();
     }
 

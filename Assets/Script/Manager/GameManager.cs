@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] RequestPool requestPool;
     [SerializeField] RequestListUI requestListUI;
 
+    [Header("Shop")]
+    [SerializeField] FurnitureShopUI furnitureShopUI;
+    [SerializeField] ItemSOShopUI presentShopUI;
+    [SerializeField] ItemSOShopUI ticketShopUI;
+
     private bool isPlayable = true;
     public bool IsPlayable
     {
@@ -60,7 +65,10 @@ public class GameManager : MonoBehaviour
                 UpdateRequest();
                 requestPool.DecreaseDays();
                 requestPool.GenerateRequests();
-                ShopManager.instance.GenerateTodayFurnitures();
+
+                ShopManager.instance.GenerateShopItems();
+                presentShopUI.InitializeItemSOShelf();
+                furnitureShopUI.InitializeFurnitureShelf();
             }
         }
     }

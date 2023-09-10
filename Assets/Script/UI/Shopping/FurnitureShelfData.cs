@@ -15,18 +15,6 @@ public class FurnitureShelfData : ItemShelfData
         set { furniturePrefab = value; }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SetData(GameObject furniture)
     {
         furniturePrefab = furniture;
@@ -36,5 +24,17 @@ public class FurnitureShelfData : ItemShelfData
         itemDescText.text = this.furniture.Description;
         costText.text = this.furniture.Cost.ToString();
         itemImage.sprite = this.furniture.FurnitureSprite;
+    }
+
+    public void Buy(){
+        if(GameManager.instance.credits < furniture.Cost)
+            return;
+
+        IsPurchased = true;
+        InventoryManager.instance.FurnitureList.Add(furniturePrefab);
+
+        GameManager.instance.credits -= furniture.Cost;
+        buyButton.SetActive(false);
+        soldButton.SetActive(true);
     }
 }

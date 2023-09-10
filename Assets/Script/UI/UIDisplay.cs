@@ -135,6 +135,10 @@ public class UIDisplay : MonoBehaviour
         }
     }
 
+    public void ToggleBlackBackground(bool isToggled){
+        blackBackground.SetActive(isToggled);
+    }
+
     public void ToggleSidePanel()
     {
         if (sidePanel.activeSelf && nextButton.activeSelf)

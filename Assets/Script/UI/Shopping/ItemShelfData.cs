@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System;
 using TMPro;
 
-public abstract class ItemShelfData : MonoBehaviour, IPointerClickHandler
+public abstract class ItemShelfData : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI itemNameText;
     [SerializeField] protected TextMeshProUGUI itemDescText;
@@ -14,8 +14,6 @@ public abstract class ItemShelfData : MonoBehaviour, IPointerClickHandler
     [SerializeField] protected Image itemImage;
     [SerializeField] protected GameObject buyButton;
     [SerializeField] protected GameObject soldButton;
-
-    public event Action<ItemShelfData> OnItemShelfClicked;
 
     protected bool isPurchased = false;
     public bool IsPurchased
@@ -34,14 +32,5 @@ public abstract class ItemShelfData : MonoBehaviour, IPointerClickHandler
     void Update()
     {
         
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        PointerEventData pointerEventData = eventData;
-        if (pointerEventData.button == PointerEventData.InputButton.Left)
-        {
-            OnItemShelfClicked.Invoke(this);
-        }
     }
 }

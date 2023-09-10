@@ -15,32 +15,39 @@ public class InventoryManager : MonoBehaviour
     }
 
     [Header("Present")]
-    [SerializeField] private List<GameObject> presentList = new List<GameObject>();
-    public List<GameObject> PresentList{
+    [SerializeField] private List<ItemSO> presentList = new List<ItemSO>();
+    public List<ItemSO> PresentList
+    {
         get { return presentList; }
         set { presentList = value; }
     }
 
     [Header("Ticket")]
-    [SerializeField] private List<GameObject> ticketList = new List<GameObject>();
-    public List<GameObject> TicketList{
+    [SerializeField] private List<ItemSO> ticketList = new List<ItemSO>();
+    public List<ItemSO> TicketList
+    {
         get { return ticketList; }
         set { ticketList = value; }
     }
 
-    void Awake(){
+    void Awake()
+    {
         instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void AddItemToInventory(ItemSO item)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (item.itemType == ItemType.Present)
+        {
+            if (presentList.Find(x => x.id == item.id) == null)
+                presentList.Add(item);
+            presentList.Find(x => x.id == item.id).Amount++;
+        }
+        else
+        {
+            if (ticketList.Find(x => x.id == item.id) == null)
+                ticketList.Add(item);
+            ticketList.Find(x => x.id == item.id).Amount++;
+        }
     }
 }

@@ -18,17 +18,32 @@ public class ShopManager : MonoBehaviour
         get { return todayFurnitureWarehouse; }
     }
 
-    [SerializeField] private List<GameObject> presentWarehouse;
-    public List<GameObject> PresentWarehouse
+    [SerializeField] private List<ItemSO> presentWarehouse;
+    public List<ItemSO> PresentWarehouse
     {
         get { return presentWarehouse; }
         set { presentWarehouse = value; }
     }
-    [SerializeField] private List<GameObject> ticketWarehouse;
-    public List<GameObject> TicketWarehouse
+
+    private List<ItemSO> todayPresentWarehouse = new List<ItemSO>();
+    public List<ItemSO> TodayPresentWarehouse
+    {
+        get { return todayPresentWarehouse; }
+        set { todayPresentWarehouse = value; }
+    }
+
+    [SerializeField] private List<ItemSO> ticketWarehouse;
+    public List<ItemSO> TicketWarehouse
     {
         get { return ticketWarehouse; }
         set { ticketWarehouse = value; }
+    }
+
+    private List<ItemSO> todayTicketWarehouse = new List<ItemSO>();
+    public List<ItemSO> TodayTicketWarehouse
+    {
+        get { return todayTicketWarehouse; }
+        set { todayTicketWarehouse = value; }
     }
 
     [SerializeField] private int maxItem = 3;
@@ -40,7 +55,7 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateTodayFurnitures();
+        GenerateShopItems();
     }
 
     // Update is called once per frame
@@ -49,7 +64,14 @@ public class ShopManager : MonoBehaviour
 
     }
 
-    public void GenerateTodayFurnitures()
+    public void GenerateShopItems()
+    {
+        GenerateTodayFurnitures();
+        GenerateTodayPresents();
+        //GenerateTodayTickets();
+    }
+
+    private void GenerateTodayFurnitures()
     {
         todayFurnitureWarehouse.Clear();
         for (int i = 0; i < maxItem; i++)
@@ -60,6 +82,34 @@ public class ShopManager : MonoBehaviour
                 furniture = furnitureWarehouse[Random.Range(0, furnitureWarehouse.Count - 1)];
             } while (todayFurnitureWarehouse.Contains(furniture));
             todayFurnitureWarehouse.Add(furniture);
+        }
+    }
+
+    private void GenerateTodayPresents()
+    {
+        todayPresentWarehouse.Clear();
+        for (int i = 0; i < maxItem; i++)
+        {
+            ItemSO present;
+            do
+            {
+                present = presentWarehouse[Random.Range(0, presentWarehouse.Count - 1)];
+            } while (todayPresentWarehouse.Contains(present));
+            todayPresentWarehouse.Add(present);
+        }
+    }
+
+    private void GenerateTodayTickets()
+    {
+        todayTicketWarehouse.Clear();
+        for (int i = 0; i < maxItem; i++)
+        {
+            ItemSO ticket;
+            do
+            {
+                ticket = ticketWarehouse[Random.Range(0, ticketWarehouse.Count - 1)];
+            } while (todayTicketWarehouse.Contains(ticket));
+            todayTicketWarehouse.Add(ticket);
         }
     }
 }

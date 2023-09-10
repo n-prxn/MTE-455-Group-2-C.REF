@@ -28,7 +28,7 @@ public class BuildingManager : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 1000))
+        if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Building")))
         {
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
@@ -39,6 +39,7 @@ public class BuildingManager : MonoBehaviour
             {
                 case "Shopping":
                     Debug.Log("Shopping");
+                    GameManager.instance.sceneManager.LoadScene("Dorm");
                     break;
             }
         }

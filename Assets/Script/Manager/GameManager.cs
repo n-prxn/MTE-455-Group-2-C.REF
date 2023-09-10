@@ -24,6 +24,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] RequestPool requestPool;
     [SerializeField] RequestListUI requestListUI;
 
+    [Header("Shop")]
+    [SerializeField] FurnitureShopUI furnitureShopUI;
+    [SerializeField] ItemSOShopUI presentShopUI;
+    [SerializeField] ItemSOShopUI ticketShopUI;
+
+    [Header("Scene")]
+    public SceneManager sceneManager;
+
     private bool isPlayable = true;
     public bool IsPlayable
     {
@@ -37,6 +45,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -47,7 +56,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     public void NextTurn()
@@ -60,6 +69,10 @@ public class GameManager : MonoBehaviour
                 UpdateRequest();
                 requestPool.DecreaseDays();
                 requestPool.GenerateRequests();
+
+                ShopManager.instance.GenerateShopItems();
+                presentShopUI.InitializeItemSOShelf();
+                furnitureShopUI.InitializeFurnitureShelf();
             }
         }
     }
@@ -109,5 +122,9 @@ public class GameManager : MonoBehaviour
             RequestManager.instance.RemoveRequest(request);
             ;
         }
+    }
+
+    public void BackToPreviousScene(){
+        sceneManager.LoadPreviousScene();
     }
 }

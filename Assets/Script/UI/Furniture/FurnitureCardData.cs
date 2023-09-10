@@ -36,11 +36,6 @@ public class FurnitureCardData : MonoBehaviour, IPointerClickHandler
         this.furniture = furniture;
         furniturePrefab = prefab;
         furnitureImage.sprite = furniture.FurnitureSprite;
-        if(furniture.IsPlaced){
-            furnitureImage.color = Color.black;
-        }else{
-            furnitureImage.color = Color.white;
-        }
     }
 
     public void OnPointerClick(PointerEventData eventData){

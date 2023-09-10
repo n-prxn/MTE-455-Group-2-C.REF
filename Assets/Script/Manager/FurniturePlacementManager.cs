@@ -185,7 +185,7 @@ public class FurniturePlacementManager : MonoBehaviour
             {
                 if (Input.GetMouseButtonUp(0))
                 {
-                    FurnitureManager.instance.FurnitureList.Find
+                    InventoryManager.instance.FurnitureList.Find
                     (x => x.GetComponent<Furniture>().ID == obj.GetComponent<Furniture>().ID)
                     .GetComponent<Furniture>().IsPlaced = false;
                     Destroy(obj);

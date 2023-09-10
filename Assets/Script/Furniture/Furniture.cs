@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Building
+public enum BuildingType
 {
     Dormitory,
     Gym,
@@ -30,6 +30,10 @@ public class Furniture : MonoBehaviour
         set { description = value; }
     }
     [SerializeField] private int cost;
+    public int Cost{
+        get {return cost;}
+        set {cost = value;}
+    }
     [SerializeField] private Building building;
     [SerializeField] private Sprite furnitureSprite;
     public Sprite FurnitureSprite

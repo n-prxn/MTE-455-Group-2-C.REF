@@ -29,6 +29,7 @@ public class RequestJSON
     public string deHappiness;
     public string deCrimeRate;
     public string portrait;
+    public string statusText;
 }
 
 public class RequestJSONImport : MonoBehaviour
@@ -84,11 +85,11 @@ public class RequestJSONImport : MonoBehaviour
                 requestSO.stamina = 10;
                 break;
             case "Extreme":
-                requestSO.difficulty = Difficulty.Extreme;
+                requestSO.difficulty = Difficulty.Hardcore;
                 requestSO.stamina = 20;
                 break;
             case "Hardcore":
-                requestSO.difficulty = Difficulty.Hardcore;
+                requestSO.difficulty = Difficulty.Extreme;
                 requestSO.stamina = 30;
                 break;
             case "Insane":

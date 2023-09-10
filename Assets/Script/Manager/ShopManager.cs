@@ -50,12 +50,13 @@ public class ShopManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        GenerateShopItems();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GenerateShopItems();
+        
     }
 
     // Update is called once per frame

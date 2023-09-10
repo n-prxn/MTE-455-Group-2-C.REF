@@ -11,6 +11,11 @@ public class Building : MonoBehaviour
 
     [SerializeField] private GameObject availableModel;
     [SerializeField] private GameObject unavailableModel;
+    private bool isAvailable = false;
+    public bool IsAvailable{
+        get{return isAvailable;}
+        set{isAvailable = value;}
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +28,11 @@ public class Building : MonoBehaviour
         if(GameManager.instance.rank < unlockedRank){
             availableModel.SetActive(false);
             unavailableModel.SetActive(true);
+            isAvailable = false;
         }else{
             availableModel.SetActive(true);
             unavailableModel.SetActive(false);
+            isAvailable = true;
         }
     }
 }

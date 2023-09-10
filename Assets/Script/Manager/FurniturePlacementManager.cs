@@ -33,6 +33,7 @@ public class FurniturePlacementManager : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        furnitureWarehouseUI = GameObject.Find("UI Canvas").transform.GetChild(2).GetChild(2).GetChild(11).gameObject;
     }
 
     void Update()

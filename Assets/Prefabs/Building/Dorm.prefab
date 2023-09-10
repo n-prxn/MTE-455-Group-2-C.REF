@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4804023593592704205}
   - component: {fileID: 8118569783505451860}
   - component: {fileID: 8387394129061841980}
+  - component: {fileID: 2919991334137204140}
   m_Layer: 7
   m_Name: Dorm
   m_TagString: Dorm
@@ -33,7 +34,7 @@ Transform:
   - {fileID: 223713160766570661}
   - {fileID: 3847013860152396336}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &8118569783505451860
 NavMeshObstacle:
@@ -69,6 +70,27 @@ MonoBehaviour:
   studentCapacity: 3
   availableModel: {fileID: 599288003883571743}
   unavailableModel: {fileID: 4478977257105461386}
+--- !u!65 &2919991334137204140
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401232461565884136}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 22, y: 5.763336, z: 20}
+  m_Center: {x: -2.5, y: 5.881667, z: -2.9999995}
 --- !u!1001 &328886546401797966
 PrefabInstance:
   m_ObjectHideFlags: 0

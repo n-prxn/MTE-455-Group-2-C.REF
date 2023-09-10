@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -44,8 +45,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }else{
+            Destroy(gameObject);
+        }
     }
 
     void Start()
@@ -56,7 +62,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void NextTurn()
@@ -124,7 +130,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BackToPreviousScene(){
+    public void BackToPreviousScene()
+    {
         sceneManager.LoadPreviousScene();
     }
 }

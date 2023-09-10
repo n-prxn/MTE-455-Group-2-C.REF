@@ -34,12 +34,25 @@ public class BuildingManager : MonoBehaviour
                 return;
 
             GameObject building = hit.collider.gameObject;
+            Debug.Log(building.name);
+            Building buildingData = building.GetComponent<Building>();
 
+            if(!buildingData.IsAvailable)
+                return;
+            
             switch (building.tag)
             {
-                case "Shopping":
-                    Debug.Log("Shopping");
+                case "Dorm":
                     GameManager.instance.sceneManager.LoadScene("Dorm");
+                    break;
+                case "Cafe":
+                    GameManager.instance.sceneManager.LoadScene("Cafe");
+                    break;
+                case "Library":
+                    GameManager.instance.sceneManager.LoadScene("Library");
+                    break;
+                case "Gym":
+                    GameManager.instance.sceneManager.LoadScene("Gym");
                     break;
             }
         }

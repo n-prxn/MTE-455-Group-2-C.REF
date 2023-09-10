@@ -23,6 +23,7 @@ public class UIDisplay : MonoBehaviour
     [SerializeField] TMP_Text pyroxeneAmountText;
 
     [Header("Player Info UI")]
+    [SerializeField] TMP_Text locationText;
     [SerializeField] TMP_Text rankText;
     [SerializeField] Image xpBar;
 
@@ -43,9 +44,13 @@ public class UIDisplay : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
-
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }else{
+            Destroy(gameObject);
+        }
     }
 
     // Start is called before the first frame update
@@ -62,8 +67,12 @@ public class UIDisplay : MonoBehaviour
 
         if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay"){
             backButton.SetActive(true);
+            sidePanel.transform.GetChild(2).GetComponent<Button>().interactable = true;
+            locationText.text = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         }else{
             backButton.SetActive(false);
+            sidePanel.transform.GetChild(2).GetComponent<Button>().interactable = false;
+            locationText.text = "Schale";
         }
     }
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6409705609252147544}
   - component: {fileID: 2727385034294900496}
   - component: {fileID: 3744305080703410529}
+  - component: {fileID: 470551823465272181}
   m_Layer: 7
   m_Name: Cafe
   m_TagString: Cafe
@@ -33,7 +34,7 @@ Transform:
   - {fileID: 2223629877437879402}
   - {fileID: 8807015242708730927}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &2727385034294900496
 NavMeshObstacle:
@@ -69,6 +70,27 @@ MonoBehaviour:
   studentCapacity: 3
   availableModel: {fileID: 1553806996133711568}
   unavailableModel: {fileID: 8174909768589811349}
+--- !u!65 &470551823465272181
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8830580612401710713}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 18, y: 9.813949, z: 18}
+  m_Center: {x: -1.5000004, y: 8.710366, z: -4.0000005}
 --- !u!1001 &1824330492831085441
 PrefabInstance:
   m_ObjectHideFlags: 0

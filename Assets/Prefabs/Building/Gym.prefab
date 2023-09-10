@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5754392666500441274}
   - component: {fileID: 6566582016244587612}
   - component: {fileID: 2798726496689926526}
+  - component: {fileID: 462165767428125628}
   m_Layer: 7
   m_Name: Gym
   m_TagString: Gym
@@ -33,7 +34,7 @@ Transform:
   - {fileID: 3647554560702701177}
   - {fileID: 9177557316163791339}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &6566582016244587612
 NavMeshObstacle:
@@ -69,6 +70,27 @@ MonoBehaviour:
   studentCapacity: 3
   availableModel: {fileID: 4167350420479018179}
   unavailableModel: {fileID: 8365132213637526353}
+--- !u!65 &462165767428125628
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996143277954818027}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 21.000002, y: 8.929291, z: 22}
+  m_Center: {x: 0, y: 7.044158, z: -5}
 --- !u!1001 &3824698413391755666
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Building
+public enum BuildingType
 {
     Dormitory,
     Gym,

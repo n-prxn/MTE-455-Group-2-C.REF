@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIDisplay : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class UIDisplay : MonoBehaviour
     [SerializeField] GameObject gachaPanel;
     [SerializeField] GameObject requestListPanel;
     [SerializeField] GameObject blackBackground;
+
+    [Header("Back Button")]
+    [SerializeField] GameObject backButton;
 
     [Header("Turn UI")]
     [SerializeField] TMP_Text turnText;
@@ -40,6 +44,8 @@ public class UIDisplay : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     // Start is called before the first frame update
@@ -53,6 +59,12 @@ public class UIDisplay : MonoBehaviour
     {
         UpdateUIResource();
         UpdateButton();
+
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay"){
+            backButton.SetActive(true);
+        }else{
+            backButton.SetActive(false);
+        }
     }
 
     void UpdateButton()

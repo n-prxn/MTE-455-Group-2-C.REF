@@ -6,6 +6,8 @@ public class FurnitureWarehouseUI : MonoBehaviour
 {
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject cardParent;
+    [SerializeField] private GameObject descriptionPanel;
+    [SerializeField] private GameObject idlePanel;
 
     [SerializeField] private FurnitureDescription furnitureDescription;
     private GameObject currentSelectedFurniture;
@@ -42,7 +44,7 @@ public class FurnitureWarehouseUI : MonoBehaviour
     {
         ResetWarehouse();
         currentSelectedFurniture = null;
-        foreach (GameObject furniture in FurnitureManager.instance.FurnitureList)
+        foreach (GameObject furniture in InventoryManager.instance.FurnitureList)
         {
             if (!furniture.GetComponent<Furniture>().IsPlaced)
             {
@@ -54,6 +56,9 @@ public class FurnitureWarehouseUI : MonoBehaviour
                 furnitureCardDatas.Add(furnitureCardData);
             }
         }
+        
+        descriptionPanel.SetActive(false);
+        idlePanel.SetActive(true);
     }
 
     public void ResetWarehouse()
@@ -70,6 +75,9 @@ public class FurnitureWarehouseUI : MonoBehaviour
 
     public void HandleFurnitureCardSelected(FurnitureCardData obj)
     {
+        descriptionPanel.SetActive(true);
+        idlePanel.SetActive(false);
+        
         furnitureDescription.SetDescription(obj.Furniture);
         currentSelectedFurniture = obj.FurniturePrefab;
     }

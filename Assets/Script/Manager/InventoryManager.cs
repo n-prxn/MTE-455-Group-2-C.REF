@@ -50,4 +50,8 @@ public class InventoryManager : MonoBehaviour
             ticketList.Find(x => x.id == item.id).Amount++;
         }
     }
+
+    public void AddFurniture(GameObject furniture){
+        furnitureList.Add(furniture);
+    }
 }

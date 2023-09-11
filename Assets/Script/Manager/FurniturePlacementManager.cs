@@ -106,11 +106,11 @@ public class FurniturePlacementManager : MonoBehaviour
             }
         }
     }
-    public void EnableEditMode()
+    public void EnableEditMode(GameObject panel)
     {
         gridPlane.SetActive(true);
         isEditing = true;
-        UIDisplay.instance.TogglePanel(furnitureWarehouseUI);
+        UIDisplay.instance.TogglePanel(panel);
     }
 
     #endregion
@@ -195,11 +195,11 @@ public class FurniturePlacementManager : MonoBehaviour
         }
     }
 
-    public void EnableStoreMode()
+    public void EnableStoreMode(GameObject panel)
     {
         gridPlane.SetActive(true);
         isStoring = true;
-        UIDisplay.instance.TogglePanel(furnitureWarehouseUI);
+        UIDisplay.instance.TogglePanel(panel);
     }
     #endregion
 

@@ -20,6 +20,10 @@ public class RequestUI : MonoBehaviour
     [SerializeField] Image INTReqBar;
     [SerializeField] Image COMReqBar;
 
+    [SerializeField] TextMeshProUGUI PHYReqAmount;
+    [SerializeField] TextMeshProUGUI INTReqAmount;
+    [SerializeField] TextMeshProUGUI COMReqAmount;
+
     [SerializeField] StudentSelectionUI selectionPanel;
     [SerializeField] RequestListUI requestListPanel;
 
@@ -111,10 +115,41 @@ public class RequestUI : MonoBehaviour
 
     void UpdateRequestRequirement(RequestSO request)
     {
-        PHYReqBar.rectTransform.localPosition = new Vector2((float)request.phyStat / 300f * 485f, PHYReqBar.rectTransform.localPosition.y);
-        INTReqBar.rectTransform.localPosition = new Vector2((float)request.intStat / 300f * 485f, INTReqBar.rectTransform.localPosition.y);
-        COMReqBar.rectTransform.localPosition = new Vector2((float)request.comStat / 300f * 485f, COMReqBar.rectTransform.localPosition.y);
+        int phyStat = request.phyStat, intStat = request.intStat, comStat = request.comStat;
+
+        float multiplier = 0f;
+        int happiness = GameManager.instance.happiness;
+        if (happiness >= 70)
+        {
+            multiplier = 1f;
+        }
+        else if (happiness >= 50)
+        {
+            multiplier = 1.05f;
+        }
+        else if (happiness >= 30)
+        {
+            multiplier = 1.1f;
+        }
+        else
+            multiplier = 1.2f;
+
+        PHYReqAmount.text = phyStat.ToString() + " (+" + (int)(phyStat * (multiplier - 1)) + ")";
+        INTReqAmount.text = intStat.ToString() + " (+" + (int)(intStat * (multiplier - 1)) + ")";
+        COMReqAmount.text = comStat.ToString() + " (+" + (int)(comStat * (multiplier - 1)) + ")";
+        
+        phyStat = (int)(phyStat * multiplier) <= 300 ? (int)(phyStat * multiplier) : 300;
+        intStat = (int)(intStat * multiplier) <= 300 ? (int)(intStat * multiplier) : 300;
+        comStat = (int)(comStat * multiplier) <= 300 ? (int)(comStat * multiplier) : 300;
+
+        PHYReqBar.rectTransform.localPosition = new Vector2((float)phyStat / 300f * 485f, PHYReqBar.rectTransform.localPosition.y);
+        INTReqBar.rectTransform.localPosition = new Vector2((float)intStat / 300f * 485f, INTReqBar.rectTransform.localPosition.y);
+        COMReqBar.rectTransform.localPosition = new Vector2((float)comStat / 300f * 485f, COMReqBar.rectTransform.localPosition.y);
         successRate.text = "Success Rate : " + RequestManager.instance.CalculateSuccessRate() + "%";
+
+        request.multipliedPhyStat = phyStat;
+        request.multipliedIntStat = intStat;
+        request.multipliedComStat = comStat;
     }
 
     void UpdateCurrentStat(int PHYStat, int INTStat, int COMStat)

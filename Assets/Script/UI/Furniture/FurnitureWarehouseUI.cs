@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FurnitureWarehouseUI : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class FurnitureWarehouseUI : MonoBehaviour
     [SerializeField] private GameObject idlePanel;
 
     [SerializeField] private FurnitureDescription furnitureDescription;
+    [SerializeField] private Button editButton;
+    [SerializeField] private Button storeButton;
     private GameObject currentSelectedFurniture;
     public GameObject CurrentSelectedFurniture
     {
@@ -18,9 +21,15 @@ public class FurnitureWarehouseUI : MonoBehaviour
     }
 
     private List<FurnitureCardData> furnitureCardDatas = new List<FurnitureCardData>();
+    private FurniturePlacementManager furniturePlacementManager;
     void OnEnable()
     {
         InitializeWarehouse();
+        furniturePlacementManager = GameObject.Find("FurnitureManager").GetComponent<FurniturePlacementManager>();
+        if(furniturePlacementManager != null){
+            editButton.onClick.AddListener(() => furniturePlacementManager.EnableEditMode(gameObject));
+            storeButton.onClick.AddListener(() =>  furniturePlacementManager.EnableStoreMode(gameObject));
+        }
     }
 
     void Awake()

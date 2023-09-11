@@ -47,27 +47,6 @@ public class RequestPool : MonoBehaviour
                 request.IsRead = false;
                 request.IsShow = true;
 
-                float multiplier = 0f;
-                int happiness = GameManager.instance.happiness;
-                if (happiness >= 70)
-                {
-                    multiplier = 1f;
-                }
-                else if (happiness >= 50)
-                {
-                    multiplier = 1.05f;
-                }
-                else if (happiness >= 30)
-                {
-                    multiplier = 1.1f;
-                }
-                else
-                    multiplier = 1.2f;
-
-                request.phyStat = (int)(request.phyStat * multiplier) <= 300 ? (int)(request.phyStat * multiplier) : 300;
-                request.intStat = (int)(request.intStat * multiplier) <= 300 ? (int)(request.phyStat * multiplier) : 300;
-                request.comStat = (int)(request.comStat * multiplier) <= 300 ? (int)(request.phyStat * multiplier) : 300;
-
                 if (request.id != 0)
                 {
                     switch (request.difficulty)

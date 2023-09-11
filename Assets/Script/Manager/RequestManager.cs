@@ -93,20 +93,20 @@ public class RequestManager : MonoBehaviour
     public int CalculateSuccessRate()
     {
         float successRate = 100f;
-        if (totalPHYStat < currentRequest.phyStat)
+        if (totalPHYStat < currentRequest.multipliedPhyStat)
         {
             successRate -= 10f;
-            successRate -= (currentRequest.phyStat - totalPHYStat) * 100f / currentRequest.TotalStat();
+            successRate -= (currentRequest.multipliedPhyStat - totalPHYStat) * 100f / currentRequest.TotalStat();
         }
-        if (totalINTStat < currentRequest.intStat)
+        if (totalINTStat < currentRequest.multipliedIntStat)
         {
             successRate -= 10f;
-            successRate -= (currentRequest.intStat - totalINTStat) * 100f / currentRequest.TotalStat();
+            successRate -= (currentRequest.multipliedIntStat - totalINTStat) * 100f / currentRequest.TotalStat();
         }
-        if (totalCOMStat < currentRequest.comStat)
+        if (totalCOMStat < currentRequest.multipliedComStat)
         {
             successRate -= 10f;
-            successRate -= (currentRequest.comStat - totalCOMStat) * 100f / currentRequest.TotalStat();
+            successRate -= (currentRequest.multipliedComStat - totalCOMStat) * 100f / currentRequest.TotalStat();
         }
 
         return successRate < 0 ? 0 : (int)successRate;

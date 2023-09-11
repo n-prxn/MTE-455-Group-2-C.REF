@@ -14,8 +14,19 @@ public class ResultUI : MonoBehaviour
     [SerializeField] RequestListUI requestListPanel;
     [SerializeField] GameObject successPanel;
     [SerializeField] GameObject failedPanel;
+
+    [Header("Reward")]
     [SerializeField] GameObject rewardPanel;
+    [SerializeField] TMP_Text creditText;
+    [SerializeField] TMP_Text pyroxeneText; 
+    [SerializeField] TMP_Text expText;
+    [SerializeField] TMP_Text happinessText;
+    [SerializeField] TMP_Text crimeRateText;
+
+    [Header("Demerit")]
     [SerializeField] GameObject demeritPanel;
+    [SerializeField] TMP_Text deHappinessText;
+    [SerializeField] TMP_Text deCrimeRateText;
 
     [Header("UI")]
     [SerializeField] TextMeshProUGUI requestText;
@@ -63,24 +74,34 @@ public class ResultUI : MonoBehaviour
         }
         requestText.text = currentSelectedRequest.name;
 
-        ReceiveRewards(currentSelectedRequest);
         currentSelectedRequest.ResetSquad();
         currentSelectedRequest.CurrentTurn = currentSelectedRequest.duration;
         currentSelectedRequest.SuccessRate = 100;
 
         if (currentSelectedRequest.IsSuccess)
         {
+            ReceiveRewards(currentSelectedRequest);
             successPanel.SetActive(true);
             failedPanel.SetActive(false);
             rewardPanel.SetActive(true);
             demeritPanel.SetActive(false);
+
+            pyroxeneText.text = currentSelectedRequest.pyroxene.ToString();
+            creditText.text = currentSelectedRequest.credit.ToString();
+            expText.text = currentSelectedRequest.xp.ToString();
+            happinessText.text = currentSelectedRequest.happiness.ToString();
+            crimeRateText.text = currentSelectedRequest.crimeRate.ToString();
         }
         else
         {
+            ReceiveDemerit(currentSelectedRequest);
             successPanel.SetActive(false);
             failedPanel.SetActive(true);
             rewardPanel.SetActive(false);
             demeritPanel.SetActive(true);
+
+            deHappinessText.text = currentSelectedRequest.demeritHappiness.ToString();
+            deCrimeRateText.text = currentSelectedRequest.demeritCrimeRate.ToString();
         }
 
         //squadParent.GetComponent<VerticalLayoutGroup>().spacing -= 0.1f;
@@ -110,5 +131,10 @@ public class ResultUI : MonoBehaviour
         GameManager.instance.currentXP += request.xp;
         GameManager.instance.happiness += request.happiness;
         GameManager.instance.crimeRate += request.crimeRate;
+    }
+
+    void ReceiveDemerit(RequestSO request){
+        GameManager.instance.happiness += request.demeritHappiness;
+        GameManager.instance.crimeRate += request.demeritCrimeRate;
     }
 }

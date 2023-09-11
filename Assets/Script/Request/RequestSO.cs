@@ -35,6 +35,11 @@ public class RequestSO : ScriptableObject
     public int comStat;
     public int stamina;
 
+    [Header("Multiplied Status")]
+    public int multipliedPhyStat;
+    public int multipliedIntStat;
+    public int multipliedComStat;
+
     [Header("Rewards")]
     public int credit;
     public int xp;
@@ -131,6 +136,6 @@ public class RequestSO : ScriptableObject
 
     public int TotalStat()
     {
-        return phyStat + intStat + comStat;
+        return multipliedPhyStat + multipliedIntStat + multipliedComStat;
     }
 }

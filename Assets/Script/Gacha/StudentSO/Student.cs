@@ -96,9 +96,18 @@ public class Student : ScriptableObject
 
     [Header("Squad")]
     [SerializeField] private bool isAssign = false;
-    public bool IsAssign{
+    public bool IsAssign
+    {
         get { return isAssign; }
         set { isAssign = value; }
+    }
+
+    [Header("Training")]
+    [SerializeField] private bool isTraining = false;
+    public bool IsTraining
+    {
+        get { return isTraining; }
+        set { isTraining = value; }
     }
 
     public void InitializeStartStats()

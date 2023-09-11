@@ -104,7 +104,7 @@ public class ResultUI : MonoBehaviour
             deCrimeRateText.text = currentSelectedRequest.demeritCrimeRate.ToString();
         }
 
-        //squadParent.GetComponent<VerticalLayoutGroup>().spacing -= 0.1f;
+        //squadParent.GetComponent<VerticalLayoutGroup>().spacing -= 0.1f;;[\]'/
     }
 
     void ClearSquadInfo()

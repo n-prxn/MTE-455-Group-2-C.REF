@@ -36,6 +36,9 @@ public class SquadController : MonoBehaviour
             student.CurrentINTStat = student.intStat;
             student.CurrentCOMStat = student.comStat;
             student.CurrentStamina = student.stamina;
+
+            student.IsAssign = false;
+            student.IsTraining = false;
         }
     }
 

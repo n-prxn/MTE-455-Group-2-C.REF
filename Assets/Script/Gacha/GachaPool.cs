@@ -215,7 +215,7 @@ public class GachaPool : MonoBehaviour, IData
 
     public void SaveBTN()
     {
-        DataMenager.instance.SaveGame();
+        DataManager.instance.SaveGame();
     }
     public void ClearBTN()
     {
@@ -231,7 +231,7 @@ public class GachaPool : MonoBehaviour, IData
         {
             student.Collected = false;
         }
-        DataMenager.instance.ClearColleted();
+        DataManager.instance.ClearColleted();
     }
 
     public void ToggleGachaScene()

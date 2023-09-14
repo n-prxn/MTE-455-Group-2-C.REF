@@ -2,10 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BuildingType
+{
+    Dormitory,
+    Gym,
+    Library,
+    Cafe,
+    Inventory
+}
 public class Building : MonoBehaviour
 {
     [SerializeField] private byte id;
-    [SerializeField] private new string name;
+    [SerializeField] private BuildingType buildingType;
+    public BuildingType BuildingType{
+        get{return buildingType;}
+    }
     [SerializeField] private int unlockedRank = 1;
     [SerializeField] private int studentCapacity = 3;
 

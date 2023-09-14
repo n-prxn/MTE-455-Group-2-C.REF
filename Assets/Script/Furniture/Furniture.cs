@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BuildingType
-{
-    Dormitory,
-    Gym,
-    Library,
-    Cafe
-}
-
 public class Furniture : MonoBehaviour
 {
     [SerializeField] private byte id;
@@ -34,7 +26,11 @@ public class Furniture : MonoBehaviour
         get {return cost;}
         set {cost = value;}
     }
-    [SerializeField] private Building building;
+    [SerializeField] private BuildingType building;
+    public BuildingType Building{
+        get{return building;}
+        set{building = value;}
+    }
     [SerializeField] private Sprite furnitureSprite;
     public Sprite FurnitureSprite
     {
@@ -45,5 +41,18 @@ public class Furniture : MonoBehaviour
     public bool IsPlaced{
         get { return isPlaced; }
         set { isPlaced = value; }
+    }
+    [SerializeField] private Vector3 position = new Vector3(0,0,0);
+    public Vector3 Position{
+        get{return position;}
+    }
+    [SerializeField] private Vector3 rotation = new Vector3(0,0,0);
+    public Vector3 Rotation{
+        get{return rotation;}
+    }
+
+    public void SetTransform(Vector3 position, Vector3 rotation){
+        this.position = position;
+        this.rotation = rotation;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, IData
 {
     public static InventoryManager instance;
 
@@ -51,7 +51,27 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddFurniture(GameObject furniture){
+    public void AddFurniture(GameObject furniture)
+    {
         furnitureList.Add(furniture);
+    }
+
+    public void LoadData(GameData data)
+    {
+        furnitureList.Clear();
+        foreach (FurnitureData fData in data.furnitures)
+        {
+            GameObject furniture = ShopManager.instance.FurnitureWarehouse.Find(x => x.GetComponent<Furniture>().ID == fData.id);
+            furnitureList.Add(furniture);
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.furnitures = new List<FurnitureData>();
+        foreach (GameObject furniture in FurnitureList)
+        {
+            data.furnitures.Add(new FurnitureData(furniture));
+        }
     }
 }

@@ -40,18 +40,20 @@ public class BuildingManager : MonoBehaviour
             if(!buildingData.IsAvailable)
                 return;
             
-            switch (building.tag)
+            TrainingManager.instance.CurrentBuilding = buildingData.BuildingType;
+
+            switch (buildingData.BuildingType)
             {
-                case "Dorm":
+                case BuildingType.Dormitory:
                     GameManager.instance.sceneManager.LoadScene("Dorm");
                     break;
-                case "Cafe":
+                case BuildingType.Cafe:
                     GameManager.instance.sceneManager.LoadScene("Cafe");
                     break;
-                case "Library":
+                case BuildingType.Library:
                     GameManager.instance.sceneManager.LoadScene("Library");
                     break;
-                case "Gym":
+                case BuildingType.Gym:
                     GameManager.instance.sceneManager.LoadScene("Gym");
                     break;
             }

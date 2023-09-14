@@ -25,6 +25,10 @@ public class FurniturePlacementManager : MonoBehaviour
     public GameObject buildingCursor;
     public static FurniturePlacementManager instance;
 
+    void OnEnable(){
+        InitializeBuilding();
+    }
+
     void Awake()
     {
         instance = this;
@@ -76,6 +80,28 @@ public class FurniturePlacementManager : MonoBehaviour
         {
             UIDisplay.instance.DisableMode();
             gridPlane.SetActive(false);
+        }
+    }
+
+    public void InitializeBuilding()
+    {
+        ResetBuilding();
+        foreach (GameObject furniture in InventoryManager.instance.FurnitureList)
+        {
+            Furniture furnitureComp = furniture.GetComponent<Furniture>();
+            if (furnitureComp.IsPlaced && TrainingManager.instance.CurrentBuilding == furnitureComp.Building)
+            {
+                GameObject furnitureObj = Instantiate(furniture, furnitureComp.Position, Quaternion.Euler(furnitureComp.Rotation), furnitureParent.transform);
+                furnitureObj.name = furnitureObj.GetComponent<Furniture>().Name;
+            }
+        }
+    }
+
+    public void ResetBuilding(){
+        if(furnitureParent.transform.childCount > 0){
+            foreach(Transform furniture in furnitureParent.transform){
+                Destroy(furniture.gameObject);
+            }
         }
     }
 
@@ -135,6 +161,10 @@ public class FurniturePlacementManager : MonoBehaviour
             return;
 
         GameObject furnitureObj = Instantiate(furnitureModel, currentCursorPos, furnitureModel.transform.rotation, furnitureParent.transform);
+        Furniture currentFurniture = InventoryManager.instance.FurnitureList.Find(x => x.GetComponent<Furniture>().ID == furnitureObj.GetComponent<Furniture>().ID).GetComponent<Furniture>();
+        currentFurniture.SetTransform(furnitureModel.transform.position, furnitureModel.transform.localEulerAngles);
+        currentFurniture.Building = TrainingManager.instance.CurrentBuilding;
+
         furnitureObj.name = furnitureObj.GetComponent<Furniture>().Name;
         furnitureObj.GetComponent<FurniturePlacement>().Plane.SetActive(false);
 
@@ -186,9 +216,11 @@ public class FurniturePlacementManager : MonoBehaviour
             {
                 if (Input.GetMouseButtonUp(0))
                 {
-                    InventoryManager.instance.FurnitureList.Find
-                    (x => x.GetComponent<Furniture>().ID == obj.GetComponent<Furniture>().ID)
-                    .GetComponent<Furniture>().IsPlaced = false;
+                    Furniture currentFurniture = InventoryManager.instance.FurnitureList.Find(x => x.GetComponent<Furniture>().ID == obj.GetComponent<Furniture>().ID).GetComponent<Furniture>();
+                    currentFurniture.IsPlaced = false;
+                    currentFurniture.Building = BuildingType.Inventory;
+                    currentFurniture.SetTransform(Vector3.zero, Vector3.zero);
+
                     Destroy(obj);
                 }
             }

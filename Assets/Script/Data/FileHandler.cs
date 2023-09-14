@@ -19,11 +19,14 @@ public class FileHandler
             {
                 string saveJSON = File.ReadAllText(pathSaveName);
                 loadData = JsonConvert.DeserializeObject<GameData>(saveJSON);
+                //Debug.Log(JsonConvert.DeserializeObject<GameData>(saveJSON).furnitures);
+
                 return loadData;
             }
             catch (Exception error)
             {
-                Debug.LogError("Error on Load file : " + error.Message);
+                //Debug.LogError("Error on Load file : " + error.Message);
+                Debug.LogException(error);
             }
         }
         return loadData;

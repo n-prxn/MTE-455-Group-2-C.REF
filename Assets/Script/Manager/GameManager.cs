@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IData
 {
     [Header("Turn")]
     public int currentTurn = 1;
@@ -86,7 +86,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public void UpdateRequest()
     {
         if (RequestManager.instance.OperatingRequests.Count > 0)
@@ -160,5 +159,25 @@ public class GameManager : MonoBehaviour
 
     public void IncreaseXP(int xp){
         currentXP += xp;
+    }
+
+    public void LoadData(GameData data){
+        currentTurn = data.currentTurn;
+        credits = data.credits;
+        pyroxenes = data.pyroxenes;
+        happiness = data.happiness;
+        crimeRate = data.crimeRate;
+        rank = data.rank;
+        currentXP = data.currentXP;
+    }
+
+    public void SaveData(ref GameData data){
+        data.currentTurn = currentTurn;
+        data.credits = credits;
+        data.pyroxenes = pyroxenes;
+        data.happiness = happiness;
+        data.crimeRate = crimeRate;
+        data.rank = rank;
+        data.currentXP = currentXP;
     }
 }

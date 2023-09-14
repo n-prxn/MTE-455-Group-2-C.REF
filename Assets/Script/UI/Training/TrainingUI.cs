@@ -4,12 +4,12 @@ using TMPro;
 using UnityEngine;
 public class TrainingUI : MonoBehaviour
 {
-    [SerializeField] BuildingType buildingType;
     [Header("Prefab")]
     [SerializeField] GameObject cardParent;
     [SerializeField] GameObject cardPrefab;
     [Header("UI")]
     [SerializeField] TMP_Text buildingName;
+    [SerializeField] StudentSelectionUI selectionUI;
 
     void OnEnable(){
         InitializeTrainingStudents();
@@ -29,13 +29,33 @@ public class TrainingUI : MonoBehaviour
 
     public void InitializeTrainingStudents()
     {
-        buildingName.text = buildingType.ToString();
-        Student[] students = TrainingManager.instance.TrainingGroup[buildingType];
-        for (int i = 0; i < students.Length; i++)
+        buildingName.text = TrainingManager.instance.CurrentBuilding.ToString();
+        ResetTrainingList();
+        List<Student> students = TrainingManager.instance.TrainingGroup[TrainingManager.instance.CurrentBuilding];
+        for (int i = 0; i < students.Count; i++)
         {
             GameObject card = Instantiate(cardPrefab, cardParent.transform);
             TrainingCardData cardData = card.GetComponent<TrainingCardData>();
-            cardData.SetData(students[i]);
+            cardData.SetData(i, students[i]);
+            cardData.OnStudentClicked += HandleStudentAssign;
         }
+    }
+
+    void ResetTrainingList(){
+        if(cardParent.transform.childCount > 0){
+            foreach(Transform card in cardParent.transform){
+            Destroy(card.gameObject);
+        }
+        }
+    }
+
+    public void HandleStudentAssign(TrainingCardData obj){
+        selectionUI.SlotIndex = obj.Index;
+        if(obj.TrainingStudent != null){
+            selectionUI.CurrentSelectedStudent = obj.TrainingStudent;
+            selectionUI.Select(obj.TrainingStudent);
+        }   
+        selectionUI.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

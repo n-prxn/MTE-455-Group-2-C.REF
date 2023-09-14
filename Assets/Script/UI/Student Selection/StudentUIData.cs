@@ -57,7 +57,7 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData data)
     {
-        PointerEventData pointerEventData = (PointerEventData)data;
+        PointerEventData pointerEventData = data;
         if (pointerEventData.button == PointerEventData.InputButton.Left)
         {
             OnStudentClicked?.Invoke(this);

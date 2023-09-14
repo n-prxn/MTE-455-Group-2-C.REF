@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class DataMenager : MonoBehaviour
+public class DataManager : MonoBehaviour
 {
     private GameData gameData;
     private List<IData> dataObject;
 
     private FileHandler fileHandler;
 
-    public static DataMenager instance { get; private set; }
+    public static DataManager instance { get; private set; }
 
     private void Awake()
     {
@@ -38,7 +38,7 @@ public class DataMenager : MonoBehaviour
 
         if (this.gameData == null)
         {
-            Debug.Log("No Data");
+            //Debug.Log("No Data");
             NewGame();
         }
 

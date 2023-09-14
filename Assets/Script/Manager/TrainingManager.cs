@@ -6,12 +6,18 @@ using UnityEngine;
 public class TrainingManager : MonoBehaviour
 {
     [Header("Building")]
-    private Dictionary<BuildingType, Student[]> trainingGroup;
-    public Dictionary<BuildingType, Student[]> TrainingGroup
+    private Dictionary<BuildingType, List<Student>> trainingGroup;
+    public Dictionary<BuildingType, List<Student>> TrainingGroup
     {
         get { return trainingGroup; }
         set { trainingGroup = value; }
     }
+    private BuildingType currentBuilding;
+    public BuildingType CurrentBuilding{
+        get {return currentBuilding;}
+        set {currentBuilding = value;}
+    }
+
     [Header("Capacity")]
     [SerializeField] private int studentCapacity = 3;
     public int StudentCapacity{
@@ -39,10 +45,10 @@ public class TrainingManager : MonoBehaviour
     {
         if (trainingGroup == null)
         {
-            trainingGroup = new Dictionary<BuildingType, Student[]>();
-            Student[] students = new Student[studentCapacity];
-            for (int i = 0; i < students.Length; i++)
-                students[i] = null;
+            trainingGroup = new Dictionary<BuildingType, List<Student>>();
+            List<Student> students = new List<Student>();
+            for (int i = 0; i < studentCapacity; i++)
+                students.Add(null);
 
             trainingGroup.Add(BuildingType.Gym, students);
             trainingGroup.Add(BuildingType.Library, students);
@@ -51,7 +57,11 @@ public class TrainingManager : MonoBehaviour
         }
     }
 
-    void InitializeTrainingStudentList(){
-        
+    public List<Student> GetCurrentStudentsInBuilding(){
+        return trainingGroup[currentBuilding];
+    }
+
+    public void SetStudentInBuilding(int slot, Student student){
+        trainingGroup[currentBuilding][slot] = student;
     }
 }

@@ -13,6 +13,7 @@ public class StudentSelectionUI : MonoBehaviour
     [SerializeField] StudentDescription studentDescription;
     [SerializeField] GameObject idlePanel;
     [SerializeField] GameObject headerPanel;
+    [SerializeField] GameObject trainingPanel;
     [SerializeField] int slotIndex;
     private List<StudentUIData> studentUIDatas = new List<StudentUIData>();
     [SerializeField] private Student currentSelectedStudent;
@@ -79,7 +80,7 @@ public class StudentSelectionUI : MonoBehaviour
     {
         foreach (StudentUIData studentUIData in studentUIDatas)
         {
-            if (studentUIData.StudentData.IsAssign)
+            if (studentUIData.StudentData.IsAssign || studentUIData.StudentData.IsTraining)
             {
                 studentUIData.SetColor(Color.gray);
             }
@@ -143,6 +144,19 @@ public class StudentSelectionUI : MonoBehaviour
         RequestManager.instance.UpdateRequest();
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
         currentSelectedStudent = null;
+        CloseSelectionPanel();
+    }
+
+    public void AssignTrainingStudent(){
+        if(TrainingManager.instance.GetCurrentStudentsInBuilding()[slotIndex] != null){
+            TrainingManager.instance.GetCurrentStudentsInBuilding()[slotIndex].IsTraining = false;
+        }
+
+        TrainingManager.instance.SetStudentInBuilding(slotIndex, currentSelectedStudent);
+        currentSelectedStudent.IsTraining = true;
+        studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
+        currentSelectedStudent = null;
+        trainingPanel.SetActive(true);
         CloseSelectionPanel();
     }
 

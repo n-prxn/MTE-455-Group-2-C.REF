@@ -154,6 +154,7 @@ public class StudentSelectionUI : MonoBehaviour
 
         TrainingManager.instance.SetStudentInBuilding(slotIndex, currentSelectedStudent);
         currentSelectedStudent.IsTraining = true;
+        currentSelectedStudent.TrainingDuration = TrainingManager.instance.GetCurrentBuilding().TrainingDuration;
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
         currentSelectedStudent = null;
         trainingPanel.SetActive(true);

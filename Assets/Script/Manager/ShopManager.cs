@@ -53,7 +53,15 @@ public class ShopManager : MonoBehaviour
     }
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         GenerateShopItems();
     }
 

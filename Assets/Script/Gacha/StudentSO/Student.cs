@@ -85,6 +85,31 @@ public class Student : ScriptableObject
         set { currentStamina = value; }
     }
 
+    [Header("Trained Stats")]
+    private int trainedPHYStat;
+    public int TrainedPHYStat{
+        get{ return trainedPHYStat;}
+        set{ trainedPHYStat = value;}
+    }
+
+    private int trainedINTStat;
+    public int TrainedINTtat{
+        get{ return trainedINTStat;}
+        set{ trainedINTStat = value;}
+    }
+
+    private int trainedCOMStat;
+    public int TrainedCOMtat{
+        get{ return trainedCOMStat;}
+        set{ trainedCOMStat = value;}
+    }
+
+    private int restedStamina;
+    public int RestedStamina{
+        get{ return restedStamina;}
+        set{ restedStamina = value;}
+    }
+
     [JsonIgnore]
     private float gachaRate;
     [JsonIgnore]
@@ -109,6 +134,12 @@ public class Student : ScriptableObject
         get { return isTraining; }
         set { isTraining = value; }
     }
+    [SerializeField] private int trainingDuration = 0;
+    public int TrainingDuration
+    {
+        get { return trainingDuration; }
+        set { trainingDuration = value; }
+    }
 
     public void InitializeStartStats()
     {
@@ -116,5 +147,12 @@ public class Student : ScriptableObject
         currentINTStat = intStat;
         currentCOMStat = comStat;
         currentStamina = stamina;
+    }
+
+    public void UpdateTrainedStats(){
+        currentPHYStat = trainedPHYStat;
+        currentINTStat = trainedINTStat;
+        currentCOMStat = trainedCOMStat;
+        currentStamina = restedStamina;
     }
 }

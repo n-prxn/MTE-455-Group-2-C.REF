@@ -11,14 +11,15 @@ public class TrainingUI : MonoBehaviour
     [SerializeField] TMP_Text buildingName;
     [SerializeField] StudentSelectionUI selectionUI;
 
-    void OnEnable(){
+    void OnEnable()
+    {
         InitializeTrainingStudents();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -34,27 +35,33 @@ public class TrainingUI : MonoBehaviour
         List<Student> students = TrainingManager.instance.TrainingGroup[TrainingManager.instance.CurrentBuilding];
         for (int i = 0; i < students.Count; i++)
         {
+            Debug.Log(students[i]);
             GameObject card = Instantiate(cardPrefab, cardParent.transform);
             TrainingCardData cardData = card.GetComponent<TrainingCardData>();
-            cardData.SetData(i, students[i]);
+            cardData.SetData(i, students[i], TrainingManager.instance.GetCurrentBuilding());
             cardData.OnStudentClicked += HandleStudentAssign;
         }
     }
 
-    void ResetTrainingList(){
-        if(cardParent.transform.childCount > 0){
-            foreach(Transform card in cardParent.transform){
-            Destroy(card.gameObject);
-        }
+    void ResetTrainingList()
+    {
+        if (cardParent.transform.childCount > 0)
+        {
+            foreach (Transform card in cardParent.transform)
+            {
+                Destroy(card.gameObject);
+            }
         }
     }
 
-    public void HandleStudentAssign(TrainingCardData obj){
+    public void HandleStudentAssign(TrainingCardData obj)
+    {
         selectionUI.SlotIndex = obj.Index;
-        if(obj.TrainingStudent != null){
+        if (obj.TrainingStudent != null)
+        {
             selectionUI.CurrentSelectedStudent = obj.TrainingStudent;
             selectionUI.Select(obj.TrainingStudent);
-        }   
+        }
         selectionUI.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }

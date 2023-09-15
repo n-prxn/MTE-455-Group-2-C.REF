@@ -16,7 +16,7 @@ public class RequestPool : MonoBehaviour
 
     void Awake()
     {
-
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

@@ -12,23 +12,32 @@ public class TrainingManager : MonoBehaviour
         get { return trainingGroup; }
         set { trainingGroup = value; }
     }
-    private BuildingType currentBuilding;
-    public BuildingType CurrentBuilding{
-        get {return currentBuilding;}
-        set {currentBuilding = value;}
+    [SerializeField] private List<BuildingSO> buildings;
+    public List<BuildingSO> Buildings
+    {
+        get { return buildings; }
+        set { buildings = value; }
+    }
+    [SerializeField] private BuildingType currentBuilding;
+    public BuildingType CurrentBuilding
+    {
+        get { return currentBuilding; }
+        set { currentBuilding = value; }
     }
 
-    [Header("Capacity")]
-    [SerializeField] private int studentCapacity = 3;
-    public int StudentCapacity{
-        get{return studentCapacity;}
-        set{studentCapacity = value;}
-    }
     public static TrainingManager instance;
     void Awake()
     {
-        instance = this;
-        InitializeTrainingGroup();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            InitializeTrainingGroup();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void Start()
     {
@@ -43,25 +52,67 @@ public class TrainingManager : MonoBehaviour
 
     void InitializeTrainingGroup()
     {
-        if (trainingGroup == null)
-        {
-            trainingGroup = new Dictionary<BuildingType, List<Student>>();
-            List<Student> students = new List<Student>();
-            for (int i = 0; i < studentCapacity; i++)
-                students.Add(null);
+        if (trainingGroup != null)
+            return;
 
-            trainingGroup.Add(BuildingType.Gym, students);
-            trainingGroup.Add(BuildingType.Library, students);
-            trainingGroup.Add(BuildingType.Cafe, students);
-            trainingGroup.Add(BuildingType.Dormitory, students);
-        }
+        trainingGroup = new Dictionary<BuildingType, List<Student>>();
+        List<Student> gymStudents = new(), libraryStudents = new(), cafeStudents = new(), dormitoryStudents = new();
+
+        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+            gymStudents.Add(null);
+
+        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+            libraryStudents.Add(null);
+
+        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+            cafeStudents.Add(null);
+
+        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+            dormitoryStudents.Add(null);
+
+        trainingGroup.Add(BuildingType.Gym, gymStudents);
+        trainingGroup.Add(BuildingType.Library, libraryStudents);
+        trainingGroup.Add(BuildingType.Cafe, cafeStudents);
+        trainingGroup.Add(BuildingType.Dormitory, dormitoryStudents);
     }
 
-    public List<Student> GetCurrentStudentsInBuilding(){
+    public BuildingSO GetCurrentBuilding()
+    {
+        return buildings.Find(x => x.BuildingType == currentBuilding);
+    }
+
+    public BuildingSO GetBuilding(BuildingType buildingType)
+    {
+        return buildings.Find(x => x.BuildingType == buildingType);
+    }
+
+    public List<Student> GetCurrentStudentsInBuilding()
+    {
         return trainingGroup[currentBuilding];
     }
 
-    public void SetStudentInBuilding(int slot, Student student){
+    public void SetStudentInBuilding(int slot, Student student)
+    {
         trainingGroup[currentBuilding][slot] = student;
+    }
+
+    public int BonusTraining(BuildingSO buildingSO)
+    {
+        int bonus = 0, amount = buildingSO.CurrentFurnitureAmount;
+
+        if (amount >= 10)
+            bonus = 6;
+        else if (amount >= 8)
+            bonus = 5;
+        else if (amount >= 6)
+            bonus = 4;
+        else if (amount >= 4)
+            bonus = 3;
+        else if (amount >= 2)
+            bonus = 2;
+        else if (amount >= 0)
+            bonus = 1;
+
+        return bonus;
     }
 }

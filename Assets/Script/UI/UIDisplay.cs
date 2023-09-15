@@ -144,8 +144,6 @@ public class UIDisplay : MonoBehaviour
         }
         else
         {
-            requestListPanel.GetComponent<RequestListUI>().GenerateRequestCard();
-            requestListPanel.GetComponent<RequestListUI>().ShowIdleWindow();
             requestListPanel.SetActive(true);
             blackBackground.SetActive(true);
         }
@@ -187,6 +185,7 @@ public class UIDisplay : MonoBehaviour
         
         sidePanel.SetActive(false);
         nextButton.SetActive(false);
+        backButton.SetActive(false);
         
         placingMode.SetActive(false);
         movingMode.SetActive(false);
@@ -212,6 +211,7 @@ public class UIDisplay : MonoBehaviour
     public void DisableMode(){
         sidePanel.SetActive(true);
         nextButton.SetActive(true);
+        backButton.SetActive(true);
 
         placingMode.SetActive(false);
         movingMode.SetActive(false);

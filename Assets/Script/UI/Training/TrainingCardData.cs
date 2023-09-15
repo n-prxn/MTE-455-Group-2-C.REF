@@ -10,6 +10,7 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image portraitImage;
     [SerializeField] private TMP_Text studentName;
+    [SerializeField] private TMP_Text trainingDaysText;
 
     [Header("Panel")]
     [SerializeField] private GameObject freeSlot;
@@ -40,14 +41,15 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
     }
 
     private int index;
-    public int Index{
-        get{return index;}
-        set{index = value;}
+    public int Index
+    {
+        get { return index; }
+        set { index = value; }
     }
 
     public event Action<TrainingCardData> OnStudentClicked;
 
-    public void SetData(int index, Student student)
+    public void SetData(int index, Student student, BuildingSO building)
     {
         this.index = index;
         if (student != null)
@@ -56,25 +58,36 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
             studentName.text = trainingStudent.name;
             portraitImage.sprite = trainingStudent.portrait;
 
-            PHYStat.text = student.CurrentPHYStat.ToString();
-            INTStat.text = student.CurrentINTStat.ToString();
-            COMStat.text = student.CurrentCOMStat.ToString();
-            stamina.text = student.CurrentStamina.ToString();
+            PHYStat.text = student.CurrentPHYStat.ToString() + "(+" + building.BonusPHYTraining.ToString() + ")";
+            INTStat.text = student.CurrentINTStat.ToString() + "(+" + building.BonusINTTraining.ToString() + ")";
+            COMStat.text = student.CurrentCOMStat.ToString() + "(+" + building.BonusCOMTraining.ToString() + ")";
+            stamina.text = student.CurrentStamina.ToString() + "(+" + building.BonusStaminaRested.ToString() + ")";
 
-            currentPHYBar.fillAmount = student.CurrentPHYStat/60f;
-            currentINTBar.fillAmount = student.CurrentINTStat/60f;
-            currentCOMBar.fillAmount = student.CurrentCOMStat/60f;
-            staminaBar.fillAmount = student.CurrentStamina/60f;
+            currentPHYBar.fillAmount = student.CurrentPHYStat / 60f;
+            currentINTBar.fillAmount = student.CurrentINTStat / 60f;
+            currentCOMBar.fillAmount = student.CurrentCOMStat / 60f;
+            staminaBar.fillAmount = student.CurrentStamina / 60f;
+
+            trainedPHYBar.fillAmount = (student.CurrentPHYStat + building.BonusPHYTraining) / 60f;
+            trainedINTBar.fillAmount = (student.CurrentINTStat + building.BonusINTTraining) / 60f;
+            trainedCOMBar.fillAmount = (student.CurrentCOMStat + building.BonusCOMTraining) / 60f;
+            restedStaminaBar.fillAmount = (student.CurrentStamina + building.BonusStaminaRested) / 60f;
+
+            trainingDaysText.text = "Remaining " + student.TrainingDuration.ToString() + " Day(s)";
 
             freeSlot.SetActive(false);
-        }else{
+        }
+        else
+        {
             freeSlot.SetActive(true);
         }
     }
 
-    public void OnPointerClick(PointerEventData data){
+    public void OnPointerClick(PointerEventData data)
+    {
         PointerEventData pointerEventData = data;
-        if(pointerEventData.button == PointerEventData.InputButton.Left){
+        if (pointerEventData.button == PointerEventData.InputButton.Left)
+        {
             OnStudentClicked?.Invoke(this);
         }
     }

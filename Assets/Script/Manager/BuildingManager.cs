@@ -17,8 +17,10 @@ public class BuildingManager : MonoBehaviour
         OnLeftClick();
     }
 
-    void OnLeftClick(){
-        if(Input.GetMouseButtonDown(0)){
+    void OnLeftClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             TogglePanel();
         }
     }
@@ -34,15 +36,15 @@ public class BuildingManager : MonoBehaviour
                 return;
 
             GameObject building = hit.collider.gameObject;
-            Debug.Log(building.name);
+            //Debug.Log(building.name);
             Building buildingData = building.GetComponent<Building>();
 
-            if(!buildingData.IsAvailable)
+            if (!buildingData.BuildingSO.IsAvailable)
                 return;
-            
-            TrainingManager.instance.CurrentBuilding = buildingData.BuildingType;
 
-            switch (buildingData.BuildingType)
+            TrainingManager.instance.CurrentBuilding = buildingData.BuildingSO.BuildingType;
+
+            switch (buildingData.BuildingSO.BuildingType)
             {
                 case BuildingType.Dormitory:
                     GameManager.instance.sceneManager.LoadScene("Dorm");
@@ -55,6 +57,8 @@ public class BuildingManager : MonoBehaviour
                     break;
                 case BuildingType.Gym:
                     GameManager.instance.sceneManager.LoadScene("Gym");
+                    break;
+                case BuildingType.Inventory:
                     break;
             }
         }

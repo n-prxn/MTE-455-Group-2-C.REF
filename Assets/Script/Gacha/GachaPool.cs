@@ -5,6 +5,7 @@ using TMPro;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class GachaPool : MonoBehaviour, IData
@@ -34,6 +35,8 @@ public class GachaPool : MonoBehaviour, IData
     // Start is called before the first frame update
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+        
         CountRarity(studentsPool);
         InitializeGachaRate(studentsPool);
         SetJsonFile();
@@ -60,7 +63,7 @@ public class GachaPool : MonoBehaviour, IData
             data.studentSquad.TryGetValue(student.id, out studentSquad);
             student.SquadCollect = studentSquad;
 
-            if(student.SquadCollect)
+            if (student.SquadCollect)
                 SquadController.instance.Students.Add(student);
         }
     }

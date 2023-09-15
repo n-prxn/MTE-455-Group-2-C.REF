@@ -14,7 +14,15 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     //Call LoadGame() at start
@@ -41,7 +49,6 @@ public class DataManager : MonoBehaviour
             //Debug.Log("No Data");
             NewGame();
         }
-
         foreach (IData dataOBJ in dataObject)
         {
             dataOBJ.LoadData(gameData);

@@ -27,6 +27,7 @@ public class FurniturePlacementManager : MonoBehaviour
 
     void OnEnable(){
         InitializeBuilding();
+        //Debug.Log("Placing Furnitures");
     }
 
     void Awake()
@@ -164,6 +165,7 @@ public class FurniturePlacementManager : MonoBehaviour
         Furniture currentFurniture = InventoryManager.instance.FurnitureList.Find(x => x.GetComponent<Furniture>().ID == furnitureObj.GetComponent<Furniture>().ID).GetComponent<Furniture>();
         currentFurniture.SetTransform(furnitureModel.transform.position, furnitureModel.transform.localEulerAngles);
         currentFurniture.Building = TrainingManager.instance.CurrentBuilding;
+        currentFurniture.IsPlaced = true;
 
         furnitureObj.name = furnitureObj.GetComponent<Furniture>().Name;
         furnitureObj.GetComponent<FurniturePlacement>().Plane.SetActive(false);
@@ -176,6 +178,7 @@ public class FurniturePlacementManager : MonoBehaviour
             return;
         }
 
+        CountFurniture();
         CancelPlacement();
     }
 
@@ -222,6 +225,7 @@ public class FurniturePlacementManager : MonoBehaviour
                     currentFurniture.SetTransform(Vector3.zero, Vector3.zero);
 
                     Destroy(obj);
+                    CountFurniture();
                 }
             }
         }
@@ -253,4 +257,16 @@ public class FurniturePlacementManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void CountFurniture()
+    {
+        int amount = 0;
+        foreach (GameObject furniture in InventoryManager.instance.FurnitureList)
+        {
+            Furniture furnitureComp = furniture.GetComponent<Furniture>();
+            if (furnitureComp.IsPlaced && furnitureComp.Building == TrainingManager.instance.CurrentBuilding)
+                amount++;
+        }
+        TrainingManager.instance.GetCurrentBuilding().CurrentFurnitureAmount = amount;
+    }
 }

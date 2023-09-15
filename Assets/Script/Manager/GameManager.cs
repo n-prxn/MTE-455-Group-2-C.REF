@@ -82,6 +82,8 @@ public class GameManager : MonoBehaviour, IData
                 ShopManager.instance.GenerateShopItems();
                 presentShopUI.InitializeItemSOShelf();
                 furnitureShopUI.InitializeFurnitureShelf();
+
+                TrainingProcess();
             }
         }
     }
@@ -89,20 +91,21 @@ public class GameManager : MonoBehaviour, IData
     public void UpdateRequest()
     {
         if (RequestManager.instance.OperatingRequests.Count > 0)
-        {
             foreach (RequestSO request in RequestManager.instance.OperatingRequests)
-            {
                 RequestProcess(request);
-            }
-        }
+    }
+
+    public void UpdateTraining()
+    {
 
     }
 
     void RankUp()
     {
-        if(currentXP >= maxXP){
+        if (currentXP >= maxXP)
+        {
             rank++;
-            if(rank > 10)
+            if (rank > 10)
                 rank = 10;
 
             pyroxenes += 1200;
@@ -111,9 +114,12 @@ public class GameManager : MonoBehaviour, IData
             ShopManager.instance.MaxItem++;
             RequestManager.instance.maxRequestCapacity++;
 
-            if(rank == 3){
+            if (rank == 3)
+            {
                 RequestManager.instance.requestPerTurn++;
-            }else if(rank == 6){
+            }
+            else if (rank == 6)
+            {
                 RequestManager.instance.requestPerTurn++;
             }
 
@@ -121,7 +127,7 @@ public class GameManager : MonoBehaviour, IData
             //Add Item
         }
     }
-    
+
     void RequestProcess(RequestSO request)
     {
         request.CurrentTurn--;
@@ -152,16 +158,41 @@ public class GameManager : MonoBehaviour, IData
         }
     }
 
+    void TrainingProcess()
+    {
+        foreach (KeyValuePair<BuildingType, List<Student>> group in TrainingManager.instance.TrainingGroup)
+        {
+            foreach(Student student in group.Value){
+                if(student == null)
+                    continue;
+
+                if(student.IsTraining){
+                    student.TrainingDuration--;
+                }
+
+                if(student.TrainingDuration <= 0)
+                {
+                    student.IsTraining = false;
+                    student.UpdateTrainedStats();
+                    group.Value.Remove(student);
+                    group.Value.Add(null);
+                } 
+            }
+        }
+    }
+
     public void BackToPreviousScene()
     {
         sceneManager.LoadPreviousScene();
     }
 
-    public void IncreaseXP(int xp){
+    public void IncreaseXP(int xp)
+    {
         currentXP += xp;
     }
 
-    public void LoadData(GameData data){
+    public void LoadData(GameData data)
+    {
         currentTurn = data.currentTurn;
         credits = data.credits;
         pyroxenes = data.pyroxenes;
@@ -171,7 +202,8 @@ public class GameManager : MonoBehaviour, IData
         currentXP = data.currentXP;
     }
 
-    public void SaveData(ref GameData data){
+    public void SaveData(ref GameData data)
+    {
         data.currentTurn = currentTurn;
         data.credits = credits;
         data.pyroxenes = pyroxenes;

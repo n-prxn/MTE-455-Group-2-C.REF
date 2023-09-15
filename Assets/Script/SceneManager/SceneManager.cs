@@ -21,6 +21,14 @@ public class SceneManager : ScriptableObject
         return UnityEngine.SceneManagement.SceneManager.GetActiveScene();
     }
 
+    public void LoadSceneNormal(int buildIndex){
+        UnityEngine.SceneManagement.SceneManager.LoadScene(buildIndex);
+    }
+
+    public void LoadSceneNormal(string sceneName){
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
+
     public void LoadScene(int buildIndex)
     {
         if (!initialized) Init();
@@ -44,6 +52,8 @@ public class SceneManager : ScriptableObject
         if (loadedLevels.Count > 0)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(loadedLevels.Pop());
+            DataManager.instance.SaveGame();
+            DataManager.instance.LoadGame();
         }
         else
         {

@@ -26,15 +26,22 @@ public class FurnitureWarehouseUI : MonoBehaviour
     {
         InitializeWarehouse();
         furniturePlacementManager = GameObject.Find("FurnitureManager").GetComponent<FurniturePlacementManager>();
-        if(furniturePlacementManager != null){
+        if (furniturePlacementManager != null)
+        {
+            editButton.onClick.RemoveAllListeners();
+            storeButton.onClick.RemoveAllListeners();
+
             editButton.onClick.AddListener(() => furniturePlacementManager.EnableEditMode(gameObject));
-            storeButton.onClick.AddListener(() =>  furniturePlacementManager.EnableStoreMode(gameObject));
+            editButton.onClick.AddListener(() => UIDisplay.instance.ToggleBlackBackground(false));
+
+            storeButton.onClick.AddListener(() => furniturePlacementManager.EnableStoreMode(gameObject));
+            storeButton.onClick.AddListener(() => UIDisplay.instance.ToggleBlackBackground(false));
         }
     }
 
     void Awake()
     {
-
+        
     }
 
     // Start is called before the first frame update
@@ -65,7 +72,7 @@ public class FurnitureWarehouseUI : MonoBehaviour
                 furnitureCardDatas.Add(furnitureCardData);
             }
         }
-        
+
         descriptionPanel.SetActive(false);
         idlePanel.SetActive(true);
     }
@@ -86,7 +93,7 @@ public class FurnitureWarehouseUI : MonoBehaviour
     {
         descriptionPanel.SetActive(true);
         idlePanel.SetActive(false);
-        
+
         furnitureDescription.SetDescription(obj.Furniture);
         currentSelectedFurniture = obj.FurniturePrefab;
     }
@@ -94,7 +101,6 @@ public class FurnitureWarehouseUI : MonoBehaviour
     public void PlaceFurniture()
     {
         FurniturePlacementManager.instance.FurniturePlacement(currentSelectedFurniture);
-        currentSelectedFurniture.GetComponent<Furniture>().IsPlaced = true;
         UIDisplay.instance.TogglePanel(gameObject);
     }
 }

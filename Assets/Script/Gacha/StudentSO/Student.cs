@@ -60,25 +60,25 @@ public class Student : ScriptableObject
     [JsonIgnore] public int stamina;
 
     [Header("Current Stats")]
-    [SerializeField] private int currentPHYStat = 0;
+    private int currentPHYStat = 0;
     public int CurrentPHYStat
     {
         get { return currentPHYStat; }
         set { currentPHYStat = value; }
     }
-    [SerializeField] private int currentINTStat = 0;
+    private int currentINTStat = 0;
     public int CurrentINTStat
     {
         get { return currentINTStat; }
         set { currentINTStat = value; }
     }
-    [SerializeField] private int currentCOMStat = 0;
+    private int currentCOMStat = 0;
     public int CurrentCOMStat
     {
         get { return currentCOMStat; }
         set { currentCOMStat = value; }
     }
-    [SerializeField] private int currentStamina = 0;
+    private int currentStamina = 0;
     public int CurrentStamina
     {
         get { return currentStamina; }
@@ -120,28 +120,31 @@ public class Student : ScriptableObject
     }
 
     [Header("Squad")]
-    [SerializeField] private bool isAssign = false;
+    private bool isAssign = false;
     public bool IsAssign
     {
         get { return isAssign; }
         set { isAssign = value; }
     }
-    [SerializeField] private bool isOperating = false;
+    private bool isOperating = false;
     public bool IsOperating { get => isOperating; set => isOperating = value; }
 
     [Header("Training")]
-    [SerializeField] private bool isTraining = false;
+    private bool isTraining = false;
     public bool IsTraining
     {
         get { return isTraining; }
         set { isTraining = value; }
     }
-    [SerializeField] private int trainingDuration = 0;
+    private int trainingDuration = 0;
     public int TrainingDuration
     {
         get { return trainingDuration; }
         set { trainingDuration = value; }
     }
+
+    [Header("Voice")]
+    public AudioClip[] studentVoices;
 
     public void InitializeStudent(){
         currentPHYStat = phyStat;

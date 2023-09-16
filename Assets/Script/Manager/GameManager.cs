@@ -98,11 +98,6 @@ public class GameManager : MonoBehaviour, IData
                 RequestProcess(request);
     }
 
-    public void UpdateTraining()
-    {
-
-    }
-
     void RankUp()
     {
         if (currentXP >= maxXP)

@@ -28,10 +28,12 @@ public class StudentSelectionUI : MonoBehaviour
         set { slotIndex = value; }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private AudioSource audioSource;
 
+    // Start is called before the first frame update
+    void Awake()
+    {
+        audioSource = SquadController.instance.gameObject.GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -44,11 +46,6 @@ public class StudentSelectionUI : MonoBehaviour
             studentDescription.SetRemove();
             studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
         }
-    }
-
-    void Awake()
-    {
-
     }
 
     void Update()
@@ -159,6 +156,8 @@ public class StudentSelectionUI : MonoBehaviour
         RequestManager.instance.Calculate();
         currentSelectedStudent.IsAssign = true;
         RequestManager.instance.UpdateRequest();
+        PlayStudentVoice(currentSelectedStudent);
+        
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
         currentSelectedStudent = null;
         CloseSelectionPanel();
@@ -176,6 +175,8 @@ public class StudentSelectionUI : MonoBehaviour
         currentSelectedStudent.IsTraining = true;
         currentSelectedStudent.TrainingDuration = TrainingManager.instance.GetCurrentBuilding().TrainingDuration;
         TrainingManager.instance.AddBonus(currentSelectedStudent);
+
+        PlayStudentVoice(currentSelectedStudent);
 
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
         currentSelectedStudent = null;
@@ -207,5 +208,11 @@ public class StudentSelectionUI : MonoBehaviour
     public void CloseSelectionPanel()
     {
         gameObject.SetActive(false);
+    }
+
+    public void PlayStudentVoice(Student student)
+    {
+        AudioClip audioClip = student.studentVoices[2];
+        audioSource.PlayOneShot(audioClip);
     }
 }

@@ -115,4 +115,18 @@ public class TrainingManager : MonoBehaviour
 
         return bonus;
     }
+
+    public void AddBonus(Student student ,BuildingSO buildingSO){
+        student.TrainedPHYStat = student.CurrentPHYStat + buildingSO.BonusPHYTraining;
+        student.TrainedINTtat = student.CurrentINTStat + buildingSO.BonusINTTraining;
+        student.TrainedCOMtat = student.CurrentCOMStat + buildingSO.BonusCOMTraining;
+        student.RestedStamina = student.CurrentStamina + buildingSO.BonusStaminaRested;
+    }
+
+    public void AddBonus(Student student){
+        student.TrainedPHYStat = student.CurrentPHYStat + GetCurrentBuilding().BonusPHYTraining;
+        student.TrainedINTtat = student.CurrentINTStat + GetCurrentBuilding().BonusINTTraining;
+        student.TrainedCOMtat = student.CurrentCOMStat + GetCurrentBuilding().BonusCOMTraining;
+        student.RestedStamina = student.CurrentStamina + GetCurrentBuilding().BonusStaminaRested;
+    }
 }

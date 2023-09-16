@@ -11,10 +11,6 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private Transform lowLeft, topRight, font, back;
 
-    [SerializeField] private float kbSpeed;
-    [SerializeField] private float mouseSpeed;
-    [SerializeField] private float smoothSpeed = 0.125f;
-
     [SerializeField] private float minZoomSize;
     [SerializeField] private float maxZoomSize;
     [SerializeField] private bool canMove = true;

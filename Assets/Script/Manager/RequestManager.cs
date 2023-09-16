@@ -129,6 +129,11 @@ public class RequestManager : MonoBehaviour
     {
         operatingRequests.Add(currentRequest);
         currentRequest.IsOperating = true;
+        foreach(Student student in currentRequest.squad)
+        {
+            if(student != null)
+                student.IsOperating = true;
+        }
     }
 
     public void ClearSquad()

@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour, IData
     public int happiness = 50;
     public int crimeRate = 50;
     public int rollCost = 0;
+    [Header("Overall Stats")]
+    public int successRequest = 0;
+    public int failedRequest = 0;
 
     [Header("Schale Rank")]
     public int currentXP = 0;
@@ -143,12 +146,14 @@ public class GameManager : MonoBehaviour, IData
             {
                 request.IsSuccess = true;
                 Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
+                successRequest++;
                 //ReceiveRewards(request);
             }
             else
             {
                 request.IsSuccess = false;
                 Debug.Log(request.name + " has failed! with " + request.SuccessRate + "%");
+                failedRequest++;
             }
 
             //request.ResetSquad();
@@ -162,21 +167,23 @@ public class GameManager : MonoBehaviour, IData
     {
         foreach (KeyValuePair<BuildingType, List<Student>> group in TrainingManager.instance.TrainingGroup)
         {
-            foreach(Student student in group.Value){
-                if(student == null)
+            List<Student> students = group.Value;
+            for (int i = 0; i < group.Value.Count; i++)
+            {
+                if (students[i] == null)
                     continue;
 
-                if(student.IsTraining){
-                    student.TrainingDuration--;
+                if (students[i].IsTraining)
+                {
+                    students[i].TrainingDuration--;
                 }
 
-                if(student.TrainingDuration <= 0)
+                if (students[i].TrainingDuration <= 0)
                 {
-                    student.IsTraining = false;
-                    student.UpdateTrainedStats();
-                    group.Value.Remove(student);
-                    group.Value.Add(null);
-                } 
+                    students[i].IsTraining = false;
+                    students[i].UpdateTrainedStats();
+                    students[i] = null;
+                }
             }
         }
     }
@@ -200,6 +207,8 @@ public class GameManager : MonoBehaviour, IData
         crimeRate = data.crimeRate;
         rank = data.rank;
         currentXP = data.currentXP;
+        successRequest = data.successRequest;
+        failedRequest = data.failedRequest;
     }
 
     public void SaveData(ref GameData data)
@@ -211,5 +220,7 @@ public class GameManager : MonoBehaviour, IData
         data.crimeRate = crimeRate;
         data.rank = rank;
         data.currentXP = currentXP;
+        data.successRequest = successRequest;
+        data.failedRequest = failedRequest;
     }
 }

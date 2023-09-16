@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEditor.PackageManager.Requests;
 
 public class DataManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class DataManager : MonoBehaviour
     private List<IData> dataObject;
 
     private FileHandler fileHandler;
-
+    [SerializeField] GachaPool gachaPool;
+    [SerializeField] RequestPool requestPool;
     public static DataManager instance { get; private set; }
 
     private void Awake()
@@ -37,6 +39,23 @@ public class DataManager : MonoBehaviour
     public void NewGame()
     {
         this.gameData = new GameData();
+
+        foreach(RequestSO request in requestPool.RequestsPool)
+            request.InitializeRequest();
+
+        foreach(Student student in gachaPool.StudentsPool)
+        {
+            student.InitializeStudent();
+            
+            gameData.studentSquad.Clear();
+            gameData.studentSquad.Add(student.id, student.SquadCollect);
+            
+            gameData.studentCollected.Clear();
+            gameData.studentCollected.Add(student.id, student.Collected);
+        }
+
+        foreach(BuildingSO building in TrainingManager.instance.Buildings)
+            building.InitializeBuilding();
     }
 
     //Load gameData from GameDataSave.json whene exists

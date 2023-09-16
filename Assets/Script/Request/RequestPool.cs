@@ -9,11 +9,10 @@ using UnityEngine;
 
 public class RequestPool : MonoBehaviour
 {
-    [SerializeField] private List<RequestSO> requestsPool = new List<RequestSO>();
+    [SerializeField] private List<RequestSO> requestsPool;
+    public List<RequestSO> RequestsPool { get => requestsPool; set => requestsPool = value; }
 
-    string path = "";
     // Start is called before the first frame update
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -22,7 +21,7 @@ public class RequestPool : MonoBehaviour
     void Start()
     {
         ResetOperatedRequest();
-        RequestManager.instance.TodayRequests.Add(requestsPool[0]);
+        RequestManager.instance.TodayRequests.Add(RequestsPool[0]);
         GenerateRequests();
     }
 
@@ -42,8 +41,9 @@ public class RequestPool : MonoBehaviour
                 RequestSO request;
                 do
                 {
-                    request = requestsPool[Random.Range(0, 101)];
-                } while (request.IsOperating || (request.IsDone && !request.isRepeatable) || request.IsShow);
+                    request = RequestsPool[Random.Range(0, 101)];
+                } while (request.IsOperating || (request.IsDone && !request.isRepeatable) || request.IsShow || !IsUnlockedDifficulty(request));
+
                 request.IsRead = false;
                 request.IsShow = true;
 
@@ -91,7 +91,7 @@ public class RequestPool : MonoBehaviour
 
     public void ResetOperatedRequest()
     {
-        foreach (RequestSO request in requestsPool)
+        foreach (RequestSO request in RequestsPool)
         {
             request.ResetSquad();
             request.IsOperating = false;
@@ -108,5 +108,44 @@ public class RequestPool : MonoBehaviour
         {
             request.ExpireCount++;
         }
+    }
+
+    public bool IsUnlockedDifficulty(RequestSO request)
+    {
+        int rank = GameManager.instance.rank;
+        if (rank >= 5)
+            return true;
+        else if (rank >= 4)
+        {
+            switch (request.difficulty)
+            {
+                case Difficulty.Easy: return true;
+                case Difficulty.Hardcore: return true;
+                case Difficulty.Extreme: return true;
+                case Difficulty.Insane: return false;
+            }
+        }
+        else if (rank >= 3)
+        {
+            switch (request.difficulty)
+            {
+                case Difficulty.Easy: return true;
+                case Difficulty.Hardcore: return true;
+                case Difficulty.Extreme: return false;
+                case Difficulty.Insane: return false;
+            }
+        }
+        else
+        {
+            switch (request.difficulty)
+            {
+                case Difficulty.Easy: return true;
+                case Difficulty.Hardcore: return false;
+                case Difficulty.Extreme: return false;
+                case Difficulty.Insane: return false;
+            }
+        }
+
+        return false;
     }
 }

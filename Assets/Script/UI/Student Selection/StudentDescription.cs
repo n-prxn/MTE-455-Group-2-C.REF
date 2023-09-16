@@ -27,7 +27,7 @@ public class StudentDescription : MonoBehaviour
         ResetDescription();
     }
 
-    void Update(){
+    void OnEnable(){
         
     }
 

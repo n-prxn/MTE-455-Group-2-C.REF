@@ -16,6 +16,7 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] GameObject gachaCard;
     [SerializeField] GameObject gachaCardParent;
     [SerializeField] List<Student> studentsPool;
+    public List<Student> StudentsPool { get => studentsPool; set => studentsPool = value; }
 
     [SerializeField] float commonRate = 78.5f;
     [SerializeField] float uncommonRate = 18.5f;
@@ -36,9 +37,9 @@ public class GachaPool : MonoBehaviour, IData
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        
-        CountRarity(studentsPool);
-        InitializeGachaRate(studentsPool);
+
+        CountRarity(StudentsPool);
+        InitializeGachaRate(StudentsPool);
         SetJsonFile();
     }
 
@@ -55,37 +56,12 @@ public class GachaPool : MonoBehaviour, IData
 
     public void LoadData(GameData data)
     {
-        SquadController.instance.Students.Clear();
-        this.rollCount = data.rollCount;
-        foreach (Student student in studentsPool)
-        {
-            bool studentSquad;
-            data.studentSquad.TryGetValue(student.id, out studentSquad);
-            student.SquadCollect = studentSquad;
-
-            if (student.SquadCollect)
-                SquadController.instance.Students.Add(student);
-        }
+        rollCount = data.rollCount;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.rollCount = this.rollCount;
-        foreach (Student student in studentsPool)
-        {
-            if (data.studentSquad.ContainsKey(student.id))
-            {
-                data.studentSquad.Remove(student.id);
-            }
-
-            if (data.studentCollected.ContainsKey(student.id))
-            {
-                data.studentCollected.Remove(student.id);
-            }
-
-            data.studentSquad.Add(student.id, student.Collected);
-            data.studentCollected.Add(student.id, student.Collected);
-        }
+        data.rollCount = rollCount;
     }
 
     //Define how many of students in each rarity
@@ -160,13 +136,24 @@ public class GachaPool : MonoBehaviour, IData
             PulledStudents.Clear();
             for (int i = 0; i < pullAmount; i++)
             {
-                PulledStudents.Add(studentsPool[PullStudentIndex(studentsPool)]);
+                Student pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
+                PulledStudents.Add(pulledStudent);
+
+                if(!pulledStudent.SquadCollect){
+                    SquadController.instance.Receive(pulledStudent);
+                    pulledStudent.SquadCollect = true;
+                }else{
+                    GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
+                }
+                pulledStudent.Collected = true;
+            
                 GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
                 card.GetComponent<GachaCardDisplay>().student = PulledStudents[i];
 
                 rollCount++;
             }
 
+            DataManager.instance.SaveGame();
             SaveIntoJson();
         }
     }
@@ -223,14 +210,14 @@ public class GachaPool : MonoBehaviour, IData
     public void ClearBTN()
     {
         this.rollCount = 0;
-        foreach (Student student in studentsPool)
+        foreach (Student student in StudentsPool)
         {
             student.SquadCollect = false;
         }
     }
     public void ClearColletedBTN()
     {
-        foreach (Student student in studentsPool)
+        foreach (Student student in StudentsPool)
         {
             student.Collected = false;
         }

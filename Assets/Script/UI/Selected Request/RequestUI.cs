@@ -164,12 +164,8 @@ public class RequestUI : MonoBehaviour
     {
         selectionPanel.SlotIndex = obj.Index;
         if (obj.Student != null)
-        {
             selectionPanel.CurrentSelectedStudent = obj.Student;
-            selectionPanel.Select(obj.Student);
-        }
         ToggleSelectionPanel();
-
     }
 
     void ToggleSelectionPanel()

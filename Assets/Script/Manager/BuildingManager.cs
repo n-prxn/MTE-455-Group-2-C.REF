@@ -36,11 +36,16 @@ public class BuildingManager : MonoBehaviour
                 return;
 
             GameObject building = hit.collider.gameObject;
-            //Debug.Log(building.name);
             Building buildingData = building.GetComponent<Building>();
 
             if (!buildingData.BuildingSO.IsAvailable)
                 return;
+
+            if(building.tag == "Schale")
+                UIDisplay.instance.TogglePanel(UIDisplay.instance.overallPanel);
+            
+            if(building.tag == "Shopping")
+                UIDisplay.instance.TogglePanel(UIDisplay.instance.shopPanel);
 
             TrainingManager.instance.CurrentBuilding = buildingData.BuildingSO.BuildingType;
 
@@ -59,6 +64,8 @@ public class BuildingManager : MonoBehaviour
                     GameManager.instance.sceneManager.LoadScene("Gym");
                     break;
                 case BuildingType.Inventory:
+                    break;
+                default:
                     break;
             }
         }

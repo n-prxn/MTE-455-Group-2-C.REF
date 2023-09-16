@@ -15,6 +15,9 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
     }
     [SerializeField] private Image portraitImage;
     [SerializeField] private Image borderImage;
+    [SerializeField] private GameObject statusIcon;
+    [SerializeField] private Image icon;
+    [SerializeField] private Sprite[] icons;
 
     public event Action<StudentUIData> OnStudentClicked;
     // Start is called before the first frame update
@@ -24,21 +27,20 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
         Deselect();
     }
 
-    void Start()
-    {
-        //Deselect();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SetData(Student s)
     {
         studentData = s;
         portraitImage.sprite = studentData.portrait;
+        statusIcon.SetActive(false);
+    }
+
+    public void SetStatus(int status){
+        statusIcon.SetActive(true);
+        icon.sprite = icons[status];
+    }
+
+    public void RemoveStatus(){
+        statusIcon.SetActive(false);
     }
 
     public void SetColor(Color color){

@@ -60,25 +60,25 @@ public class Student : ScriptableObject
     [JsonIgnore] public int stamina;
 
     [Header("Current Stats")]
-    private int currentPHYStat;
+    [SerializeField] private int currentPHYStat = 0;
     public int CurrentPHYStat
     {
         get { return currentPHYStat; }
         set { currentPHYStat = value; }
     }
-    private int currentINTStat;
+    [SerializeField] private int currentINTStat = 0;
     public int CurrentINTStat
     {
         get { return currentINTStat; }
         set { currentINTStat = value; }
     }
-    private int currentCOMStat;
+    [SerializeField] private int currentCOMStat = 0;
     public int CurrentCOMStat
     {
         get { return currentCOMStat; }
         set { currentCOMStat = value; }
     }
-    private int currentStamina;
+    [SerializeField] private int currentStamina = 0;
     public int CurrentStamina
     {
         get { return currentStamina; }
@@ -126,6 +126,8 @@ public class Student : ScriptableObject
         get { return isAssign; }
         set { isAssign = value; }
     }
+    [SerializeField] private bool isOperating = false;
+    public bool IsOperating { get => isOperating; set => isOperating = value; }
 
     [Header("Training")]
     [SerializeField] private bool isTraining = false;
@@ -141,12 +143,19 @@ public class Student : ScriptableObject
         set { trainingDuration = value; }
     }
 
-    public void InitializeStartStats()
-    {
+    public void InitializeStudent(){
         currentPHYStat = phyStat;
         currentINTStat = intStat;
         currentCOMStat = comStat;
         currentStamina = stamina;
+
+        isAssign = false;
+        isOperating = false;
+        isTraining = false;
+        trainingDuration = 0;
+
+        collected = false;
+        squadCollect = false;
     }
 
     public void UpdateTrainedStats(){
@@ -154,5 +163,10 @@ public class Student : ScriptableObject
         currentINTStat = trainedINTStat;
         currentCOMStat = trainedCOMStat;
         currentStamina = restedStamina;
+
+        trainedPHYStat = 0;
+        trainedINTStat = 0;
+        trainedCOMStat = 0;
+        restedStamina = 0;
     }
 }

@@ -35,7 +35,6 @@ public class TrainingUI : MonoBehaviour
         List<Student> students = TrainingManager.instance.TrainingGroup[TrainingManager.instance.CurrentBuilding];
         for (int i = 0; i < students.Count; i++)
         {
-            Debug.Log(students[i]);
             GameObject card = Instantiate(cardPrefab, cardParent.transform);
             TrainingCardData cardData = card.GetComponent<TrainingCardData>();
             cardData.SetData(i, students[i], TrainingManager.instance.GetCurrentBuilding());
@@ -58,10 +57,8 @@ public class TrainingUI : MonoBehaviour
     {
         selectionUI.SlotIndex = obj.Index;
         if (obj.TrainingStudent != null)
-        {
             selectionUI.CurrentSelectedStudent = obj.TrainingStudent;
-            selectionUI.Select(obj.TrainingStudent);
-        }
+
         selectionUI.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }

@@ -15,7 +15,7 @@ public class StudentSelectionUI : MonoBehaviour
     [SerializeField] GameObject headerPanel;
     [SerializeField] GameObject trainingPanel;
     [SerializeField] int slotIndex;
-    private List<StudentUIData> studentUIDatas = new List<StudentUIData>();
+    private List<StudentUIData> studentUIDatas = new();
     [SerializeField] private Student currentSelectedStudent;
     public Student CurrentSelectedStudent
     {
@@ -34,9 +34,16 @@ public class StudentSelectionUI : MonoBehaviour
 
     }
 
-    void OnEnable(){
+    void OnEnable()
+    {
         InitializeStudents();
-        CheckAssign();
+        CheckStatus();
+        if (currentSelectedStudent != null)
+        {
+            studentDescription.SetDescription(currentSelectedStudent);
+            studentDescription.SetRemove();
+            studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
+        }
     }
 
     void Awake()
@@ -70,24 +77,41 @@ public class StudentSelectionUI : MonoBehaviour
         ResetSelection();
     }
 
-    public void ClearStudentUI(){
-        foreach(Transform studentCard in studentListParent.transform){
+    public void ClearStudentUI()
+    {
+        foreach (Transform studentCard in studentListParent.transform)
+        {
             Destroy(studentCard.gameObject);
         }
     }
 
-    public void CheckAssign()
+    public void CheckStatus()
     {
         foreach (StudentUIData studentUIData in studentUIDatas)
         {
-            if (studentUIData.StudentData.IsAssign || studentUIData.StudentData.IsTraining)
+            if (studentUIData.StudentData.IsOperating)
             {
                 studentUIData.SetColor(Color.gray);
+                studentUIData.SetStatus(0);
+                continue;
             }
-            else
+
+            if (studentUIData.StudentData.IsAssign)
             {
-                studentUIData.SetColor(Color.white);
+                studentUIData.SetColor(Color.gray);
+                studentUIData.SetStatus(2);
+                continue;
             }
+
+            if (studentUIData.StudentData.IsTraining)
+            {
+                studentUIData.SetColor(Color.gray);
+                studentUIData.SetStatus(1);
+                continue;
+            }
+
+            studentUIData.SetColor(Color.white);
+            studentUIData.RemoveStatus();
         }
     }
 
@@ -103,17 +127,10 @@ public class StudentSelectionUI : MonoBehaviour
             studentDescription.SetRemove();
         else
             studentDescription.SetAssign();
-        obj.Select();
-    }
 
-    public void Select(Student student)
-    {
-        if (currentSelectedStudent != null)
-        {
-            studentDescription.SetDescription(currentSelectedStudent);
-            studentDescription.SetRemove();
-            studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
-        }
+        if (obj.StudentData.IsTraining || obj.StudentData.IsOperating)
+            studentDescription.HideButton();
+        obj.Select();
     }
 
     private void ResetSelection()
@@ -147,16 +164,22 @@ public class StudentSelectionUI : MonoBehaviour
         CloseSelectionPanel();
     }
 
-    public void AssignTrainingStudent(){
-        if(TrainingManager.instance.GetCurrentStudentsInBuilding()[slotIndex] != null){
+    public void AssignTrainingStudent()
+    {
+        if (TrainingManager.instance.GetCurrentStudentsInBuilding()[slotIndex] != null)
+        {
             TrainingManager.instance.GetCurrentStudentsInBuilding()[slotIndex].IsTraining = false;
         }
 
         TrainingManager.instance.SetStudentInBuilding(slotIndex, currentSelectedStudent);
+
         currentSelectedStudent.IsTraining = true;
         currentSelectedStudent.TrainingDuration = TrainingManager.instance.GetCurrentBuilding().TrainingDuration;
+        TrainingManager.instance.AddBonus(currentSelectedStudent);
+
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
         currentSelectedStudent = null;
+
         trainingPanel.SetActive(true);
         CloseSelectionPanel();
     }

@@ -8,9 +8,11 @@ using UnityEngine.SceneManagement;
 public class UIDisplay : MonoBehaviour
 {
     [Header("Panel")]
-    [SerializeField] GameObject gachaPanel;
-    [SerializeField] GameObject requestListPanel;
-    [SerializeField] GameObject blackBackground;
+    public GameObject gachaPanel;
+    public GameObject requestListPanel;
+    public GameObject overallPanel;
+    public GameObject shopPanel;
+    public GameObject blackBackground;
 
     [Header("Back Button")]
     [SerializeField] GameObject backButton;

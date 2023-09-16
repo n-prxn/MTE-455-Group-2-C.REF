@@ -41,6 +41,8 @@ public class GameData
     public int crimeRate { get; set; }
     public int rank { get; set; }
     public int currentXP { get; set; }
+    public int successRequest{get; set;}
+    public int failedRequest{get; set;}
 
     //Furniture
     public List<FurnitureData> furnitures { get; set; }
@@ -60,6 +62,8 @@ public class GameData
         crimeRate = 50;
         rank = 0;
         currentXP = 0;
+        successRequest = 0;
+        failedRequest = 0;
 
         rollCount = 0;
 

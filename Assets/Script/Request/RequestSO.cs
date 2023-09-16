@@ -19,10 +19,10 @@ public class RequestSO : ScriptableObject
     public byte id;
     public new string name;
     public Sprite portrait;
-    [TextArea] public new string description;
-    [TextArea] public new string chatStatus;
-    public new string requesterName;
-    public new Difficulty difficulty;
+    [TextArea] public string description;
+    [TextArea] public string chatStatus;
+    public string requesterName;
+    public Difficulty difficulty;
     public bool isRepeatable = false;
     public int duration = 1;
     public int availableDuration = 10;
@@ -106,6 +106,21 @@ public class RequestSO : ScriptableObject
         set { isSuccess = value; }
     }
 
+    public void InitializeRequest(){
+        squad.Clear();
+        for(int i = 0 ; i < 4 ; i++)
+            squad.Add(null);
+        
+        currentTurn = 0;
+        expiredCount = 0;
+        successRate = 0;
+        isRead = false;
+        isShow = false;
+        isDone = false;
+        isSuccess = false;
+        isOperating = false;
+    }
+
     public void DecreaseStamina()
     {
         for (int i = 0; i < 4; i++)
@@ -125,7 +140,10 @@ public class RequestSO : ScriptableObject
         for (int i = 0; i < 4; i++)
         {
             if (squad[i] != null)
+            {
                 squad[i].IsAssign = false;
+                squad[i].IsOperating = false;
+            }
         }
         squad.Clear();
         for (int i = 0; i < 4; i++)

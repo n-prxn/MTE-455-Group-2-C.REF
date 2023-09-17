@@ -208,7 +208,11 @@ public class SkillDatabase : SkillSO
             return;
 
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
-        currentRequest.CurrentHappiness += 1;
+
+        if (currentRequest.happiness > 0)
+        {
+            currentRequest.CurrentHappiness += 1;
+        }
     }
 
     public void SkillSaya()
@@ -314,13 +318,13 @@ public class SkillDatabase : SkillSO
 
     public void SkillFuuka()
     {
-        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Dormitory,currentStudent))
+        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Dormitory, currentStudent))
         {
-            foreach(Student student in TrainingManager.instance.TrainingGroup[BuildingType.Dormitory]){
-                if(student == null)
+            foreach (Student student in TrainingManager.instance.TrainingGroup[BuildingType.Dormitory])
+            {
+                if (student == null)
                     continue;
 
-                Debug.Log(student.name);
                 student.RestedStamina++;
             }
         }
@@ -328,32 +332,99 @@ public class SkillDatabase : SkillSO
 
     public void SkillChise()
     {
-        // Add your code here for SkillChise
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        int happiness = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].school == School.Hyakkiyako)
+                happiness++;
+        }
+
+        currentRequest.CurrentHappiness += happiness;
     }
 
     public void SkillKokona()
     {
-        // Add your code here for SkillKokona
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasKizaki = false;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 45)
+                hasKizaki = true;
+        }
+
+        if (hasKizaki)
+        {
+            RequestManager.instance.AddAdditionalStatus(
+                (int)(RequestManager.instance.TotalPHYStat * 0.1f),
+                (int)(RequestManager.instance.TotalINTStat * 0.1f),
+                (int)(RequestManager.instance.TotalCOMStat * 0.1f));
+        }
     }
 
     public void SkillSaki()
     {
-        // Add your code here for SkillSaki
+        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Gym, currentStudent))
+        {
+            foreach (Student student in TrainingManager.instance.TrainingGroup[BuildingType.Gym])
+            {
+                if (student == null)
+                    continue;
+
+                student.TrainedPHYStat++;
+            }
+        }
     }
 
     public void SkillFubuki()
     {
-        // Add your code here for SkillFubuki
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.StaminaComsumption -= 5;
     }
 
     public void SkillMarina()
     {
-        // Add your code here for SkillMarina
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        float multiplePHYstat = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].school == School.RedWinter)
+                multiplePHYstat += 0.1f;
+        }
+
+        RequestManager.instance.AddAdditionalStatus(
+            (int)(RequestManager.instance.TotalPHYStat * multiplePHYstat), 0, 0);
     }
 
     public void SkillNoa()
     {
-        // Add your code here for SkillNoa
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        currentRequest.CurrentCredit += (int)(currentRequest.credit * 0.3f);
+        currentRequest.CurrentXP += (int)(currentRequest.credit * 0.3f);
     }
 
     public void SkillAsuna()
@@ -363,32 +434,63 @@ public class SkillDatabase : SkillSO
 
     public void SkillHibiki()
     {
-        // Add your code here for SkillHibiki
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.AddAdditionalStatus(
+                (int)(RequestManager.instance.TotalPHYStat * 0.1f),
+                (int)(RequestManager.instance.TotalINTStat * 0.1f), 0);
+
+        RequestManager.instance.TotalPHYStat -= (int)(currentStudent.CurrentPHYStat * 0.1f);
     }
 
     public void SkillNatsu()
     {
-        // Add your code here for SkillNatsu
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.AddAdditionalStatus(
+                0, (int)(currentStudent.CurrentINTStat * 0.3f), (int)(RequestManager.instance.TotalCOMStat * 0.1f));
     }
 
     public void SkillKoharu()
     {
-        // Add your code here for SkillKoharu
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.AddAdditionalStatus(
+                0, 0, (int)(RequestManager.instance.TotalCOMStat * 0.5f));
     }
 
     public void SkillMari()
     {
-        // Add your code here for SkillMari
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+
+        if (currentRequest.happiness > 0)
+        {
+            currentRequest.CurrentHappiness += 2;
+        }
     }
 
     public void SkillAyane()
     {
-        // Add your code here for SkillAyane
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.AddAdditionalStatus(0, 0, (int)(RequestManager.instance.TotalCOMStat * 0.1f));
     }
 
     public void SkillNonomi()
     {
-        // Add your code here for SkillNonomi
+                if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        currentRequest.CurrentCredit += (int)(currentRequest.credit * 0.5f);
+
     }
 
     public void SkillSena()

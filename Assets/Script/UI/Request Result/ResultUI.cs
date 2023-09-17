@@ -87,10 +87,10 @@ public class ResultUI : MonoBehaviour
             demeritPanel.SetActive(false);
 
             pyroxeneText.text = currentSelectedRequest.pyroxene.ToString();
-            creditText.text = currentSelectedRequest.credit.ToString();
-            expText.text = currentSelectedRequest.xp.ToString();
-            happinessText.text = currentSelectedRequest.happiness.ToString();
-            crimeRateText.text = currentSelectedRequest.crimeRate.ToString();
+            creditText.text = currentSelectedRequest.CurrentCredit.ToString();
+            expText.text = currentSelectedRequest.CurrentXP.ToString();
+            happinessText.text = currentSelectedRequest.CurrentHappiness.ToString();
+            crimeRateText.text = currentSelectedRequest.CurrentCrimeRate.ToString();
         }
         else
         {

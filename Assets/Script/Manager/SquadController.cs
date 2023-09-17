@@ -88,6 +88,7 @@ public class SquadController : MonoBehaviour, IData
         foreach(Student student in gachaPool.StudentsPool){
             data.studentSquad.Add(student.id, student.SquadCollect);
             EditorUtility.SetDirty(student);
+            AssetDatabase.SaveAssets();
         }
     }
 }

@@ -2,12 +2,12 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!43 &4300000
 Mesh:
+  serializedVersion: 10
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OL_FX_Aris_Original_Weapon
-  serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
     firstByte: 0
@@ -25,15 +25,15 @@ Mesh:
     channels: []
     fullWeights: []
   m_BindPose:
-  - e00: 0.0000014901161
+  - e00: 1.4901161E-06
     e01: 1
     e02: 0
-    e03: -0.000000028766465
+    e03: -2.8766465E-08
     e10: -1
-    e11: 0.0000014901163
-    e12: 6.1229894e-17
+    e11: 1.4901163E-06
+    e12: 6.1229894E-17
     e13: 0.019304872
-    e20: 6.1229894e-17
+    e20: 6.1229894E-17
     e21: 0
     e22: 1
     e23: 0.12607512
@@ -41,19 +41,20 @@ Mesh:
     e31: 0
     e32: 0
     e33: 1
-  m_BoneNameHashes: 3a1ca30f
+  m_BoneNameHashes:
+  - 262347834
   m_RootBoneNameHash: 262347834
   m_BonesAABB:
   - m_Min: {x: -0.08197558, y: -0.03684196, z: -0.37031257}
     m_Max: {x: 0.06466601, y: 0.085586354, z: 0.22558671}
   m_VariableBoneCountWeights:
-    m_Data: 
+    m_Data: []
   m_MeshCompression: 1
   m_IsReadable: 0
   m_KeepVertices: 1
   m_KeepIndices: 1
   m_IndexFormat: 0
-  m_IndexBuffer: 
+  m_IndexBuffer:
   m_VertexData:
     serializedVersion: 3
     m_VertexCount: 0
@@ -115,7 +116,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 0
-    _typelessdata: 
+    _typelessdata:
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 681
@@ -147,7 +148,7 @@ Mesh:
       m_BitSize: 5
     m_NormalSigns:
       m_NumItems: 227
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_TangentSigns:
       m_NumItems: 454
@@ -157,11 +158,11 @@ Mesh:
       m_NumItems: 908
       m_Range: 0
       m_Start: 1
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_BoneIndices:
       m_NumItems: 227
-      m_Data: 
+      m_Data:
       m_BitSize: 0
     m_Triangles:
       m_NumItems: 369
@@ -172,9 +173,8 @@ Mesh:
     m_Center: {x: -0.005067393, y: -0.008654825, z: -0.19843805}
     m_Extent: {x: 0.061214313, y: 0.07332095, z: 0.29794964}
   m_MeshUsageFlags: 1
-  m_CookingOptions: 30
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
+  m_BakedConvexCollisionMesh:
+  m_BakedTriangleCollisionMesh:
   m_MeshMetrics[0]: 1
   m_MeshMetrics[1]: 1
   m_MeshOptimizationFlags: 0
@@ -182,4 +182,4 @@ Mesh:
     serializedVersion: 2
     offset: 0
     size: 0
-    path: 
+    path:

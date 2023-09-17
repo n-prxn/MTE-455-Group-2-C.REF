@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FX_MAT_Smoke_02
+  m_Shader: {fileID: 4800000, guid: e592952d448513040bbea97d2aca61f8, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _MASK_DISTORTION_USE_ON
+  - _RGBRGBA_ON
+  - _SPECULAR_SETUP
+  - _STEP_CUSTOM_DATAVERTEX_COLOR_USE_ON
+  - _STEP_SCROLL_USE_ON
+  - _VERTEX_ALPHA_USE_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Texture:
+        m_Texture: {fileID: 2800000, guid: 52062f6ce4da5e64385bf1c3cab4539c, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: {}
+    m_Floats:
+    - _AlphaClip: 0
+    - _BColor_Sharpness: 20
+    - _BCustom_Data_Use: 0
+    - _BDisappear_Offset: 0
+    - _BaseSmoothness: 0.5
+    - _Blend: 0
+    - _BumpScale: 1
+    - _Col1Sharp: 20
+    - _Col2Sharp: 20
+    - _Cull: 2
+    - _Cull_Mode: 2
+    - _Custom_Data_Distort_Power_Use: 0
+    - _Custom_Data_MainMask_Offset_Use: 0
+    - _Custom_Data_Main_Offset_Use: 0
+    - _Custom_Data_Offset_Use: 0
+    - _Cutoff: 0.5
+    - _Dis_Speed_X: 0
+    - _Dis_Speed_Y: 0
+    - _DisappearOffset: 0
+    - _DisappearValue: 0
+    - _Distortion_Power_X: 0
+    - _Distortion_Power_Y: 0
+    - _DstBlend: 0
+    - _EmissionStrength: 0
+    - _EnvironmentReflections: 1
+    - _Float2: 0.39
+    - _FlowSpeed: 1
+    - _GColor_Sharpness: 20
+    - _GCustom_Data_Use: 0
+    - _GDisappear_Offset: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _GlowStr: 5
+    - _Main_Distortion_Use: 0
+    - _Main_Multiply: 1
+    - _Main_Speed_X: -0.16
+    - _Main_Speed_Y: 0
+    - _Main_Texture_No: 0
+    - _Mask_Distortion_Use: 1
+    - _Mask_Multiply: 1
+    - _Mask_Speed_X: 0
+    - _Mask_Speed_Y: 0
+    - _Metallic: 0
+    - _Multiply: 1
+    - _OcclusionStrength: 1
+    - _QueueOffset: 0
+    - _RGBRGBA: 1
+    - _ReceiveShadows: 1
+    - _ReflectAnglePower: 2
+    - _ReflectBaseAmount: 0
+    - _ReflectMapARatio: 1
+    - _ReflectMapStrength: 1
+    - _ReflectStrength: 0
+    - _ShadowAttenRefl: 0
+    - _ShadowAttenSpec: 0.2
+    - _Shadow_Color_Multiply: 1
+    - _Shadow_Color_Value: 0.5
+    - _Shadow_Value: -0.15
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecMapARatio: 1
+    - _SpecMapStrength: 1
+    - _SpecPower: 1
+    - _SpecTexRGBRatio: 1
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Step_Custom_DataVertex_color_Use: 1
+    - _Step_Scroll_Use: 1
+    - _Step_Value: 0
+    - _Surface: 0
+    - _UseParticle: 0
+    - _Vertex_Alpha_Use: 1
+    - _WorkflowMode: 1
+    - _ZOffsetFactor: 0
+    - _ZOffsetUnits: 0
+    - _ZTest_Mode: 4
+    - _ZWrite: 1
+    - _ZWrite_Mode: 0
+    m_Colors:
+    - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _BaseSpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _CodeAddColor: {r: 0, g: 0, b: 0, a: 0}
+    - _CodeAddRimColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 5.992157, g: 5.992157, b: 5.992157, a: 1}
+    - _Color0: {r: 1, g: 1, b: 1, a: 0.003921569}
+    - _Color1: {r: 0, g: 0, b: 0, a: 0}
+    - _Color2: {r: 1, g: 0.2989459, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GColor: {r: 8, g: 2.3843138, b: 0, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecLightDir: {r: 0, g: 0.94, b: 0.342, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

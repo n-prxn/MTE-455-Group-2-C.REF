@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: FX_MAT_Img_Motion_03
+  m_Shader: {fileID: 4800000, guid: d4ef38fb022bf184c83153a039adefa5, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _CUSTOM_DATA_DISTORT_POWER_USE_ON
+  - _MAIN_DISTORTION_USE_ON
+  - _MAIN_TEXTURE_NO_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Tex_Distort:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Tex_Main:
+        m_Texture: {fileID: 2800000, guid: 7897c812af64b83498df6f576d49ba69, type: 2}
+        m_Scale: {x: 1.5, y: 1.5}
+        m_Offset: {x: -0.61, y: -0.62}
+    - _Tex_Mask:
+        m_Texture: {fileID: 2800000, guid: c824dc80f270bec42a8febe0b928ba9a, type: 2}
+        m_Scale: {x: 0, y: 65}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: {}
+    m_Floats:
+    - _Cull_Mode: 2
+    - _Custom_Data_Distort_Power_Use: 1
+    - _Custom_Data_MainMask_Offset_Use: 0
+    - _Dis_Speed_X: 0.1
+    - _Dis_Speed_Y: -0.5
+    - _Distortion_Power_X: 0
+    - _Distortion_Power_Y: -1
+    - _Main_Distortion_Use: 1
+    - _Main_Speed_X: 0
+    - _Main_Speed_Y: 0
+    - _Mask_Distortion_Use: 0
+    - _Mask_Speed_X: 0
+    - _Mask_Speed_Y: 0.5
+    - _Multiply: 0.5
+    - _RGBRGBA: 0
+    - _ZOffsetFactor: 0
+    - _ZOffsetUnits: 0
+    - _ZTest_Mode: 4
+    - _ZWrite_Mode: 0
+    m_Colors:
+    - _Color: {r: 28.51895, g: 28.51895, b: 28.51895, a: 1}
+  m_BuildTextureStacks: []

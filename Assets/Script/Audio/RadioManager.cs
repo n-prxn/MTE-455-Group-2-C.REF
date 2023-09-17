@@ -60,7 +60,7 @@ public class RadioManager : MonoBehaviour
         audioSource.Stop();
         currentMusicIndex++;
 
-        if (currentMusicIndex > radioMusics.Length)
+        if (currentMusicIndex > radioMusics.Length - 1)
         {
             currentMusicIndex = 0;
         }

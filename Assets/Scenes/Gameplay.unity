@@ -14740,19 +14740,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 513909088}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 86754180}
-        m_TargetAssemblyTypeName: GachaPool, Assembly-CSharp
-        m_MethodName: Pull
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &513909088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41795,10 +41783,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 86754180}
-        m_TargetAssemblyTypeName: GachaPool, Assembly-CSharp
-        m_MethodName: Pull
-        m_Mode: 3
+      - m_Target: {fileID: 1530610466}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -51660,7 +51648,9 @@ MonoBehaviour:
   currentRequest: {fileID: 11400000, guid: ec6d51444ba006f459badb55466a75b7, type: 2}
   operatingRequests: []
   requestUI: {fileID: 1530669560}
+  requestListUI: {fileID: 828621378}
   requestPool: {fileID: 1766512301}
+  gachaPool: {fileID: 86754180}
 --- !u!114 &1766512301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57341,19 +57331,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1970975712}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1610317658}
-        m_TargetAssemblyTypeName: RequestJSONImport, Assembly-CSharp
-        m_MethodName: ReadJSON
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1970975712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58906,19 +58884,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2025851928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1610317658}
-        m_TargetAssemblyTypeName: RequestJSONImport, Assembly-CSharp
-        m_MethodName: CreateSOfromJSON
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2025851928
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEditor;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class RequestJSON
@@ -63,9 +62,11 @@ public class RequestJSONImport : MonoBehaviour
             JSONtoRequestSO(requestSO, requestJSON);
 
             string path = "Assets/Script/Request/RequestSO/" + int.Parse(requestJSON.id).ToString("00") + ".asset";
+            #if UNITY_EDITOR
             AssetDatabase.CreateAsset(requestSO, path);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+            #endif
         }
     }
 
@@ -75,7 +76,9 @@ public class RequestJSONImport : MonoBehaviour
         requestSO.name = data.name;
         requestSO.description = data.description;
         requestSO.requesterName = data.requester;
+        #if UNITY_EDITOR
         requestSO.portrait = AssetDatabase.LoadAssetAtPath<Sprite>(data.portrait);
+        #endif
         requestSO.duration = data.duration == null ? 0 : int.Parse(data.duration);
 
         switch (data.difficulty)

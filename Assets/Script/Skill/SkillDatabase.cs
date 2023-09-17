@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "New Skill Database", menuName = "Student/Skill Database")]
 public class SkillDatabase : SkillSO
@@ -485,132 +487,512 @@ public class SkillDatabase : SkillSO
 
     public void SkillNonomi()
     {
-                if (RequestManager.instance.CurrentRequest == null)
+        if (RequestManager.instance.CurrentRequest == null)
             return;
 
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
         currentRequest.CurrentCredit += (int)(currentRequest.credit * 0.5f);
-
     }
 
     public void SkillSena()
     {
-        // Add your code here for SkillSena
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        RequestManager.instance.StaminaComsumption -= 5;
+        currentRequest.CurrentXP += (int)(currentRequest.xp * 0.1f);
     }
 
     public void SkillHaruna()
     {
-        // Add your code here for SkillHaruna
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasFuuka = false;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 13)
+                hasFuuka = true;
+        }
+
+        if (hasFuuka)
+        {
+            RequestManager.instance.AddAdditionalStatus(
+                (int)(currentStudent.CurrentPHYStat * 0.2f),
+                (int)(currentStudent.CurrentINTStat * 0.2f),
+                (int)(currentStudent.CurrentCOMStat * 0.2f));
+        }
     }
 
     public void SkillMutsuki()
     {
-        // Add your code here for SkillMutsuki
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasAru = false;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 41)
+                hasAru = false;
+        }
+
+        if (hasAru)
+        {
+            currentRequest.SuccessRate += 10;
+        }
     }
 
     public void SkillIzuna()
     {
-        // Add your code here for SkillIzuna
+        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Gym, currentStudent))
+        {
+            foreach (Student student in TrainingManager.instance.TrainingGroup[BuildingType.Gym])
+            {
+                if (student == null)
+                    continue;
+
+                student.TrainedPHYStat++;
+            }
+        }
+
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO request = RequestManager.instance.CurrentRequest;
+        RequestManager.instance.AddAdditionalStatus(
+            (int)(RequestManager.instance.TotalPHYStat * 0.2f), 0,
+            (int)(RequestManager.instance.TotalINTStat * 0.2f));
+
     }
 
     public void SkillCherino()
     {
-        // Add your code here for SkillCherino
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        int multipleSuccess = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].school == School.RedWinter)
+                multipleSuccess += 1;
+        }
+
+        currentRequest.SuccessRate += multipleSuccess * 10;
     }
 
     public void SkillRio()
     {
-        // Add your code here for SkillRio
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        int seminarStudent = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].club == "Seminar")
+                seminarStudent++;
+        }
+
+        if (seminarStudent >= 2)
+        {
+            currentRequest.SuccessRate += 80;
+            RequestManager.instance.StaminaComsumption = 100;
+        }
     }
 
     public void SkillHimari()
     {
-        // Add your code here for SkillHimari
+        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Gym, currentStudent))
+        {
+            foreach (Student student in TrainingManager.instance.TrainingGroup[BuildingType.Gym])
+            {
+                if (student == null)
+                    continue;
+
+                student.TrainedINTStat++;
+            }
+        }
+
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        int milleniumStudent = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].school == School.Millennium)
+                milleniumStudent++;
+        }
+
+        RequestManager.instance.AddAdditionalStatus(0, (int)(RequestManager.instance.TotalINTStat * 0.1f * milleniumStudent), 0);
     }
 
     public void SkillNeru()
     {
-        // Add your code here for SkillNeru
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasToki = false, hasAsuna = false;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 35)
+                hasToki = true;
+
+            if (currentRequest.squad[i].id == 20)
+                hasAsuna = true;
+        }
+
+        if (hasToki && hasAsuna)
+        {
+            RequestManager.instance.AddAdditionalStatus((int)(currentStudent.CurrentPHYStat * 0.3f),
+            (int)(currentStudent.CurrentINTStat * 0.3f),
+            (int)(currentStudent.CurrentCOMStat * 0.3f));
+        }
     }
 
     public void SkillToki()
     {
-        // Add your code here for SkillToki
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasRio = false;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 32)
+                hasRio = true;
+        }
+
+        if (hasRio)
+        {
+            currentRequest.SuccessRate += 10;
+        }
+        currentRequest.SuccessRate += 10;
     }
 
     public void SkillNagisa()
     {
-        // Add your code here for SkillNagisa
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.AddAdditionalStatus(0,
+            (int)(RequestManager.instance.TotalINTStat * 0.5f), 0);
+
+        RequestManager.instance.TotalCOMStat = (int)(RequestManager.instance.TotalCOMStat * 0.9f);
     }
 
     public void SkillMika()
     {
-        // Add your code here for SkillMika
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.AddAdditionalStatus((int)(currentStudent.CurrentPHYStat * 0.5f), 0, 0);
+        RequestManager.instance.StaminaComsumption -= 15;
     }
 
     public void SkillTsurugi()
     {
-        // Add your code here for SkillTsurugi
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.AddAdditionalStatus((int)(currentStudent.CurrentPHYStat * 0.5f), 0, 0);
+        RequestManager.instance.CurrentRequest.CurrentDemeritCrimeRate *= 0;
+        RequestManager.instance.CurrentRequest.CurrentDemeritHappiness *= 0;
     }
 
     public void SkillAzusa()
     {
-        // Add your code here for SkillAzusa
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasHifumi = false;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 3)
+                hasHifumi = true;
+        }
+
+        if (hasHifumi)
+        {
+            currentRequest.CurrentCrimeRate -= 1;
+        }
+        else
+        {
+            currentRequest.CurrentCrimeRate += 1;
+        }
+
+        RequestManager.instance.AddAdditionalStatus(
+            (int)(currentStudent.CurrentPHYStat * 0.3f),
+            (int)(currentStudent.CurrentINTStat * 0.3f),
+            (int)(currentStudent.CurrentCOMStat * 0.3f)
+        );
     }
 
     public void SkillHina()
     {
-        // Add your code here for SkillHina
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        if (Random.Range(0, 1) == 0)
+        {
+            RequestManager.instance.StaminaComsumption = 0;
+        }
     }
 
     public void SkillAru()
     {
-        // Add your code here for SkillAru
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasMutsuki = false, hasKayoko = false;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 29)
+                hasMutsuki = true;
+
+            if (currentRequest.squad[i].id == 43)
+                hasKayoko = true;
+        }
+
+        if (hasMutsuki && hasKayoko)
+        {
+            currentRequest.SuccessRate += 40;
+            currentRequest.CurrentCredit = (int)(currentRequest.CurrentCredit * 0.25f);
+        }
     }
 
     public void SkillIroha()
     {
-        // Add your code here for SkillIroha
+        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Dormitory, currentStudent))
+        {
+            foreach (Student student in TrainingManager.instance.TrainingGroup[BuildingType.Dormitory])
+            {
+                if (student == null)
+                    continue;
+
+                student.RestedStamina++;
+                student.TrainedPHYStat++;
+                student.TrainedINTStat++;
+                student.TrainedCOMStat++;
+            }
+        }
     }
 
     public void SkillKayoko()
     {
-        // Add your code here for SkillKayoko
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasAru = false;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 41)
+                hasAru = true;
+        }
+
+        if (hasAru)
+        {
+            currentRequest.SuccessRate += 10;
+        }
     }
 
     public void SkillHoshino()
     {
-        // Add your code here for SkillHoshino
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestManager.instance.StaminaComsumption /= 2;
     }
 
     public void SkillKizaki()
     {
-        // Add your code here for SkillKizaki
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        Student minStatStudent = null;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (minStatStudent == null)
+            {
+                minStatStudent = currentRequest.squad[i];
+            }
+
+            if (currentRequest.squad[i].TotalCurrentStat() <= minStatStudent.TotalCurrentStat())
+            {
+                minStatStudent = currentRequest.squad[i];
+            }
+        }
+
+        if (minStatStudent.id != currentStudent.id && minStatStudent != null)
+        {
+            RequestManager.instance.AddAdditionalStatus(
+                (int)(minStatStudent.CurrentPHYStat * 0.5f),
+                (int)(minStatStudent.CurrentINTStat * 0.5f),
+                (int)(minStatStudent.CurrentCOMStat * 0.5f)
+            );
+        }
     }
 
     public void SkillArisu()
     {
-        // Add your code here for SkillArisu
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        int index = 0;
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == currentStudent.id){
+                index = i;
+                break;
+            }
+        }
+
+        switch(index){
+            case 0 :
+                RequestManager.instance.AddAdditionalStatus(
+                (int)(currentStudent.CurrentPHYStat * 0.2f),0,0);
+                break;
+            case 1 :
+                RequestManager.instance.AddAdditionalStatus(
+                0,(int)(currentStudent.CurrentINTStat * 0.2f),0);
+                break;
+            case 2 :
+                RequestManager.instance.AddAdditionalStatus(
+                0,0,(int)(currentStudent.CurrentCOMStat * 0.2f));
+                break;
+            case 3:
+                RequestManager.instance.StaminaComsumption -= 10;
+                break;
+        }
     }
 
     public void SkillSeia()
     {
-        // Add your code here for SkillSeia
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+
+        currentRequest.SuccessRate += 50;
+        RequestManager.instance.StaminaComsumption *= 2;
     }
 
     public void SkillAko()
     {
-        // Add your code here for SkillAko
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        bool hasHina = false;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].id == 40)
+                hasHina = true;
+        }
+
+        if (hasHina)
+        {
+            RequestManager.instance.AddAdditionalStatus(
+                (int)(RequestManager.instance.TotalPHYStat * 0.2f),
+                (int)(RequestManager.instance.TotalINTStat * 0.2f),
+                (int)(RequestManager.instance.TotalCOMStat * 0.2f));
+        }
+        else
+        {
+            RequestManager.instance.AddAdditionalStatus(0, 0,
+                (int)(RequestManager.instance.TotalCOMStat * 0.2f));
+        }
     }
 
     public void SkillMiyako()
     {
-        // Add your code here for SkillMiyako
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        int SRTStudent = 0;
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] == null)
+                continue;
+
+            if (currentRequest.squad[i].school == School.SRT)
+                SRTStudent++;
+        }
+
+        RequestManager.instance.AddAdditionalStatus(
+            (int)(RequestManager.instance.TotalPHYStat * 0.3f),
+            (int)(RequestManager.instance.TotalINTStat * 0.3f),
+            (int)(RequestManager.instance.TotalCOMStat * 0.3f));
+
     }
 
     public void SkillSaori()
     {
-        // Add your code here for SkillSaori
+        if (RequestManager.instance.CurrentRequest == null)
+            return;
+
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        currentRequest.CurrentCredit *= 2;
+        currentRequest.CurrentXP *= 2;
+
+        currentRequest.CurrentCrimeRate += 2;
+        currentRequest.CurrentHappiness -= 2;
     }
 
 }

@@ -62,25 +62,25 @@ public class Student : ScriptableObject
     [JsonIgnore] public int stamina;
 
     [Header("Current Stats")]
-    private int currentPHYStat = 0;
+    private int currentPHYStat;
     public int CurrentPHYStat
     {
         get { return currentPHYStat; }
         set { currentPHYStat = value; }
     }
-    private int currentINTStat = 0;
+    private int currentINTStat;
     public int CurrentINTStat
     {
         get { return currentINTStat; }
         set { currentINTStat = value; }
     }
-    private int currentCOMStat = 0;
+    private int currentCOMStat;
     public int CurrentCOMStat
     {
         get { return currentCOMStat; }
         set { currentCOMStat = value; }
     }
-    private int currentStamina = 0;
+    private int currentStamina;
     public int CurrentStamina
     {
         get { return currentStamina; }
@@ -184,6 +184,10 @@ public class Student : ScriptableObject
         trainedINTStat = currentINTStat;
         trainedCOMStat = currentCOMStat;
         restedStamina = currentStamina;
+    }
+
+    public int TotalCurrentStat(){
+        return currentPHYStat + currentINTStat + currentCOMStat;
     }
     #endregion
 }

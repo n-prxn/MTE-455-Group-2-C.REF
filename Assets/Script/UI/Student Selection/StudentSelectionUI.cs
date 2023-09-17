@@ -4,7 +4,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
-using UnityEditor.PackageManager.Requests;
 
 public class StudentSelectionUI : MonoBehaviour
 {

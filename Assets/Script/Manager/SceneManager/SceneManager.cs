@@ -52,8 +52,8 @@ public class SceneManager : ScriptableObject
         if (loadedLevels.Count > 0)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(loadedLevels.Pop());
-            DataManager.instance.SaveGame();
-            DataManager.instance.LoadGame();
+            /*DataManager.instance.SaveGame();
+            DataManager.instance.LoadGame();*/
         }
         else
         {

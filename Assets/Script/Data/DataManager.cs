@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using UnityEditor.PackageManager.Requests;
 
 public class DataManager : MonoBehaviour
 {
@@ -41,17 +40,15 @@ public class DataManager : MonoBehaviour
         this.gameData = new GameData();
 
         foreach(RequestSO request in requestPool.RequestsPool)
+        {
             request.InitializeRequest();
+            gameData.requests.Add(new RequestData(request));
+        }
 
         foreach(Student student in gachaPool.StudentsPool)
         {
             student.InitializeStudent();
-            
-            gameData.studentSquad.Clear();
-            gameData.studentSquad.Add(student.id, student.SquadCollect);
-            
-            gameData.studentCollected.Clear();
-            gameData.studentCollected.Add(student.id, student.Collected);
+            gameData.students.Add(new StudentData(student));
         }
 
         foreach(BuildingSO building in TrainingManager.instance.Buildings)
@@ -87,7 +84,10 @@ public class DataManager : MonoBehaviour
 
     public void ClearColleted()
     {
-        gameData.studentCollected.Clear();
+        foreach(StudentData student in gameData.students)
+        {   
+            student.collected = false;
+        }
         fileHandler.Save(gameData);
     }
 

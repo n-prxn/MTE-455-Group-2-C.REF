@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,9 +27,10 @@ public class RequestListUI : MonoBehaviour
 
     List<RequestCardData> requestCardDatas = new List<RequestCardData>();
     List<RequestCardData> completeCardDatas = new List<RequestCardData>();
-    public List<RequestCardData> CompleteCardDatas{
-        get{ return completeCardDatas; }
-        set{ completeCardDatas = value;}
+    public List<RequestCardData> CompleteCardDatas
+    {
+        get { return completeCardDatas; }
+        set { completeCardDatas = value; }
     }
     RequestCardData currentSelectedRequest;
     // Start is called before the first frame update
@@ -45,7 +46,8 @@ public class RequestListUI : MonoBehaviour
         //GenerateRequestCard();
     }
 
-    void OnEnable(){
+    void OnEnable()
+    {
         GenerateRequestCard();
         ShowIdleWindow();
     }
@@ -72,18 +74,22 @@ public class RequestListUI : MonoBehaviour
         ResetList();
         foreach (RequestSO requestSO in RequestManager.instance.TodayRequests)
         {
-            Transform parent;
-            if (requestSO.IsOperating)
-                parent = inProgressParent.transform;
-            else
-                parent = cardParent.transform;
-
-            GameObject requestCard = Instantiate(requestCardPrefab, parent);
+            GameObject requestCard = Instantiate(requestCardPrefab, cardParent.transform);
             RequestCardData requestCardData = requestCard.GetComponent<RequestCardData>();
             requestCardData.SetData(requestSO);
             requestCardData.OnCardClicked += HandleCardSelection;
             if (requestCardData.RequestData.IsRead)
                 requestCardData.HideNoticeSymbol();
+            requestCardDatas.Add(requestCardData);
+        }
+
+        foreach (RequestSO requestSO in RequestManager.instance.OperatingRequests)
+        {
+            GameObject requestCard = Instantiate(requestCardPrefab, inProgressParent.transform);
+            RequestCardData requestCardData = requestCard.GetComponent<RequestCardData>();
+            requestCardData.SetData(requestSO);
+            requestCardData.OnCardClicked += HandleCardSelection;
+            requestCardData.HideNoticeSymbol();
             requestCardDatas.Add(requestCardData);
         }
 

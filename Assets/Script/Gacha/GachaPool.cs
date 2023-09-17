@@ -28,10 +28,7 @@ public class GachaPool : MonoBehaviour, IData
 
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;
-
     private List<Student> PulledStudents = new List<Student>();
-
-    private string documentName = Path.Combine(Application.dataPath, "gachaLog.json");
 
     // Start is called before the first frame update
     void Awake()
@@ -40,7 +37,6 @@ public class GachaPool : MonoBehaviour, IData
 
         CountRarity(StudentsPool);
         InitializeGachaRate(StudentsPool);
-        SetJsonFile();
     }
 
     void Start()
@@ -155,7 +151,6 @@ public class GachaPool : MonoBehaviour, IData
             }
 
             DataManager.instance.SaveGame();
-            SaveIntoJson();
         }
     }
 
@@ -177,37 +172,11 @@ public class GachaPool : MonoBehaviour, IData
         GameManager.instance.pyroxenes += pyroxenes;
     }
 
-    //Save Gacha History To Log
-    public void SaveIntoJson()
-    {
-        string strOuput = JsonConvert.SerializeObject(PulledStudents, Formatting.Indented, new JsonSerializerSettings
-        {
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        });
-
-        File.AppendAllText(documentName, strOuput);
-
-    }
-
-    public void SetJsonFile()
-    {
-        if (!File.Exists(documentName))
-        {
-            File.WriteAllText(documentName, "");
-        }
-
-        string strOuput = JsonConvert.SerializeObject(PulledStudents, Formatting.Indented, new JsonSerializerSettings
-        {
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        });
-
-        File.WriteAllText(documentName, strOuput);
-    }
-
     public void SaveBTN()
     {
         DataManager.instance.SaveGame();
     }
+    
     public void ClearBTN()
     {
         this.rollCount = 0;

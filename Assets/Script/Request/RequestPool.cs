@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.PackageManager.Requests;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class RequestPool : MonoBehaviour
@@ -20,9 +16,7 @@ public class RequestPool : MonoBehaviour
 
     void Start()
     {
-        ResetOperatedRequest();
-        RequestManager.instance.TodayRequests.Add(RequestsPool[0]);
-        GenerateRequests();
+
     }
 
     // Update is called once per frame

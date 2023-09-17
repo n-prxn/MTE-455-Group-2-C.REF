@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
-public class RequestManager : MonoBehaviour
+public class RequestManager : MonoBehaviour, IData
 {
     [Header("Capacity")]
     public int requestPerTurn = 1;
@@ -31,7 +30,9 @@ public class RequestManager : MonoBehaviour
     }
 
     [SerializeField] private RequestUI requestUI;
+    [SerializeField] private RequestListUI requestListUI;
     [SerializeField] private RequestPool requestPool;
+    [SerializeField] private GachaPool gachaPool;
 
     private int totalPHYStat = 0;
     public int TotalPHYStat
@@ -67,17 +68,13 @@ public class RequestManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        operatingRequests.Clear();
-    }
-    void Start()
-    {
-
+        //operatingRequests.Clear();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitializeRequest()
     {
-
+        TodayRequests.Add(requestPool.RequestsPool[0]);
+        requestPool.GenerateRequests();
     }
 
     public void Calculate()
@@ -144,6 +141,7 @@ public class RequestManager : MonoBehaviour
     public void AddOperatingQuest()
     {
         operatingRequests.Add(currentRequest);
+        todayRequests.Remove(currentRequest);
         currentRequest.IsOperating = true;
         foreach (Student student in currentRequest.squad)
         {
@@ -164,10 +162,11 @@ public class RequestManager : MonoBehaviour
 
     public void RemoveRequest(RequestSO request)
     {
-        RequestSO targetRequest = TodayRequests.Find(x => x.id == request.id);
-        if (targetRequest != null)
-        {
-            operatingRequests.Remove(targetRequest);
+        foreach(RequestSO requestSO in OperatingRequests){
+            if(requestSO.id == request.id){
+                operatingRequests.Remove(requestSO);
+                break;
+            }
         }
     }
 
@@ -186,5 +185,72 @@ public class RequestManager : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public void LoadData(GameData data)
+    {
+        todayRequests.Clear();
+        OperatingRequests.Clear();
+        foreach (RequestData rData in data.requests)
+        {
+            RequestSO request = requestPool.RequestsPool.Find(x => x.id == rData.id);
+            request.CurrentCredit = rData.currentCredit;
+            request.CurrentXP = rData.currentXP;
+            request.CurrentHappiness = rData.currentHappiness;
+            request.CurrentCrimeRate = rData.currentCrimeRate;
+
+            request.CurrentDemeritHappiness = rData.currentDemeritHappiness;
+            request.CurrentDemeritCrimeRate = rData.currentDemeritCrimeRate;
+
+            request.IsOperating = rData.isOperating;
+            request.IsRead = rData.isRead;
+            request.IsDone = rData.isDone;
+            request.IsShow = rData.isShow;
+            request.IsSuccess = rData.isSuccess;
+
+            request.SuccessRate = rData.successRate;
+            request.CurrentTurn = rData.currentTurn;
+            request.ExpireCount = rData.expiredCount;
+
+            //Debug.Log(request.name);
+            for (int i = 0; i < rData.squad.Length; i++){
+                //Debug.Log(i);
+                if(rData.squad[i] == -1){
+                    request.squad[i] = null;
+                }else{
+                    request.squad[i] = gachaPool.StudentsPool.Find(x => x.id == rData.squad[i]);
+                }
+            }
+
+            //Debug.Log(request.name);
+            if (request.IsOperating)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if(request.squad[i] == null)
+                        continue;
+
+                    request.squad[i].IsOperating = true;
+                }
+                operatingRequests.Add(request);
+                Debug.Log(request.name + "operated");
+            }
+
+            if (request.IsShow && !request.IsOperating)
+                todayRequests.Add(request);
+
+            if(request.IsDone && !request.IsOperating && request.SquadAmount() > 0)
+                requestListUI.GenerateCompleteCard(request);
+        }
+        requestListUI.GenerateRequestCard();
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.requests = new List<RequestData>();
+        foreach (RequestSO request in requestPool.RequestsPool)
+        {
+            data.requests.Add(new RequestData(request));
+        }
     }
 }

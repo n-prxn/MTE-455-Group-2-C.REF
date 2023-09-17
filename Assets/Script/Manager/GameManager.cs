@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour, IData
@@ -191,6 +190,10 @@ public class GameManager : MonoBehaviour, IData
     public void IncreaseXP(int xp)
     {
         currentXP += xp;
+    }
+
+    public void QuitGame(){
+        Application.Quit();
     }
 
     public void LoadData(GameData data)

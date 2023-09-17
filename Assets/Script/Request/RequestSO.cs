@@ -52,10 +52,14 @@ public class RequestSO : ScriptableObject
     [SerializeField] private int currentXP;
     [SerializeField] private int currentHappiness;
     [SerializeField] private int currentCrimeRate;
+    [SerializeField] private int currentDemeritHappiness;
+    [SerializeField] private int currentDemeritCrimeRate;
     public int CurrentCrimeRate { get => currentCrimeRate; set => currentCrimeRate = value; }
     public int CurrentHappiness { get => currentHappiness; set => currentHappiness = value; }
     public int CurrentXP { get => currentXP; set => currentXP = value; }
     public int CurrentCredit { get => currentCredit; set => currentCredit = value; }
+    public int CurrentDemeritHappiness { get => currentDemeritHappiness; set => currentDemeritHappiness = value; }
+    public int CurrentDemeritCrimeRate { get => currentDemeritCrimeRate; set => currentDemeritCrimeRate = value; }
 
     [Header("Squad")]
     public List<Student> squad = new List<Student>();
@@ -143,6 +147,9 @@ public class RequestSO : ScriptableObject
         currentXP = xp;
         currentHappiness = happiness;
         currentCrimeRate = crimeRate;
+
+        currentDemeritCrimeRate = demeritCrimeRate;
+        currentDemeritHappiness = demeritHappiness;
     }
     public void DecreaseStamina(int stamina)
     {
@@ -173,6 +180,15 @@ public class RequestSO : ScriptableObject
         {
             squad.Add(null);
         }
+    }
+
+    public int SquadAmount(){
+        int amount = 0;
+        for(int i = 0 ; i < 4; i++){
+            if(squad[i] != null)
+                amount++;
+        }
+        return amount;
     }
 
     public int TotalStat()

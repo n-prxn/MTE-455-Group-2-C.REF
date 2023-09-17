@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 public class SquadController : MonoBehaviour, IData
 {
     [Header("Students")]
@@ -42,6 +44,7 @@ public class SquadController : MonoBehaviour, IData
 
     public void Receive(Student s)
     {
+        s.InitializeStudent();
         students.Add(s);
     }
 
@@ -72,10 +75,15 @@ public class SquadController : MonoBehaviour, IData
     public void LoadData(GameData data)
     {
         students.Clear();
-        foreach(Student student in gachaPool.StudentsPool){
-            bool isSquadCollect;
-            data.studentSquad.TryGetValue(student.id, out isSquadCollect);
-            student.SquadCollect = isSquadCollect;
+        foreach(StudentData sData in data.students){
+            Student student = gachaPool.StudentsPool[sData.id - 1];
+            student.CurrentPHYStat = sData.currentPHYStat;
+            student.CurrentINTStat = sData.currentINTStat;
+            student.CurrentCOMStat = sData.currentCOMStat;
+            student.CurrentStamina = sData.currentStamina;
+
+            student.Collected = sData.collected;
+            student.SquadCollect = sData.squadCollect;
             
             if(student.SquadCollect)
                 students.Add(student);
@@ -84,11 +92,9 @@ public class SquadController : MonoBehaviour, IData
 
     public void SaveData(ref GameData data)
     {
-        data.studentSquad.Clear();
-        foreach(Student student in gachaPool.StudentsPool){
-            data.studentSquad.Add(student.id, student.SquadCollect);
-            EditorUtility.SetDirty(student);
-            AssetDatabase.SaveAssets();
+        data.students = new List<StudentData>();
+        foreach(Student student in students){
+            data.students.Add(new StudentData(student));
         }
     }
 }

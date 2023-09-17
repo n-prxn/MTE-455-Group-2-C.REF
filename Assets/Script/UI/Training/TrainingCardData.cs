@@ -68,12 +68,12 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
             currentPHYBar.fillAmount = student.CurrentPHYStat / 60f;
             currentINTBar.fillAmount = student.CurrentINTStat / 60f;
             currentCOMBar.fillAmount = student.CurrentCOMStat / 60f;
-            staminaBar.fillAmount = student.CurrentStamina / 60f;
+            staminaBar.fillAmount = student.CurrentStamina / student.stamina;
 
             trainedPHYBar.fillAmount = (student.CurrentPHYStat + (student.TrainedPHYStat - student.CurrentPHYStat)) / 60f;
             trainedINTBar.fillAmount = (student.CurrentINTStat + (student.TrainedINTStat - student.CurrentINTStat)) / 60f;
             trainedCOMBar.fillAmount = (student.CurrentCOMStat + (student.TrainedCOMStat - student.CurrentCOMStat)) / 60f;
-            restedStaminaBar.fillAmount = (student.CurrentStamina + (student.RestedStamina - student.CurrentStamina)) / 60f;
+            restedStaminaBar.fillAmount = (student.CurrentStamina + (student.RestedStamina - student.CurrentStamina)) / student.stamina;
 
             trainingDaysText.text = "Remaining " + student.TrainingDuration.ToString() + " Day(s)";
 

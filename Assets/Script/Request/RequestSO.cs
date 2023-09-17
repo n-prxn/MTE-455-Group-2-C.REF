@@ -47,6 +47,16 @@ public class RequestSO : ScriptableObject
     public int crimeRate;
     public int pyroxene;
 
+    [Header("Current Rewards")]
+    [SerializeField] private int currentCredit;
+    [SerializeField] private int currentXP;
+    [SerializeField] private int currentHappiness;
+    [SerializeField] private int currentCrimeRate;
+    public int CurrentCrimeRate { get => currentCrimeRate; set => currentCrimeRate = value; }
+    public int CurrentHappiness { get => currentHappiness; set => currentHappiness = value; }
+    public int CurrentXP { get => currentXP; set => currentXP = value; }
+    public int CurrentCredit { get => currentCredit; set => currentCredit = value; }
+
     [Header("Squad")]
     public List<Student> squad = new List<Student>();
 
@@ -106,11 +116,12 @@ public class RequestSO : ScriptableObject
         set { isSuccess = value; }
     }
 
-    public void InitializeRequest(){
+    public void InitializeRequest()
+    {
         squad.Clear();
-        for(int i = 0 ; i < 4 ; i++)
+        for (int i = 0; i < 4; i++)
             squad.Add(null);
-        
+
         currentTurn = 0;
         expiredCount = 0;
         successRate = 0;
@@ -119,9 +130,21 @@ public class RequestSO : ScriptableObject
         isDone = false;
         isSuccess = false;
         isOperating = false;
+
+        currentCredit = credit;
+        currentXP = xp;
+        currentHappiness = happiness;
+        currentCrimeRate = crimeRate;
     }
 
-    public void DecreaseStamina()
+    public void InitializeCurrentReward()
+    {
+        currentCredit = credit;
+        currentXP = xp;
+        currentHappiness = happiness;
+        currentCrimeRate = crimeRate;
+    }
+    public void DecreaseStamina(int stamina)
     {
         for (int i = 0; i < 4; i++)
         {

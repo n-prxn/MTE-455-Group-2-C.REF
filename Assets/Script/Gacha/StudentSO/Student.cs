@@ -24,9 +24,10 @@ public enum School
     Valkyrie
 }
 
-[CreateAssetMenu(fileName = "New Student", menuName = "Student")]
+[CreateAssetMenu(fileName = "New Student", menuName = "Student/Student")]
 public class Student : ScriptableObject
 {
+    #region Student
     [Header("Student Info")]
     public byte id;
     public new string name;
@@ -35,17 +36,18 @@ public class Student : ScriptableObject
     [JsonIgnore] public Sprite artwork;
     public string club;
     public School school;
+    public SkillSO skill;
     [JsonIgnore][TextArea] public string detail;
 
     [Header("Gacha Info")]
     public Rarity rarity;
-    [SerializeField] private bool collected;
+    private bool collected;
     public bool Collected
     {
         get { return collected; }
         set { collected = value; }
     }
-    [SerializeField] private bool squadCollect;
+    private bool squadCollect;
     public bool SquadCollect
     {
         get { return squadCollect; }
@@ -87,27 +89,31 @@ public class Student : ScriptableObject
 
     [Header("Trained Stats")]
     private int trainedPHYStat;
-    public int TrainedPHYStat{
-        get{ return trainedPHYStat;}
-        set{ trainedPHYStat = value;}
+    public int TrainedPHYStat
+    {
+        get { return trainedPHYStat; }
+        set { trainedPHYStat = value; }
     }
 
     private int trainedINTStat;
-    public int TrainedINTtat{
-        get{ return trainedINTStat;}
-        set{ trainedINTStat = value;}
+    public int TrainedINTStat
+    {
+        get { return trainedINTStat; }
+        set { trainedINTStat = value; }
     }
 
     private int trainedCOMStat;
-    public int TrainedCOMtat{
-        get{ return trainedCOMStat;}
-        set{ trainedCOMStat = value;}
+    public int TrainedCOMStat
+    {
+        get { return trainedCOMStat; }
+        set { trainedCOMStat = value; }
     }
 
     private int restedStamina;
-    public int RestedStamina{
-        get{ return restedStamina;}
-        set{ restedStamina = value;}
+    public int RestedStamina
+    {
+        get { return restedStamina; }
+        set { restedStamina = value; }
     }
 
     [JsonIgnore]
@@ -146,7 +152,8 @@ public class Student : ScriptableObject
     [Header("Voice")]
     public AudioClip[] studentVoices;
 
-    public void InitializeStudent(){
+    public void InitializeStudent()
+    {
         currentPHYStat = phyStat;
         currentINTStat = intStat;
         currentCOMStat = comStat;
@@ -161,15 +168,22 @@ public class Student : ScriptableObject
         squadCollect = false;
     }
 
-    public void UpdateTrainedStats(){
+    public void UpdateTrainedStats()
+    {
         currentPHYStat = trainedPHYStat;
         currentINTStat = trainedINTStat;
         currentCOMStat = trainedCOMStat;
         currentStamina = restedStamina;
 
-        trainedPHYStat = 0;
-        trainedINTStat = 0;
-        trainedCOMStat = 0;
-        restedStamina = 0;
+        ResetTrainedStat();
     }
+
+    public void ResetTrainedStat()
+    {
+        trainedPHYStat = currentPHYStat;
+        trainedINTStat = currentINTStat;
+        trainedCOMStat = currentCOMStat;
+        restedStamina = currentStamina;
+    }
+    #endregion
 }

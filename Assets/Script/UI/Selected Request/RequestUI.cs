@@ -45,7 +45,7 @@ public class RequestUI : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-
+        RequestManager.instance.Calculate();
     }
 
     void Awake()
@@ -76,6 +76,7 @@ public class RequestUI : MonoBehaviour
     }
     public void UpdateRequestInfo(RequestSO request)
     {
+        
         request.CurrentTurn = request.duration;
         UpdateRequestRequirement(request);
         UpdateSquadUI(request);
@@ -88,11 +89,11 @@ public class RequestUI : MonoBehaviour
         requestText.text = request.name;
         requesterText.text = request.requesterName;
         descriptionText.text = request.description;
-        creditText.text = request.credit.ToString();
+        creditText.text = request.CurrentCredit.ToString();
         pyroxeneText.text = request.pyroxene.ToString();
-        expText.text = request.xp.ToString();
-        happinessText.text = request.happiness.ToString();
-        crimeRateText.text = request.crimeRate.ToString();
+        expText.text = request.CurrentXP.ToString();
+        happinessText.text = request.CurrentHappiness.ToString();
+        crimeRateText.text = request.CurrentCrimeRate.ToString();
     }
 
     void UpdateSquadUI(RequestSO request)
@@ -134,9 +135,9 @@ public class RequestUI : MonoBehaviour
         else
             multiplier = 1.2f;
 
-        PHYReqAmount.text = phyStat.ToString() + " (+" + (int)(phyStat * (multiplier - 1)) + ")";
-        INTReqAmount.text = intStat.ToString() + " (+" + (int)(intStat * (multiplier - 1)) + ")";
-        COMReqAmount.text = comStat.ToString() + " (+" + (int)(comStat * (multiplier - 1)) + ")";
+        PHYReqAmount.text = RequestManager.instance.TotalPHYStat.ToString() + " / " + phyStat.ToString() + " (+" + (int)(phyStat * (multiplier - 1)) + ")";
+        INTReqAmount.text = RequestManager.instance.TotalINTStat.ToString() + " / " + intStat.ToString() + " (+" + (int)(intStat * (multiplier - 1)) + ")";
+        COMReqAmount.text = RequestManager.instance.TotalCOMStat.ToString() + " / " + comStat.ToString() + " (+" + (int)(comStat * (multiplier - 1)) + ")";
         
         phyStat = (int)(phyStat * multiplier) <= 300 ? (int)(phyStat * multiplier) : 300;
         intStat = (int)(intStat * multiplier) <= 300 ? (int)(intStat * multiplier) : 300;
@@ -150,6 +151,10 @@ public class RequestUI : MonoBehaviour
         request.multipliedPhyStat = phyStat;
         request.multipliedIntStat = intStat;
         request.multipliedComStat = comStat;
+    }
+
+    void UpdateReward(){
+        
     }
 
     void UpdateCurrentStat(int PHYStat, int INTStat, int COMStat)

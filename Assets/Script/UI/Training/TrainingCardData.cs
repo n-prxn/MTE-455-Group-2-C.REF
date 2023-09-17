@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -32,6 +33,7 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image trainedINTBar;
     [SerializeField] private Image trainedCOMBar;
     [SerializeField] private Image restedStaminaBar;
+    private TrainingUI trainingUI;
 
     private Student trainingStudent;
     public Student TrainingStudent
@@ -49,7 +51,7 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
 
     public event Action<TrainingCardData> OnStudentClicked;
 
-    public void SetData(int index, Student student, BuildingSO building)
+    public void SetData(int index, Student student)
     {
         this.index = index;
         if (student != null)
@@ -58,20 +60,20 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
             studentName.text = trainingStudent.name;
             portraitImage.sprite = trainingStudent.portrait;
 
-            PHYStat.text = student.CurrentPHYStat.ToString() + "(+" + building.BonusPHYTraining.ToString() + ")";
-            INTStat.text = student.CurrentINTStat.ToString() + "(+" + building.BonusINTTraining.ToString() + ")";
-            COMStat.text = student.CurrentCOMStat.ToString() + "(+" + building.BonusCOMTraining.ToString() + ")";
-            stamina.text = student.CurrentStamina.ToString() + "(+" + building.BonusStaminaRested.ToString() + ")";
+            PHYStat.text = student.CurrentPHYStat.ToString() + "(+" + (student.TrainedPHYStat - student.CurrentPHYStat).ToString() + ")";
+            INTStat.text = student.CurrentINTStat.ToString() + "(+" + (student.TrainedINTStat - student.CurrentINTStat).ToString() + ")";
+            COMStat.text = student.CurrentCOMStat.ToString() + "(+" + (student.TrainedCOMStat - student.CurrentCOMStat).ToString() + ")";
+            stamina.text = student.CurrentStamina.ToString() + "(+" + (student.RestedStamina - student.CurrentStamina).ToString() + ")";
 
             currentPHYBar.fillAmount = student.CurrentPHYStat / 60f;
             currentINTBar.fillAmount = student.CurrentINTStat / 60f;
             currentCOMBar.fillAmount = student.CurrentCOMStat / 60f;
             staminaBar.fillAmount = student.CurrentStamina / 60f;
 
-            trainedPHYBar.fillAmount = (student.CurrentPHYStat + building.BonusPHYTraining) / 60f;
-            trainedINTBar.fillAmount = (student.CurrentINTStat + building.BonusINTTraining) / 60f;
-            trainedCOMBar.fillAmount = (student.CurrentCOMStat + building.BonusCOMTraining) / 60f;
-            restedStaminaBar.fillAmount = (student.CurrentStamina + building.BonusStaminaRested) / 60f;
+            trainedPHYBar.fillAmount = (student.CurrentPHYStat + (student.TrainedPHYStat - student.CurrentPHYStat)) / 60f;
+            trainedINTBar.fillAmount = (student.CurrentINTStat + (student.TrainedINTStat - student.CurrentINTStat)) / 60f;
+            trainedCOMBar.fillAmount = (student.CurrentCOMStat + (student.TrainedCOMStat - student.CurrentCOMStat)) / 60f;
+            restedStaminaBar.fillAmount = (student.CurrentStamina + (student.RestedStamina - student.CurrentStamina)) / 60f;
 
             trainingDaysText.text = "Remaining " + student.TrainingDuration.ToString() + " Day(s)";
 
@@ -83,12 +85,20 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void Resign()
+    {
+        trainingStudent.IsTraining = false;
+        TrainingManager.instance.RemoveStudentFromBuilding(trainingStudent);
+        TrainingManager.instance.UpdateTrainingPanel();
+    }
+
     public void OnPointerClick(PointerEventData data)
     {
         PointerEventData pointerEventData = data;
         if (pointerEventData.button == PointerEventData.InputButton.Left)
         {
-            OnStudentClicked?.Invoke(this);
+            if(trainingStudent == null)
+                OnStudentClicked?.Invoke(this);
         }
     }
 }

@@ -13,6 +13,7 @@ public class TrainingUI : MonoBehaviour
 
     void OnEnable()
     {
+        TrainingManager.instance.Calculate();
         InitializeTrainingStudents();
     }
 
@@ -37,7 +38,7 @@ public class TrainingUI : MonoBehaviour
         {
             GameObject card = Instantiate(cardPrefab, cardParent.transform);
             TrainingCardData cardData = card.GetComponent<TrainingCardData>();
-            cardData.SetData(i, students[i], TrainingManager.instance.GetCurrentBuilding());
+            cardData.SetData(i, students[i]);
             cardData.OnStudentClicked += HandleStudentAssign;
         }
     }

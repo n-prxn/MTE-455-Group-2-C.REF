@@ -11,22 +11,13 @@ public class GachaCardDisplay : MonoBehaviour
     [SerializeField] private Image gachaBackgroundPyroxenes;
     [SerializeField] private TMP_Text pyroxenesText;
     [SerializeField] private GameObject pyroxenesPanel;
+    [SerializeField] private GameObject newImage;
 
     [SerializeField] private Sprite[] BG;
     public Student student;
     // Start is called before the first frame update
-    void Start()
-    {
-        UpdateGachaCard();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // UpdateGachaCard();
-    }
-
-    private void UpdateGachaCard()
+    public void UpdateGachaCard()
     {
         GachaBGSelect();
         gachaPortrait.sprite = student.portrait;
@@ -35,12 +26,12 @@ public class GachaCardDisplay : MonoBehaviour
             GachaPyroxenesBGSelect();
             pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
             pyroxenesPanel.SetActive(true);
-        }/*else{
-            //student.InitializeStartStats();
-            SquadController.instance.Receive(student);
-            student.SquadCollect = true;
+            newImage.SetActive(false);
+        }else{
+            pyroxenesText.gameObject.SetActive(false);
+            pyroxenesPanel.SetActive(false);
+            newImage.SetActive(true);
         }
-        student.Collected = true;*/
     }
 
     private void GachaBGSelect()

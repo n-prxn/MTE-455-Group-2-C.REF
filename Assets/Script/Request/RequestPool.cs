@@ -79,7 +79,7 @@ public class RequestPool : MonoBehaviour
             RequestSO request = RequestManager.instance.TodayRequests[i];
             if (request.ExpireCount >= request.availableDuration)
             {
-                Debug.Log(request.name + " expired!");
+                //Debug.Log(request.name + " expired!");
                 request.IsDone = true;
                 continue;
             }

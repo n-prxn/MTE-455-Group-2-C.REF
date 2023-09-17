@@ -51,6 +51,9 @@ public class RequestManager : MonoBehaviour
         get { return totalCOMStat; }
         set { totalCOMStat = value; }
     }
+
+    private int staminaComsumption = 0;
+    public int StaminaComsumption { get => staminaComsumption; set => staminaComsumption = value; }
     // Start is called before the first frame update
 
     void Awake()
@@ -80,6 +83,8 @@ public class RequestManager : MonoBehaviour
     public void Calculate()
     {
         ClearTotalStatus();
+        currentRequest.InitializeCurrentReward();
+        staminaComsumption = currentRequest.stamina;
         foreach (Student student in currentRequest.squad)
         {
             if (student != null)
@@ -87,6 +92,9 @@ public class RequestManager : MonoBehaviour
                 totalPHYStat += student.CurrentPHYStat;
                 totalINTStat += student.CurrentINTStat;
                 totalCOMStat += student.CurrentCOMStat;
+
+                if (student.skill != null)
+                    student.skill.PerformSkill(student);
             }
         }
     }
@@ -96,6 +104,14 @@ public class RequestManager : MonoBehaviour
         totalPHYStat = 0;
         totalINTStat = 0;
         totalCOMStat = 0;
+        staminaComsumption = 0;
+    }
+
+    public void AddAdditionalStatus(int phyStat, int intStat, int comStat)
+    {
+        totalPHYStat += phyStat;
+        totalINTStat += intStat;
+        totalCOMStat += comStat;
     }
 
     public int CalculateSuccessRate()
@@ -129,10 +145,13 @@ public class RequestManager : MonoBehaviour
     {
         operatingRequests.Add(currentRequest);
         currentRequest.IsOperating = true;
-        foreach(Student student in currentRequest.squad)
+        foreach (Student student in currentRequest.squad)
         {
-            if(student != null)
+            if (student != null)
+            {
                 student.IsOperating = true;
+                student.CurrentStamina -= staminaComsumption;
+            }
         }
     }
 
@@ -143,9 +162,11 @@ public class RequestManager : MonoBehaviour
         UpdateRequest();
     }
 
-    public void RemoveRequest(RequestSO request){
+    public void RemoveRequest(RequestSO request)
+    {
         RequestSO targetRequest = TodayRequests.Find(x => x.id == request.id);
-        if(targetRequest != null){
+        if (targetRequest != null)
+        {
             operatingRequests.Remove(targetRequest);
         }
     }
@@ -157,9 +178,11 @@ public class RequestManager : MonoBehaviour
         //currentRequest = null;
     }
 
-    public bool isNotice(){
-        foreach(RequestSO request in todayRequests){
-            if(!request.IsRead)
+    public bool isNotice()
+    {
+        foreach (RequestSO request in todayRequests)
+        {
+            if (!request.IsRead)
                 return true;
         }
         return false;

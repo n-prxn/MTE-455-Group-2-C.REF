@@ -59,7 +59,7 @@ public class ResultUI : MonoBehaviour
     public void InitializeResult()
     {
         currentSelectedRequest = RequestManager.instance.CurrentRequest;
-        currentSelectedRequest.DecreaseStamina();
+        //currentSelectedRequest.DecreaseStamina(currentSelectedRequest.stamina);
         ClearSquadInfo();
 
         for (int i = 0; i < 4; i++)
@@ -126,11 +126,13 @@ public class ResultUI : MonoBehaviour
 
     void ReceiveRewards(RequestSO request)
     {
-        GameManager.instance.credits += request.credit;
+        GameManager.instance.credits += request.CurrentCredit;
         GameManager.instance.pyroxenes += request.pyroxene;
-        GameManager.instance.currentXP += request.xp;
-        GameManager.instance.happiness += request.happiness;
-        GameManager.instance.crimeRate += request.crimeRate;
+        GameManager.instance.currentXP += request.CurrentXP;
+        GameManager.instance.happiness += request.CurrentHappiness;
+        GameManager.instance.crimeRate += request.CurrentCrimeRate;
+
+        request.InitializeCurrentReward();
     }
 
     void ReceiveDemerit(RequestSO request){

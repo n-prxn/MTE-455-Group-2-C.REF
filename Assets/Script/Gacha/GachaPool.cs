@@ -139,6 +139,10 @@ public class GachaPool : MonoBehaviour, IData
                 Student pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
                 PulledStudents.Add(pulledStudent);
 
+                GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
+                card.GetComponent<GachaCardDisplay>().student = pulledStudent;
+                card.GetComponent<GachaCardDisplay>().UpdateGachaCard();
+
                 if(!pulledStudent.SquadCollect){
                     SquadController.instance.Receive(pulledStudent);
                     pulledStudent.SquadCollect = true;
@@ -146,9 +150,6 @@ public class GachaPool : MonoBehaviour, IData
                     GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
                 }
                 pulledStudent.Collected = true;
-            
-                GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-                card.GetComponent<GachaCardDisplay>().student = PulledStudents[i];
 
                 rollCount++;
             }

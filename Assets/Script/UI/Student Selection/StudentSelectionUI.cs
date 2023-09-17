@@ -155,9 +155,10 @@ public class StudentSelectionUI : MonoBehaviour
         RequestManager.instance.CurrentRequest.squad[slotIndex] = currentSelectedStudent;
         RequestManager.instance.Calculate();
         currentSelectedStudent.IsAssign = true;
+
         RequestManager.instance.UpdateRequest();
         PlayStudentVoice(currentSelectedStudent);
-        
+
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
         currentSelectedStudent = null;
         CloseSelectionPanel();
@@ -174,7 +175,7 @@ public class StudentSelectionUI : MonoBehaviour
 
         currentSelectedStudent.IsTraining = true;
         currentSelectedStudent.TrainingDuration = TrainingManager.instance.GetCurrentBuilding().TrainingDuration;
-        TrainingManager.instance.AddBonus(currentSelectedStudent);
+        TrainingManager.instance.Calculate();
 
         PlayStudentVoice(currentSelectedStudent);
 
@@ -212,7 +213,10 @@ public class StudentSelectionUI : MonoBehaviour
 
     public void PlayStudentVoice(Student student)
     {
-        AudioClip audioClip = student.studentVoices[2];
-        audioSource.PlayOneShot(audioClip);
+        if (student.studentVoices.Length > 0)
+        {
+            AudioClip audioClip = student.studentVoices[2];
+            audioSource.PlayOneShot(audioClip);
+        }
     }
 }

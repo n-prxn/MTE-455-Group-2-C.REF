@@ -24,6 +24,7 @@ public class TrainingManager : MonoBehaviour
         get { return currentBuilding; }
         set { currentBuilding = value; }
     }
+    [SerializeField] TrainingUI trainingUI;
 
     public static TrainingManager instance;
     void Awake()
@@ -38,16 +39,6 @@ public class TrainingManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void InitializeTrainingGroup()
@@ -76,9 +67,49 @@ public class TrainingManager : MonoBehaviour
         trainingGroup.Add(BuildingType.Dormitory, dormitoryStudents);
     }
 
+    public void UpdateTrainingPanel(){
+        Calculate();
+        trainingUI.InitializeTrainingStudents();
+    }
+
+    public void Calculate()
+    {
+        foreach (Student student in trainingGroup[currentBuilding])
+        {
+            if (student != null)
+                student.ResetTrainedStat();
+        }
+
+        foreach (Student student in trainingGroup[currentBuilding])
+        {
+            if (student != null)
+            {
+                if(student.skill != null)
+                    student.skill.PerformSkill(student);
+                AddBonus(student);
+            }
+        }
+    }
+
     public BuildingSO GetCurrentBuilding()
     {
         return buildings.Find(x => x.BuildingType == currentBuilding);
+    }
+
+    public bool isStudentAtBuilding(BuildingType buildingType, Student student)
+    {
+        foreach(Student trainedStudent in trainingGroup[buildingType]){
+            if(trainedStudent == null)
+                continue;
+
+            if(trainedStudent.id == student.id)
+                return true;
+        }
+        return false;
+    }
+
+    public void RemoveStudentInBuilding(){
+        
     }
 
     public BuildingSO GetBuilding(BuildingType buildingType)
@@ -89,6 +120,21 @@ public class TrainingManager : MonoBehaviour
     public List<Student> GetCurrentStudentsInBuilding()
     {
         return trainingGroup[currentBuilding];
+    }
+
+    public void RemoveStudentFromBuilding(Student student){
+        foreach(Student trainedStudent in trainingGroup[currentBuilding].ToList()){
+            if(trainedStudent == null)
+                continue;
+            
+            if(trainedStudent.id == student.id)
+            {
+                trainedStudent.ResetTrainedStat();
+                trainedStudent.TrainingDuration = GetCurrentBuilding().TrainingDuration;
+                trainingGroup[currentBuilding].Remove(trainedStudent);
+                trainingGroup[currentBuilding].Add(null);
+            }
+        }
     }
 
     public void SetStudentInBuilding(int slot, Student student)
@@ -116,17 +162,11 @@ public class TrainingManager : MonoBehaviour
         return bonus;
     }
 
-    public void AddBonus(Student student ,BuildingSO buildingSO){
-        student.TrainedPHYStat = student.CurrentPHYStat + buildingSO.BonusPHYTraining;
-        student.TrainedINTtat = student.CurrentINTStat + buildingSO.BonusINTTraining;
-        student.TrainedCOMtat = student.CurrentCOMStat + buildingSO.BonusCOMTraining;
-        student.RestedStamina = student.CurrentStamina + buildingSO.BonusStaminaRested;
-    }
-
-    public void AddBonus(Student student){
-        student.TrainedPHYStat = student.CurrentPHYStat + GetCurrentBuilding().BonusPHYTraining;
-        student.TrainedINTtat = student.CurrentINTStat + GetCurrentBuilding().BonusINTTraining;
-        student.TrainedCOMtat = student.CurrentCOMStat + GetCurrentBuilding().BonusCOMTraining;
-        student.RestedStamina = student.CurrentStamina + GetCurrentBuilding().BonusStaminaRested;
+    public void AddBonus(Student student)
+    {
+        student.TrainedPHYStat += GetCurrentBuilding().BonusPHYTraining;
+        student.TrainedINTStat += GetCurrentBuilding().BonusINTTraining;
+        student.TrainedCOMStat += GetCurrentBuilding().BonusCOMTraining;
+        student.RestedStamina += GetCurrentBuilding().BonusStaminaRested;
     }
 }

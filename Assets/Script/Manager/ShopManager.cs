@@ -81,7 +81,7 @@ public class ShopManager : MonoBehaviour
     {
         GenerateTodayFurnitures();
         GenerateTodayPresents();
-        //GenerateTodayTickets();
+        GenerateTodayTickets();
     }
 
     private void GenerateTodayFurnitures()

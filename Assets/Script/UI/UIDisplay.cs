@@ -72,12 +72,12 @@ public class UIDisplay : MonoBehaviour
         if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay"){
             backButton.SetActive(true);
             sidePanel.transform.GetChild(2).gameObject.SetActive(true);
-            sidePanel.transform.GetChild(4).gameObject.SetActive(true);
+            sidePanel.transform.GetChild(5).gameObject.SetActive(true);
             locationText.text = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         }else{
             backButton.SetActive(false);
             sidePanel.transform.GetChild(2).gameObject.SetActive(false);
-            sidePanel.transform.GetChild(4).gameObject.SetActive(false);
+            sidePanel.transform.GetChild(5).gameObject.SetActive(false);
             locationText.text = "Schale";
         }
     }

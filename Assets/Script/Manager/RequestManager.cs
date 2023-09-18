@@ -233,7 +233,7 @@ public class RequestManager : MonoBehaviour, IData
                     request.squad[i].IsOperating = true;
                 }
                 operatingRequests.Add(request);
-                Debug.Log(request.name + "operated");
+                //Debug.Log(request.name + "operated");
             }
 
             if (request.IsShow && !request.IsOperating)

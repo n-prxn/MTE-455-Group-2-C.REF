@@ -72,10 +72,29 @@ public class SquadController : MonoBehaviour, IData
         return amount;
     }
 
+    public void UpdateStudentBuff()
+    {
+        foreach (Student student in students)
+        {
+            if (student.IsBuff)
+            {
+                if (student.BuffDuration > 0)
+                    student.BuffDuration--;
+                    
+                if (student.BuffDuration <= 0)
+                {
+                    student.SetStudentStatToNormal();
+                    student.IsBuff = false;
+                }
+            }
+        }
+    }
+
     public void LoadData(GameData data)
     {
         students.Clear();
-        foreach(StudentData sData in data.students){
+        foreach (StudentData sData in data.students)
+        {
             Student student = gachaPool.StudentsPool[sData.id - 1];
             student.CurrentPHYStat = sData.currentPHYStat;
             student.CurrentINTStat = sData.currentINTStat;
@@ -84,8 +103,8 @@ public class SquadController : MonoBehaviour, IData
 
             student.Collected = sData.collected;
             student.SquadCollect = sData.squadCollect;
-            
-            if(student.SquadCollect)
+
+            if (student.SquadCollect)
                 students.Add(student);
         }
     }
@@ -93,7 +112,8 @@ public class SquadController : MonoBehaviour, IData
     public void SaveData(ref GameData data)
     {
         data.students = new List<StudentData>();
-        foreach(Student student in students){
+        foreach (Student student in students)
+        {
             data.students.Add(new StudentData(student));
         }
     }

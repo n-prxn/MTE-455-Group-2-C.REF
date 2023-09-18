@@ -1,23 +1,80 @@
 {
-  "rollCount": 10,
-  "currentTurn": 1,
-  "credits": 100000,
-  "pyroxenes": 60,
+  "rollCount": 20,
+  "currentTurn": 5,
+  "credits": 25000,
+  "pyroxenes": 1440,
   "happiness": 50,
   "crimeRate": 50,
-  "rank": 0,
+  "rank": 2,
   "currentXP": 0,
   "successRequest": 0,
   "failedRequest": 0,
-  "furnitures": [],
+  "furnitures": [
+    {
+      "id": 0,
+      "isPlaced": true,
+      "currentBuilding": "Dormitory",
+      "posX": 7.0,
+      "posY": 0.0,
+      "posZ": 5.0,
+      "rotX": 0.0,
+      "rotY": 0.0,
+      "rotZ": 0.0
+    }
+  ],
   "students": [
     {
-      "id": 6,
+      "id": 10,
       "collected": true,
       "squadCollect": true,
       "currentPHYStat": 20,
-      "currentINTStat": 35,
-      "currentCOMStat": 11,
+      "currentINTStat": 30,
+      "currentCOMStat": 20,
+      "currentStamina": 100
+    },
+    {
+      "id": 13,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 11,
+      "currentINTStat": 25,
+      "currentCOMStat": 36,
+      "currentStamina": 100
+    },
+    {
+      "id": 8,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 25,
+      "currentINTStat": 15,
+      "currentCOMStat": 15,
+      "currentStamina": 100
+    },
+    {
+      "id": 36,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 25,
+      "currentINTStat": 48,
+      "currentCOMStat": 49,
+      "currentStamina": 150
+    },
+    {
+      "id": 20,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 53,
+      "currentINTStat": 15,
+      "currentCOMStat": 16,
+      "currentStamina": 120
+    },
+    {
+      "id": 11,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 28,
+      "currentINTStat": 18,
+      "currentCOMStat": 32,
       "currentStamina": 100
     },
     {
@@ -27,15 +84,42 @@
       "currentPHYStat": 14,
       "currentINTStat": 32,
       "currentCOMStat": 23,
+      "currentStamina": 70
+    },
+    {
+      "id": 24,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 25,
+      "currentINTStat": 30,
+      "currentCOMStat": 38,
+      "currentStamina": 120
+    },
+    {
+      "id": 23,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 20,
+      "currentINTStat": 18,
+      "currentCOMStat": 30,
+      "currentStamina": 90
+    },
+    {
+      "id": 16,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 33,
+      "currentINTStat": 15,
+      "currentCOMStat": 31,
       "currentStamina": 100
     },
     {
-      "id": 3,
+      "id": 17,
       "collected": true,
       "squadCollect": true,
-      "currentPHYStat": 12,
-      "currentINTStat": 23,
-      "currentCOMStat": 33,
+      "currentPHYStat": 18,
+      "currentINTStat": 12,
+      "currentCOMStat": 16,
       "currentStamina": 100
     },
     {
@@ -48,47 +132,38 @@
       "currentStamina": 100
     },
     {
-      "id": 31,
-      "collected": true,
-      "squadCollect": true,
-      "currentPHYStat": 25,
-      "currentINTStat": 16,
-      "currentCOMStat": 27,
-      "currentStamina": 90
-    },
-    {
       "id": 12,
       "collected": true,
       "squadCollect": true,
       "currentPHYStat": 30,
       "currentINTStat": 17,
       "currentCOMStat": 24,
-      "currentStamina": 70
-    },
-    {
-      "id": 16,
-      "collected": true,
-      "squadCollect": true,
-      "currentPHYStat": 33,
-      "currentINTStat": 15,
-      "currentCOMStat": 31,
       "currentStamina": 100
     },
     {
-      "id": 4,
+      "id": 25,
       "collected": true,
       "squadCollect": true,
-      "currentPHYStat": 15,
-      "currentINTStat": 27,
-      "currentCOMStat": 30,
+      "currentPHYStat": 19,
+      "currentINTStat": 38,
+      "currentCOMStat": 36,
+      "currentStamina": 120
+    },
+    {
+      "id": 6,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 20,
+      "currentINTStat": 35,
+      "currentCOMStat": 11,
       "currentStamina": 100
     },
     {
-      "id": 9,
+      "id": 14,
       "collected": true,
       "squadCollect": true,
-      "currentPHYStat": 15,
-      "currentINTStat": 21,
+      "currentPHYStat": 21,
+      "currentINTStat": 29,
       "currentCOMStat": 22,
       "currentStamina": 100
     }
@@ -96,13 +171,13 @@
   "requests": [
     {
       "squad": [
-        31,
-        12,
+        1,
+        23,
         -1,
         -1
       ],
       "id": 0,
-      "currentCredit": 10000,
+      "currentCredit": 13000,
       "currentXP": 250,
       "currentHappiness": 1,
       "currentCrimeRate": -1,
@@ -113,9 +188,9 @@
       "isDone": false,
       "isShow": true,
       "isSuccess": false,
-      "successRate": 87,
+      "successRate": 88,
       "currentTurn": 3,
-      "expiredCount": 0
+      "expiredCount": 3
     },
     {
       "squad": [
@@ -134,11 +209,11 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 1
     },
     {
       "squad": [
@@ -249,7 +324,7 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
@@ -341,11 +416,11 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 1
     },
     {
       "squad": [
@@ -386,12 +461,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [
@@ -401,19 +476,19 @@
         -1
       ],
       "id": 13,
-      "currentCredit": 8202,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
       "currentDemeritHappiness": 0,
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
-      "isRead": true,
+      "isRead": false,
       "isDone": false,
-      "isShow": true,
+      "isShow": false,
       "isSuccess": false,
       "successRate": 0,
-      "currentTurn": 2,
+      "currentTurn": 0,
       "expiredCount": 0
     },
     {
@@ -708,12 +783,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [
@@ -754,12 +829,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [
@@ -892,12 +967,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [
@@ -962,11 +1037,11 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 1
     },
     {
       "squad": [
@@ -1237,12 +1312,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [
@@ -1376,7 +1451,7 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
@@ -1421,12 +1496,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [
@@ -1444,12 +1519,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [
@@ -1904,12 +1979,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": false,
-      "isDone": false,
-      "isShow": false,
+      "isDone": true,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 2
     },
     {
       "squad": [

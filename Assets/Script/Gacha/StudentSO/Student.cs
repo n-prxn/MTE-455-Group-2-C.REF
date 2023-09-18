@@ -149,6 +149,20 @@ public class Student : ScriptableObject
         set { trainingDuration = value; }
     }
 
+
+
+    [Header("Item Effect")]
+    private bool isBuff = false;
+    public bool IsBuff { get => isBuff; set => isBuff = value; }
+    [SerializeField] private int buffDuration = 0;
+    public int BuffDuration { get => buffDuration; set => buffDuration = value; }
+    private int tempPHYStat = 0;
+    private int tempINTStat = 0;
+    private int tempCOMStat = 0;
+    public int TempPHYStat { get => tempPHYStat; set => tempPHYStat = value; }
+    public int TempINTStat { get => tempINTStat; set => tempINTStat = value; }
+    public int TempCOMStat { get => tempCOMStat; set => tempCOMStat = value; }
+
     [Header("Voice")]
     public AudioClip[] studentVoices;
 
@@ -178,6 +192,22 @@ public class Student : ScriptableObject
         ResetTrainedStat();
     }
 
+    public void BuffStudentStats(float phyMultiplier , float intMultiplier, float comMultiplier){
+        tempPHYStat = currentPHYStat;
+        tempINTStat = currentINTStat;
+        tempCOMStat = currentCOMStat;
+        
+        currentPHYStat += (int)(currentPHYStat * phyMultiplier);
+        currentINTStat += (int)(currentINTStat * intMultiplier);
+        currentCOMStat += (int)(currentCOMStat * comMultiplier);
+    }
+
+    public void SetStudentStatToNormal(){
+        currentPHYStat = tempPHYStat;
+        currentINTStat = tempINTStat;
+        currentCOMStat = tempCOMStat;
+    }
+
     public void ResetTrainedStat()
     {
         trainedPHYStat = currentPHYStat;
@@ -186,7 +216,8 @@ public class Student : ScriptableObject
         restedStamina = currentStamina;
     }
 
-    public int TotalCurrentStat(){
+    public int TotalCurrentStat()
+    {
         return currentPHYStat + currentINTStat + currentCOMStat;
     }
     #endregion

@@ -21,16 +21,6 @@ public class FurnitureCardData : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image furnitureImage;
     public event Action<FurnitureCardData> OnFurnitureCardClicked;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void SetData(Furniture furniture, GameObject prefab){
         this.furniture = furniture;

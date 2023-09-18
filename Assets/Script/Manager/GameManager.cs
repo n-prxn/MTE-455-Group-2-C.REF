@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour, IData
                 furnitureShopUI.InitializeFurnitureShelf();
 
                 TrainingProcess();
+                //SquadController.instance.UpdateStudentBuff();
             }
         }
     }

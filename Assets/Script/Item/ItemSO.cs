@@ -24,4 +24,6 @@ public class ItemSO : ScriptableObject
         get { return amount; }
         set { amount = value; }
     }
+
+    public ItemSkillSO skill;
 }

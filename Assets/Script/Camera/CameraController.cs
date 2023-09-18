@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private float minZoomSize;
     [SerializeField] private float maxZoomSize;
+    [SerializeField] private float zoomSpeed;
     [SerializeField] private bool canMove = true;
 
     private float zoomModifier;
@@ -39,7 +40,7 @@ public class CameraController : MonoBehaviour
 
     private void MoveDrag()
     {
-        if (Input.GetMouseButton(2)) //Move by middle Muse button
+        if (Input.GetMouseButton(0)) //Move by left Muse button
         {
             dragOrigin = Input.mousePosition;
             Difference = (cam.ScreenToWorldPoint(dragOrigin)) - cam.transform.position;
@@ -68,11 +69,11 @@ public class CameraController : MonoBehaviour
 
     private void Zoom()
     {
-        zoomModifier = -Input.GetAxis("Mouse ScrollWheel");
-        if (Input.GetKey(KeyCode.Z))
-            zoomModifier = 0.1f;
-        if (Input.GetKey(KeyCode.X))
-            zoomModifier = -0.1f;
+        zoomModifier = -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        // if (Input.GetKey(KeyCode.Z))
+        //     zoomModifier = 0.1f;
+        // if (Input.GetKey(KeyCode.X))
+        //     zoomModifier = -0.1f;
 
         float zoomSize = cam.orthographicSize;
         if (zoomSize < minZoomSize && zoomModifier < 0f)

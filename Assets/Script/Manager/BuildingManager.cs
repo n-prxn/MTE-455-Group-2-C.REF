@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class BuildingManager : MonoBehaviour
 {
+    float mouseCount = 0;
+    [SerializeField] float mouseDownTime;
     private Camera cam;
     // Start is called before the first frame update
     void Start()
@@ -19,9 +21,21 @@ public class BuildingManager : MonoBehaviour
 
     void OnLeftClick()
     {
-        if (Input.GetMouseButtonDown(0))
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     TogglePanel();
+        // }
+        if (Input.GetMouseButton(0))
         {
-            TogglePanel();
+            mouseCount += Time.deltaTime;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (mouseCount <= mouseDownTime)
+            {
+                TogglePanel();
+            }
+            mouseCount = 0;
         }
     }
 
@@ -41,10 +55,10 @@ public class BuildingManager : MonoBehaviour
             if (!buildingData.BuildingSO.IsAvailable)
                 return;
 
-            if(building.tag == "Schale")
+            if (building.tag == "Schale")
                 UIDisplay.instance.TogglePanel(UIDisplay.instance.overallPanel);
-            
-            if(building.tag == "Shopping")
+
+            if (building.tag == "Shopping")
                 UIDisplay.instance.TogglePanel(UIDisplay.instance.shopPanel);
 
             TrainingManager.instance.CurrentBuilding = buildingData.BuildingSO.BuildingType;

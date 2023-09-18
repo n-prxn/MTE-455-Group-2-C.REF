@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class BuildingManager : MonoBehaviour
 {
-    float mouseCount = 0;
-    [SerializeField] float mouseDownTime;
+    private Vector3 mouseDownOrigin;
     private Camera cam;
     // Start is called before the first frame update
     void Start()
@@ -21,21 +20,13 @@ public class BuildingManager : MonoBehaviour
 
     void OnLeftClick()
     {
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     TogglePanel();
-        // }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            mouseCount += Time.deltaTime;
+            mouseDownOrigin = Input.mousePosition;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && mouseDownOrigin == Input.mousePosition)
         {
-            if (mouseCount <= mouseDownTime)
-            {
-                TogglePanel();
-            }
-            mouseCount = 0;
+            TogglePanel();
         }
     }
 

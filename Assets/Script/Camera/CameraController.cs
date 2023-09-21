@@ -33,43 +33,50 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         Zoom();
-        if(canMove){
+        if (canMove)
+        {
             MoveDrag();
         }
     }
 
     private void MoveDrag()
     {
-        if (Input.GetMouseButton(0)) //Move by left Muse button
+        if (!GameManager.instance.uiIsOpen)
         {
-            dragOrigin = Input.mousePosition;
-            Difference = (cam.ScreenToWorldPoint(dragOrigin)) - cam.transform.position;
-            if (drag == false)
+            if (Input.GetMouseButton(0)) //Move by left Muse button
             {
-                drag = true;
-                Origin = cam.ScreenToWorldPoint(dragOrigin);
+                dragOrigin = Input.mousePosition;
+                Difference = (cam.ScreenToWorldPoint(dragOrigin)) - cam.transform.position;
+                if (drag == false)
+                {
+                    drag = true;
+                    Origin = cam.ScreenToWorldPoint(dragOrigin);
+                }
             }
-        }
-        else
-        {
-            drag = false;
-        }
+            else
+            {
+                drag = false;
+            }
 
-        if (drag)
-        {
-            newCam = Origin - Difference;
-            newCam.x = Mathf.Clamp(newCam.x, lowLeft.position.x, topRight.position.x);
-            // newCam.y = resetCam.y;
-            newCam.y = Mathf.Clamp(newCam.y, lowLeft.position.y, topRight.position.y);
-            newCam.z = Mathf.Clamp(newCam.z, lowLeft.position.z, topRight.position.z);
-            cam.transform.position = newCam;
+            if (drag)
+            {
+                newCam = Origin - Difference;
+                newCam.x = Mathf.Clamp(newCam.x, lowLeft.position.x, topRight.position.x);
+                // newCam.y = resetCam.y;
+                newCam.y = Mathf.Clamp(newCam.y, lowLeft.position.y, topRight.position.y);
+                newCam.z = Mathf.Clamp(newCam.z, lowLeft.position.z, topRight.position.z);
+                cam.transform.position = newCam;
+            }
         }
 
     }
 
     private void Zoom()
     {
-        zoomModifier = -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        if (!GameManager.instance.uiIsOpen)
+        {
+            zoomModifier = -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        }
         // if (Input.GetKey(KeyCode.Z))
         //     zoomModifier = 0.1f;
         // if (Input.GetKey(KeyCode.X))

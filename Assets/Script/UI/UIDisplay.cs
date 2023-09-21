@@ -129,11 +129,13 @@ public class UIDisplay : MonoBehaviour
         {
             gachaPanel.SetActive(false);
             blackBackground.SetActive(false);
+            GameManager.instance.uiIsOpen = false;
         }
         else
         {
             gachaPanel.SetActive(true);
             blackBackground.SetActive(true);
+            GameManager.instance.uiIsOpen = true;
         }
     }
 
@@ -143,11 +145,13 @@ public class UIDisplay : MonoBehaviour
         {
             requestListPanel.SetActive(false);
             blackBackground.SetActive(false);
+            GameManager.instance.uiIsOpen = false;
         }
         else
         {
             requestListPanel.SetActive(true);
             blackBackground.SetActive(true);
+            GameManager.instance.uiIsOpen = true;
         }
     }
 
@@ -157,11 +161,13 @@ public class UIDisplay : MonoBehaviour
         {
             panel.SetActive(false);
             blackBackground.SetActive(false);
+            GameManager.instance.uiIsOpen = false;
         }
         else
         {
             panel.SetActive(true);
             blackBackground.SetActive(true);
+            GameManager.instance.uiIsOpen = true;
         }
     }
 

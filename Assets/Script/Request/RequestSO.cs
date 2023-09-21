@@ -77,6 +77,9 @@ public class RequestSO : ScriptableObject
         get { return successRate; }
         set { successRate = value; }
     }
+    private int bonusSuccessRate = 0;
+    public int BonusSuccessRate { get => bonusSuccessRate; set => bonusSuccessRate = value; }
+
 
     private int currentTurn = 0;
     public int CurrentTurn
@@ -139,6 +142,7 @@ public class RequestSO : ScriptableObject
         currentXP = xp;
         currentHappiness = happiness;
         currentCrimeRate = crimeRate;
+        bonusSuccessRate = 0;
     }
 
     public void InitializeCurrentReward()
@@ -150,6 +154,7 @@ public class RequestSO : ScriptableObject
 
         currentDemeritCrimeRate = demeritCrimeRate;
         currentDemeritHappiness = demeritHappiness;
+        bonusSuccessRate = 0;
     }
     public void DecreaseStamina(int stamina)
     {
@@ -182,10 +187,12 @@ public class RequestSO : ScriptableObject
         }
     }
 
-    public int SquadAmount(){
+    public int SquadAmount()
+    {
         int amount = 0;
-        for(int i = 0 ; i < 4; i++){
-            if(squad[i] != null)
+        for (int i = 0; i < 4; i++)
+        {
+            if (squad[i] != null)
                 amount++;
         }
         return amount;

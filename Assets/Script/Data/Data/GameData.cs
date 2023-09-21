@@ -30,6 +30,17 @@ public class FurnitureData
         rotZ = furnitureComp.Rotation.z;
     }
 }
+
+public class ItemData{
+    public int id{get; set;}
+    public int amount{get; set;}
+    public ItemData(){}
+    public ItemData(ItemSO item){
+        id = item.id;
+        amount = item.Amount;
+    }
+}
+
 public class StudentData
 {
     public int id { get; set; }
@@ -39,6 +50,8 @@ public class StudentData
     public int currentINTStat { get; set; }
     public int currentCOMStat { get; set; }
     public int currentStamina { get; set; }
+    public bool isBuff {get; set;}
+    public int buffDuration {get; set;}
     public StudentData() { }
     public StudentData(Student student)
     {
@@ -49,6 +62,9 @@ public class StudentData
         currentINTStat = student.CurrentINTStat;
         currentCOMStat = student.CurrentCOMStat;
         currentStamina = student.CurrentStamina;
+
+        isBuff = student.IsBuff;
+        buffDuration = student.BuffDuration;
     }
 }
 
@@ -121,6 +137,8 @@ public class GameData
     //Request
     public List<RequestData> requests { get; set; }
 
+    public List<ItemData> items {get; set;}
+
     //Gacha
     public int rollCount;
 
@@ -142,5 +160,6 @@ public class GameData
         furnitures = new List<FurnitureData>();
         students = new List<StudentData>();
         requests = new List<RequestData>();
+        items = new List<ItemData>();
     }
 }

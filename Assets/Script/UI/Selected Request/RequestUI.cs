@@ -75,7 +75,7 @@ public class RequestUI : MonoBehaviour
     }
     public void UpdateRequestInfo(RequestSO request)
     {
-        
+
         request.CurrentTurn = request.duration;
         UpdateRequestRequirement(request);
         UpdateSquadUI(request);
@@ -93,6 +93,14 @@ public class RequestUI : MonoBehaviour
         expText.text = request.CurrentXP.ToString();
         happinessText.text = request.CurrentHappiness.ToString();
         crimeRateText.text = request.CurrentCrimeRate.ToString();
+    }
+
+    public void ResetSlot(){
+        if(slotParent.transform.childCount > 0){
+            foreach(Transform slot in slotParent.transform){
+                Destroy(slot.gameObject);
+            }
+        }
     }
 
     void UpdateSquadUI(RequestSO request)
@@ -137,7 +145,7 @@ public class RequestUI : MonoBehaviour
         PHYReqAmount.text = RequestManager.instance.TotalPHYStat.ToString() + " / " + phyStat.ToString() + " (+" + (int)(phyStat * (multiplier - 1)) + ")";
         INTReqAmount.text = RequestManager.instance.TotalINTStat.ToString() + " / " + intStat.ToString() + " (+" + (int)(intStat * (multiplier - 1)) + ")";
         COMReqAmount.text = RequestManager.instance.TotalCOMStat.ToString() + " / " + comStat.ToString() + " (+" + (int)(comStat * (multiplier - 1)) + ")";
-        
+
         phyStat = (int)(phyStat * multiplier) <= 300 ? (int)(phyStat * multiplier) : 300;
         intStat = (int)(intStat * multiplier) <= 300 ? (int)(intStat * multiplier) : 300;
         comStat = (int)(comStat * multiplier) <= 300 ? (int)(comStat * multiplier) : 300;
@@ -150,10 +158,6 @@ public class RequestUI : MonoBehaviour
         request.multipliedPhyStat = phyStat;
         request.multipliedIntStat = intStat;
         request.multipliedComStat = comStat;
-    }
-
-    void UpdateReward(){
-        
     }
 
     void UpdateCurrentStat(int PHYStat, int INTStat, int COMStat)
@@ -174,6 +178,7 @@ public class RequestUI : MonoBehaviour
 
     void ToggleSelectionPanel()
     {
+        selectionPanel.StopPlayingVoice();
         selectionPanel.gameObject.SetActive(true);
     }
 
@@ -186,6 +191,12 @@ public class RequestUI : MonoBehaviour
             requestListPanel.gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
+    }
+
+    public void ClearSquad(){
+        RequestManager.instance.CurrentRequest.ResetSquad();
+        RequestManager.instance.ClearTotalStatus();
+        RequestManager.instance.UpdateRequest();
     }
 
     public void Back()

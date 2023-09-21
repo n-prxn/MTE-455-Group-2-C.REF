@@ -27,39 +27,44 @@ public class StudentSelectionUI : MonoBehaviour
         set { slotIndex = value; }
     }
 
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Awake()
     {
-        audioSource = SquadController.instance.gameObject.GetComponent<AudioSource>();
+
     }
 
     void OnEnable()
     {
         InitializeStudents();
         CheckStatus();
-        if (currentSelectedStudent != null)
+        if (currentSelectedStudent == null)
         {
+            headerPanel.SetActive(false);
+            idlePanel.SetActive(true);
+        }
+        else
+        {
+            headerPanel.SetActive(true);
+            idlePanel.SetActive(false);
+
             studentDescription.SetDescription(currentSelectedStudent);
-            studentDescription.SetRemove();
+            if (currentSelectedStudent.IsAssign)
+                studentDescription.SetRemove();
+            else
+                studentDescription.SetAssign();
             studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
         }
     }
 
-    void Update()
-    {
-
-    }
-
     public void InitializeStudents()
     {
-        currentSelectedStudent = null;
         studentUIDatas.Clear();
         ClearStudentUI();
 
-        headerPanel.SetActive(false);
-        idlePanel.SetActive(true);
+        //headerPanel.SetActive(false);
+        //idlePanel.SetActive(true);
         studentDescription.HideButton();
 
         foreach (Student student in SquadController.instance.Students)
@@ -119,13 +124,40 @@ public class StudentSelectionUI : MonoBehaviour
 
         studentDescription.SetDescription(obj.StudentData);
         currentSelectedStudent = obj.StudentData;
-        if (obj.StudentData.IsAssign)
-            studentDescription.SetRemove();
+
+        if (RequestManager.instance.CurrentRequest.squad[slotIndex] == null)
+        {
+            if (obj.StudentData.IsAssign)
+            {
+                studentDescription.SetRemoveAndSwitch();
+            }
+            else
+            {
+                studentDescription.SetAssign();
+            }
+        }
         else
-            studentDescription.SetAssign();
+        {
+            if (obj.StudentData.IsAssign)
+            {
+                if (obj.StudentData.id == RequestManager.instance.CurrentRequest.squad[slotIndex].id)
+                {
+                    studentDescription.SetRemove();
+                }
+                else
+                {
+                    studentDescription.SetRemoveAndSwitch();
+                }
+            }
+            else
+            {
+                studentDescription.SetSwitch();
+            }
+        }
 
         if (obj.StudentData.IsTraining || obj.StudentData.IsOperating)
             studentDescription.HideButton();
+
         obj.Select();
     }
 
@@ -205,6 +237,39 @@ public class StudentSelectionUI : MonoBehaviour
         CloseSelectionPanel();
     }
 
+    public void SwitchStudent()
+    {
+        List<Student> students = RequestManager.instance.CurrentRequest.squad;
+        if (!currentSelectedStudent.IsAssign)
+        {
+            AssignStudent();
+        }
+        else
+        {
+            Student tmp = students[slotIndex];
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (students[i] != null)
+                {
+                    if (students[i].id == currentSelectedStudent.id)
+                    {
+                        students[slotIndex] = currentSelectedStudent;
+                        students[i] = tmp;
+                        break;
+                    }
+                }
+            }
+
+            RequestManager.instance.Calculate();
+            RequestManager.instance.UpdateRequest();
+            studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
+            currentSelectedStudent = null;
+            CloseSelectionPanel();
+        }
+
+    }
+
     public void CloseSelectionPanel()
     {
         gameObject.SetActive(false);
@@ -217,5 +282,10 @@ public class StudentSelectionUI : MonoBehaviour
             AudioClip audioClip = student.studentVoices[2];
             audioSource.PlayOneShot(audioClip);
         }
+    }
+
+    public void StopPlayingVoice()
+    {
+        audioSource.Stop();
     }
 }

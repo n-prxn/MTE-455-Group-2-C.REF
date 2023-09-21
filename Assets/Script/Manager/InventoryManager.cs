@@ -72,6 +72,16 @@ public class InventoryManager : MonoBehaviour, IData
             GameObject furniture = ShopManager.instance.FurnitureWarehouse.Find(x => x.GetComponent<Furniture>().ID == fData.id);
             furnitureList.Add(furniture);
         }
+
+        foreach(ItemData iData in data.items){
+            ItemSO item = ShopManager.instance.PresentWarehouse.Find(x => x.id == iData.id);
+            if(item != null)
+                presentList.Add(item);
+
+            item = ShopManager.instance.TicketWarehouse.Find(x => x.id == iData.id);
+            if(item != null)
+                ticketList.Add(item);
+        }
     }
 
     public void SaveData(ref GameData data)
@@ -80,6 +90,15 @@ public class InventoryManager : MonoBehaviour, IData
         foreach (GameObject furniture in FurnitureList)
         {
             data.furnitures.Add(new FurnitureData(furniture));
+        }
+
+        data.items = new List<ItemData>();
+        foreach(ItemSO item in PresentList){
+            data.items.Add(new ItemData(item));
+        }
+
+        foreach(ItemSO item in TicketList){
+            data.items.Add(new ItemData(item));
         }
     }
 }

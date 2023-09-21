@@ -78,9 +78,7 @@ public class SquadController : MonoBehaviour, IData
         {
             if (student.IsBuff)
             {
-                if (student.BuffDuration > 0)
-                    student.BuffDuration--;
-                    
+                student.BuffDuration--;
                 if (student.BuffDuration <= 0)
                 {
                     student.SetStudentStatToNormal();
@@ -103,6 +101,8 @@ public class SquadController : MonoBehaviour, IData
 
             student.Collected = sData.collected;
             student.SquadCollect = sData.squadCollect;
+            student.IsBuff = sData.isBuff;
+            student.BuffDuration = sData.buffDuration;
 
             if (student.SquadCollect)
                 students.Add(student);

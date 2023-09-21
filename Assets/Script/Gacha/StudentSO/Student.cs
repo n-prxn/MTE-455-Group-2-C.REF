@@ -36,7 +36,12 @@ public class Student : ScriptableObject
     [JsonIgnore] public Sprite artwork;
     public string club;
     public School school;
+
+    [Header("Skill")]
     public SkillSO skill;
+    public string skillName;
+    [TextArea] public string skillDescription;
+    public Sprite skillIcon;
     [JsonIgnore][TextArea] public string detail;
 
     [Header("Gacha Info")]
@@ -149,8 +154,6 @@ public class Student : ScriptableObject
         set { trainingDuration = value; }
     }
 
-
-
     [Header("Item Effect")]
     private bool isBuff = false;
     public bool IsBuff { get => isBuff; set => isBuff = value; }
@@ -173,6 +176,11 @@ public class Student : ScriptableObject
         currentCOMStat = comStat;
         currentStamina = stamina;
 
+        tempPHYStat = phyStat;
+        tempINTStat = intStat;
+        tempCOMStat = comStat;
+
+        isBuff = false;
         isAssign = false;
         isOperating = false;
         isTraining = false;
@@ -192,17 +200,19 @@ public class Student : ScriptableObject
         ResetTrainedStat();
     }
 
-    public void BuffStudentStats(float phyMultiplier , float intMultiplier, float comMultiplier){
+    public void BuffStudentStats(float phyMultiplier, float intMultiplier, float comMultiplier)
+    {
         tempPHYStat = currentPHYStat;
         tempINTStat = currentINTStat;
         tempCOMStat = currentCOMStat;
-        
+
         currentPHYStat += (int)(currentPHYStat * phyMultiplier);
         currentINTStat += (int)(currentINTStat * intMultiplier);
         currentCOMStat += (int)(currentCOMStat * comMultiplier);
     }
 
-    public void SetStudentStatToNormal(){
+    public void SetStudentStatToNormal()
+    {
         currentPHYStat = tempPHYStat;
         currentINTStat = tempINTStat;
         currentCOMStat = tempCOMStat;

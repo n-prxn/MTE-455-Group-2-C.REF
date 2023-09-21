@@ -66,7 +66,7 @@ public class RequestListUI : MonoBehaviour
         requestCardData.HideNoticeSymbol();
         requestCardData.OnCardClicked += HandleCardSelection;
 
-        completeCardDatas.Add(requestCardData);
+        //completeCardDatas.Add(requestCardData);
     }
 
     public void GenerateRequestCard()

@@ -12,17 +12,7 @@ public class RequestPool : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        GenerateRequests();
     }
 
     public void GenerateRequests()
@@ -35,7 +25,7 @@ public class RequestPool : MonoBehaviour
                 RequestSO request;
                 do
                 {
-                    request = RequestsPool[Random.Range(0, 101)];
+                    request = RequestsPool[Random.Range(1, 100)];
                 } while (request.IsOperating || (request.IsDone && !request.isRepeatable) || request.IsShow || !IsUnlockedDifficulty(request));
 
                 request.IsRead = false;
@@ -67,19 +57,18 @@ public class RequestPool : MonoBehaviour
 
     public void DeleteExpireRequests()
     {
-        List<RequestSO> requestList = new List<RequestSO>();
         for (int i = 0; i < RequestManager.instance.TodayRequests.Count; i++)
         {
             RequestSO request = RequestManager.instance.TodayRequests[i];
             if (request.ExpireCount >= request.availableDuration)
             {
                 //Debug.Log(request.name + " expired!");
-                request.IsDone = true;
-                continue;
+                //request.IsDone = true;
+                //request.ExpireCount = 0;
+                request.IsShow = false;
+                RequestManager.instance.TodayRequests.RemoveAt(i);
             }
-            requestList.Add(request);
         }
-        RequestManager.instance.TodayRequests = requestList;
         //Debug.Log(RequestManager.instance.TodayRequests);
     }
 

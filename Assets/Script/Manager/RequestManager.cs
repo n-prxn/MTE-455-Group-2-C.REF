@@ -130,7 +130,12 @@ public class RequestManager : MonoBehaviour, IData
             successRate -= (currentRequest.multipliedComStat - totalCOMStat) * 100f / currentRequest.TotalStat();
         }
 
-        return successRate < 0 ? 0 : (int)successRate;
+        successRate += currentRequest.BonusSuccessRate;
+        if (successRate > 100)
+            successRate = 100;
+        if(successRate < 0)
+            successRate = 0;
+        return (int)successRate;
     }
 
     public void UpdateRequest()
@@ -162,8 +167,10 @@ public class RequestManager : MonoBehaviour, IData
 
     public void RemoveRequest(RequestSO request)
     {
-        foreach(RequestSO requestSO in OperatingRequests){
-            if(requestSO.id == request.id){
+        foreach (RequestSO requestSO in OperatingRequests)
+        {
+            if (requestSO.id == request.id)
+            {
                 operatingRequests.Remove(requestSO);
                 break;
             }
@@ -213,11 +220,15 @@ public class RequestManager : MonoBehaviour, IData
             request.ExpireCount = rData.expiredCount;
 
             //Debug.Log(request.name);
-            for (int i = 0; i < rData.squad.Length; i++){
+            for (int i = 0; i < rData.squad.Length; i++)
+            {
                 //Debug.Log(i);
-                if(rData.squad[i] == -1){
+                if (rData.squad[i] == -1)
+                {
                     request.squad[i] = null;
-                }else{
+                }
+                else
+                {
                     request.squad[i] = gachaPool.StudentsPool.Find(x => x.id == rData.squad[i]);
                 }
             }
@@ -227,7 +238,7 @@ public class RequestManager : MonoBehaviour, IData
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    if(request.squad[i] == null)
+                    if (request.squad[i] == null)
                         continue;
 
                     request.squad[i].IsOperating = true;
@@ -239,7 +250,7 @@ public class RequestManager : MonoBehaviour, IData
             if (request.IsShow && !request.IsOperating)
                 todayRequests.Add(request);
 
-            if(request.IsDone && !request.IsOperating && request.SquadAmount() > 0)
+            if (request.IsDone && !request.IsOperating && request.SquadAmount() > 0)
                 requestListUI.GenerateCompleteCard(request);
         }
         requestListUI.GenerateRequestCard();

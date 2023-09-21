@@ -66,6 +66,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.CurrentStamina += 100;
         }
     }
@@ -74,6 +77,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.CurrentStamina += 50;
         }
     }
@@ -82,6 +88,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.CurrentStamina += 20;
         }
     }
@@ -90,6 +99,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0.3f, 0f, 0f);
@@ -100,6 +112,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0.2f, 0f, 0f);
@@ -110,6 +125,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0.1f, 0f, 0f);
@@ -120,6 +138,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0f, 0.3f, 0f);
@@ -130,6 +151,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0f, 0.2f, 0f);
@@ -140,6 +164,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0f, 0.1f, 0f);
@@ -150,6 +177,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0f, 0f, 0.3f);
@@ -160,6 +190,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0f, 0f, 0.2f);
@@ -170,6 +203,9 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
+            if (student.IsTraining || student.IsOperating || student.IsBuff)
+                continue;
+
             student.IsBuff = true;
             student.BuffDuration = 1;
             student.BuffStudentStats(0f, 0f, 0.1f);
@@ -178,7 +214,7 @@ public class ItemSkillDatabase : ItemSkillSO
 
     public void ItemSkill13()
     {
-        
+
     }
 
     public void ItemSkill14()

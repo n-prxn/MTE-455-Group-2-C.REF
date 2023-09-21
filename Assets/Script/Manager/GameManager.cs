@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour, IData
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour, IData
     [Header("Scene")]
     public SceneManager sceneManager;
 
-    private bool isPlayable = true;
+    [SerializeField] private bool isPlayable = true;
     public bool IsPlayable
     {
         get { return isPlayable; }
@@ -86,7 +87,7 @@ public class GameManager : MonoBehaviour, IData
                 furnitureShopUI.InitializeFurnitureShelf();
 
                 TrainingProcess();
-                //SquadController.instance.UpdateStudentBuff();
+                SquadController.instance.UpdateStudentBuff();
             }
         }
     }
@@ -94,8 +95,22 @@ public class GameManager : MonoBehaviour, IData
     public void UpdateRequest()
     {
         if (RequestManager.instance.OperatingRequests.Count > 0)
+        {
+            List<RequestSO> requests = new List<RequestSO>();
             foreach (RequestSO request in RequestManager.instance.OperatingRequests)
-                RequestProcess(request);
+            {
+                request.CurrentTurn--;
+                if (request.CurrentTurn <= 0)
+                {
+                    RequestProcess(request);
+                    continue;
+                }
+                requests.Add(request);
+            }
+
+            RequestManager.instance.OperatingRequests.Clear();
+            RequestManager.instance.OperatingRequests = requests;
+        }
     }
 
     void RankUp()
@@ -121,41 +136,29 @@ public class GameManager : MonoBehaviour, IData
                 RequestManager.instance.requestPerTurn++;
             }
 
-            currentXP = currentXP - maxXP;
+            currentXP -= maxXP;
             //Add Item
         }
     }
 
     void RequestProcess(RequestSO request)
     {
-        request.CurrentTurn--;
-        if (request.CurrentTurn <= 0)
+        requestListUI.GenerateCompleteCard(request);
+
+        if (Random.Range(0, 100) <= request.SuccessRate)
         {
-
-            if (requestListUI.CompleteCardDatas.Find(x => x.RequestData.id == request.id) == null)
-            {
-                requestListUI.GenerateCompleteCard(request);
-            }
-
-            if (Random.Range(0, 100) <= request.SuccessRate)
-            {
-                request.IsSuccess = true;
-                Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
-                successRequest++;
-                //ReceiveRewards(request);
-            }
-            else
-            {
-                request.IsSuccess = false;
-                Debug.Log(request.name + " has failed! with " + request.SuccessRate + "%");
-                failedRequest++;
-            }
-
-            //request.ResetSquad();
-            request.IsOperating = false;
-            request.IsDone = true;
-            RequestManager.instance.RemoveRequest(request);
+            request.IsSuccess = true;
+            Debug.Log(request.name + " has finished! with " + request.SuccessRate + "%");
+            successRequest++;
         }
+        else
+        {
+            request.IsSuccess = false;
+            Debug.Log(request.name + " has failed! with " + request.SuccessRate + "%");
+            failedRequest++;
+        }
+        request.IsOperating = false;
+        request.IsDone = true;
     }
 
     void TrainingProcess()
@@ -169,9 +172,7 @@ public class GameManager : MonoBehaviour, IData
                     continue;
 
                 if (students[i].IsTraining)
-                {
                     students[i].TrainingDuration--;
-                }
 
                 if (students[i].TrainingDuration <= 0)
                 {
@@ -188,12 +189,17 @@ public class GameManager : MonoBehaviour, IData
         sceneManager.LoadPreviousScene();
     }
 
+    public void GoToMainMenu(){
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+    }
+
     public void IncreaseXP(int xp)
     {
         currentXP += xp;
     }
 
-    public void QuitGame(){
+    public void QuitGame()
+    {
         Application.Quit();
     }
 

@@ -193,7 +193,10 @@ public class SkillDatabase : SkillSO
             return;
 
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
-        currentRequest.CurrentHappiness += 1;
+        if (currentRequest.happiness > 0)
+        {
+            currentRequest.CurrentHappiness += 1;
+        }
     }
 
     public void SkillChinatsu()
@@ -549,7 +552,7 @@ public class SkillDatabase : SkillSO
 
         if (hasAru)
         {
-            currentRequest.SuccessRate += 10;
+            currentRequest.BonusSuccessRate += 10;
         }
     }
 
@@ -592,7 +595,7 @@ public class SkillDatabase : SkillSO
                 multipleSuccess += 1;
         }
 
-        currentRequest.SuccessRate += multipleSuccess * 10;
+        currentRequest.BonusSuccessRate += multipleSuccess * 10;
     }
 
     public void SkillRio()
@@ -614,7 +617,7 @@ public class SkillDatabase : SkillSO
 
         if (seminarStudent >= 2)
         {
-            currentRequest.SuccessRate += 80;
+            currentRequest.BonusSuccessRate += 80;
             RequestManager.instance.StaminaComsumption = 100;
         }
     }
@@ -694,9 +697,9 @@ public class SkillDatabase : SkillSO
 
         if (hasRio)
         {
-            currentRequest.SuccessRate += 10;
+            currentRequest.BonusSuccessRate += 10;
         }
-        currentRequest.SuccessRate += 10;
+        currentRequest.BonusSuccessRate += 10;
     }
 
     public void SkillNagisa()
@@ -715,8 +718,19 @@ public class SkillDatabase : SkillSO
         if (RequestManager.instance.CurrentRequest == null)
             return;
 
-        RequestManager.instance.AddAdditionalStatus((int)(currentStudent.CurrentPHYStat * 0.5f), 0, 0);
-        RequestManager.instance.StaminaComsumption -= 15;
+        RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        int studentAmount = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if (currentRequest.squad[i] != null)
+                studentAmount++;
+        }
+
+        if (studentAmount == 1)
+        {
+            RequestManager.instance.AddAdditionalStatus((int)(currentStudent.CurrentPHYStat * 0.5f), 0, 0);
+            currentRequest.BonusSuccessRate += 80;
+        }
     }
 
     public void SkillTsurugi()
@@ -794,8 +808,8 @@ public class SkillDatabase : SkillSO
 
         if (hasMutsuki && hasKayoko)
         {
-            currentRequest.SuccessRate += 40;
-            currentRequest.CurrentCredit = (int)(currentRequest.CurrentCredit * 0.25f);
+            currentRequest.BonusSuccessRate += 40;
+            currentRequest.CurrentCredit -= (int)(currentRequest.credit * 0.75f);
         }
     }
 
@@ -834,7 +848,7 @@ public class SkillDatabase : SkillSO
 
         if (hasAru)
         {
-            currentRequest.SuccessRate += 10;
+            currentRequest.BonusSuccessRate += 10;
         }
     }
 
@@ -891,24 +905,26 @@ public class SkillDatabase : SkillSO
             if (currentRequest.squad[i] == null)
                 continue;
 
-            if (currentRequest.squad[i].id == currentStudent.id){
+            if (currentRequest.squad[i].id == currentStudent.id)
+            {
                 index = i;
                 break;
             }
         }
 
-        switch(index){
-            case 0 :
+        switch (index)
+        {
+            case 0:
                 RequestManager.instance.AddAdditionalStatus(
-                (int)(currentStudent.CurrentPHYStat * 0.2f),0,0);
+                (int)(currentStudent.CurrentPHYStat * 0.2f), 0, 0);
                 break;
-            case 1 :
+            case 1:
                 RequestManager.instance.AddAdditionalStatus(
-                0,(int)(currentStudent.CurrentINTStat * 0.2f),0);
+                0, (int)(currentStudent.CurrentINTStat * 0.2f), 0);
                 break;
-            case 2 :
+            case 2:
                 RequestManager.instance.AddAdditionalStatus(
-                0,0,(int)(currentStudent.CurrentCOMStat * 0.2f));
+                0, 0, (int)(currentStudent.CurrentCOMStat * 0.2f));
                 break;
             case 3:
                 RequestManager.instance.StaminaComsumption -= 10;
@@ -923,7 +939,7 @@ public class SkillDatabase : SkillSO
 
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
 
-        currentRequest.SuccessRate += 50;
+        currentRequest.BonusSuccessRate += 50;
         RequestManager.instance.StaminaComsumption *= 2;
     }
 

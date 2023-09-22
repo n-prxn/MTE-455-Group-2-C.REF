@@ -36,6 +36,8 @@ public class Student : ScriptableObject
     [JsonIgnore] public Sprite artwork;
     public string club;
     public School school;
+    [Header("Prefab")]
+    public GameObject studentModel;
 
     [Header("Skill")]
     public SkillSO skill;

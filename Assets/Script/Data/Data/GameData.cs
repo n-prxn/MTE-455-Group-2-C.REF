@@ -115,6 +115,30 @@ public class RequestData
     }
 }
 
+public class BuildingTrainingData{
+    public int id { get; set; }
+    public bool isAvailable { get; set; }
+    public int studentCapacity { get; set; }
+    public int furnitureCapacity { get; set; }
+    public List<int> students { get; set; }
+    public BuildingTrainingData(){}
+    public BuildingTrainingData(BuildingSO building , List<Student> students){
+        id = building.id;
+        isAvailable = building.IsAvailable;
+        studentCapacity = building.StudentCapacity;
+        furnitureCapacity = building.FurnitureCapacity;
+        
+        this.students = new List<int>();
+        foreach(Student student in students){
+            if(student == null){
+                this.students.Add(-1);
+            }else{
+                this.students.Add(student.id);
+            }
+        }
+    }
+}
+
 public class GameData
 {
     //General
@@ -127,6 +151,8 @@ public class GameData
     public int currentXP { get; set; }
     public int successRequest { get; set; }
     public int failedRequest { get; set; }
+    public int requestPerTurn {get; set;}
+    public int maxRequestCapacity {get; set;}
 
     //Furniture
     public List<FurnitureData> furnitures { get; set; }
@@ -138,6 +164,7 @@ public class GameData
     public List<RequestData> requests { get; set; }
 
     public List<ItemData> items {get; set;}
+    public List<BuildingTrainingData> trainingBuildings {get; set;}
 
     //Gacha
     public int rollCount;
@@ -157,9 +184,13 @@ public class GameData
 
         rollCount = 0;
 
+        requestPerTurn = 1;
+        maxRequestCapacity = 3;
+
         furnitures = new List<FurnitureData>();
         students = new List<StudentData>();
         requests = new List<RequestData>();
         items = new List<ItemData>();
+        trainingBuildings = new List<BuildingTrainingData>();
     }
 }

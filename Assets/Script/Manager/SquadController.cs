@@ -31,15 +31,8 @@ public class SquadController : MonoBehaviour, IData
         }
     }
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+    public void GenerateStudentOnMap(){
+        
     }
 
     public void Receive(Student s)

@@ -196,6 +196,9 @@ public class RequestManager : MonoBehaviour, IData
 
     public void LoadData(GameData data)
     {
+        maxRequestCapacity = data.maxRequestCapacity;
+        requestPerTurn = data.requestPerTurn;
+
         todayRequests.Clear();
         OperatingRequests.Clear();
         foreach (RequestData rData in data.requests)
@@ -258,6 +261,8 @@ public class RequestManager : MonoBehaviour, IData
 
     public void SaveData(ref GameData data)
     {
+        data.requestPerTurn = requestPerTurn;
+        data.maxRequestCapacity = maxRequestCapacity;
         data.requests = new List<RequestData>();
         foreach (RequestSO request in requestPool.RequestsPool)
         {

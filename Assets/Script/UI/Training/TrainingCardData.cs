@@ -97,8 +97,7 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
         PointerEventData pointerEventData = data;
         if (pointerEventData.button == PointerEventData.InputButton.Left)
         {
-            if(trainingStudent == null)
-                OnStudentClicked?.Invoke(this);
+            OnStudentClicked?.Invoke(this);
         }
     }
 }

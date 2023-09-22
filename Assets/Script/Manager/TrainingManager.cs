@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TrainingManager : MonoBehaviour
+public class TrainingManager : MonoBehaviour, IData
 {
     [Header("Building")]
     private Dictionary<BuildingType, List<Student>> trainingGroup;
@@ -24,6 +24,11 @@ public class TrainingManager : MonoBehaviour
         get { return currentBuilding; }
         set { currentBuilding = value; }
     }
+
+    [Header("Student Pool")]
+    public GachaPool gachaPool;
+
+    [Header("UI")]
     [SerializeField] TrainingUI trainingUI;
 
     public static TrainingManager instance;
@@ -67,7 +72,8 @@ public class TrainingManager : MonoBehaviour
         trainingGroup.Add(BuildingType.Dormitory, dormitoryStudents);
     }
 
-    public void UpdateTrainingPanel(){
+    public void UpdateTrainingPanel()
+    {
         Calculate();
         trainingUI.InitializeTrainingStudents();
     }
@@ -84,7 +90,7 @@ public class TrainingManager : MonoBehaviour
         {
             if (student != null)
             {
-                if(student.skill != null)
+                if (student.skill != null)
                     student.skill.PerformSkill(student);
                 AddBonus(student);
             }
@@ -98,18 +104,15 @@ public class TrainingManager : MonoBehaviour
 
     public bool isStudentAtBuilding(BuildingType buildingType, Student student)
     {
-        foreach(Student trainedStudent in trainingGroup[buildingType]){
-            if(trainedStudent == null)
+        foreach (Student trainedStudent in trainingGroup[buildingType])
+        {
+            if (trainedStudent == null)
                 continue;
 
-            if(trainedStudent.id == student.id)
+            if (trainedStudent.id == student.id)
                 return true;
         }
         return false;
-    }
-
-    public void RemoveStudentInBuilding(){
-        
     }
 
     public BuildingSO GetBuilding(BuildingType buildingType)
@@ -122,12 +125,19 @@ public class TrainingManager : MonoBehaviour
         return trainingGroup[currentBuilding];
     }
 
-    public void RemoveStudentFromBuilding(Student student){
-        foreach(Student trainedStudent in trainingGroup[currentBuilding].ToList()){
-            if(trainedStudent == null)
+    public List<Student> GetStudentsAtBuilding(BuildingSO building)
+    {
+        return trainingGroup[building.BuildingType];
+    }
+
+    public void RemoveStudentFromBuilding(Student student)
+    {
+        foreach (Student trainedStudent in trainingGroup[currentBuilding].ToList())
+        {
+            if (trainedStudent == null)
                 continue;
-            
-            if(trainedStudent.id == student.id)
+
+            if (trainedStudent.id == student.id)
             {
                 trainedStudent.ResetTrainedStat();
                 trainedStudent.TrainingDuration = GetCurrentBuilding().TrainingDuration;
@@ -168,5 +178,36 @@ public class TrainingManager : MonoBehaviour
         student.TrainedINTStat += GetCurrentBuilding().BonusINTTraining;
         student.TrainedCOMStat += GetCurrentBuilding().BonusCOMTraining;
         student.RestedStamina += GetCurrentBuilding().BonusStaminaRested;
+    }
+
+    public void LoadData(GameData data)
+    {
+        InitializeTrainingGroup();
+        foreach (BuildingTrainingData btData in data.trainingBuildings)
+        {
+            BuildingSO building = buildings.Find(x => x.id == btData.id);
+            BuildingType buildingType = building.BuildingType;
+
+            building.IsAvailable = btData.isAvailable;
+            building.StudentCapacity = btData.studentCapacity;
+            building.FurnitureCapacity = btData.studentCapacity;
+
+            for (int i = 0; i < btData.students.Count; i++)
+            {
+                if (btData.students[i] == -1)
+                    trainingGroup[buildingType][i] = null;
+                else
+                    trainingGroup[buildingType][i] = gachaPool.StudentsPool.Find(x => x.id == btData.students[i]);
+            }
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.trainingBuildings = new List<BuildingTrainingData>();
+        foreach (BuildingSO building in buildings)
+        {
+            data.trainingBuildings.Add(new BuildingTrainingData(building, GetStudentsAtBuilding(building)));
+        }
     }
 }

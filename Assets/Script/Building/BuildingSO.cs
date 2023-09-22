@@ -6,7 +6,7 @@ using UnityEngine;
 public class BuildingSO : ScriptableObject
 {
     [Header("Building Info")]
-    [SerializeField] private byte id;
+    [SerializeField] public byte id;
     [SerializeField] private BuildingType buildingType;
     public BuildingType BuildingType
     {

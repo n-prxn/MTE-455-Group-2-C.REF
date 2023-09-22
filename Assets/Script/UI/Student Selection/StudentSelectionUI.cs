@@ -4,15 +4,33 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using TMPro;
+
+public enum SelectionMode
+{
+    Squad,
+    Training
+}
 
 public class StudentSelectionUI : MonoBehaviour
 {
+    [SerializeField] SelectionMode selectionMode;
+    [Header("Student Prefab")]
     [SerializeField] GameObject studentListParent;
     [SerializeField] GameObject studentPortraitPrefab;
+
+    [Header("Student Description")]
     [SerializeField] StudentDescription studentDescription;
+
+    [Header("Student Search and Filter")]
+    [SerializeField] TMP_InputField searchField;
+
+    [Header("Panel")]
     [SerializeField] GameObject idlePanel;
     [SerializeField] GameObject headerPanel;
     [SerializeField] GameObject trainingPanel;
+
+    [Header("Student Data")]
     [SerializeField] int slotIndex;
     private List<StudentUIData> studentUIDatas = new();
     [SerializeField] private Student currentSelectedStudent;
@@ -27,13 +45,8 @@ public class StudentSelectionUI : MonoBehaviour
         set { slotIndex = value; }
     }
 
+    [Header("Audio Source")]
     [SerializeField] private AudioSource audioSource;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-
-    }
 
     void OnEnable()
     {
@@ -50,10 +63,20 @@ public class StudentSelectionUI : MonoBehaviour
             idlePanel.SetActive(false);
 
             studentDescription.SetDescription(currentSelectedStudent);
-            if (currentSelectedStudent.IsAssign)
-                studentDescription.SetRemove();
+            if (selectionMode == SelectionMode.Squad)
+            {
+                if (currentSelectedStudent.IsAssign)
+                    studentDescription.SetRemove();
+                else
+                    studentDescription.SetAssign();
+            }
             else
-                studentDescription.SetAssign();
+            {
+                if (currentSelectedStudent.IsTraining)
+                    studentDescription.SetRemove();
+                else
+                    studentDescription.SetAssign();
+            }
             studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
         }
     }
@@ -125,37 +148,55 @@ public class StudentSelectionUI : MonoBehaviour
         studentDescription.SetDescription(obj.StudentData);
         currentSelectedStudent = obj.StudentData;
 
-        if (RequestManager.instance.CurrentRequest.squad[slotIndex] == null)
+        if (selectionMode == SelectionMode.Squad)
         {
-            if (obj.StudentData.IsAssign)
+            if (RequestManager.instance.CurrentRequest.squad[slotIndex] == null)
             {
-                studentDescription.SetRemoveAndSwitch();
+                if (obj.StudentData.IsAssign)
+                    studentDescription.SetRemoveAndSwitch();
+                else
+                    studentDescription.SetAssign();
             }
             else
             {
-                studentDescription.SetAssign();
+                if (obj.StudentData.IsAssign)
+                {
+                    if (obj.StudentData.id == RequestManager.instance.CurrentRequest.squad[slotIndex].id)
+                        studentDescription.SetRemove();
+                    else
+                        studentDescription.SetRemoveAndSwitch();
+                }
+                else
+                    studentDescription.SetSwitch();
             }
         }
         else
         {
-            if (obj.StudentData.IsAssign)
+            if (TrainingManager.instance.GetCurrentStudentsInBuilding()[slotIndex] == null)
             {
-                if (obj.StudentData.id == RequestManager.instance.CurrentRequest.squad[slotIndex].id)
-                {
-                    studentDescription.SetRemove();
-                }
-                else
-                {
+                if (obj.StudentData.IsTraining)
                     studentDescription.SetRemoveAndSwitch();
-                }
+                else
+                    studentDescription.SetAssign();
             }
             else
             {
-                studentDescription.SetSwitch();
+                if (obj.StudentData.IsTraining)
+                {
+                    if (obj.StudentData.id == TrainingManager.instance.GetCurrentStudentsInBuilding()[slotIndex].id)
+                        studentDescription.SetRemove();
+                    else
+                        studentDescription.SetRemoveAndSwitch();
+                }
+                else
+                    studentDescription.SetSwitch();
             }
         }
 
-        if (obj.StudentData.IsTraining || obj.StudentData.IsOperating)
+        if (obj.StudentData.IsOperating)
+            studentDescription.HideButton();
+
+        if (obj.StudentData.IsTraining && selectionMode == SelectionMode.Squad)
             studentDescription.HideButton();
 
         obj.Select();
@@ -237,6 +278,29 @@ public class StudentSelectionUI : MonoBehaviour
         CloseSelectionPanel();
     }
 
+    public void RemoveTrainingStudent()
+    {
+        for (int i = 0; i < TrainingManager.instance.GetCurrentStudentsInBuilding().Count; i++)
+        {
+            if (TrainingManager.instance.GetCurrentStudentsInBuilding()[i] != null)
+            {
+                if (TrainingManager.instance.GetCurrentStudentsInBuilding()[i].id == currentSelectedStudent.id)
+                {
+                    TrainingManager.instance.GetCurrentStudentsInBuilding()[i].IsTraining = false;
+                    TrainingManager.instance.GetCurrentStudentsInBuilding()[i].TrainingDuration = TrainingManager.instance.GetCurrentBuilding().TrainingDuration;
+                    TrainingManager.instance.GetCurrentStudentsInBuilding()[i] = null;
+                    Debug.Log("remove");
+                }
+                else
+                    continue;
+            }
+        }
+        TrainingManager.instance.Calculate();
+        studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
+        currentSelectedStudent = null;
+        CloseSelectionPanel();
+    }
+
     public void SwitchStudent()
     {
         List<Student> students = RequestManager.instance.CurrentRequest.squad;
@@ -270,9 +334,80 @@ public class StudentSelectionUI : MonoBehaviour
 
     }
 
+    public void SwitchTrainingStudent()
+    {
+        List<Student> students = TrainingManager.instance.GetCurrentStudentsInBuilding();
+        if (!currentSelectedStudent.IsTraining)
+        {
+            AssignTrainingStudent();
+        }
+        else
+        {
+            Student tmp = students[slotIndex];
+
+            for (int i = 0; i < students.Count; i++)
+            {
+                if (students[i] != null)
+                {
+                    if (students[i].id == currentSelectedStudent.id)
+                    {
+                        students[slotIndex] = currentSelectedStudent;
+                        students[i] = tmp;
+                        break;
+                    }
+                }
+            }
+
+            TrainingManager.instance.Calculate();
+
+            studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
+            currentSelectedStudent = null;
+            CloseSelectionPanel();
+        }
+
+    }
+
+    public void SearchStudent()
+    {
+        studentUIDatas.Clear();
+        ClearStudentUI();
+
+        if (searchField.text == "")
+        {
+            foreach (Student student in SquadController.instance.Students)
+            {
+                GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
+                StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
+                studentUIData.SetData(student);
+                studentUIData.OnStudentClicked += HandleStudentSelection;
+                studentUIDatas.Add(studentUIData);
+            }
+        }
+        else
+        {
+            foreach (Student student in SquadController.instance.Students)
+            {
+                if (student.name.ToLower().StartsWith(searchField.text.ToLower()))
+                {
+                    GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
+                    StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
+                    studentUIData.SetData(student);
+                    studentUIData.OnStudentClicked += HandleStudentSelection;
+                    studentUIDatas.Add(studentUIData);
+                }
+            }
+        }
+
+
+    }
+
     public void CloseSelectionPanel()
     {
+        if (selectionMode == SelectionMode.Training)
+            trainingPanel.SetActive(true);
+
         gameObject.SetActive(false);
+
     }
 
     public void PlayStudentVoice(Student student)

@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: cafe-Material.004
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: caf5b9d123849a848a9d307428d0eebb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -43,6 +43,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -59,12 +63,27 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _PrefabLightmapTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _EmissionStrength: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -72,12 +91,26 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ReflectAnglePower: 2
+    - _ReflectBaseAmount: 0
+    - _ReflectStrength: 0
+    - _ShadowAttenRefl: 0
+    - _ShadowAttenSpec: 0.2
     - _SmoothnessTextureChannel: 0
+    - _SpecPower: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
     - _UVSec: 0
+    - _ZOffsetFactor: 0
+    - _ZOffsetUnits: 0
     - _ZWrite: 1
     m_Colors:
+    - _CodeAddColor: {r: 0, g: 0, b: 0, a: 0}
+    - _CodeAddRimColor: {r: 0, g: 0, b: 0, a: 0}
+    - _CodeMultiplyColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.37429857, g: 0.37565753, b: 0.3797517, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecLightDir: {r: 0, g: 0.94, b: 0.342, a: 0}
   m_BuildTextureStacks: []

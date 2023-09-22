@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
+    agentSlope: 0
     agentClimb: 0.3
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -6862,7 +6862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &174730585
 Transform:
   m_ObjectHideFlags: 0
@@ -18182,6 +18182,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 330461174}
     m_Modifications:
+    - target: {fileID: 599288003883571743, guid: 6a6e087237cf40e4bac888a6ab010809, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3674720208231232955, guid: 6a6e087237cf40e4bac888a6ab010809, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4478977257105461386, guid: 6a6e087237cf40e4bac888a6ab010809, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4804023593592704205, guid: 6a6e087237cf40e4bac888a6ab010809, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -54041,6 +54053,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8973573953404991578, guid: 1d6342439a855c44ca59bd8b2f885191, type: 3}
+      propertyPath: wanderTime
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8973573953404991578, guid: 1d6342439a855c44ca59bd8b2f885191, type: 3}
       propertyPath: wanderRadius
       value: 10
       objectReference: {fileID: 0}
@@ -62976,6 +62992,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shopping
       objectReference: {fileID: 0}
+    - target: {fileID: 7076234083311649266, guid: 6abe558dbf0c211488fb46faf8064627, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -69243,7 +69263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2029451218
 Transform:
   m_ObjectHideFlags: 0

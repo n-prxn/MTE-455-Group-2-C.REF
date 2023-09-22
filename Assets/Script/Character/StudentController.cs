@@ -22,10 +22,11 @@ public class StudentController : MonoBehaviour
     private Vector3 wanderPosition;
     [SerializeField] private float wanderRadius = 10f;
     [SerializeField] private float wanderTime = 20f;
+    [SerializeField] private float distanceRadius = 0.2f;
     [SerializeField] private GameObject bubble;
     [SerializeField] private GameObject optionMenu;
     private Bounds floor;
-    private GameObject pillar,pillarRed;
+    private GameObject pillar, pillarRed;
 
     private float timer;
     float rndX, rndZ;
@@ -34,8 +35,8 @@ public class StudentController : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         floor = GameObject.FindGameObjectWithTag("Floor").GetComponent<Renderer>().bounds;
-        pillar = GameObject.Find("Pillar");
-        pillarRed = GameObject.Find("PillarRed");
+        // pillar = GameObject.Find("Pillar");
+        // pillarRed = GameObject.Find("PillarRed");
         timer = wanderTime;
     }
 
@@ -43,6 +44,7 @@ public class StudentController : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        navMeshAgent.stoppingDistance = distanceRadius;
     }
 
     void OnMouseOver()
@@ -86,34 +88,44 @@ public class StudentController : MonoBehaviour
 
     void Wander()
     {
-        timer += Time.deltaTime;
+        // Debug.Log(navMeshAgent.remainingDistance);
         float distance = Vector3.Distance(transform.position, wanderPosition);
-        if (distance <= 0.2f)
-            animState = StudentAnimationState.Idle;
+        // if (distance <= distanceRadius)
+        //     animState = StudentAnimationState.Idle;
 
-        if (timer >= wanderTime)
+        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
-            StartCoroutine(SetRandomDestination());
+            animState = StudentAnimationState.Idle;
+            navMeshAgent.SetDestination(this.transform.position);
+        }
 
+        if (navMeshAgent.isStopped == true)
+        {
+            timer += Time.deltaTime;
 
-
-            // pillarRed.transform.position = navMeshAgent.pathEndPosition;
-
-            /*do
+            if (timer >= wanderTime)
             {
-                rndX = Random.Range(floor.min.x, floor.max.x);
-                rndZ = Random.Range(floor.min.z, floor.max.z);
-                checkBound = new Vector3(rndX, transform.position.y, rndZ);
-                navMeshAgent.SetDestination(checkBound);
-                Debug.Log(checkBound);
-            } while (navMeshAgent.pathEndPosition.x != checkBound.x && navMeshAgent.pathEndPosition.z != checkBound.z);*/
+                StartCoroutine(SetRandomDestination());
 
-            //wanderPosition = RandomNavSphere(transform.position, wanderRadius, -1);
-            //navMeshAgent.SetDestination(wanderPosition);
+                // pillarRed.transform.position = navMeshAgent.pathEndPosition;
 
-            navMeshAgent.isStopped = false;
-            animState = StudentAnimationState.Walking;
-            timer = 0f;
+                /*do
+                {
+                    rndX = Random.Range(floor.min.x, floor.max.x);
+                    rndZ = Random.Range(floor.min.z, floor.max.z);
+                    checkBound = new Vector3(rndX, transform.position.y, rndZ);
+                    navMeshAgent.SetDestination(checkBound);
+                    Debug.Log(checkBound);
+                } while (navMeshAgent.pathEndPosition.x != checkBound.x && navMeshAgent.pathEndPosition.z != checkBound.z);*/
+
+                //wanderPosition = RandomNavSphere(transform.position, wanderRadius, -1);
+                //navMeshAgent.SetDestination(wanderPosition);
+
+                wanderPosition = navMeshAgent.pathEndPosition;
+                navMeshAgent.isStopped = false;
+                animState = StudentAnimationState.Walking;
+                timer = 0f;
+            }
         }
     }
 
@@ -145,8 +157,8 @@ public class StudentController : MonoBehaviour
         //     Debug.Log("Can GO");
         // }
 
-        pillar.transform.position = checkBound;
-        pillarRed.transform.position = navMeshAgent.pathEndPosition;
+        // pillar.transform.position = checkBound;
+        // pillarRed.transform.position = navMeshAgent.pathEndPosition;
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float distance, LayerMask layerMask)

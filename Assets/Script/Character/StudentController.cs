@@ -25,7 +25,7 @@ public class StudentController : MonoBehaviour
     [SerializeField] private GameObject bubble;
     [SerializeField] private GameObject optionMenu;
     private Bounds floor;
-    private GameObject pillar;
+    private GameObject pillar,pillarRed;
 
     private float timer;
     float rndX, rndZ;
@@ -34,7 +34,8 @@ public class StudentController : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         floor = GameObject.FindGameObjectWithTag("Floor").GetComponent<Renderer>().bounds;
-        //pillar = GameObject.Find("Pillar");
+        pillar = GameObject.Find("Pillar");
+        pillarRed = GameObject.Find("PillarRed");
         timer = wanderTime;
     }
 
@@ -57,19 +58,10 @@ public class StudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            NavMeshData data = floor.GetComponent<NavMeshData>();
-            rndX = Random.Range(data.sourceBounds.min.x , data.sourceBounds.max.x);
-            rndZ = Random.Range(data.sourceBounds.min.z, data.sourceBounds.max.z);
-            checkBound = new Vector3(rndX, pillar.transform.position.y, rndZ);
-            //navMeshAgent.SetDestination(checkBound);
-            pillar.transform.position = checkBound;
-
-            //navMeshAgent.SetDestination(checkBound);
-            //Debug.DrawRay(transform.position, checkBound);
-            Debug.Log(checkBound);
-        }*/
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     StartCoroutine(SetRandomDestination());
+        // }
 
         UpdateAnimation();
         Wander();
@@ -101,11 +93,12 @@ public class StudentController : MonoBehaviour
 
         if (timer >= wanderTime)
         {
-            rndX = Random.Range(floor.min.x, floor.max.x);
-            rndZ = Random.Range(floor.min.z, floor.max.z);
-            checkBound = new Vector3(rndX, transform.position.y, rndZ);
-            navMeshAgent.SetDestination(checkBound);
-            Debug.Log(checkBound);
+            StartCoroutine(SetRandomDestination());
+
+
+
+            // pillarRed.transform.position = navMeshAgent.pathEndPosition;
+
             /*do
             {
                 rndX = Random.Range(floor.min.x, floor.max.x);
@@ -117,10 +110,43 @@ public class StudentController : MonoBehaviour
 
             //wanderPosition = RandomNavSphere(transform.position, wanderRadius, -1);
             //navMeshAgent.SetDestination(wanderPosition);
+
             navMeshAgent.isStopped = false;
             animState = StudentAnimationState.Walking;
             timer = 0f;
         }
+    }
+
+    private IEnumerator SetRandomDestination()
+    {
+        do
+        {
+            rndX = Random.Range(floor.min.x, floor.max.x);
+            rndZ = Random.Range(floor.min.z, floor.max.z);
+            checkBound = new Vector3(rndX, transform.position.y, rndZ);
+            navMeshAgent.SetDestination(checkBound);
+
+            yield return new WaitUntil(() => navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete);
+        } while (checkBound != navMeshAgent.pathEndPosition);
+
+        // rndX = Random.Range(floor.min.x, floor.max.x);
+        // rndZ = Random.Range(floor.min.z, floor.max.z);
+        // checkBound = new Vector3(rndX, transform.position.y, rndZ);
+        // navMeshAgent.SetDestination(checkBound);
+
+        // yield return new WaitUntil(() => navMeshAgent.pathStatus == NavMeshPathStatus.PathComplete);
+
+        // if (checkBound != navMeshAgent.pathEndPosition)
+        // {
+        //     Debug.Log("Can't Not go");
+        // }
+        // else
+        // {
+        //     Debug.Log("Can GO");
+        // }
+
+        pillar.transform.position = checkBound;
+        pillarRed.transform.position = navMeshAgent.pathEndPosition;
     }
 
     public static Vector3 RandomNavSphere(Vector3 origin, float distance, LayerMask layerMask)

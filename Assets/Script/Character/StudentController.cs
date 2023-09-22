@@ -24,7 +24,7 @@ public class StudentController : MonoBehaviour
     [SerializeField] private float wanderTime = 20f;
     [SerializeField] private GameObject bubble;
     [SerializeField] private GameObject optionMenu;
-    private NavMeshSurface floor;
+    private Bounds floor;
     private GameObject pillar;
 
     private float timer;
@@ -33,8 +33,8 @@ public class StudentController : MonoBehaviour
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        floor = GameObject.FindGameObjectWithTag("Floor").GetComponent<NavMeshSurface>();
-        pillar = GameObject.Find("Pillar");
+        floor = GameObject.FindGameObjectWithTag("Floor").GetComponent<Renderer>().bounds;
+        //pillar = GameObject.Find("Pillar");
         timer = wanderTime;
     }
 
@@ -57,7 +57,7 @@ public class StudentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        /*if (Input.GetKeyDown(KeyCode.Space))
         {
             NavMeshData data = floor.GetComponent<NavMeshData>();
             rndX = Random.Range(data.sourceBounds.min.x , data.sourceBounds.max.x);
@@ -69,7 +69,7 @@ public class StudentController : MonoBehaviour
             //navMeshAgent.SetDestination(checkBound);
             //Debug.DrawRay(transform.position, checkBound);
             Debug.Log(checkBound);
-        }
+        }*/
 
         UpdateAnimation();
         Wander();
@@ -101,6 +101,11 @@ public class StudentController : MonoBehaviour
 
         if (timer >= wanderTime)
         {
+            rndX = Random.Range(floor.min.x, floor.max.x);
+            rndZ = Random.Range(floor.min.z, floor.max.z);
+            checkBound = new Vector3(rndX, transform.position.y, rndZ);
+            navMeshAgent.SetDestination(checkBound);
+            Debug.Log(checkBound);
             /*do
             {
                 rndX = Random.Range(floor.min.x, floor.max.x);

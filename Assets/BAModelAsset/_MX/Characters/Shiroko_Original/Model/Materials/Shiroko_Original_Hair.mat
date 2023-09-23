@@ -8,7 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shiroko_Original_Hair
-  m_Shader: {fileID: 4800000, guid: 06cdc4db1a431204c821e2a937a781ee, type: 3}
+  m_Shader: {fileID: 4800000, guid: 943aaf666a942334492a593a99041273, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,6 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -36,7 +39,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: {}
+    m_Ints: []
     m_Floats:
     - _AdjustiveHairShadow: 0
     - _AdjustiveShadow: 0
@@ -79,16 +82,29 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_A95239E6: {r: 6.792453, g: 0.6728373, b: 0.6728373, a: 0}
+    - _BaseBrightness4: {r: 0, g: 0, b: 0, a: 0}
     - _CodeAddColor: {r: 0, g: 0, b: 0, a: 0}
     - _CodeAddRimColor: {r: 0, g: 0, b: 0, a: 0}
     - _CodeMultiplyColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GlowTint: {r: 0, g: 0, b: 0, a: 1}
+    - _InvViewPower4: {r: 1, g: 1, b: 1, a: 1}
+    - _InvViewStrength4: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineTint: {r: 0.32900003, g: 0.32900003, b: 0.32900003, a: 1}
+    - _RimAreaMultiplier4: {r: 3, g: 3, b: 3, a: 3}
+    - _RimStrength4: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowThreshold4: {r: 0, g: 0, b: 0, a: 0}
     - _ShadowTint: {r: 0.5803922, g: 0.61960787, b: 0.7529412, a: 1}
+    - _ShadowTintB4: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowTintG4: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowTintR4: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecDirMultiplier: {r: 0.07, g: 0, b: 0.10000006, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
     - _TwoSideTint: {r: 1, g: 1, b: 1, a: 1}
+    - _ViewLightEdge4: {r: 0, g: 0, b: 0, a: 0}
+    - _ViewOffset4: {r: 0, g: 0, b: 0, a: 0}
+    - _ViewPower4: {r: 1, g: 1, b: 1, a: 1}
+    - _ViewStrength4: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

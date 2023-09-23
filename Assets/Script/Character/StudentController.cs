@@ -18,7 +18,6 @@ public class StudentController : MonoBehaviour
     private Animator animator;
     private StudentAnimationState animState;
     private Vector3 wanderPosition;
-    [SerializeField] private float wanderRadius = 10f;
     [SerializeField] private float wanderTime = 20f;
     [SerializeField] private float distanceRadius = 0.2f;
     [SerializeField] private GameObject bubble;

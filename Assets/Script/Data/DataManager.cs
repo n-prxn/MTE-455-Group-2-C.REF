@@ -15,27 +15,29 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        instance = this;
+        /*if (instance == null)
         {
-            instance = this;
+            
             DontDestroyOnLoad(gameObject);
 
-            fileHandler = new FileHandler();
-            dataObject = FindAllDataObject();
-            LoadGame();
+            
         }
         else
         {
             Destroy(gameObject);
-        }
+        }*/
+        /*fileHandler = new FileHandler();
+        dataObject = FindAllDataObject();
+        LoadGame();*/
     }
 
     //Call LoadGame() at start
-    private void OnEnable()
+    private void Start()
     {
-        /*this.fileHandler = new FileHandler();
+        this.fileHandler = new FileHandler();
         this.dataObject = FindAllDataObject();
-        LoadGame();*/
+        LoadGame();
     }
 
     //Call Wheme gamedata is null

@@ -25,13 +25,15 @@ public class StudentSpawner : MonoBehaviour
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Gameplay")
         {
             students = SquadController.instance.Students;
-            GenerateStudentOnMap(students, students.Count <= maxStudentOnMap ? students.Count : maxStudentOnMap, false);
+            if (students != null && students.Count > 0)
+                GenerateStudentOnMap(students, students.Count <= maxStudentOnMap ? students.Count : maxStudentOnMap, false);
         }
         else
         {
             students = TrainingManager.instance.GetCurrentStudentsInBuilding();
             maxStudentOnMap = students.Count;
-            GenerateStudentOnMap(students, maxStudentOnMap, true);
+            if (students != null && maxStudentOnMap > 0)
+                GenerateStudentOnMap(students, maxStudentOnMap, true);
         }
     }
 
@@ -69,9 +71,12 @@ public class StudentSpawner : MonoBehaviour
 
     void ResetStudentOnMap()
     {
-        foreach (Transform student in studentParent)
+        if (studentParent.childCount > 0)
         {
-            Destroy(student.gameObject);
+            foreach (Transform student in studentParent)
+            {
+                Destroy(student.gameObject);
+            }
         }
     }
     public Vector3 RandomSpawnpoint()

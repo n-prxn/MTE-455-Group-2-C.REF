@@ -33,7 +33,7 @@ public class GachaPool : MonoBehaviour, IData
     // Start is called before the first frame update
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         CountRarity(StudentsPool);
         InitializeGachaRate(StudentsPool);

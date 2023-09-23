@@ -401,9 +401,11 @@ public class StudentSelectionUI : MonoBehaviour
     {
         currentSelectedStudent = null;
         if (selectionMode == SelectionMode.Training)
+        {
             trainingPanel.SetActive(true);
+            GameObject.FindGameObjectWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+        }
 
-        GameObject.FindGameObjectWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
         gameObject.SetActive(false);
     }
 

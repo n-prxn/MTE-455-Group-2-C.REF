@@ -73,19 +73,26 @@ public class GameManager : MonoBehaviour, IData
         {
             if (currentTurn < lastTurn)
             {
-                currentTurn++;
-                UpdateRequest();
-                requestPool.DecreaseDays();
-                requestPool.GenerateRequests();
-
-                ShopManager.instance.GenerateShopItems();
-                presentShopUI.InitializeItemSOShelf();
-                furnitureShopUI.InitializeFurnitureShelf();
-
-                TrainingProcess();
-                SquadController.instance.UpdateStudentBuff();
+                UIDisplay.instance.PlaySplashScreen();
+                StartCoroutine(WaitForSplashScreen());
             }
         }
+    }
+
+    IEnumerator WaitForSplashScreen()
+    {
+        yield return new WaitForSeconds(3);
+        currentTurn++;
+        UpdateRequest();
+        requestPool.DecreaseDays();
+        requestPool.GenerateRequests();
+
+        ShopManager.instance.GenerateShopItems();
+        presentShopUI.InitializeItemSOShelf();
+        furnitureShopUI.InitializeFurnitureShelf();
+
+        TrainingProcess();
+        SquadController.instance.UpdateStudentBuff();
     }
 
     public void UpdateRequest()
@@ -185,7 +192,8 @@ public class GameManager : MonoBehaviour, IData
         sceneManager.LoadPreviousScene();
     }
 
-    public void GoToMainMenu(){
+    public void GoToMainMenu()
+    {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
 

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum BuildingType
 {
@@ -16,11 +18,14 @@ public class Building : MonoBehaviour
     [SerializeField] private BuildingSO buildingSO;
     [SerializeField] private GameObject availableModel;
     [SerializeField] private GameObject unavailableModel;
+    [SerializeField] private GameObject balloon;
     public BuildingSO BuildingSO
     {
         get { return buildingSO; }
         set { buildingSO = value; }
     }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +61,23 @@ public class Building : MonoBehaviour
                 case BuildingType.Cafe:
                     buildingSO.BonusCOMTraining = TrainingManager.instance.BonusTraining(buildingSO);
                     break;
+            }
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.green);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Building")))
+        {
+            GameObject obj = hit.collider.gameObject;
+            if (obj.name == gameObject.name)
+            {  
+                balloon.SetActive(true);
+            }
+            else{
+                balloon.SetActive(false);
             }
         }
     }

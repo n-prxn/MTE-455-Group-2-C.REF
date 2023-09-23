@@ -77,10 +77,6 @@ public class CameraController : MonoBehaviour
         {
             zoomModifier = -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         }
-        // if (Input.GetKey(KeyCode.Z))
-        //     zoomModifier = 0.1f;
-        // if (Input.GetKey(KeyCode.X))
-        //     zoomModifier = -0.1f;
 
         float zoomSize = cam.orthographicSize;
         if (zoomSize < minZoomSize && zoomModifier < 0f)

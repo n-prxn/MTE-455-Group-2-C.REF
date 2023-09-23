@@ -36,14 +36,16 @@ public class UIDisplay : MonoBehaviour
     [SerializeField] GameObject requestButton;
     [SerializeField] GameObject sidePanel;
     [SerializeField] GameObject nextButton;
-    
+    [Header("Splash Screen")]
+    [SerializeField] GameObject splashScreen;
+
     [Header("Mode Header")]
     [SerializeField] GameObject placingMode;
     [SerializeField] GameObject movingMode;
     [SerializeField] GameObject storingMode;
 
     [Header("Character")]
-     GameObject characterParent;
+    GameObject characterParent;
     public static UIDisplay instance;
 
     void Awake()
@@ -52,7 +54,9 @@ public class UIDisplay : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-        }else{
+        }
+        else
+        {
             Destroy(gameObject);
         }
     }
@@ -70,12 +74,15 @@ public class UIDisplay : MonoBehaviour
         UpdateUIResource();
         UpdateButton();
 
-        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay"){
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay")
+        {
             backButton.SetActive(true);
             sidePanel.transform.GetChild(2).gameObject.SetActive(true);
             sidePanel.transform.GetChild(5).gameObject.SetActive(true);
             locationText.text = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        }else{
+        }
+        else
+        {
             backButton.SetActive(false);
             sidePanel.transform.GetChild(2).gameObject.SetActive(false);
             sidePanel.transform.GetChild(5).gameObject.SetActive(false);
@@ -172,7 +179,8 @@ public class UIDisplay : MonoBehaviour
         }
     }
 
-    public void ToggleBlackBackground(bool isToggled){
+    public void ToggleBlackBackground(bool isToggled)
+    {
         blackBackground.SetActive(isToggled);
     }
 
@@ -190,21 +198,24 @@ public class UIDisplay : MonoBehaviour
         }
     }
 
-    public void EnableMode(int mode){
-        
+    public void EnableMode(int mode)
+    {
+
         sidePanel.SetActive(false);
         nextButton.SetActive(false);
         backButton.SetActive(false);
-        
+
         placingMode.SetActive(false);
         movingMode.SetActive(false);
         storingMode.SetActive(false);
 
-        foreach(Transform student in characterParent.transform){
+        foreach (Transform student in characterParent.transform)
+        {
             student.gameObject.SetActive(false);
         }
 
-        switch(mode){
+        switch (mode)
+        {
             case 0:
                 placingMode.SetActive(true);
                 break;
@@ -219,7 +230,8 @@ public class UIDisplay : MonoBehaviour
         }
     }
 
-    public void DisableMode(){
+    public void DisableMode()
+    {
         sidePanel.SetActive(true);
         nextButton.SetActive(true);
         backButton.SetActive(true);
@@ -228,8 +240,14 @@ public class UIDisplay : MonoBehaviour
         movingMode.SetActive(false);
         storingMode.SetActive(false);
 
-        foreach(Transform student in characterParent.transform){
+        foreach (Transform student in characterParent.transform)
+        {
             student.gameObject.SetActive(true);
         }
+    }
+
+    public void PlaySplashScreen()
+    {
+        splashScreen.SetActive(true);
     }
 }

@@ -44,15 +44,14 @@ public class StudentSpawner : MonoBehaviour
         {
             Student student = students[i];
 
-            if(student == null)
+            if (student == null)
                 continue;
-
             if (student.studentModel == null)
                 continue;
-
             if (student.IsOperating)
                 continue;
-
+            if (student.name == "Mari")
+                continue;
             if (!inBuilding && student.IsTraining)
                 continue;
 
@@ -70,7 +69,8 @@ public class StudentSpawner : MonoBehaviour
 
     void ResetStudentOnMap()
     {
-        foreach(Transform student in studentParent){
+        foreach (Transform student in studentParent)
+        {
             Destroy(student.gameObject);
         }
     }

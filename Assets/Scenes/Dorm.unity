@@ -224,9 +224,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 232166262}
+  - component: {fileID: 232166263}
   m_Layer: 0
-  m_Name: Student Parent
-  m_TagString: Untagged
+  m_Name: Student
+  m_TagString: Student Parent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,6 +247,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &232166263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232166261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d942c11f5603a3d40b0f50c79336d94b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxStudentOnMap: 10
+  studentParent: {fileID: 232166262}
 --- !u!1 &705732126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1112,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1325153170848851323, guid: 8a0f367e748a1aa4d81370700f22bdfe, type: 3}
+      propertyPath: m_TagString
+      value: Floor
+      objectReference: {fileID: 0}
     - target: {fileID: 2101218972483805505, guid: 8a0f367e748a1aa4d81370700f22bdfe, type: 3}
       propertyPath: m_Name
       value: Dorm (Inside)

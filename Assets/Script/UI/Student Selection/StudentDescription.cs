@@ -39,7 +39,7 @@ public class StudentDescription : MonoBehaviour
 
     void Awake()
     {
-        ResetDescription();
+        //ResetDescription();
     }
 
     public void SetDescription(Student s)

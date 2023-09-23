@@ -7,7 +7,7 @@ using UnityEditor;
 public class SquadController : MonoBehaviour, IData
 {
     [Header("Students")]
-    [SerializeField] private List<Student> students; //Main Inventory
+    [SerializeField] private List<Student> students = new List<Student>(); //Main Inventory
     [Header("Pools")]
     [SerializeField] GachaPool gachaPool;
     public List<Student> Students
@@ -29,10 +29,6 @@ public class SquadController : MonoBehaviour, IData
         {
             Destroy(gameObject);
         }
-    }
-
-    public void GenerateStudentOnMap(){
-        
     }
 
     public void Receive(Student s)
@@ -100,6 +96,7 @@ public class SquadController : MonoBehaviour, IData
             if (student.SquadCollect)
                 students.Add(student);
         }
+        //StudentSpawner.instance.GenerateStudentOnMap(students);
     }
 
     public void SaveData(ref GameData data)

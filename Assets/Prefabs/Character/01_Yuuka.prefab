@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1458172942943308289}
   m_Layer: 0
   m_Name: 01_Yuuka
-  m_TagString: Untagged
+  m_TagString: Student
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,8 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cca3ca075ee32742bd6c930b9543672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  student: {fileID: 0}
-  animator: {fileID: 6732230886030077386}
   wanderRadius: 10
   wanderTime: 20
   distanceRadius: 0.2
@@ -73,7 +71,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.32
+  m_Radius: 0.38
   m_Height: 1.15
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
@@ -86,7 +84,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4482796521862476216}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.33
   m_Speed: 0.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -163,10 +161,5 @@ PrefabInstance:
 --- !u!4 &6640637696166083633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4974721072617028, guid: 611a1105cace2ac41a4dc9e257a76ce1, type: 3}
-  m_PrefabInstance: {fileID: 6645594197920311925}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &6732230886030077386 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95794834535843775, guid: 611a1105cace2ac41a4dc9e257a76ce1, type: 3}
   m_PrefabInstance: {fileID: 6645594197920311925}
   m_PrefabAsset: {fileID: 0}

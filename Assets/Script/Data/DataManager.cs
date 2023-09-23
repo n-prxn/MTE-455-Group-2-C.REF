@@ -19,6 +19,10 @@ public class DataManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            fileHandler = new FileHandler();
+            dataObject = FindAllDataObject();
+            LoadGame();
         }
         else
         {
@@ -27,11 +31,11 @@ public class DataManager : MonoBehaviour
     }
 
     //Call LoadGame() at start
-    private void Start()
+    private void OnEnable()
     {
-        this.fileHandler = new FileHandler();
+        /*this.fileHandler = new FileHandler();
         this.dataObject = FindAllDataObject();
-        LoadGame();
+        LoadGame();*/
     }
 
     //Call Wheme gamedata is null
@@ -39,19 +43,19 @@ public class DataManager : MonoBehaviour
     {
         this.gameData = new GameData();
 
-        foreach(RequestSO request in requestPool.RequestsPool)
+        foreach (RequestSO request in requestPool.RequestsPool)
         {
             request.InitializeRequest();
             gameData.requests.Add(new RequestData(request));
         }
 
-        foreach(Student student in gachaPool.StudentsPool)
+        foreach (Student student in gachaPool.StudentsPool)
         {
             student.InitializeStudent();
             gameData.students.Add(new StudentData(student));
         }
 
-        foreach(BuildingSO building in TrainingManager.instance.Buildings)
+        foreach (BuildingSO building in TrainingManager.instance.Buildings)
             building.InitializeBuilding();
     }
 
@@ -84,8 +88,8 @@ public class DataManager : MonoBehaviour
 
     public void ClearColleted()
     {
-        foreach(StudentData student in gameData.students)
-        {   
+        foreach (StudentData student in gameData.students)
+        {
             student.collected = false;
         }
         fileHandler.Save(gameData);

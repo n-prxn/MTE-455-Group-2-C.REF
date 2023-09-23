@@ -43,7 +43,7 @@ public class UIDisplay : MonoBehaviour
     [SerializeField] GameObject storingMode;
 
     [Header("Character")]
-    [SerializeField] GameObject characterParent;
+     GameObject characterParent;
     public static UIDisplay instance;
 
     void Awake()
@@ -66,6 +66,7 @@ public class UIDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        characterParent = GameObject.FindGameObjectWithTag("Student Parent");
         UpdateUIResource();
         UpdateButton();
 
@@ -199,7 +200,9 @@ public class UIDisplay : MonoBehaviour
         movingMode.SetActive(false);
         storingMode.SetActive(false);
 
-        characterParent.SetActive(false);
+        foreach(Transform student in characterParent.transform){
+            student.gameObject.SetActive(false);
+        }
 
         switch(mode){
             case 0:
@@ -225,6 +228,8 @@ public class UIDisplay : MonoBehaviour
         movingMode.SetActive(false);
         storingMode.SetActive(false);
 
-        characterParent.SetActive(true);
+        foreach(Transform student in characterParent.transform){
+            student.gameObject.SetActive(true);
+        }
     }
 }

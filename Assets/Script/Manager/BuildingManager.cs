@@ -73,6 +73,7 @@ public class BuildingManager : MonoBehaviour
                 default:
                     break;
             }
+            //StudentSpawner.instance.GenerateStudentOnMap(TrainingManager.instance.GetCurrentStudentsInBuilding());
         }
     }
 }

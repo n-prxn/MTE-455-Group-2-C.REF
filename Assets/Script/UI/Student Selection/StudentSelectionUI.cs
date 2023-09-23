@@ -62,7 +62,6 @@ public class StudentSelectionUI : MonoBehaviour
             headerPanel.SetActive(true);
             idlePanel.SetActive(false);
 
-            studentDescription.SetDescription(currentSelectedStudent);
             if (selectionMode == SelectionMode.Squad)
             {
                 if (currentSelectedStudent.IsAssign)
@@ -77,6 +76,8 @@ public class StudentSelectionUI : MonoBehaviour
                 else
                     studentDescription.SetAssign();
             }
+
+            studentDescription.SetDescription(currentSelectedStudent);
             studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
         }
     }
@@ -252,7 +253,6 @@ public class StudentSelectionUI : MonoBehaviour
         PlayStudentVoice(currentSelectedStudent);
 
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
-        currentSelectedStudent = null;
 
         trainingPanel.SetActive(true);
         CloseSelectionPanel();
@@ -274,7 +274,6 @@ public class StudentSelectionUI : MonoBehaviour
         currentSelectedStudent.IsAssign = false;
         RequestManager.instance.UpdateRequest();
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
-        currentSelectedStudent = null;
         CloseSelectionPanel();
     }
 
@@ -297,7 +296,6 @@ public class StudentSelectionUI : MonoBehaviour
         }
         TrainingManager.instance.Calculate();
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
-        currentSelectedStudent = null;
         CloseSelectionPanel();
     }
 
@@ -328,7 +326,6 @@ public class StudentSelectionUI : MonoBehaviour
             RequestManager.instance.Calculate();
             RequestManager.instance.UpdateRequest();
             studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
-            currentSelectedStudent = null;
             CloseSelectionPanel();
         }
 
@@ -361,7 +358,6 @@ public class StudentSelectionUI : MonoBehaviour
             TrainingManager.instance.Calculate();
 
             studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
-            currentSelectedStudent = null;
             CloseSelectionPanel();
         }
 
@@ -403,11 +399,12 @@ public class StudentSelectionUI : MonoBehaviour
 
     public void CloseSelectionPanel()
     {
-        if (selectionMode == SelectionMode.Training)
+        currentSelectedStudent = null;
+        if (selectionMode == SelectionMode.Training){}
             trainingPanel.SetActive(true);
 
+        GameObject.FindGameObjectWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
         gameObject.SetActive(false);
-
     }
 
     public void PlayStudentVoice(Student student)

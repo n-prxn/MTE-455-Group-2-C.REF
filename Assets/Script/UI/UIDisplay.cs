@@ -13,6 +13,7 @@ public class UIDisplay : MonoBehaviour
     public GameObject overallPanel;
     public GameObject shopPanel;
     public GameObject blackBackground;
+    public GameObject gameplayGUI;
 
     [Header("Back Button")]
     [SerializeField] GameObject backButton;
@@ -54,6 +55,7 @@ public class UIDisplay : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            DisableAllPanel();
         }
         else
         {
@@ -176,6 +178,24 @@ public class UIDisplay : MonoBehaviour
             panel.SetActive(true);
             blackBackground.SetActive(true);
             GameManager.instance.uiIsOpen = true;
+        }
+    }
+
+    public void ToggleOnlyThisPanel(GameObject panel)
+    {
+        TogglePanel(panel);
+        foreach (Transform UIPanel in gameplayGUI.transform)
+        {
+            if (UIPanel.gameObject.name != panel.name)
+            {
+                UIPanel.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void DisableAllPanel(){
+        foreach(Transform panel in gameplayGUI.transform){
+            panel.gameObject.SetActive(false);
         }
     }
 

@@ -25,14 +25,14 @@ public class StudentSpawner : MonoBehaviour
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Gameplay")
         {
             students = SquadController.instance.Students;
-            if (students != null && students.Count > 0)
+            if (students.Count > 0)
                 GenerateStudentOnMap(students, students.Count <= maxStudentOnMap ? students.Count : maxStudentOnMap, false);
         }
         else
         {
             students = TrainingManager.instance.GetCurrentStudentsInBuilding();
             maxStudentOnMap = students.Count;
-            if (students != null && maxStudentOnMap > 0)
+            if (maxStudentOnMap > 0)
                 GenerateStudentOnMap(students, maxStudentOnMap, true);
         }
     }

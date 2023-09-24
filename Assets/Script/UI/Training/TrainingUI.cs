@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 public class TrainingUI : MonoBehaviour
 {
     [Header("Prefab")]
@@ -10,6 +11,9 @@ public class TrainingUI : MonoBehaviour
     [Header("UI")]
     [SerializeField] TMP_Text buildingName;
     [SerializeField] StudentSelectionUI selectionUI;
+    [SerializeField] Image backgroundImage;
+    [Header("Background")]
+    [SerializeField] Sprite[] backgrounds;
 
     void OnEnable()
     {
@@ -17,29 +21,34 @@ public class TrainingUI : MonoBehaviour
         InitializeTrainingStudents();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void InitializeTrainingStudents()
     {
-        buildingName.text = TrainingManager.instance.CurrentBuilding.ToString();
+        BuildingType currentBuilding = TrainingManager.instance.CurrentBuilding;
+        buildingName.text = currentBuilding.ToString();
         ResetTrainingList();
-        List<Student> students = TrainingManager.instance.TrainingGroup[TrainingManager.instance.CurrentBuilding];
+        List<Student> students = TrainingManager.instance.TrainingGroup[currentBuilding];
         for (int i = 0; i < students.Count; i++)
         {
             GameObject card = Instantiate(cardPrefab, cardParent.transform);
             TrainingCardData cardData = card.GetComponent<TrainingCardData>();
             cardData.SetData(i, students[i]);
             cardData.OnStudentClicked += HandleStudentAssign;
+        }
+
+        switch (currentBuilding)
+        {
+            case BuildingType.Dormitory:
+                backgroundImage.sprite = backgrounds[0];
+                break;
+            case BuildingType.Gym:
+                backgroundImage.sprite = backgrounds[1];
+                break;
+            case BuildingType.Library:
+                backgroundImage.sprite = backgrounds[2];
+                break;
+            case BuildingType.Cafe:
+                backgroundImage.sprite = backgrounds[3];
+                break;
         }
     }
 

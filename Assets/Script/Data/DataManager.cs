@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
+using System;
 
 public class DataManager : MonoBehaviour
 {
@@ -9,35 +11,53 @@ public class DataManager : MonoBehaviour
     private List<IData> dataObject;
 
     private FileHandler fileHandler;
-    [SerializeField] GachaPool gachaPool;
-    [SerializeField] RequestPool requestPool;
+    [SerializeField] List<Student> studentPool;
+    [SerializeField] List<RequestSO> requestPool;
+    [SerializeField] List<BuildingSO> buildings;
+    [SerializeField] SettingSO setting;
     public static DataManager instance { get; private set; }
 
     private void Awake()
     {
-        instance = this;
-        /*if (instance == null)
+        if (instance != null && instance != this)
         {
-            
-            DontDestroyOnLoad(gameObject);
-
-            
+            Destroy(gameObject);
         }
         else
         {
-            Destroy(gameObject);
-        }*/
-        /*fileHandler = new FileHandler();
-        dataObject = FindAllDataObject();
-        LoadGame();*/
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     //Call LoadGame() at start
     private void Start()
     {
         this.fileHandler = new FileHandler();
+        /*this.dataObject = FindAllDataObject();
+        LoadGame();*/
+    }
+
+    private void Update(){
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Menu"){
+            if(GameObject.Find("GameManager") != null){
+                Destroy(GameObject.Find("GameManager"));
+            }
+            if(GameObject.Find("UI Canvas") != null){
+                Destroy(GameObject.Find("UI Canvas"));
+            }
+        }
+    }
+
+    public void InitializeGame()
+    {
+        //this.fileHandler = new FileHandler();
         this.dataObject = FindAllDataObject();
         LoadGame();
+    }
+
+    public void StartNewGame(){
+        NewGame();
     }
 
     //Call Wheme gamedata is null
@@ -45,20 +65,22 @@ public class DataManager : MonoBehaviour
     {
         this.gameData = new GameData();
 
-        foreach (RequestSO request in requestPool.RequestsPool)
+        foreach (RequestSO request in requestPool)
         {
             request.InitializeRequest();
             gameData.requests.Add(new RequestData(request));
         }
 
-        foreach (Student student in gachaPool.StudentsPool)
+        foreach (Student student in studentPool)
         {
             student.InitializeStudent();
             gameData.students.Add(new StudentData(student));
         }
 
-        foreach (BuildingSO building in TrainingManager.instance.Buildings)
+        foreach (BuildingSO building in buildings)
             building.InitializeBuilding();
+
+        Debug.Log("New Game");
     }
 
     //Load gameData from GameDataSave.json whene exists
@@ -68,9 +90,10 @@ public class DataManager : MonoBehaviour
 
         if (this.gameData == null)
         {
-            //Debug.Log("No Data");
+            Debug.Log("No Data");
             NewGame();
         }
+
         foreach (IData dataOBJ in dataObject)
         {
             dataOBJ.LoadData(gameData);
@@ -86,6 +109,7 @@ public class DataManager : MonoBehaviour
         }
 
         fileHandler.Save(gameData);
+        Debug.Log("Data Manager Save");
     }
 
     public void ClearColleted()
@@ -100,6 +124,7 @@ public class DataManager : MonoBehaviour
     //call saveGame() on quit game
     private void OnApplicationQuit()
     {
+        setting.isTitleVoicePlay = false;
         SaveGame();
     }
 

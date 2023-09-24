@@ -45,20 +45,26 @@ public class GameManager : MonoBehaviour, IData
         set { isPlayable = value; }
     }
 
+    private DataManager dataManager;
+
     public static GameManager instance;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance != null)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    void Start(){
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
     }
 
     // Update is called once per frame
@@ -192,9 +198,10 @@ public class GameManager : MonoBehaviour, IData
         sceneManager.LoadPreviousScene();
     }
 
-    public void GoToMainMenu()
+    public void LoadScene(int buildIndex)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        dataManager.SaveGame();
+        sceneManager.LoadSceneAsync(buildIndex);
     }
 
     public void IncreaseXP(int xp)
@@ -231,5 +238,6 @@ public class GameManager : MonoBehaviour, IData
         data.currentXP = currentXP;
         data.successRequest = successRequest;
         data.failedRequest = failedRequest;
+        Debug.Log("Game Manager Saved " + data.pyroxenes);
     }
 }

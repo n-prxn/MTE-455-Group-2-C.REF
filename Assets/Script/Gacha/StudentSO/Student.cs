@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 public enum Rarity
 {
-    Common,
-    Uncommon,
-    Rare
+    Common = 0,
+    Uncommon = 1,
+    Rare = 2
 }
 
 public enum School

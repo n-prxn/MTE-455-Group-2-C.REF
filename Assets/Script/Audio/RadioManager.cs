@@ -7,31 +7,32 @@ public class RadioManager : MonoBehaviour
 {
     [Header("Radio")]
     public RadioMusic[] radioMusics;
-    [SerializeField] private AudioSource audioSource;
+    private AudioSource audioSource;
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI musicNameText;
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject pauseButton;
     int currentMusicIndex = 0;
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        audioSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
+    }
     void Start()
     {
+        audioSource.Stop();
         currentMusicIndex = Random.Range(0, radioMusics.Length - 1);
-        if (audioSource.clip == null)
-        {
-            audioSource.clip = radioMusics[currentMusicIndex].RadioAudio;
-            audioSource.Play();
+        audioSource.clip = radioMusics[currentMusicIndex].RadioAudio;
+        audioSource.Play();
 
-            playButton.SetActive(false);
-            pauseButton.SetActive(true);
-        }
+        playButton.SetActive(false);
+        pauseButton.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (audioSource.clip.length == audioSource.time)
+        if (audioSource.clip.length <= audioSource.time)
             NextMusic();
 
         musicNameText.text = radioMusics[currentMusicIndex].AudioName;

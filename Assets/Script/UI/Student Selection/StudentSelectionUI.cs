@@ -5,11 +5,24 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 using TMPro;
+using System.Linq;
 
 public enum SelectionMode
 {
     Squad,
     Training
+}
+
+public enum SortingMode
+{
+    Name = 0,
+    Rarity = 1,
+    School = 2,
+    Club = 3,
+    PHYStat = 4,
+    INTStat = 5,
+    COMStat = 6,
+    Stamina = 7
 }
 
 public class StudentSelectionUI : MonoBehaviour
@@ -24,6 +37,8 @@ public class StudentSelectionUI : MonoBehaviour
 
     [Header("Student Search and Filter")]
     [SerializeField] TMP_InputField searchField;
+    [SerializeField] GameObject filterPanel;
+    private SortingMode currentSortingMode = SortingMode.Name;
 
     [Header("Panel")]
     [SerializeField] GameObject idlePanel;
@@ -33,6 +48,7 @@ public class StudentSelectionUI : MonoBehaviour
     [Header("Student Data")]
     [SerializeField] int slotIndex;
     private List<StudentUIData> studentUIDatas = new();
+    private List<Student> selectableStudents = new();
     [SerializeField] private Student currentSelectedStudent;
     public Student CurrentSelectedStudent
     {
@@ -44,11 +60,39 @@ public class StudentSelectionUI : MonoBehaviour
         get { return slotIndex; }
         set { slotIndex = value; }
     }
+    private AudioSource audioSource;
 
-    [Header("Audio Source")]
-    [SerializeField] private AudioSource audioSource;
+    void Awake()
+    {
+        audioSource = GameObject.FindGameObjectWithTag("Voice Audio").GetComponent<AudioSource>();
+    }
 
     void OnEnable()
+    {
+        audioSource.Stop();
+        selectableStudents = SquadController.instance.Students.OrderBy(x => x.name).ToList();
+        ResetSelectionPanel();
+    }
+
+    public void InitializeStudents()
+    {
+        studentUIDatas.Clear();
+        ClearStudentUI();
+
+        studentDescription.HideButton();
+
+        foreach (Student student in selectableStudents)
+        {
+            GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
+            StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
+            studentUIData.SetData(student, currentSortingMode);
+            studentUIData.OnStudentClicked += HandleStudentSelection;
+            studentUIDatas.Add(studentUIData);
+        }
+        ResetSelection();
+    }
+
+    public void ResetSelectionPanel()
     {
         InitializeStudents();
         CheckStatus();
@@ -80,26 +124,6 @@ public class StudentSelectionUI : MonoBehaviour
             studentDescription.SetDescription(currentSelectedStudent);
             studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Select();
         }
-    }
-
-    public void InitializeStudents()
-    {
-        studentUIDatas.Clear();
-        ClearStudentUI();
-
-        //headerPanel.SetActive(false);
-        //idlePanel.SetActive(true);
-        studentDescription.HideButton();
-
-        foreach (Student student in SquadController.instance.Students)
-        {
-            GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
-            StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
-            studentUIData.SetData(student);
-            studentUIData.OnStudentClicked += HandleStudentSelection;
-            studentUIDatas.Add(studentUIData);
-        }
-        ResetSelection();
     }
 
     public void ClearStudentUI()
@@ -370,24 +394,24 @@ public class StudentSelectionUI : MonoBehaviour
 
         if (searchField.text == "")
         {
-            foreach (Student student in SquadController.instance.Students)
+            foreach (Student student in selectableStudents)
             {
                 GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
                 StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
-                studentUIData.SetData(student);
+                studentUIData.SetData(student, currentSortingMode);
                 studentUIData.OnStudentClicked += HandleStudentSelection;
                 studentUIDatas.Add(studentUIData);
             }
         }
         else
         {
-            foreach (Student student in SquadController.instance.Students)
+            foreach (Student student in selectableStudents)
             {
                 if (student.name.ToLower().StartsWith(searchField.text.ToLower()))
                 {
                     GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
                     StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
-                    studentUIData.SetData(student);
+                    studentUIData.SetData(student, currentSortingMode);
                     studentUIData.OnStudentClicked += HandleStudentSelection;
                     studentUIDatas.Add(studentUIData);
                 }
@@ -418,8 +442,64 @@ public class StudentSelectionUI : MonoBehaviour
         }
     }
 
-    public void StopPlayingVoice()
+    public void ToggleFiterPanel()
     {
-        audioSource.Stop();
+        if (!filterPanel.activeSelf)
+        {
+            filterPanel.SetActive(true);
+        }
+        else
+        {
+            filterPanel.GetComponent<Animator>().SetTrigger("Close");
+        }
+    }
+
+    public void HandleFilterMode(int filterMode)
+    {
+        switch (filterMode)
+        {
+            case 0:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.name).ToList();
+                currentSortingMode = SortingMode.Name;
+                break;
+            case 1:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.rarity).ToList();
+                currentSortingMode = SortingMode.Rarity;
+                break;
+            case 2:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.school).ToList();
+                currentSortingMode = SortingMode.School;
+                break;
+            case 3:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.club).ToList();
+                currentSortingMode = SortingMode.Club;
+                break;
+            case 4:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentPHYStat).ToList();
+                currentSortingMode = SortingMode.PHYStat;
+                break;
+            case 5:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentINTStat).ToList();
+                currentSortingMode = SortingMode.INTStat;
+                break;
+            case 6:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentCOMStat).ToList();
+                currentSortingMode = SortingMode.COMStat;
+                break;
+            case 7:
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentStamina).ToList();
+                currentSortingMode = SortingMode.Stamina;
+                break;
+            default:
+                break;
+        }
+        filterPanel.GetComponent<Animator>().SetTrigger("Close");
+        ResetSelectionPanel();
+    }
+
+    public void ToggleOrderingMode()
+    {
+        selectableStudents.Reverse();
+        ResetSelectionPanel();
     }
 }

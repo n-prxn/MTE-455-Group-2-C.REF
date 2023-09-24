@@ -10,11 +10,14 @@ using Unity.VisualScripting;
 [System.Serializable]
 public class GachaPool : MonoBehaviour, IData
 {
-    [Header("Developer Tool")]
+    [Header("UI")]
     [SerializeField] TMP_Text rollCountText;
-    private int rollCost; //Move to GameManeger
     [SerializeField] GameObject gachaCard;
     [SerializeField] GameObject gachaCardParent;
+    [SerializeField] GameObject gauranteeButton;
+
+    [Header("Setting")]
+    private int rollCost; //Move to GameManeger
     [SerializeField] List<Student> studentsPool;
     public List<Student> StudentsPool { get => studentsPool; set => studentsPool = value; }
 
@@ -26,6 +29,9 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] GameObject gachaScene;
     [SerializeField] GameObject warningBox;
 
+    [Header("Setting")]
+    public SettingSO setting;
+
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;
     private List<Student> PulledStudents = new List<Student>();
@@ -33,10 +39,10 @@ public class GachaPool : MonoBehaviour, IData
     // Start is called before the first frame update
     void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
-
         CountRarity(StudentsPool);
         InitializeGachaRate(StudentsPool);
+        if(rollCount > 1)
+            gauranteeButton.SetActive(false);
     }
 
     void Start()
@@ -47,7 +53,7 @@ public class GachaPool : MonoBehaviour, IData
     // Update is called once per frame
     void Update()
     {
-        //rollCountText.text = "Roll : " + rollCount.ToString();
+        
     }
 
     public void LoadData(GameData data)
@@ -139,10 +145,13 @@ public class GachaPool : MonoBehaviour, IData
                 card.GetComponent<GachaCardDisplay>().student = pulledStudent;
                 card.GetComponent<GachaCardDisplay>().UpdateGachaCard();
 
-                if(!pulledStudent.SquadCollect){
+                if (!pulledStudent.SquadCollect)
+                {
                     SquadController.instance.Receive(pulledStudent);
                     pulledStudent.SquadCollect = true;
-                }else{
+                }
+                else
+                {
                     GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
                 }
                 pulledStudent.Collected = true;
@@ -150,7 +159,43 @@ public class GachaPool : MonoBehaviour, IData
                 rollCount++;
             }
 
-            DataManager.instance.SaveGame();
+            //DataManager.instance.SaveGame();
+        }
+    }
+
+    public void GauranteePull()
+    {
+        if (GameManager.instance.pyroxenes >= rollCost)
+        {
+            ToggleGachaScene();
+            GameManager.instance.pyroxenes -= rollCost;
+            DeleteAllGachaResult();
+            PulledStudents.Clear();
+
+            Student pulledStudent;
+            do{
+                pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
+            }while(pulledStudent.rarity != Rarity.Rare);
+
+            PulledStudents.Add(pulledStudent);
+
+            GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
+            card.GetComponent<GachaCardDisplay>().student = pulledStudent;
+            card.GetComponent<GachaCardDisplay>().UpdateGachaCard();
+
+            if (!pulledStudent.SquadCollect)
+            {
+                SquadController.instance.Receive(pulledStudent);
+                pulledStudent.SquadCollect = true;
+            }
+            else
+            {
+                GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
+            }
+            pulledStudent.Collected = true;
+            rollCount++;
+
+            //DataManager.instance.SaveGame();
         }
     }
 
@@ -176,7 +221,7 @@ public class GachaPool : MonoBehaviour, IData
     {
         DataManager.instance.SaveGame();
     }
-    
+
     public void ClearBTN()
     {
         this.rollCount = 0;

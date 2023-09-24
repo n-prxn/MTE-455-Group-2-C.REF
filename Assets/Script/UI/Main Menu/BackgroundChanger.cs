@@ -20,19 +20,20 @@ public class BackgroundChanger : MonoBehaviour
         direction = Random.Range(0, 3);
         currentIndex = Random.Range(0, backgrounds.Count - 1);
         backgroundImage.transform.localPosition = Vector3.zero;
-        backgrounds = backgrounds.OrderBy( x=> Random.value).ToList();
+        backgrounds = backgrounds.OrderBy(x => Random.value).ToList();
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        backgroundImage.sprite = backgrounds[currentIndex];
-        if (timer > changeTime)
+        if (timer >= changeTime)
         {
             currentIndex++;
-            if(currentIndex > backgrounds.Count)
+            if (currentIndex > backgrounds.Count)
                 currentIndex = 0;
+
+            backgroundImage.sprite = backgrounds[currentIndex];
             backgroundImage.transform.localPosition = Vector3.zero;
             direction = Random.Range(0, 3);
             timer = 0;
@@ -64,6 +65,6 @@ public class BackgroundChanger : MonoBehaviour
             default:
                 break;
         }
-        backgroundImage.transform.position += (dirV * (12.5f/changeTime));
+        backgroundImage.transform.position += (dirV * (12.5f / changeTime));
     }
 }

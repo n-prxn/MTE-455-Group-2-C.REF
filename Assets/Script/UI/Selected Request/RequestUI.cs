@@ -178,7 +178,6 @@ public class RequestUI : MonoBehaviour
 
     void ToggleSelectionPanel()
     {
-        selectionPanel.StopPlayingVoice();
         selectionPanel.gameObject.SetActive(true);
     }
 

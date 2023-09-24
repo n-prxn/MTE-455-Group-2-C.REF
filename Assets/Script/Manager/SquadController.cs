@@ -19,16 +19,8 @@ public class SquadController : MonoBehaviour, IData
 
     // Start is called before the first frame update
     void Awake()
-    {instance = this;
-        /*if (instance == null)
-        {
-            
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }*/
+    {
+        instance = this;
     }
 
     public void Receive(Student s)
@@ -96,7 +88,6 @@ public class SquadController : MonoBehaviour, IData
             if (student.SquadCollect)
                 students.Add(student);
         }
-        //StudentSpawner.instance.GenerateStudentOnMap(students);
     }
 
     public void SaveData(ref GameData data)

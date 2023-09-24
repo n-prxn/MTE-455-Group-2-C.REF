@@ -21,11 +21,13 @@ public class SceneManager : ScriptableObject
         return UnityEngine.SceneManagement.SceneManager.GetActiveScene();
     }
 
-    public void LoadSceneNormal(int buildIndex){
+    public void LoadSceneNormal(int buildIndex)
+    {
         UnityEngine.SceneManagement.SceneManager.LoadScene(buildIndex);
     }
 
-    public void LoadSceneNormal(string sceneName){
+    public void LoadSceneNormal(string sceneName)
+    {
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 
@@ -41,6 +43,34 @@ public class SceneManager : ScriptableObject
         if (!initialized) Init();
         loadedLevels.Push(GetActiveScene().buildIndex);
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
+
+    public void LoadSceneAsync(string sceneName)
+    {
+        if (!initialized) Init();
+        loadedLevels.Push(GetActiveScene().buildIndex);
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public void LoadSceneAsync(int buildIndex)
+    {
+        if (!initialized) Init();
+        loadedLevels.Push(GetActiveScene().buildIndex);
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(buildIndex);
+    }
+
+    public AsyncOperation GetSceneAsync(string sceneName)
+    {
+        if (!initialized) Init();
+        loadedLevels.Push(GetActiveScene().buildIndex);
+        return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
+    }
+
+    public AsyncOperation GetSceneAsync(int buildIndex)
+    {
+        if (!initialized) Init();
+        loadedLevels.Push(GetActiveScene().buildIndex);
+        return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(buildIndex);
     }
 
     public void LoadPreviousScene()

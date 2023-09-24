@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public enum BuildingType
 {
@@ -19,6 +19,7 @@ public class Building : MonoBehaviour
     [SerializeField] private GameObject availableModel;
     [SerializeField] private GameObject unavailableModel;
     [SerializeField] private GameObject balloon;
+    [SerializeField] private Sprite buildingIcon;
     public BuildingSO BuildingSO
     {
         get { return buildingSO; }
@@ -74,7 +75,12 @@ public class Building : MonoBehaviour
             GameObject obj = hit.collider.gameObject;
             if (obj.name == gameObject.name)
             {  
-                balloon.SetActive(true);
+                if(buildingSO.IsAvailable){
+                    balloon.SetActive(true);
+                    balloon.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingIcon;
+                }else{
+                    balloon.SetActive(false);
+                }
             }
             else{
                 balloon.SetActive(false);

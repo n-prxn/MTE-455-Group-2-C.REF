@@ -104,6 +104,8 @@ public class ResultUI : MonoBehaviour
             deCrimeRateText.text = currentSelectedRequest.demeritCrimeRate.ToString();
         }
 
+        GameManager.Instance.RankUp();
+
         //squadParent.GetComponent<VerticalLayoutGroup>().spacing -= 0.1f;;[\]'/
     }
 
@@ -126,17 +128,17 @@ public class ResultUI : MonoBehaviour
 
     void ReceiveRewards(RequestSO request)
     {
-        GameManager.instance.credits += request.CurrentCredit;
-        GameManager.instance.pyroxenes += request.pyroxene;
-        GameManager.instance.currentXP += request.CurrentXP;
-        GameManager.instance.happiness += request.CurrentHappiness;
-        GameManager.instance.crimeRate += request.CurrentCrimeRate;
+        GameManager.Instance.credits += request.CurrentCredit;
+        GameManager.Instance.pyroxenes += request.pyroxene;
+        GameManager.Instance.currentXP += request.CurrentXP;
+        GameManager.Instance.happiness += request.CurrentHappiness;
+        GameManager.Instance.crimeRate += request.CurrentCrimeRate;
 
         request.InitializeCurrentReward();
     }
 
     void ReceiveDemerit(RequestSO request){
-        GameManager.instance.happiness += request.demeritHappiness;
-        GameManager.instance.crimeRate += request.demeritCrimeRate;
+        GameManager.Instance.happiness += request.demeritHappiness;
+        GameManager.Instance.crimeRate += request.demeritCrimeRate;
     }
 }

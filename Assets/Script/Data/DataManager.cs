@@ -34,17 +34,20 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         this.fileHandler = new FileHandler();
+
         /*this.dataObject = FindAllDataObject();
         LoadGame();*/
     }
 
-    private void Update(){
-        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Menu"){
-            if(GameObject.Find("GameManager") != null){
-                Destroy(GameObject.Find("GameManager"));
-            }
-            if(GameObject.Find("UI Canvas") != null){
-                Destroy(GameObject.Find("UI Canvas"));
+    private void Update()
+    {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Menu")
+        {
+            if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
+            {
+                foreach(GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements")){
+                    Destroy(gameObject);
+                }
             }
         }
     }
@@ -56,7 +59,8 @@ public class DataManager : MonoBehaviour
         LoadGame();
     }
 
-    public void StartNewGame(){
+    public void StartNewGame()
+    {
         NewGame();
     }
 
@@ -80,7 +84,7 @@ public class DataManager : MonoBehaviour
         foreach (BuildingSO building in buildings)
             building.InitializeBuilding();
 
-        Debug.Log("New Game");
+        //Debug.Log("New Game");
     }
 
     //Load gameData from GameDataSave.json whene exists
@@ -103,13 +107,16 @@ public class DataManager : MonoBehaviour
     //save All gameData from all script Have MonoBehaviour and IData interface
     public void SaveGame()
     {
-        foreach (IData dataOBJ in dataObject)
+        if (dataObject != null)
         {
-            dataOBJ.SaveData(ref gameData);
+            foreach (IData dataOBJ in dataObject)
+            {
+                dataOBJ.SaveData(ref gameData);
+            }
         }
 
         fileHandler.Save(gameData);
-        Debug.Log("Data Manager Save");
+        //Debug.Log("Data Manager Save");
     }
 
     public void ClearColleted()

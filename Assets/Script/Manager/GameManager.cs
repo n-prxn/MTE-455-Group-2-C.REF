@@ -47,30 +47,33 @@ public class GameManager : MonoBehaviour, IData
 
     private DataManager dataManager;
 
-    public static GameManager instance;
+    public static GameManager Instance;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance != null)
+        //Instance = this;
+        if (Instance == null)
         {
-            Destroy(gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 
-    void Start(){
+    void Start()
+    {
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        RankUp();
+        //RankUp();
     }
 
     public void NextTurn()
@@ -79,26 +82,21 @@ public class GameManager : MonoBehaviour, IData
         {
             if (currentTurn < lastTurn)
             {
-                UIDisplay.instance.PlaySplashScreen();
-                StartCoroutine(WaitForSplashScreen());
+                UIDisplay.instance.PlaySplashScreen(); Debug.Log("Play Next Screen");
+                currentTurn++; Debug.Log("Add Turn");
+                UpdateRequest(); Debug.Log("Update Request");
+                requestPool.DecreaseDays(); Debug.Log("Decrease Request Day");
+                requestPool.GenerateRequests(); Debug.Log("Generate New Request");
+
+                ShopManager.instance.GenerateShopItems(); Debug.Log("Generate Shop Items");
+                presentShopUI.InitializeItemSOShelf(); Debug.Log("Initialize Item Shelf");
+                furnitureShopUI.InitializeFurnitureShelf(); Debug.Log("Initialize Furniture Shelf");
+
+                TrainingProcess(); Debug.Log("Update Training");
+                SquadController.instance.UpdateStudentBuff(); Debug.Log("Update Buff");
+                Debug.Log("Success!!");
             }
         }
-    }
-
-    IEnumerator WaitForSplashScreen()
-    {
-        yield return new WaitForSeconds(3);
-        currentTurn++;
-        UpdateRequest();
-        requestPool.DecreaseDays();
-        requestPool.GenerateRequests();
-
-        ShopManager.instance.GenerateShopItems();
-        presentShopUI.InitializeItemSOShelf();
-        furnitureShopUI.InitializeFurnitureShelf();
-
-        TrainingProcess();
-        SquadController.instance.UpdateStudentBuff();
     }
 
     public void UpdateRequest()
@@ -122,30 +120,30 @@ public class GameManager : MonoBehaviour, IData
         }
     }
 
-    void RankUp()
+    public void RankUp()
     {
         if (currentXP >= maxXP)
         {
-            rank++;
+            rank++; Debug.Log("Increase Rank");
             if (rank > 10)
                 rank = 10;
 
-            pyroxenes += 1200;
-            credits += 40000;
+            pyroxenes += 1200; Debug.Log("Added Pyroxenes");
+            credits += 40000; Debug.Log("Added Credits");
 
-            ShopManager.instance.MaxItem++;
-            RequestManager.instance.maxRequestCapacity++;
+            //ShopManager.instance.MaxItem++; Debug.Log("Added MaxItem"); // Bug
+            RequestManager.instance.maxRequestCapacity++; Debug.Log("Added Request Capacity");
 
             if (rank == 3)
             {
-                RequestManager.instance.requestPerTurn++;
+                RequestManager.instance.requestPerTurn++; Debug.Log("Added Request Per Turn");
             }
             else if (rank == 6)
             {
-                RequestManager.instance.requestPerTurn++;
+                RequestManager.instance.requestPerTurn++; Debug.Log("Added Request Per Turn");
             }
 
-            currentXP -= maxXP;
+            currentXP -= maxXP; Debug.Log("Reset XP");
             //Add Item
         }
     }
@@ -195,6 +193,7 @@ public class GameManager : MonoBehaviour, IData
 
     public void BackToPreviousScene()
     {
+        dataManager.SaveGame();
         sceneManager.LoadPreviousScene();
     }
 
@@ -204,9 +203,16 @@ public class GameManager : MonoBehaviour, IData
         sceneManager.LoadSceneAsync(buildIndex);
     }
 
+    public void LoadScene(string sceneName)
+    {
+        dataManager.SaveGame();
+        sceneManager.LoadSceneAsync(sceneName);
+    }
+
     public void IncreaseXP(int xp)
     {
         currentXP += xp;
+        RankUp();
     }
 
     public void QuitGame()

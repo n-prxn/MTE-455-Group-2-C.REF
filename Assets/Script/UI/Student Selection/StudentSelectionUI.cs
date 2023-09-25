@@ -83,6 +83,7 @@ public class StudentSelectionUI : MonoBehaviour
 
         foreach (Student student in selectableStudents)
         {
+            Debug.Log(student.name);
             GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
             StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
             studentUIData.SetData(student, currentSortingMode);

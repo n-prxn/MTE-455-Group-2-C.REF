@@ -55,12 +55,14 @@ public class UIDisplay : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            DisableAllPanel();
+
         }
         else
         {
+            gameObject.SetActive(false);
             Destroy(gameObject);
         }
+        DisableAllPanel();
     }
 
     // Start is called before the first frame update
@@ -94,7 +96,7 @@ public class UIDisplay : MonoBehaviour
 
     void UpdateButton()
     {
-        if (GameManager.instance.pyroxenes >= 1200)
+        if (GameManager.Instance.pyroxenes >= 1200)
         {
             gachaButton.transform.GetChild(1).gameObject.SetActive(true);
         }
@@ -116,18 +118,18 @@ public class UIDisplay : MonoBehaviour
     void UpdateUIResource()
     {
         //Update Turn
-        turnText.text = GameManager.instance.currentTurn.ToString();
+        turnText.text = GameManager.Instance.currentTurn.ToString();
 
         //Update Resource
-        creditAmountText.text = GameManager.instance.credits.ToString();
-        pyroxeneAmountText.text = GameManager.instance.pyroxenes.ToString();
+        creditAmountText.text = GameManager.Instance.credits.ToString();
+        pyroxeneAmountText.text = GameManager.Instance.pyroxenes.ToString();
 
         //Update Rank
-        rankText.text = "RANK " + GameManager.instance.rank.ToString();
-        xpBar.fillAmount = (float)GameManager.instance.currentXP / (float)GameManager.instance.maxXP;
+        rankText.text = "RANK " + GameManager.Instance.rank.ToString();
+        xpBar.fillAmount = (float)GameManager.Instance.currentXP / (float)GameManager.Instance.maxXP;
 
-        crimeRateText.text = GameManager.instance.crimeRate.ToString() + "%";
-        happinessText.text = GameManager.instance.happiness.ToString() + "%";
+        crimeRateText.text = GameManager.Instance.crimeRate.ToString() + "%";
+        happinessText.text = GameManager.Instance.happiness.ToString() + "%";
 
         //Debug.Log(GameManager.instance.currentXP/GameManager.instance.maxXP);
 
@@ -139,13 +141,13 @@ public class UIDisplay : MonoBehaviour
         {
             gachaPanel.SetActive(false);
             blackBackground.SetActive(false);
-            GameManager.instance.uiIsOpen = false;
+            GameManager.Instance.uiIsOpen = false;
         }
         else
         {
             gachaPanel.SetActive(true);
             blackBackground.SetActive(true);
-            GameManager.instance.uiIsOpen = true;
+            GameManager.Instance.uiIsOpen = true;
         }
     }
 
@@ -155,13 +157,13 @@ public class UIDisplay : MonoBehaviour
         {
             requestListPanel.SetActive(false);
             blackBackground.SetActive(false);
-            GameManager.instance.uiIsOpen = false;
+            GameManager.Instance.uiIsOpen = false;
         }
         else
         {
             requestListPanel.SetActive(true);
             blackBackground.SetActive(true);
-            GameManager.instance.uiIsOpen = true;
+            GameManager.Instance.uiIsOpen = true;
         }
     }
 
@@ -171,13 +173,13 @@ public class UIDisplay : MonoBehaviour
         {
             panel.SetActive(false);
             blackBackground.SetActive(false);
-            GameManager.instance.uiIsOpen = false;
+            GameManager.Instance.uiIsOpen = false;
         }
         else
         {
             panel.SetActive(true);
             blackBackground.SetActive(true);
-            GameManager.instance.uiIsOpen = true;
+            GameManager.Instance.uiIsOpen = true;
         }
     }
 
@@ -193,8 +195,10 @@ public class UIDisplay : MonoBehaviour
         }
     }
 
-    public void DisableAllPanel(){
-        foreach(Transform panel in gameplayGUI.transform){
+    public void DisableAllPanel()
+    {
+        foreach (Transform panel in gameplayGUI.transform)
+        {
             panel.gameObject.SetActive(false);
         }
     }

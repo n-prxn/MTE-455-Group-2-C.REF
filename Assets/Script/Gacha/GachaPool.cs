@@ -36,9 +36,22 @@ public class GachaPool : MonoBehaviour, IData
     int rollCount = 0;
     private List<Student> PulledStudents = new List<Student>();
 
+    public static GachaPool instance;
+
     // Start is called before the first frame update
     void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+
         CountRarity(StudentsPool);
         InitializeGachaRate(StudentsPool);
         if(rollCount > 1)
@@ -47,7 +60,7 @@ public class GachaPool : MonoBehaviour, IData
 
     void Start()
     {
-        rollCost = GameManager.instance.rollCost;
+        rollCost = GameManager.Instance.rollCost;
     }
 
     // Update is called once per frame
@@ -130,10 +143,10 @@ public class GachaPool : MonoBehaviour, IData
     //Pull by Amount
     public void Pull(int pullAmount)
     {
-        if (GameManager.instance.pyroxenes >= rollCost * pullAmount)
+        if (GameManager.Instance.pyroxenes >= rollCost * pullAmount)
         {
             ToggleGachaScene();
-            GameManager.instance.pyroxenes -= rollCost * pullAmount;
+            GameManager.Instance.pyroxenes -= rollCost * pullAmount;
             DeleteAllGachaResult();
             PulledStudents.Clear();
             for (int i = 0; i < pullAmount; i++)
@@ -152,7 +165,7 @@ public class GachaPool : MonoBehaviour, IData
                 }
                 else
                 {
-                    GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
+                    GameManager.Instance.pyroxenes += Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
                 }
                 pulledStudent.Collected = true;
 
@@ -165,10 +178,10 @@ public class GachaPool : MonoBehaviour, IData
 
     public void GauranteePull()
     {
-        if (GameManager.instance.pyroxenes >= rollCost)
+        if (GameManager.Instance.pyroxenes >= rollCost)
         {
             ToggleGachaScene();
-            GameManager.instance.pyroxenes -= rollCost;
+            GameManager.Instance.pyroxenes -= rollCost;
             DeleteAllGachaResult();
             PulledStudents.Clear();
 
@@ -190,7 +203,7 @@ public class GachaPool : MonoBehaviour, IData
             }
             else
             {
-                GameManager.instance.pyroxenes += Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
+                GameManager.Instance.pyroxenes += Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
             }
             pulledStudent.Collected = true;
             rollCount++;
@@ -214,7 +227,7 @@ public class GachaPool : MonoBehaviour, IData
     //Dev tool
     public void AddPyroxene(int pyroxenes)
     {
-        GameManager.instance.pyroxenes += pyroxenes;
+        GameManager.Instance.pyroxenes += pyroxenes;
     }
 
     public void SaveBTN()

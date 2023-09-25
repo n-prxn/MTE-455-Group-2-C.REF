@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
 
     private void MoveDrag()
     {
-        if (!GameManager.instance.uiIsOpen)
+        if (!GameManager.Instance.uiIsOpen)
         {
             if (Input.GetMouseButton(0)) //Move by left Muse button
             {
@@ -73,7 +73,7 @@ public class CameraController : MonoBehaviour
 
     private void Zoom()
     {
-        if (!GameManager.instance.uiIsOpen)
+        if (!GameManager.Instance.uiIsOpen)
         {
             zoomModifier = -Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         }

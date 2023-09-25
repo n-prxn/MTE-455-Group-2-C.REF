@@ -81,7 +81,7 @@ public class SceneManager : ScriptableObject
         }
         if (loadedLevels.Count > 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(loadedLevels.Pop());
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(loadedLevels.Pop());
             /*DataManager.instance.SaveGame();
             DataManager.instance.LoadGame();*/
         }

@@ -33,18 +33,17 @@ public class TrainingManager : MonoBehaviour, IData
 
     public static TrainingManager instance;
     void Awake()
-    {instance = this;
-        /*if (instance == null)
+    {
+        if (instance == null)
         {
-            
+            instance = this;
+            InitializeTrainingGroup();
             DontDestroyOnLoad(gameObject);
-            
         }
         else
         {
             Destroy(gameObject);
-        }*/
-        InitializeTrainingGroup();
+        }
     }
 
     void InitializeTrainingGroup()

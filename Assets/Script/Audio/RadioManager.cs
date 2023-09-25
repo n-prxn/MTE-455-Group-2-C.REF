@@ -13,10 +13,20 @@ public class RadioManager : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject pauseButton;
     int currentMusicIndex = 0;
+    public static RadioManager instance;
 
     void Awake()
     {
         audioSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     void Start()
     {

@@ -95,7 +95,7 @@ public class RequestPool : MonoBehaviour
 
     public bool IsUnlockedDifficulty(RequestSO request)
     {
-        int rank = GameManager.instance.rank;
+        int rank = GameManager.Instance.rank;
         if (rank >= 5)
             return true;
         else if (rank >= 4)

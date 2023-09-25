@@ -41,7 +41,7 @@ public class FileHandler
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
 
-            Debug.Log("File Handler Save");
+            //Debug.Log("File Handler Save");
 
             File.WriteAllText(pathSaveName, strSave);
         }

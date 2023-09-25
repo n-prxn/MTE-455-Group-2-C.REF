@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,6 +65,16 @@ public class SettingManager : MonoBehaviour
         BGValue.text = (setting.backgroundMusic / 100).ToString("0%");
         voiceValue.text = (setting.voice / 100).ToString("0%");
         FXValue.text = (setting.soundEffect / 100).ToString("0%");
+
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Setting")
+        {
+            if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
+            {
+                foreach(GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements")){
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     public void ChangeBackgroundValue()
@@ -129,7 +138,9 @@ public class SettingManager : MonoBehaviour
     }
 
     void OnDisable(){
+        #if UNITY_EDITOR
         EditorUtility.SetDirty(setting);
+        #endif
     }
 
     public void Back(){

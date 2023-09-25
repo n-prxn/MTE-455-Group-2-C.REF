@@ -27,13 +27,13 @@ public class FurnitureShelfData : ItemShelfData
     }
 
     public void Buy(){
-        if(GameManager.instance.credits < furniture.Cost)
+        if(GameManager.Instance.credits < furniture.Cost)
             return;
 
         IsPurchased = true;
         InventoryManager.instance.FurnitureList.Add(furniturePrefab);
 
-        GameManager.instance.credits -= furniture.Cost;
+        GameManager.Instance.credits -= furniture.Cost;
         buyButton.SetActive(false);
         soldButton.SetActive(true);
     }

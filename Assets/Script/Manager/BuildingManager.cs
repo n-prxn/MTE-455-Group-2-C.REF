@@ -57,16 +57,16 @@ public class BuildingManager : MonoBehaviour
             switch (buildingData.BuildingSO.BuildingType)
             {
                 case BuildingType.Dormitory:
-                    GameManager.instance.sceneManager.LoadScene("Dorm");
+                    GameManager.Instance.LoadScene("Dorm");
                     break;
                 case BuildingType.Cafe:
-                    GameManager.instance.sceneManager.LoadScene("Cafe");
+                    GameManager.Instance.LoadScene("Cafe");
                     break;
                 case BuildingType.Library:
-                    GameManager.instance.sceneManager.LoadScene("Library");
+                    GameManager.Instance.LoadScene("Library");
                     break;
                 case BuildingType.Gym:
-                    GameManager.instance.sceneManager.LoadScene("Gym");
+                    GameManager.Instance.LoadScene("Gym");
                     break;
                 case BuildingType.Inventory:
                     break;

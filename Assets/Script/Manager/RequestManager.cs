@@ -58,17 +58,17 @@ public class RequestManager : MonoBehaviour, IData
     // Start is called before the first frame update
 
     void Awake()
-    {instance = this;
-        /*if (instance == null)
+    {
+        if (instance == null)
         {
-            
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        //operatingRequests.Clear();*/
+        //operatingRequests.Clear();
     }
 
     public void InitializeRequest()
@@ -133,7 +133,7 @@ public class RequestManager : MonoBehaviour, IData
         successRate += currentRequest.BonusSuccessRate;
         if (successRate > 100)
             successRate = 100;
-        if(successRate < 0)
+        if (successRate < 0)
             successRate = 0;
         return (int)successRate;
     }

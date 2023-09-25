@@ -24,7 +24,7 @@ public class GachaCardDisplay : MonoBehaviour
         if (student.SquadCollect)
         {
             GachaPyroxenesBGSelect();
-            pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.instance.rollCost / 2f);
+            pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
             pyroxenesPanel.SetActive(true);
             newImage.SetActive(false);
         }else{

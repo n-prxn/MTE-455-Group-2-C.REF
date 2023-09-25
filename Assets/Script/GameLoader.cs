@@ -14,6 +14,6 @@ public class GameLoader : MonoBehaviour
 
         dataManager.InitializeGame();
         studentSpawner.InitializeStudents();
-        Debug.Log("Load Game");
+        Debug.Log("Load Game with");
     }
 }

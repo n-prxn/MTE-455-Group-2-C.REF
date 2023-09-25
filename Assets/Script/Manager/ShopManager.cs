@@ -52,16 +52,16 @@ public class ShopManager : MonoBehaviour
         set {maxItem = value;}
     }
     void Awake()
-    {instance = this;
-        /*if (instance == null)
+    {
+        if (instance == null)
         {
-            
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
-        }*/
+        }
         GenerateShopItems();
     }
 

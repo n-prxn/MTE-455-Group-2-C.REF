@@ -36,7 +36,7 @@ public class Building : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.rank < buildingSO.unlockedRank)
+        if (GameManager.Instance.rank < buildingSO.unlockedRank)
         {
             availableModel.SetActive(false);
             unavailableModel.SetActive(true);

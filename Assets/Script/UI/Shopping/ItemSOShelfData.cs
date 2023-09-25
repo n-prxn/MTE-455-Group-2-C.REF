@@ -17,13 +17,13 @@ public class ItemSOShelfData : ItemShelfData
 
     public void Buy()
     {
-        if (GameManager.instance.credits < item.cost)
+        if (GameManager.Instance.credits < item.cost)
             return;
 
         IsPurchased = true;
         InventoryManager.instance.AddItemToInventory(item);
 
-        GameManager.instance.credits -= item.cost;
+        GameManager.Instance.credits -= item.cost;
         buyButton.SetActive(false);
         soldButton.SetActive(true);
     }

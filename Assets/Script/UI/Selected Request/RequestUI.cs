@@ -61,6 +61,7 @@ public class RequestUI : MonoBehaviour
 
     public void InitializeSquad()
     {
+        ResetSlot();
         RequestManager.instance.CurrentRequest.ResetSquad();
         RequestManager.instance.ClearTotalStatus();
         for (int i = 0; i < 4; i++)
@@ -126,7 +127,7 @@ public class RequestUI : MonoBehaviour
         int phyStat = request.phyStat, intStat = request.intStat, comStat = request.comStat;
 
         float multiplier = 0f;
-        int happiness = GameManager.instance.happiness;
+        int happiness = GameManager.Instance.happiness;
         if (happiness >= 70)
         {
             multiplier = 1f;

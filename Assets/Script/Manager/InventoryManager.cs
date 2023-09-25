@@ -31,16 +31,16 @@ public class InventoryManager : MonoBehaviour, IData
     }
 
     void Awake()
-    {instance = this;
-        /*if (instance == null)
+    {
+        if (instance == null)
         {
-            
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
-        }*/
+        }
     }
 
     public void AddItemToInventory(ItemSO item)

@@ -57,9 +57,9 @@ public class StudentDescription : MonoBehaviour
         BuffCOMBar.fillAmount = (float)s.CurrentCOMStat / 60f;
 
         staminaBar.fillAmount = (float)s.CurrentStamina / (float)s.stamina;
-        PHYText.text = s.CurrentPHYStat.ToString();
-        INTText.text = s.CurrentINTStat.ToString();
-        COMText.text = s.CurrentCOMStat.ToString();
+        PHYText.text = s.CurrentPHYStat.ToString() /*+ (s.IsBuff ? "(+" + (s.CurrentPHYStat - s.TempPHYStat) + ")" : "")*/;
+        INTText.text = s.CurrentINTStat.ToString() /*+ (s.IsBuff ? "(+" + (s.CurrentINTStat - s.TempINTStat) + ")" : "")*/;
+        COMText.text = s.CurrentCOMStat.ToString() /*+ (s.IsBuff ? "(+" + (s.CurrentCOMStat - s.TempCOMStat) + ")" : "")*/;
         staminaText.text = s.CurrentStamina.ToString();
 
         skillIcon.sprite = s.skillIcon;

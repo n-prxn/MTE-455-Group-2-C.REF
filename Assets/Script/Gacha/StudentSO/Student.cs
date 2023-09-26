@@ -197,7 +197,7 @@ public class Student : ScriptableObject
         currentPHYStat = trainedPHYStat;
         currentINTStat = trainedINTStat;
         currentCOMStat = trainedCOMStat;
-        currentStamina = restedStamina;
+        currentStamina = restedStamina > stamina ? stamina : restedStamina;
 
         ResetTrainedStat();
     }

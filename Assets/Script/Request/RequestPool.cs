@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class RequestPool : MonoBehaviour
 {
+    [SerializeField] private RequestSO starterRequest;
     [SerializeField] private List<RequestSO> requestsPool;
     public List<RequestSO> RequestsPool { get => requestsPool; set => requestsPool = value; }
+    public RequestSO StarterRequest { get => starterRequest; set => starterRequest = value; }
 
     // Start is called before the first frame update
     void Awake()
@@ -25,7 +27,7 @@ public class RequestPool : MonoBehaviour
                 RequestSO request;
                 do
                 {
-                    request = RequestsPool[Random.Range(1, 100)];
+                    request = RequestsPool[Random.Range(0, 99)];
                 } while (request.IsOperating || (request.IsDone && !request.isRepeatable) || request.IsShow || !IsUnlockedDifficulty(request));
 
                 request.IsRead = false;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
@@ -47,9 +48,10 @@ public class ShopManager : MonoBehaviour
     }
 
     [SerializeField] private int maxItem = 1;
-    public int MaxItem{
-        get {return maxItem;}
-        set {maxItem = value;}
+    public int MaxItem
+    {
+        get { return maxItem; }
+        set { maxItem = value; }
     }
     void Awake()
     {
@@ -68,7 +70,7 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -87,13 +89,11 @@ public class ShopManager : MonoBehaviour
     private void GenerateTodayFurnitures()
     {
         todayFurnitureWarehouse.Clear();
-        for (int i = 0; i < maxItem; i++)
+        ShuffleList(furnitureWarehouse);
+        for (int i = 0; i < (furnitureWarehouse.Count < maxItem ? furnitureWarehouse.Count : maxItem); i++)
         {
             GameObject furniture;
-            do
-            {
-                furniture = furnitureWarehouse[Random.Range(0, furnitureWarehouse.Count - 1)];
-            } while (todayFurnitureWarehouse.Contains(furniture));
+            furniture = furnitureWarehouse[i];
             todayFurnitureWarehouse.Add(furniture);
         }
     }
@@ -101,13 +101,11 @@ public class ShopManager : MonoBehaviour
     private void GenerateTodayPresents()
     {
         todayPresentWarehouse.Clear();
-        for (int i = 0; i < maxItem; i++)
+        ShuffleList(presentWarehouse);
+        for (int i = 0; i < (presentWarehouse.Count < maxItem ? presentWarehouse.Count : maxItem); i++)
         {
             ItemSO present;
-            do
-            {
-                present = presentWarehouse[Random.Range(0, presentWarehouse.Count - 1)];
-            } while (todayPresentWarehouse.Contains(present));
+            present = presentWarehouse[i];
             todayPresentWarehouse.Add(present);
         }
     }
@@ -115,14 +113,27 @@ public class ShopManager : MonoBehaviour
     private void GenerateTodayTickets()
     {
         todayTicketWarehouse.Clear();
-        for (int i = 0; i < maxItem; i++)
+        ShuffleList(ticketWarehouse);
+        for (int i = 0; i < (ticketWarehouse.Count < maxItem ? ticketWarehouse.Count : maxItem); i++)
         {
             ItemSO ticket;
-            do
-            {
-                ticket = ticketWarehouse[Random.Range(0, ticketWarehouse.Count - 1)];
-            } while (todayTicketWarehouse.Contains(ticket));
+            ticket = ticketWarehouse[i];
             todayTicketWarehouse.Add(ticket);
+        }
+    }
+
+    void ShuffleList<T>(List<T> list)
+    {
+        int n = list.Count;
+        for (int i = 0; i < n; i++)
+        {
+            // Generate a random index between i and the end of the list
+            int randomIndex = Random.Range(i, n);
+
+            // Swap the elements at i and randomIndex
+            T temp = list[i];
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
         }
     }
 }

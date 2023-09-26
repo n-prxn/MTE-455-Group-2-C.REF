@@ -82,18 +82,19 @@ public class GameManager : MonoBehaviour, IData
         {
             if (currentTurn < lastTurn)
             {
-                UIDisplay.instance.PlaySplashScreen(); Debug.Log("Play Next Screen");
-                currentTurn++; Debug.Log("Add Turn");
-                UpdateRequest(); Debug.Log("Update Request");
-                requestPool.DecreaseDays(); Debug.Log("Decrease Request Day");
-                requestPool.GenerateRequests(); Debug.Log("Generate New Request");
+                UIDisplay.instance.PlaySplashScreen();
+                currentTurn++;
+                UpdateRequest();
+                requestPool.DecreaseDays();
+                requestPool.GenerateRequests();
 
-                ShopManager.instance.GenerateShopItems(); Debug.Log("Generate Shop Items");
-                presentShopUI.InitializeItemSOShelf(); Debug.Log("Initialize Item Shelf");
-                furnitureShopUI.InitializeFurnitureShelf(); Debug.Log("Initialize Furniture Shelf");
+                ShopManager.instance.GenerateShopItems();
+                presentShopUI.InitializeItemSOShelf();
+                furnitureShopUI.InitializeFurnitureShelf();
+                TrainingProcess();
+                SquadController.instance.UpdateStudentBuff();
 
-                TrainingProcess(); Debug.Log("Update Training");
-                SquadController.instance.UpdateStudentBuff(); Debug.Log("Update Buff");
+                GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
                 Debug.Log("Success!!");
             }
         }
@@ -124,26 +125,26 @@ public class GameManager : MonoBehaviour, IData
     {
         if (currentXP >= maxXP)
         {
-            rank++; Debug.Log("Increase Rank");
+            rank++;
             if (rank > 10)
                 rank = 10;
 
-            pyroxenes += 1200; Debug.Log("Added Pyroxenes");
-            credits += 40000; Debug.Log("Added Credits");
+            pyroxenes += 1200;
+            credits += 40000;
 
-            //ShopManager.instance.MaxItem++; Debug.Log("Added MaxItem"); // Bug
-            RequestManager.instance.maxRequestCapacity++; Debug.Log("Added Request Capacity");
+            ShopManager.instance.MaxItem++; // Bug
+            RequestManager.instance.maxRequestCapacity++;
 
             if (rank == 3)
             {
-                RequestManager.instance.requestPerTurn++; Debug.Log("Added Request Per Turn");
+                RequestManager.instance.requestPerTurn++;
             }
             else if (rank == 6)
             {
-                RequestManager.instance.requestPerTurn++; Debug.Log("Added Request Per Turn");
+                RequestManager.instance.requestPerTurn++;
             }
 
-            currentXP -= maxXP; Debug.Log("Reset XP");
+            currentXP -= maxXP;
             //Add Item
         }
     }
@@ -173,20 +174,22 @@ public class GameManager : MonoBehaviour, IData
         foreach (KeyValuePair<BuildingType, List<Student>> group in TrainingManager.instance.TrainingGroup)
         {
             List<Student> students = group.Value;
-            for (int i = 0; i < group.Value.Count; i++)
-            {
-                if (students[i] == null)
+            foreach(Student student in students.ToList()){
+                if (student == null)
                     continue;
 
-                if (students[i].IsTraining)
-                    students[i].TrainingDuration--;
-
-                if (students[i].TrainingDuration <= 0)
+                if (student.IsTraining)
                 {
-                    students[i].IsTraining = false;
-                    students[i].UpdateTrainedStats();
-                    students[i] = null;
+                    student.TrainingDuration--;
+                    if (student.TrainingDuration <= 0)
+                    {
+                        student.IsTraining = false;
+                        student.UpdateTrainedStats();
+                        TrainingManager.instance.RemoveStudentFromBuilding(student);
+                    }
                 }
+
+                Debug.Log(student.name + " remains " + student.TrainingDuration + " Days");
             }
         }
     }
@@ -200,12 +203,16 @@ public class GameManager : MonoBehaviour, IData
     public void LoadScene(int buildIndex)
     {
         dataManager.SaveGame();
+        if(buildIndex == 0)
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayTitleMusic();
         sceneManager.LoadSceneAsync(buildIndex);
     }
 
     public void LoadScene(string sceneName)
     {
         dataManager.SaveGame();
+        if(sceneName == "Menu")
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayTitleMusic();
         sceneManager.LoadSceneAsync(sceneName);
     }
 

@@ -26,6 +26,7 @@ public class UIDisplay : MonoBehaviour
     [SerializeField] TMP_Text pyroxeneAmountText;
     [SerializeField] TMP_Text crimeRateText;
     [SerializeField] TMP_Text happinessText;
+    [SerializeField] TMP_Text studentAmountText;
 
     [Header("Player Info UI")]
     [SerializeField] TMP_Text locationText;
@@ -130,6 +131,8 @@ public class UIDisplay : MonoBehaviour
 
         crimeRateText.text = GameManager.Instance.crimeRate.ToString() + "%";
         happinessText.text = GameManager.Instance.happiness.ToString() + "%";
+
+        studentAmountText.text = SquadController.instance.Students.Count.ToString();
 
         //Debug.Log(GameManager.instance.currentXP/GameManager.instance.maxXP);
 

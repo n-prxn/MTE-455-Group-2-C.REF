@@ -8,6 +8,7 @@ public class AudioController : MonoBehaviour
     [Range(1, 3)] public float fadeInTime = 1.5f;
     [Range(0, 1)] public float volume = 0.5f;
     [Header("Audio Source")]
+    [SerializeField] private AudioClip titleMusic;
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private AudioSource voiceAudioSource;
     [SerializeField] private AudioSource FXAudioSource;
@@ -72,5 +73,11 @@ public class AudioController : MonoBehaviour
     private void OnApplicationQuit()
     {
         setting.isTitleVoicePlay = false;
+    }
+
+    public void PlayTitleMusic(){
+        musicAudioSource.Stop();
+        musicAudioSource.clip = titleMusic;
+        musicAudioSource.Play();
     }
 }

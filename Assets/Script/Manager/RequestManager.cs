@@ -201,8 +201,13 @@ public class RequestManager : MonoBehaviour, IData
 
         todayRequests.Clear();
         OperatingRequests.Clear();
+        if(GameManager.Instance.currentTurn == 0)
+            todayRequests.Add(requestPool.StarterRequest);
         foreach (RequestData rData in data.requests)
         {
+            if(rData.id == 0)
+                continue;
+                
             RequestSO request = requestPool.RequestsPool.Find(x => x.id == rData.id);
             request.CurrentCredit = rData.currentCredit;
             request.CurrentXP = rData.currentXP;

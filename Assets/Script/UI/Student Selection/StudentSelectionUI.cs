@@ -50,6 +50,9 @@ public class StudentSelectionUI : MonoBehaviour
     private List<StudentUIData> studentUIDatas = new();
     private List<Student> selectableStudents = new();
     [SerializeField] private Student currentSelectedStudent;
+    [Header("Unavailable Panel")]
+    [SerializeField] private GameObject availablePanel;
+    [SerializeField] private GameObject unavailablePanel;
     public Student CurrentSelectedStudent
     {
         get { return currentSelectedStudent; }
@@ -83,7 +86,7 @@ public class StudentSelectionUI : MonoBehaviour
 
         foreach (Student student in selectableStudents)
         {
-            Debug.Log(student.name);
+            //Debug.Log(student.name);
             GameObject studentCard = Instantiate(studentPortraitPrefab, studentListParent.transform);
             StudentUIData studentUIData = studentCard.GetComponent<StudentUIData>();
             studentUIData.SetData(student, currentSortingMode);
@@ -95,6 +98,18 @@ public class StudentSelectionUI : MonoBehaviour
 
     public void ResetSelectionPanel()
     {
+        if (SquadController.instance.Students.Count <= 0)
+        {
+            availablePanel.SetActive(false);
+            unavailablePanel.SetActive(true);
+        }
+        else
+        {
+            availablePanel.SetActive(true);
+            unavailablePanel.SetActive(false);
+        }
+
+
         InitializeStudents();
         CheckStatus();
         if (currentSelectedStudent == null)

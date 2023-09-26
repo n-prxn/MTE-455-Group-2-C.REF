@@ -96,9 +96,12 @@ public class RequestUI : MonoBehaviour
         crimeRateText.text = request.CurrentCrimeRate.ToString();
     }
 
-    public void ResetSlot(){
-        if(slotParent.transform.childCount > 0){
-            foreach(Transform slot in slotParent.transform){
+    public void ResetSlot()
+    {
+        if (slotParent.transform.childCount > 0)
+        {
+            foreach (Transform slot in slotParent.transform)
+            {
                 Destroy(slot.gameObject);
             }
         }
@@ -184,16 +187,24 @@ public class RequestUI : MonoBehaviour
 
     public void SendSquad()
     {
-        if (RequestManager.instance.CurrentRequest.squad.Count > 0)
+        int studentAmount = 0;
+        foreach (Student student in RequestManager.instance.CurrentRequest.squad)
         {
-            RequestManager.instance.SendSquad();
-            requestListPanel.UpdateDescription(RequestManager.instance.CurrentRequest);
-            requestListPanel.gameObject.SetActive(true);
-            gameObject.SetActive(false);
+            if (student != null)
+                studentAmount++;
         }
+
+        if(studentAmount <= 0)
+            return;
+
+        RequestManager.instance.SendSquad();
+        requestListPanel.UpdateDescription(RequestManager.instance.CurrentRequest);
+        requestListPanel.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
-    public void ClearSquad(){
+    public void ClearSquad()
+    {
         RequestManager.instance.CurrentRequest.ResetSquad();
         RequestManager.instance.ClearTotalStatus();
         RequestManager.instance.UpdateRequest();

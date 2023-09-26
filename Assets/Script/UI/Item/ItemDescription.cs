@@ -10,6 +10,7 @@ public class ItemDescription : MonoBehaviour
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI itemDesc;
+    [SerializeField] private TextMeshProUGUI itemSkillDesc;
     
     [Header("Button")]
     [SerializeField] private Button usageButton;
@@ -23,10 +24,12 @@ public class ItemDescription : MonoBehaviour
         itemImage.sprite = item.sprite;
         itemName.text = item.name;
         itemDesc.text = item.description;
+        itemSkillDesc.text = item.skillDescription;
     }
 
     public void ResetDescription(){
         itemName.text = "";
         itemDesc.text = "";
+        itemSkillDesc.text = "";
     }
 }

@@ -16,12 +16,16 @@ public class CollectionController : MonoBehaviour
     [Header("UI")]
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI clubText;
+    [SerializeField] TextMeshProUGUI schoolText;
     [SerializeField] TextMeshProUGUI PHYText;
     [SerializeField] TextMeshProUGUI INTText;
     [SerializeField] TextMeshProUGUI COMText;
     [SerializeField] TextMeshProUGUI STAText;
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] TextMeshProUGUI progression;
+    [SerializeField] TextMeshProUGUI skillNameText;
+    [SerializeField] TextMeshProUGUI skillDescText;
+    [SerializeField] Image skillIcon;
     [SerializeField] Image artwork;
     [SerializeField] Image schoolBanner;
     [SerializeField] Image PHYBar;
@@ -29,6 +33,10 @@ public class CollectionController : MonoBehaviour
     [SerializeField] Image COMBar;
     [SerializeField] Image STABar;
     [SerializeField] Image progressBar;
+    [SerializeField] GameObject unknownDetail;
+    [SerializeField] GameObject unknownSkill;
+
+    public SceneManager sceneManager;
 
     void Start()
     {
@@ -36,7 +44,16 @@ public class CollectionController : MonoBehaviour
     }
     void Update()
     {
-
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Setting")
+        {
+            if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
+            {
+                foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements"))
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     void UpdateCollectionUI(int i)
@@ -48,9 +65,24 @@ public class CollectionController : MonoBehaviour
         COMText.text = students[i].comStat.ToString();
         STAText.text = students[i].stamina.ToString();
         descriptionText.text = students[i].detail;
+        skillIcon.sprite = students[i].skillIcon;
+        skillNameText.text = students[i].skillName;
+        skillDescText.text = students[i].skillDescription;
+
+        switch(students[i].school){
+            case School.RedWinter:
+                schoolText.text = "Red Winter";
+                break;
+            default:
+                schoolText.text = students[i].school.ToString();
+                break;
+        }
+        
         if (students[i].artwork != null)
         {
             artwork.sprite = students[i].artwork;
+            artwork.gameObject.SetActive(false);
+            artwork.gameObject.SetActive(true);
         }
         UpdateStatusBar(i);
         UpdateBanner(i);
@@ -60,10 +92,10 @@ public class CollectionController : MonoBehaviour
 
     void UpdateStatusBar(int i)
     {
-        PHYBar.fillAmount = (float)students[i].phyStat/60f;
-        INTBar.fillAmount = (float)students[i].intStat/60f;
-        COMBar.fillAmount = (float)students[i].comStat/60f;
-        STABar.fillAmount = (float)students[i].stamina/150f;
+        PHYBar.fillAmount = (float)students[i].phyStat / 60f;
+        INTBar.fillAmount = (float)students[i].intStat / 60f;
+        COMBar.fillAmount = (float)students[i].comStat / 60f;
+        STABar.fillAmount = (float)students[i].stamina / 150f;
     }
 
     void UpdateBanner(int i)
@@ -103,6 +135,8 @@ public class CollectionController : MonoBehaviour
             default:
                 break;
         }
+        schoolBanner.gameObject.SetActive(false);
+        schoolBanner.gameObject.SetActive(true);
     }
 
     void UpdateProgress()
@@ -114,18 +148,24 @@ public class CollectionController : MonoBehaviour
                 collected++;
         }
         progression.text = collected.ToString() + "/" + students.Count.ToString();
-        progressBar.fillAmount = (float)collected/50f;
+        progressBar.fillAmount = (float)collected / 50f;
     }
 
     void HideUncollectedStudent(int i)
     {
-        if(!students[i].Collected)
+        if (!students[i].Collected)
         {
+            unknownDetail.SetActive(true);
+            unknownSkill.SetActive(true);
             artwork.color = Color.black;
             nameText.text = "???";
             clubText.text = "???";
             descriptionText.text = "Find more in the Gacha!";
-        }else{
+        }
+        else
+        {
+            unknownDetail.SetActive(false);
+            unknownSkill.SetActive(false);
             artwork.color = Color.white;
         }
     }
@@ -154,5 +194,9 @@ public class CollectionController : MonoBehaviour
             currentStudentID = students.Count - 1;
         }
         UpdateCollectionUI(currentStudentID);
+    }
+
+    public void Back(){
+        sceneManager.LoadPreviousScene();
     }
 }

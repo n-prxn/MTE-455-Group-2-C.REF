@@ -26,4 +26,5 @@ public class ItemSO : ScriptableObject
     }
 
     public ItemSkillSO skill;
+    [TextArea] public string skillDescription;
 }

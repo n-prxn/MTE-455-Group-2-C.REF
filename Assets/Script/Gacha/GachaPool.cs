@@ -14,7 +14,6 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] TMP_Text rollCountText;
     [SerializeField] GameObject gachaCard;
     [SerializeField] GameObject gachaCardParent;
-    [SerializeField] GameObject gauranteeButton;
 
     [Header("Setting")]
     private int rollCost; //Move to GameManeger
@@ -28,9 +27,6 @@ public class GachaPool : MonoBehaviour, IData
     [Header("UI Panel")]
     [SerializeField] GameObject gachaScene;
     [SerializeField] GameObject warningBox;
-
-    [Header("Setting")]
-    public SettingSO setting;
 
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;
@@ -54,8 +50,6 @@ public class GachaPool : MonoBehaviour, IData
 
         CountRarity(StudentsPool);
         InitializeGachaRate(StudentsPool);
-        if(rollCount > 1)
-            gauranteeButton.SetActive(false);
     }
 
     void Start()
@@ -207,6 +201,8 @@ public class GachaPool : MonoBehaviour, IData
             }
             pulledStudent.Collected = true;
             rollCount++;
+
+            GameManager.Instance.setting.isGuaranteePull = true;
 
             //DataManager.instance.SaveGame();
         }

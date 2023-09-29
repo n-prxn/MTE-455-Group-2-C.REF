@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour, IData
     [Header("Scene")]
     public SceneManager sceneManager;
 
+    [Header("Setting SO")]
+    public SettingSO setting;
+
     public bool uiIsOpen;
 
     [SerializeField] private bool isPlayable = true;

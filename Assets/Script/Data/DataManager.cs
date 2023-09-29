@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 using System;
+using UnityEditor.Playables;
+using UnityEditor;
 
 public class DataManager : MonoBehaviour
 {
@@ -84,6 +86,7 @@ public class DataManager : MonoBehaviour
         foreach (BuildingSO building in buildings)
             building.InitializeBuilding();
 
+        setting.isGuaranteePull = false;
         //Debug.Log("New Game");
     }
 
@@ -116,6 +119,9 @@ public class DataManager : MonoBehaviour
         }
 
         fileHandler.Save(gameData);
+        #if UNITY_EDITOR
+        EditorUtility.SetDirty(setting);
+        #endif
         //Debug.Log("Data Manager Save");
     }
 

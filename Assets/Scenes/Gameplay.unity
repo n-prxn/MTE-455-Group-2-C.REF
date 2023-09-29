@@ -2729,7 +2729,6 @@ MonoBehaviour:
   rollCountText: {fileID: 1765660308}
   gachaCard: {fileID: 2727507465118656404, guid: 172d29b453b52a64aa7a68968766cdd2, type: 3}
   gachaCardParent: {fileID: 1970332777}
-  gauranteeButton: {fileID: 984676248}
   studentsPool:
   - {fileID: 11400000, guid: da951709de86e0744a72202862958694, type: 2}
   - {fileID: 11400000, guid: 9f7987a3a8cc4b74e8849921762f7e06, type: 2}
@@ -2786,7 +2785,6 @@ MonoBehaviour:
   rareRate: 3
   gachaScene: {fileID: 841621680}
   warningBox: {fileID: 0}
-  setting: {fileID: 0}
 --- !u!1 &86780892
 GameObject:
   m_ObjectHideFlags: 0
@@ -61256,6 +61254,7 @@ MonoBehaviour:
   presentShopUI: {fileID: 1692943410}
   ticketShopUI: {fileID: 252812794}
   sceneManager: {fileID: 11400000, guid: 5ac5a4fd4fd7be244945d9b863e8fa0f, type: 2}
+  setting: {fileID: 11400000, guid: a00eb6c05daf7f249a2fd3a0a10c8a37, type: 2}
   uiIsOpen: 0
   isPlayable: 1
 --- !u!1 &1530669556
@@ -73424,6 +73423,7 @@ GameObject:
   - component: {fileID: 1836077364}
   - component: {fileID: 1836077366}
   - component: {fileID: 1836077365}
+  - component: {fileID: 1836077367}
   m_Layer: 5
   m_Name: Gacha Panel
   m_TagString: Untagged
@@ -73491,6 +73491,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836077363}
   m_CullTransparentMesh: 1
+--- !u!114 &1836077367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836077363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f944d5d9d1fa9a84480883084f76ea16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gauranteeButton: {fileID: 984676248}
 --- !u!1 &1842323935
 GameObject:
   m_ObjectHideFlags: 0
@@ -77510,16 +77523,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furnitureWarehouse:
+  - {fileID: 3095569962137315839, guid: 200a230be929de0468c5cf1d95e4bcb2, type: 3}
   - {fileID: 3095569962137315839, guid: 7ba2976d45d15a148824da189533ae43, type: 3}
   - {fileID: 3095569962137315839, guid: 7b2ccc9afb0c44a4db64258fab5fe04f, type: 3}
+  - {fileID: 3095569962137315839, guid: feff2fa373653a243b87261740e632ae, type: 3}
+  - {fileID: 3095569962137315839, guid: 3d518fc4a62f923468fe6e30d7cd36b3, type: 3}
+  - {fileID: 3095569962137315839, guid: e39ee1e10a47c904fb5b0f6d6ec58505, type: 3}
   - {fileID: 3095569962137315839, guid: 0de4b3b68ab33f442a459a364abc1719, type: 3}
+  - {fileID: 3095569962137315839, guid: 10cecbcffc237c444aee4a03805b9304, type: 3}
+  - {fileID: 3095569962137315839, guid: 96e3ec74bc7510146a08c4a63f29b63b, type: 3}
+  - {fileID: 3095569962137315839, guid: b03e93c4239b3664197425bb43a592c3, type: 3}
+  - {fileID: 3095569962137315839, guid: d201fe9c926dc2141a13effcfb022461, type: 3}
+  - {fileID: 3095569962137315839, guid: bbec0e0a5b1a77c45939b42ab9cd9a7d, type: 3}
   - {fileID: 3095569962137315839, guid: dca3f391f5e47dc498b0b6fbe65a07f5, type: 3}
+  - {fileID: 3095569962137315839, guid: b0cab665246af5c4c9fde0ee2eb2f916, type: 3}
+  - {fileID: 3095569962137315839, guid: ff82ae3190aa04f4ead859d10f380780, type: 3}
+  - {fileID: 3095569962137315839, guid: ca5d2a22398a5b7478be2e5c64085b2c, type: 3}
+  - {fileID: 3095569962137315839, guid: 74bc11f9f9f83654993ca5dadf4f5d6b, type: 3}
   - {fileID: 3095569962137315839, guid: a6c5771328c37e0439bfca8358794d96, type: 3}
+  - {fileID: 3095569962137315839, guid: 3a001ed6708b8ac47b0bc0469174d46d, type: 3}
+  - {fileID: 3095569962137315839, guid: 54d7448e4f2589a4bbff474a7074d578, type: 3}
+  - {fileID: 3095569962137315839, guid: f6d0da4d9c8d9d74abba18473d625b81, type: 3}
+  - {fileID: 3095569962137315839, guid: 9e8b770fd1ce124448d7202db44be4a5, type: 3}
   - {fileID: 3095569962137315839, guid: 2a6620e3149408c488045c0a431b3c03, type: 3}
   - {fileID: 3095569962137315839, guid: d39870cbd08df264b9241f3b9b4ef32e, type: 3}
   - {fileID: 3095569962137315839, guid: 0da615768e7a2d04293ff9bba410033f, type: 3}
   - {fileID: 3095569962137315839, guid: 0ef242cb9d0ee1c49ae2bd3e50f12f9e, type: 3}
+  - {fileID: 3095569962137315839, guid: 064d03d85ff6b1e41ba5b3d8c9aa5056, type: 3}
+  - {fileID: 3095569962137315839, guid: 94ee0f032d98a484abfe3a1f5df4c1a9, type: 3}
   - {fileID: 3095569962137315839, guid: 19a052d547d9ef64eb3a2db38c640c44, type: 3}
+  - {fileID: 3095569962137315839, guid: 394fbf4d81f7c0449ab19d3142680ece, type: 3}
   presentWarehouse:
   - {fileID: 11400000, guid: 7cf91519df165c9448dddf2e4f1557b3, type: 2}
   - {fileID: 11400000, guid: 287e8bb347bb14f46bf0ba76c15950b0, type: 2}

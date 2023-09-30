@@ -211,6 +211,11 @@ public class UIDisplay : MonoBehaviour
         blackBackground.SetActive(isToggled);
     }
 
+    public void ToggleBlackBackground()
+    {
+        blackBackground.SetActive(!blackBackground.activeSelf);
+    }
+
     public void ToggleSidePanel()
     {
         if (sidePanel.activeSelf && nextButton.activeSelf)

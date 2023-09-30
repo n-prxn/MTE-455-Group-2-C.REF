@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Nodoka_Original_Hair
   m_Shader: {fileID: 4800000, guid: 06cdc4db1a431204c821e2a937a781ee, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,26 +19,27 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _HairSpecTex:
-        m_Texture: {fileID: 2800000, guid: 55bd85bc248f785478d7327f0da87c5d, type: 2}
+        m_Texture: {fileID: 2800000, guid: 46baeb3fcacf7da4d88ca8890111d9c0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9368c8ef0b158294395566ccbd14f177, type: 2}
+        m_Texture: {fileID: 2800000, guid: 5807ce8bf03cc2e408b4d48c9601acc5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: 40abb3225a59b184d86942cbe3bf4cb3, type: 2}
+        m_Texture: {fileID: 2800000, guid: bb465a892fac92947b854af4d329c291, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TempTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: {}
+    m_Ints: []
     m_Floats:
     - _AdjustiveHairShadow: 0
     - _AlphaClip: 0
@@ -56,7 +59,7 @@ Material:
     - _MaskGSensitivity: 2
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _OutlineZCorrection: -1E-05
+    - _OutlineZCorrection: -0.00001
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RimAreaLeveler: 4
@@ -87,7 +90,7 @@ Material:
     - _OutlineTint: {r: 0.5471698, g: 0.33294767, b: 0.33294767, a: 1}
     - _ShadowTint: {r: 0.8867924, g: 0.6634175, b: 0.6567283, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecDirMultiplier: {r: 0.6500001, g: -0.10999987, b: 6.7043175E-07, a: 0}
+    - _SpecDirMultiplier: {r: 0.6500001, g: -0.10999987, b: 0.00000067043175, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
     - _TwoSideTint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Asuna_Original_Body
   m_Shader: {fileID: 4800000, guid: 943aaf666a942334492a593a99041273, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -17,18 +19,19 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: d698ab1278450794cb793c1141bfaf9f, type: 2}
+        m_Texture: {fileID: 2800000, guid: 85ccc426ca4dc1943bf79a6d84f040cf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: e27948e66600b2340a4650b05f6a92ee, type: 2}
+        m_Texture: {fileID: 2800000, guid: 8493685e17ee66c4081f7128e49c82a1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: {}
+    m_Ints: []
     m_Floats:
     - _AlphaClip: 0
     - _Blend: 0
@@ -48,7 +51,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _OutlineThickness: 0.0013
-    - _OutlineZCorrection: -3.5E-05
+    - _OutlineZCorrection: -0.000035
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

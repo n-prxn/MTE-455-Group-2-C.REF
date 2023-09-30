@@ -9,7 +9,7 @@ public class LookAtCamera : MonoBehaviour
 
     void Awake()
     {
-        _cam = Camera.main;    
+        _cam = Camera.main;
     }
 
     void Update()

@@ -74,17 +74,25 @@ public class Building : MonoBehaviour
         {
             GameObject obj = hit.collider.gameObject;
             if (obj.name == gameObject.name)
-            {  
-                if(buildingSO.IsAvailable){
+            {
+                if (buildingSO.IsAvailable)
+                {
                     balloon.SetActive(true);
                     balloon.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingIcon;
-                }else{
+                }
+                else
+                {
                     balloon.SetActive(false);
                 }
             }
-            else{
+            else
+            {
                 balloon.SetActive(false);
             }
+        }
+        else
+        {
+            balloon.SetActive(false);
         }
     }
 }

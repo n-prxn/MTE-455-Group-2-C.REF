@@ -50,10 +50,14 @@ public class StudentSpawner : MonoBehaviour
                 foreach (Student studentList in studentOnMap)
                 {
                     if (studentList.id == student.id)
+                    {
+                        int loopCount = 0;
                         do
                         {
+                            loopCount++;
                             student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
-                        }while(studentList.id == student.id);
+                        } while ((studentList.id == student.id && student == null && student.studentModel == null && student.IsOperating && (!inBuilding && student.IsTraining)) || loopCount >= 20);
+                    }
                 }
             studentOnMap.Add(student);
 

@@ -36,6 +36,7 @@ public class SquadController : MonoBehaviour, IData
     {
         s.InitializeStudent();
         students.Add(s);
+        GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
     }
 
     public void ClearStudentList()

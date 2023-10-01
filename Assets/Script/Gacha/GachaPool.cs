@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.IO;
-using Newtonsoft.Json;
+using UnityEngine.Playables;
 using UnityEngine.UI;
-using Unity.VisualScripting;
 
 [System.Serializable]
 public class GachaPool : MonoBehaviour, IData
@@ -26,12 +24,18 @@ public class GachaPool : MonoBehaviour, IData
 
     [Header("UI Panel")]
     [SerializeField] GameObject gachaScene;
+    [SerializeField] GameObject gachaSplashScene;
     [SerializeField] GameObject warningBox;
+    [SerializeField] GachaResultUI gachaResultPanel;
+    public GameObject gachaAllResultScene;
+    [SerializeField] PlayableDirector gachaSceneDirector;
+    [SerializeField] Button resultButton;
 
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;
     private List<Student> PulledStudents = new List<Student>();
-
+    private List<bool> isNewList = new();
+    bool hasRare = false;
     public static GachaPool instance;
 
     // Start is called before the first frame update
@@ -60,7 +64,7 @@ public class GachaPool : MonoBehaviour, IData
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void LoadData(GameData data)
@@ -139,35 +143,35 @@ public class GachaPool : MonoBehaviour, IData
     {
         if (GameManager.Instance.pyroxenes >= rollCost * pullAmount)
         {
-            ToggleGachaScene();
             GameManager.Instance.pyroxenes -= rollCost * pullAmount;
-            DeleteAllGachaResult();
             PulledStudents.Clear();
             for (int i = 0; i < pullAmount; i++)
             {
                 Student pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
                 PulledStudents.Add(pulledStudent);
 
-                GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-                card.GetComponent<GachaCardDisplay>().student = pulledStudent;
-                card.GetComponent<GachaCardDisplay>().UpdateGachaCard();
-
                 if (!pulledStudent.SquadCollect)
                 {
                     SquadController.instance.Receive(pulledStudent);
                     pulledStudent.SquadCollect = true;
+                    isNewList.Add(true);
                 }
                 else
                 {
                     GameManager.Instance.pyroxenes += Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
+                    isNewList.Add(false);
                 }
                 pulledStudent.Collected = true;
 
+                if (pulledStudent.rarity == Rarity.Rare)
+                    hasRare = true;
+
                 rollCount++;
             }
-            
-            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
 
+            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+            ToggleGachaScene();
+            StartCoroutine(CreateGachaResultCards());
             //DataManager.instance.SaveGame();
         }
     }
@@ -176,37 +180,49 @@ public class GachaPool : MonoBehaviour, IData
     {
         if (GameManager.Instance.pyroxenes >= rollCost)
         {
-            ToggleGachaScene();
             GameManager.Instance.pyroxenes -= rollCost;
-            DeleteAllGachaResult();
             PulledStudents.Clear();
 
             Student pulledStudent;
-            do{
+            do
+            {
                 pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
-            }while(pulledStudent.rarity != Rarity.Rare);
+            } while (pulledStudent.rarity != Rarity.Rare);
 
             PulledStudents.Add(pulledStudent);
-
-            GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-            card.GetComponent<GachaCardDisplay>().student = pulledStudent;
-            card.GetComponent<GachaCardDisplay>().UpdateGachaCard();
 
             if (!pulledStudent.SquadCollect)
             {
                 SquadController.instance.Receive(pulledStudent);
                 pulledStudent.SquadCollect = true;
+                isNewList.Add(true);
             }
             else
             {
                 GameManager.Instance.pyroxenes += Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
+                isNewList.Add(false);
             }
             pulledStudent.Collected = true;
             rollCount++;
 
+            hasRare = true;
             GameManager.Instance.setting.isGuaranteePull = true;
-
+            
+            ToggleGachaScene();
+            StartCoroutine(CreateGachaResultCards());
             //DataManager.instance.SaveGame();
+        }
+    }
+
+    public IEnumerator CreateGachaResultCards()
+    {
+        yield return new WaitForSeconds(1f);
+        DeleteAllGachaResult();
+        for (int i = 0; i < PulledStudents.Count; i++)
+        {
+            GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
+            card.GetComponent<GachaCardDisplay>().student = PulledStudents[i];
+            card.GetComponent<GachaCardDisplay>().UpdateGachaCard(isNewList[i]);
         }
     }
 
@@ -252,9 +268,20 @@ public class GachaPool : MonoBehaviour, IData
 
     public void ToggleGachaScene()
     {
-        if (!gachaScene.activeSelf)
-        {
-            gachaScene.SetActive(true);
-        }
+        gachaResultPanel.SetGachaHint(hasRare);
+        gachaSplashScene.SetActive(true);
+    }
+
+    public void ShowGachaResult()
+    {
+        Debug.Log("Go!");
+        resultButton.interactable = false;
+
+        gachaSceneDirector.Play();
+
+        gachaResultPanel.InitializeResult(PulledStudents, isNewList);
+        isNewList.Clear();
+        PulledStudents.Clear();
+        hasRare = false;
     }
 }

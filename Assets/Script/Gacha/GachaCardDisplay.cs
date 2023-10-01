@@ -17,11 +17,11 @@ public class GachaCardDisplay : MonoBehaviour
     public Student student;
     // Start is called before the first frame update
 
-    public void UpdateGachaCard()
+    public void UpdateGachaCard(bool isNew)
     {
         GachaBGSelect();
         gachaPortrait.sprite = student.portrait;
-        if (student.SquadCollect)
+        if (!isNew)
         {
             GachaPyroxenesBGSelect();
             pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);

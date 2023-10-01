@@ -5,8 +5,9 @@ using UnityEngine.AI;
 
 public class StudentSpawner : MonoBehaviour
 {
-    public int maxStudentOnMap = 4;
+    public int maxStudentOnMap;
     private Bounds floor;
+    [SerializeField] private List<Student> studentOnMap = new List<Student>();
     [SerializeField] private Transform studentParent;
     void Awake()
     {
@@ -44,7 +45,17 @@ public class StudentSpawner : MonoBehaviour
 
         for (int i = 0; i < spawnAmount; i++)
         {
-            Student student = students[i];
+            Student student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
+            if (studentOnMap.Count > 0)
+                foreach (Student studentList in studentOnMap)
+                {
+                    if (studentList.id == student.id)
+                        do
+                        {
+                            student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
+                        }while(studentList.id == student.id);
+                }
+            studentOnMap.Add(student);
 
             if (student == null)
                 continue;
@@ -52,8 +63,8 @@ public class StudentSpawner : MonoBehaviour
                 continue;
             if (student.IsOperating)
                 continue;
-            if (student.name == "Mari")
-                continue;
+            // if (student.name == "Mari")
+            //     continue;
             if (!inBuilding && student.IsTraining)
                 continue;
 
@@ -78,6 +89,7 @@ public class StudentSpawner : MonoBehaviour
                 Destroy(student.gameObject);
             }
         }
+        studentOnMap.Clear();
     }
     public Vector3 RandomSpawnpoint()
     {

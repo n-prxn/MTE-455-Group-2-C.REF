@@ -7,7 +7,7 @@ public class StudentSpawner : MonoBehaviour
 {
     public int maxStudentOnMap;
     private Bounds floor;
-    [SerializeField] private List<Student> studentOnMap = new List<Student>();
+    // [SerializeField] private List<Student> studentOnMap = new List<Student>();
     [SerializeField] private Transform studentParent;
     void Awake()
     {
@@ -45,21 +45,23 @@ public class StudentSpawner : MonoBehaviour
 
         for (int i = 0; i < spawnAmount; i++)
         {
-            Student student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
-            if (studentOnMap.Count > 0)
-                foreach (Student studentList in studentOnMap)
-                {
-                    if (studentList.id == student.id)
-                    {
-                        int loopCount = 0;
-                        do
-                        {
-                            loopCount++;
-                            student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
-                        } while ((studentList.id == student.id && student == null && student.studentModel == null && student.IsOperating && (!inBuilding && student.IsTraining)) || loopCount >= 20);
-                    }
-                }
-            studentOnMap.Add(student);
+            Student student = students[i];
+
+            // Student student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
+            // if (studentOnMap.Count > 0)
+            //     foreach (Student studentList in studentOnMap)
+            //     {
+            //         if (studentList.id == student.id)
+            //         {
+            //             int loopCount = 0;
+            //             do
+            //             {
+            //                 loopCount++;
+            //                 student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
+            //             } while ((studentList.id == student.id && student == null && student.studentModel == null && student.IsOperating && (!inBuilding && student.IsTraining)) || loopCount >= 20);
+            //         }
+            //     }
+            // studentOnMap.Add(student);
 
             if (student == null)
                 continue;
@@ -93,7 +95,7 @@ public class StudentSpawner : MonoBehaviour
                 Destroy(student.gameObject);
             }
         }
-        studentOnMap.Clear();
+        // studentOnMap.Clear();
     }
     public Vector3 RandomSpawnpoint()
     {

@@ -165,6 +165,8 @@ public class GachaPool : MonoBehaviour, IData
 
                 rollCount++;
             }
+            
+            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
 
             //DataManager.instance.SaveGame();
         }

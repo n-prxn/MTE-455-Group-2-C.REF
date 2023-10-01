@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour, IData
     void Start()
     {
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
-        // GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+        GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
     }
 
     // Update is called once per frame

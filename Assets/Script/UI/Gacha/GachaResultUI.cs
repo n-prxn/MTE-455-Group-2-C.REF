@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 public class GachaResultUI : MonoBehaviour
 {
@@ -9,13 +10,12 @@ public class GachaResultUI : MonoBehaviour
     [SerializeField] GameObject resultPrefab;
     [SerializeField] GameObject resultParent;
     [SerializeField] Image rarityIcon;
+    [SerializeField] Button Roll10Button;
+    [SerializeField] Button Roll1Button;
+    [SerializeField] PlayableDirector gachaSceneDirector;
 
     [Header("Data")]
     [SerializeField] Sprite[] emojiRarityIcons;
-
-    private int currentResultIndex = 0;
-
-    public int CurrentResultIndex { get => currentResultIndex; set => currentResultIndex = value; }
 
     public void InitializeResult(List<Student> students, List<bool> isNewList)
     {
@@ -37,7 +37,8 @@ public class GachaResultUI : MonoBehaviour
         resultParent.SetActive(false);
     }
 
-    public void SetGachaHint(bool hasRare){
+    public void SetGachaHint(bool hasRare)
+    {
         if (hasRare)
             rarityIcon.sprite = emojiRarityIcons[1];
         else
@@ -49,6 +50,32 @@ public class GachaResultUI : MonoBehaviour
         foreach (Transform result in resultParent.transform)
         {
             Destroy(result.gameObject);
+        }
+    }
+
+    public void ShowGachaResult()
+    {
+        Roll1Button.interactable = false;
+        Roll10Button.interactable = false;
+        gachaSceneDirector.Play();
+
+        List<Student> pulledStudents = gachaPool.PulledStudents;
+        List<bool> isNewList = gachaPool.IsNewList;
+        bool hasRare = gachaPool.HasRare;
+
+        InitializeResult(pulledStudents, isNewList);
+        isNewList.Clear();
+        pulledStudents.Clear();
+        hasRare = false;
+    }
+
+    public void SetResultButton(int pullAmount){
+        if(pullAmount <= 1){
+            Roll10Button.gameObject.SetActive(false);
+            Roll1Button.gameObject.SetActive(true);
+        }else{
+            Roll10Button.gameObject.SetActive(true);
+            Roll1Button.gameObject.SetActive(false);
         }
     }
 }

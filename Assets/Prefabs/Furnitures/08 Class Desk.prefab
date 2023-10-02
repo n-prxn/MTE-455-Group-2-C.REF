@@ -52,7 +52,7 @@ NavMeshObstacle:
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0.25, y: 0.25, z: 0.25}
   m_TimeToStationary: 0.5
 --- !u!54 &3287570750703758615
 Rigidbody:
@@ -108,7 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 8
   name: Classroom Lecture Desk
-  description: Test
+  description: A lecture desk that captures the attention of the students. Only one
+    seat to meet so many gazes.
   cost: 75000
   building: 2
   furnitureSprite: {fileID: 21300000, guid: dcdf59b181460364e927a14d8dd8ff48, type: 3}
@@ -135,7 +136,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.3, z: 1.8}
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Center: {x: 0.25, y: 0.25, z: 0.25}
 --- !u!1 &5617392989699047314
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +164,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5617392989699047314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0.25, y: -0.15, z: 0}
   m_LocalScale: {x: 0.1, y: 1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -272,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4546979934618876, guid: ebfe012a912fd264089238be8df9fc88, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4546979934618876, guid: ebfe012a912fd264089238be8df9fc88, type: 3}
       propertyPath: m_LocalPosition.y

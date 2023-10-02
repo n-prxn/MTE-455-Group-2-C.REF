@@ -4,6 +4,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SettingManager : MonoBehaviour
 {
@@ -30,10 +31,11 @@ public class SettingManager : MonoBehaviour
 
     void Awake()
     {
+
         BGSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
         voiceSource = GameObject.FindGameObjectWithTag("Voice Audio").GetComponent<AudioSource>();
         FXSource = GameObject.FindGameObjectWithTag("FX Audio").GetComponent<AudioSource>();
-        
+
         BGSlider.value = setting.backgroundMusic;
         voiceSlider.value = setting.voice;
         FXSlider.value = setting.soundEffect;
@@ -56,6 +58,21 @@ public class SettingManager : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        /*if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Setting")
+        {
+            if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
+            {
+                foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements"))
+                {
+                    //Destroy(gameObject);
+                    gameObject.SetActive(false);
+                }
+            }
+        }*/
+    }
+
     void Update()
     {
         setting.backgroundMusic = backgroundMusic;
@@ -65,16 +82,6 @@ public class SettingManager : MonoBehaviour
         BGValue.text = (setting.backgroundMusic / 100).ToString("0%");
         voiceValue.text = (setting.voice / 100).ToString("0%");
         FXValue.text = (setting.soundEffect / 100).ToString("0%");
-
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Setting")
-        {
-            if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
-            {
-                foreach(GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements")){
-                    Destroy(gameObject);
-                }
-            }
-        }
     }
 
     public void ChangeBackgroundValue()
@@ -137,13 +144,15 @@ public class SettingManager : MonoBehaviour
         }
     }
 
-    void OnDisable(){
-        #if UNITY_EDITOR
+    void OnDisable()
+    {
+#if UNITY_EDITOR
         EditorUtility.SetDirty(setting);
-        #endif
+#endif
     }
 
-    public void Back(){
+    public void Back()
+    {
         sceneManager.LoadPreviousScene();
     }
 }

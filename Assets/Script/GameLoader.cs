@@ -7,6 +7,7 @@ public class GameLoader : MonoBehaviour
     DataManager dataManager;
     StudentSpawner studentSpawner;
     // Start is called before the first frame update
+
     void Start()
     {
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();

@@ -7,14 +7,24 @@ using UnityEngine.UI;
 public class ToggleActiveAnim : MonoBehaviour
 {
     [SerializeField] PlayableDirector playableDirector;
-    [SerializeField] Button resultButton;
-    public void SetInactive(GameObject scene){
+    [SerializeField] Button Roll10Button;
+    [SerializeField] Button Roll1Button;
+    public void SetInactive(GameObject scene)
+    {
         scene.SetActive(false);
-        resultButton.interactable = false;
+        Roll10Button.interactable = false;
+        Roll1Button.interactable = false;
     }
 
-    public void PauseAnim(){
+    public void PauseAnim()
+    {
         playableDirector.Pause();
-        resultButton.interactable = true;
+        Roll10Button.interactable = true;
+        Roll1Button.interactable = true;
+    }
+
+    public void SetSelfInactive()
+    {
+        gameObject.SetActive(false);
     }
 }

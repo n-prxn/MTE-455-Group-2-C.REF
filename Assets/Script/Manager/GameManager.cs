@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour, IData
     public void BackToPreviousScene()
     {
         dataManager.SaveGame();
-        sceneManager.LoadPreviousScene();
+        sceneManager.LoadAsyncPreviousScene();
     }
 
     public void LoadScene(int buildIndex)

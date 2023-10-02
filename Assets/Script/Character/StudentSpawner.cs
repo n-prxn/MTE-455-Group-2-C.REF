@@ -87,8 +87,8 @@ public class StudentSpawner : MonoBehaviour
 
             if (inBuilding)
             {
-                studentPrefab.transform.localScale *= 5;
-                studentPrefab.GetComponent<NavMeshAgent>().speed *= 5;
+                studentPrefab.transform.localScale *= 4;
+                studentPrefab.GetComponent<NavMeshAgent>().speed *= 4;
             }
         }
     }

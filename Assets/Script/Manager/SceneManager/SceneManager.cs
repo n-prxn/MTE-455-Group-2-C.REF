@@ -73,6 +73,28 @@ public class SceneManager : ScriptableObject
         return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(buildIndex);
     }
 
+    public AsyncOperation LoadAsyncPreviousScene()
+    {
+        if (!initialized)
+        {
+            Debug.LogError("You haven't used the LoadScene functions of the scriptable object. Use them instead of the LoadScene functions of Unity's SceneManager.");
+            return null;
+        }
+
+        if (loadedLevels.Count > 0)
+        {
+            return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(loadedLevels.Pop());
+            /*DataManager.instance.SaveGame();
+            DataManager.instance.LoadGame();*/
+        }
+        else
+        {
+            Debug.LogError("No previous scene loaded");
+            return null;
+            //Application.Quit();
+        }
+    }
+
     public void LoadPreviousScene()
     {
         if (!initialized)
@@ -81,7 +103,7 @@ public class SceneManager : ScriptableObject
         }
         if (loadedLevels.Count > 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(loadedLevels.Pop());
+            UnityEngine.SceneManagement.SceneManager.LoadScene(loadedLevels.Pop());
             /*DataManager.instance.SaveGame();
             DataManager.instance.LoadGame();*/
         }

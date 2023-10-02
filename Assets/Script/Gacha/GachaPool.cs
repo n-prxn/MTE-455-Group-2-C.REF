@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.Playables;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -18,6 +17,7 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] List<Student> studentsPool;
     public List<Student> StudentsPool { get => studentsPool; set => studentsPool = value; }
 
+
     [SerializeField] float commonRate = 78.5f;
     [SerializeField] float uncommonRate = 18.5f;
     [SerializeField] float rareRate = 3f;
@@ -28,14 +28,17 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] GameObject warningBox;
     [SerializeField] GachaResultUI gachaResultPanel;
     public GameObject gachaAllResultScene;
-    [SerializeField] PlayableDirector gachaSceneDirector;
-    [SerializeField] Button resultButton;
 
     float common = 0, uncommon = 0, rare = 0;
     int rollCount = 0;
-    private List<Student> PulledStudents = new List<Student>();
+    private List<Student> pulledStudents = new List<Student>();
+    public List<Student> PulledStudents { get => pulledStudents; set => pulledStudents = value; }
     private List<bool> isNewList = new();
+    public List<bool> IsNewList { get => isNewList; set => isNewList = value; }
+
     bool hasRare = false;
+        public bool HasRare { get => hasRare; set => hasRare = value; }
+
     public static GachaPool instance;
 
     // Start is called before the first frame update
@@ -144,11 +147,11 @@ public class GachaPool : MonoBehaviour, IData
         if (GameManager.Instance.pyroxenes >= rollCost * pullAmount)
         {
             GameManager.Instance.pyroxenes -= rollCost * pullAmount;
-            PulledStudents.Clear();
+            pulledStudents.Clear();
             for (int i = 0; i < pullAmount; i++)
             {
                 Student pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
-                PulledStudents.Add(pulledStudent);
+                pulledStudents.Add(pulledStudent);
 
                 if (!pulledStudent.SquadCollect)
                 {
@@ -170,6 +173,7 @@ public class GachaPool : MonoBehaviour, IData
             }
 
             GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+            gachaResultPanel.SetResultButton(pullAmount);
             ToggleGachaScene();
             StartCoroutine(CreateGachaResultCards());
             //DataManager.instance.SaveGame();
@@ -181,7 +185,7 @@ public class GachaPool : MonoBehaviour, IData
         if (GameManager.Instance.pyroxenes >= rollCost)
         {
             GameManager.Instance.pyroxenes -= rollCost;
-            PulledStudents.Clear();
+            pulledStudents.Clear();
 
             Student pulledStudent;
             do
@@ -189,7 +193,7 @@ public class GachaPool : MonoBehaviour, IData
                 pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
             } while (pulledStudent.rarity != Rarity.Rare);
 
-            PulledStudents.Add(pulledStudent);
+            pulledStudents.Add(pulledStudent);
 
             if (!pulledStudent.SquadCollect)
             {
@@ -207,7 +211,8 @@ public class GachaPool : MonoBehaviour, IData
 
             hasRare = true;
             GameManager.Instance.setting.isGuaranteePull = true;
-            
+
+            gachaResultPanel.SetResultButton(1);
             ToggleGachaScene();
             StartCoroutine(CreateGachaResultCards());
             //DataManager.instance.SaveGame();
@@ -218,10 +223,10 @@ public class GachaPool : MonoBehaviour, IData
     {
         yield return new WaitForSeconds(1f);
         DeleteAllGachaResult();
-        for (int i = 0; i < PulledStudents.Count; i++)
+        for (int i = 0; i < pulledStudents.Count; i++)
         {
             GameObject card = Instantiate(gachaCard, gachaCardParent.transform);
-            card.GetComponent<GachaCardDisplay>().student = PulledStudents[i];
+            card.GetComponent<GachaCardDisplay>().student = pulledStudents[i];
             card.GetComponent<GachaCardDisplay>().UpdateGachaCard(isNewList[i]);
         }
     }
@@ -270,18 +275,5 @@ public class GachaPool : MonoBehaviour, IData
     {
         gachaResultPanel.SetGachaHint(hasRare);
         gachaSplashScene.SetActive(true);
-    }
-
-    public void ShowGachaResult()
-    {
-        Debug.Log("Go!");
-        resultButton.interactable = false;
-
-        gachaSceneDirector.Play();
-
-        gachaResultPanel.InitializeResult(PulledStudents, isNewList);
-        isNewList.Clear();
-        PulledStudents.Clear();
-        hasRare = false;
     }
 }

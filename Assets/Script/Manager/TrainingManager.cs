@@ -130,6 +130,15 @@ public class TrainingManager : MonoBehaviour, IData
         return trainingGroup[building.BuildingType];
     }
 
+    public int GetStudentAmountInBuilding(){
+        int count = 0;
+        foreach(Student student in trainingGroup[currentBuilding].ToList()){
+            if(student != null)
+                count++;
+        }
+        return count;
+    }
+
     public void RemoveStudentFromBuilding(Student student)
     {
         foreach (Student trainedStudent in trainingGroup[currentBuilding].ToList())

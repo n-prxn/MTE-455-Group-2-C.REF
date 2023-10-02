@@ -16,6 +16,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] AudioSource SFXSource;
     [Header("Sequence")]
     [SerializeField] GameObject newGameScene;
+    [SerializeField] GameObject continueScene;
     [SerializeField] GameObject collectionScene;
     [SerializeField] GameObject settingScene;
     [SerializeField] GameObject quitScene;
@@ -59,7 +60,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void GoToContinue()
     {
-        newGameScene.SetActive(true);
+        continueScene.SetActive(true);
     }
 
     public void GoToSetting()

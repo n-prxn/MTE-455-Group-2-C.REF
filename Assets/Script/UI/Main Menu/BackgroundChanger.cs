@@ -65,6 +65,6 @@ public class BackgroundChanger : MonoBehaviour
             default:
                 break;
         }
-        backgroundImage.transform.position += (dirV * (12.5f / changeTime));
+        backgroundImage.transform.position += (dirV * (2f / changeTime));
     }
 }

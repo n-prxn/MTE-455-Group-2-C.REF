@@ -12,6 +12,10 @@ public class MainMenuSceneChanger : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneID));
     }
 
+    public void LoadNormalScene(int sceneID){
+        sceneManager.LoadScene(sceneID);
+    }
+
     IEnumerator LoadSceneAsync(int sceneID){
         AsyncOperation operation = sceneManager.GetSceneAsync(sceneID);
         

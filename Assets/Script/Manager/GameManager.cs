@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour, IData
     public int currentXP = 0;
     public int maxXP = 220;
     public int rank = 0;
+    private bool[] rankRewardCheck = new bool[10];
 
     [Header("Pools")]
     [SerializeField] RequestPool requestPool;
@@ -139,13 +140,30 @@ public class GameManager : MonoBehaviour, IData
             ShopManager.instance.MaxItem++; // Bug
             RequestManager.instance.maxRequestCapacity++;
 
-            if (rank == 3)
+            switch (rank)
             {
-                RequestManager.instance.requestPerTurn++;
-            }
-            else if (rank == 6)
-            {
-                RequestManager.instance.requestPerTurn++;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    RequestManager.instance.requestPerTurn++;
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    RequestManager.instance.requestPerTurn++;
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    break;
+                case 10:
+                    break;
             }
 
             currentXP -= maxXP;
@@ -178,7 +196,8 @@ public class GameManager : MonoBehaviour, IData
         foreach (KeyValuePair<BuildingType, List<Student>> group in TrainingManager.instance.TrainingGroup)
         {
             List<Student> students = group.Value;
-            foreach(Student student in students.ToList()){
+            foreach (Student student in students.ToList())
+            {
                 if (student == null)
                     continue;
 
@@ -207,7 +226,7 @@ public class GameManager : MonoBehaviour, IData
     public void LoadScene(int buildIndex)
     {
         dataManager.SaveGame();
-        if(buildIndex == 0)
+        if (buildIndex == 0)
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayTitleMusic();
         sceneManager.LoadSceneAsync(buildIndex);
     }
@@ -215,7 +234,7 @@ public class GameManager : MonoBehaviour, IData
     public void LoadScene(string sceneName)
     {
         dataManager.SaveGame();
-        if(sceneName == "Menu")
+        if (sceneName == "Menu")
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayTitleMusic();
         sceneManager.LoadSceneAsync(sceneName);
     }

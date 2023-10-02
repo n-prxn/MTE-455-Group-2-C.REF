@@ -174,7 +174,7 @@ public class GameData
     {
         currentTurn = 0;
         credits = 100000;
-        pyroxenes = 1200;
+        pyroxenes = 1320;
         happiness = 50;
         crimeRate = 50;
         rank = 0;

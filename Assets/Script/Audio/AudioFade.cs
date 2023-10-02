@@ -13,6 +13,8 @@ public static class AudioFade
             audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
             yield return null;
         }
+        if (targetVolume == 0)
+            audioSource.Pause();
         yield break;
     }
 }

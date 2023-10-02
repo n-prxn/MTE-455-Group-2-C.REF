@@ -61,19 +61,22 @@ public class GachaResultUI : MonoBehaviour
 
         List<Student> pulledStudents = gachaPool.PulledStudents;
         List<bool> isNewList = gachaPool.IsNewList;
-        bool hasRare = gachaPool.HasRare;
 
         InitializeResult(pulledStudents, isNewList);
         isNewList.Clear();
         pulledStudents.Clear();
-        hasRare = false;
+        gachaPool.HasRare = false;
     }
 
-    public void SetResultButton(int pullAmount){
-        if(pullAmount <= 1){
+    public void SetResultButton(int pullAmount)
+    {
+        if (pullAmount <= 1)
+        {
             Roll10Button.gameObject.SetActive(false);
             Roll1Button.gameObject.SetActive(true);
-        }else{
+        }
+        else
+        {
             Roll10Button.gameObject.SetActive(true);
             Roll1Button.gameObject.SetActive(false);
         }

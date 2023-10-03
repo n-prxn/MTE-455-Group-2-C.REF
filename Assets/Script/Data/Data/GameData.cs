@@ -118,14 +118,14 @@ public class RequestData
 public class BuildingTrainingData{
     public int id { get; set; }
     public bool isAvailable { get; set; }
-    public int studentCapacity { get; set; }
+    // public int studentCapacity { get; set; }
     public int furnitureCapacity { get; set; }
     public List<int> students { get; set; }
     public BuildingTrainingData(){}
     public BuildingTrainingData(BuildingSO building , List<Student> students){
         id = building.id;
         isAvailable = building.IsAvailable;
-        studentCapacity = building.StudentCapacity;
+        // studentCapacity = building.StudentCapacity;
         furnitureCapacity = building.FurnitureCapacity;
         
         this.students = new List<int>();

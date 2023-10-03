@@ -57,13 +57,13 @@ public class TrainingManager : MonoBehaviour, IData
         for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
             gymStudents.Add(null);
 
-        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+        for (int i = 0; i < GetBuilding(BuildingType.Library).StudentCapacity; i++)
             libraryStudents.Add(null);
 
-        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+        for (int i = 0; i < GetBuilding(BuildingType.Cafe).StudentCapacity; i++)
             cafeStudents.Add(null);
 
-        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+        for (int i = 0; i < GetBuilding(BuildingType.Dormitory).StudentCapacity; i++)
             dormitoryStudents.Add(null);
 
         trainingGroup.Add(BuildingType.Gym, gymStudents);

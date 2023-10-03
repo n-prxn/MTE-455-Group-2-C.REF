@@ -31,11 +31,13 @@ public class FurnitureData
     }
 }
 
-public class ItemData{
-    public int id{get; set;}
-    public int amount{get; set;}
-    public ItemData(){}
-    public ItemData(ItemSO item){
+public class ItemData
+{
+    public int id { get; set; }
+    public int amount { get; set; }
+    public ItemData() { }
+    public ItemData(ItemSO item)
+    {
         id = item.id;
         amount = item.Amount;
     }
@@ -50,8 +52,8 @@ public class StudentData
     public int currentINTStat { get; set; }
     public int currentCOMStat { get; set; }
     public int currentStamina { get; set; }
-    public bool isBuff {get; set;}
-    public int buffDuration {get; set;}
+    public bool isBuff { get; set; }
+    public int buffDuration { get; set; }
     public StudentData() { }
     public StudentData(Student student)
     {
@@ -115,24 +117,30 @@ public class RequestData
     }
 }
 
-public class BuildingTrainingData{
+public class BuildingTrainingData
+{
     public int id { get; set; }
     public bool isAvailable { get; set; }
     public int studentCapacity { get; set; }
     public int furnitureCapacity { get; set; }
     public List<int> students { get; set; }
-    public BuildingTrainingData(){}
-    public BuildingTrainingData(BuildingSO building , List<Student> students){
+    public BuildingTrainingData() { }
+    public BuildingTrainingData(BuildingSO building, List<Student> students)
+    {
         id = building.id;
         isAvailable = building.IsAvailable;
         studentCapacity = building.StudentCapacity;
         furnitureCapacity = building.FurnitureCapacity;
-        
+
         this.students = new List<int>();
-        for (int i = 0 ; i < 7 ; i++){
-            if(students[i] == null){
+        for (int i = 0; i < 7; i++)
+        {
+            if (students[i] == null)
+            {
                 this.students.Add(-1);
-            }else{
+            }
+            else
+            {
                 this.students.Add(students[i].id);
             }
         }
@@ -145,14 +153,15 @@ public class GameData
     public int currentTurn { get; set; }
     public int credits { get; set; }
     public int pyroxenes { get; set; }
+    public int elephs { get; set; }
     public int happiness { get; set; }
     public int crimeRate { get; set; }
     public int rank { get; set; }
     public int currentXP { get; set; }
     public int successRequest { get; set; }
     public int failedRequest { get; set; }
-    public int requestPerTurn {get; set;}
-    public int maxRequestCapacity {get; set;}
+    public int requestPerTurn { get; set; }
+    public int maxRequestCapacity { get; set; }
 
     //Furniture
     public List<FurnitureData> furnitures { get; set; }
@@ -163,8 +172,8 @@ public class GameData
     //Request
     public List<RequestData> requests { get; set; }
 
-    public List<ItemData> items {get; set;}
-    public List<BuildingTrainingData> trainingBuildings {get; set;}
+    public List<ItemData> items { get; set; }
+    public List<BuildingTrainingData> trainingBuildings { get; set; }
 
     //Gacha
     public int rollCount;
@@ -175,6 +184,7 @@ public class GameData
         currentTurn = 0;
         credits = 100000;
         pyroxenes = 1320;
+        elephs = 0;
         happiness = 50;
         crimeRate = 50;
         rank = 0;

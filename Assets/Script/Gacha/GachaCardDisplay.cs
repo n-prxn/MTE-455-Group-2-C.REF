@@ -24,10 +24,23 @@ public class GachaCardDisplay : MonoBehaviour
         if (!isNew)
         {
             GachaPyroxenesBGSelect();
-            pyroxenesText.text = "×" + Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
+            switch (student.rarity)
+            {
+                case Rarity.Common:
+                    pyroxenesText.text = "×" + GachaPool.instance.CommonElephs;
+                    break;
+                case Rarity.Uncommon:
+                    pyroxenesText.text = "×" + GachaPool.instance.UncommonElephs;
+                    break;
+                case Rarity.Rare:
+                    pyroxenesText.text = "×" + GachaPool.instance.RareElephs;
+                    break;
+            }
             pyroxenesPanel.SetActive(true);
             newImage.SetActive(false);
-        }else{
+        }
+        else
+        {
             pyroxenesText.gameObject.SetActive(false);
             pyroxenesPanel.SetActive(false);
             newImage.SetActive(true);

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour, IData
     [Header("Resource Amount")]
     public int credits = 0;
     public int pyroxenes = 0;
+    public int elephs = 0;
     public int happiness = 50;
     public int crimeRate = 50;
     public int rollCost = 0;
@@ -263,6 +264,7 @@ public class GameManager : MonoBehaviour, IData
         currentTurn = data.currentTurn;
         credits = data.credits;
         pyroxenes = data.pyroxenes;
+        elephs = data.elephs;
         happiness = data.happiness;
         crimeRate = data.crimeRate;
         rank = data.rank;
@@ -276,6 +278,7 @@ public class GameManager : MonoBehaviour, IData
         data.currentTurn = currentTurn;
         data.credits = credits;
         data.pyroxenes = pyroxenes;
+        data.elephs = elephs;
         data.happiness = happiness;
         data.crimeRate = crimeRate;
         data.rank = rank;

@@ -17,10 +17,19 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] List<Student> studentsPool;
     public List<Student> StudentsPool { get => studentsPool; set => studentsPool = value; }
 
-
+    [Header("Gacha Rate")]
     [SerializeField] float commonRate = 78.5f;
     [SerializeField] float uncommonRate = 18.5f;
     [SerializeField] float rareRate = 3f;
+
+    [Header("Return Elephs")]
+    [SerializeField] int commonElephs;
+    public int CommonElephs { get => commonElephs; }
+    [SerializeField] int unCommonElephs;
+    public int UncommonElephs { get => unCommonElephs; }
+    [SerializeField] int rareElephs;
+    public int RareElephs { get => rareElephs; }
+
 
     [Header("UI Panel")]
     [SerializeField] GameObject gachaScene;
@@ -161,7 +170,18 @@ public class GachaPool : MonoBehaviour, IData
                 }
                 else
                 {
-                    GameManager.Instance.pyroxenes += Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
+                    switch (pulledStudent.rarity)
+                    {
+                        case Rarity.Common:
+                            GameManager.Instance.elephs += commonElephs;
+                            break;
+                        case Rarity.Uncommon:
+                            GameManager.Instance.elephs += unCommonElephs;
+                            break;
+                        case Rarity.Rare:
+                            GameManager.Instance.elephs += rareElephs;
+                            break;
+                    }
                     isNewList.Add(false);
                 }
                 pulledStudent.Collected = true;

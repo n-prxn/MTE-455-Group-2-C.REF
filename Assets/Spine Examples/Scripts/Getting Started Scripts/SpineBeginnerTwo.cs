@@ -58,7 +58,7 @@ namespace Spine.Unity.Examples {
 		public float runWalkDuration = 1.5f;
 		#endregion
 
-		SkeletonAnimation skeletonAnimation;
+		[SerializeField] SkeletonAnimation skeletonAnimation;
 
 		// Spine.AnimationState and Spine.Skeleton are not Unity-serialized objects. You will not see them as fields in the inspector.
 		public Spine.AnimationState spineAnimationState;

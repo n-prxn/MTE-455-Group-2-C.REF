@@ -28,6 +28,7 @@ public class DialogueBox : MonoBehaviour
         {
             isTyping = true;
             StartCoroutine(TypeDialogue(message[currentMessageIndex]));
+            AronaTutorialCutscene.Instance.ChangeLive2DFace(currentMessageIndex);
         }
 
         if (isEnded)

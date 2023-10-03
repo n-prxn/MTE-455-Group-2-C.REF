@@ -54,16 +54,16 @@ public class TrainingManager : MonoBehaviour, IData
         trainingGroup = new Dictionary<BuildingType, List<Student>>();
         List<Student> gymStudents = new(), libraryStudents = new(), cafeStudents = new(), dormitoryStudents = new();
 
-        for (int i = 0; i < GetBuilding(BuildingType.Gym).StudentCapacity; i++)
+        for (int i = 0; i < 7; i++)
             gymStudents.Add(null);
 
-        for (int i = 0; i < GetBuilding(BuildingType.Library).StudentCapacity; i++)
+        for (int i = 0; i < 7; i++)
             libraryStudents.Add(null);
 
-        for (int i = 0; i < GetBuilding(BuildingType.Cafe).StudentCapacity; i++)
+        for (int i = 0; i < 7; i++)
             cafeStudents.Add(null);
 
-        for (int i = 0; i < GetBuilding(BuildingType.Dormitory).StudentCapacity; i++)
+        for (int i = 0; i < 7; i++)
             dormitoryStudents.Add(null);
 
         trainingGroup.Add(BuildingType.Gym, gymStudents);
@@ -80,13 +80,13 @@ public class TrainingManager : MonoBehaviour, IData
 
     public void Calculate()
     {
-        foreach (Student student in trainingGroup[currentBuilding])
+        foreach (Student student in trainingGroup[currentBuilding].ToList())
         {
             if (student != null)
                 student.ResetTrainedStat();
         }
 
-        foreach (Student student in trainingGroup[currentBuilding])
+        foreach (Student student in trainingGroup[currentBuilding].ToList())
         {
             if (student != null)
             {
@@ -130,10 +130,15 @@ public class TrainingManager : MonoBehaviour, IData
         return trainingGroup[building.BuildingType];
     }
 
-    public int GetStudentAmountInBuilding(){
+    public int GetStudentAmountInBuilding()
+    {
+        if (currentBuilding == BuildingType.Inventory)
+            return 0;
+
         int count = 0;
-        foreach(Student student in trainingGroup[currentBuilding].ToList()){
-            if(student != null)
+        foreach (Student student in trainingGroup[currentBuilding].ToList())
+        {
+            if (student != null)
                 count++;
         }
         return count;
@@ -165,15 +170,15 @@ public class TrainingManager : MonoBehaviour, IData
     {
         int bonus = 0, amount = buildingSO.CurrentFurnitureAmount;
 
-        if (amount >= 10)
+        if (amount >= 5)
             bonus = 6;
-        else if (amount >= 8)
-            bonus = 5;
-        else if (amount >= 6)
-            bonus = 4;
         else if (amount >= 4)
-            bonus = 3;
+            bonus = 5;
+        else if (amount >= 3)
+            bonus = 4;
         else if (amount >= 2)
+            bonus = 3;
+        else if (amount >= 1)
             bonus = 2;
         else if (amount >= 0)
             bonus = 1;
@@ -187,6 +192,64 @@ public class TrainingManager : MonoBehaviour, IData
         student.TrainedINTStat += GetCurrentBuilding().BonusINTTraining;
         student.TrainedCOMStat += GetCurrentBuilding().BonusCOMTraining;
         student.RestedStamina += GetCurrentBuilding().BonusStaminaRested;
+    }
+
+    public int BonusStudentCapacity(BuildingSO buildingSO)
+    {
+        int bonus = 0, amount = buildingSO.CurrentFurnitureAmount;
+        if (amount >= 5)
+            bonus = 7;
+        else if (amount >= 4)
+            bonus = 5;
+        else if (amount >= 3)
+            bonus = 5;
+        else if (amount >= 2)
+            bonus = 3;
+        else if (amount >= 1)
+            bonus = 3;
+        else if (amount >= 0)
+            bonus = 3;
+
+        return bonus;
+    }
+
+    public int BonusStudentCapacity(int furnitureAmount)
+    {
+        int bonus = 0;
+        if (furnitureAmount >= 5)
+            bonus = 7;
+        else if (furnitureAmount >= 4)
+            bonus = 5;
+        else if (furnitureAmount >= 3)
+            bonus = 5;
+        else if (furnitureAmount >= 2)
+            bonus = 3;
+        else if (furnitureAmount >= 1)
+            bonus = 3;
+        else if (furnitureAmount >= 0)
+            bonus = 3;
+
+        return bonus;
+    }
+
+    public void UpdateBuildingBonus(BuildingSO buildingSO)
+    {
+        switch (buildingSO.BuildingType)
+        {
+            case BuildingType.Dormitory:
+                buildingSO.BonusStaminaRested = BonusTraining(buildingSO);
+                break;
+            case BuildingType.Gym:
+                buildingSO.BonusPHYTraining = BonusTraining(buildingSO);
+                break;
+            case BuildingType.Library:
+                buildingSO.BonusINTTraining = BonusTraining(buildingSO);
+                break;
+            case BuildingType.Cafe:
+                buildingSO.BonusCOMTraining = BonusTraining(buildingSO);
+                break;
+        }
+        buildingSO.StudentCapacity = BonusStudentCapacity(buildingSO);
     }
 
     public void LoadData(GameData data)

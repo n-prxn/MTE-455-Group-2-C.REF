@@ -27,7 +27,7 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
 
     void Awake()
     {
-        Deselect();
+        //Deselect();
     }
 
     public void SetData(Student s, SortingMode sortingMode)
@@ -35,8 +35,13 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
         studentData = s;
         portraitImage.sprite = studentData.portrait;
         statusIcon.SetActive(false);
+
+        //borderImage.color = new Color32(0, 177, 255, 255);
+        //detailBox.color = new Color32(164, 235, 255, 255);
         string detail = "";
-        switch(sortingMode){
+
+        switch (sortingMode)
+        {
             case SortingMode.Name:
                 detail = s.name;
                 break;
@@ -62,32 +67,64 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
                 detail = s.CurrentStamina.ToString();
                 break;
         }
+
+        switch (s.rarity)
+        {
+            case Rarity.Common:
+                borderImage.color = new Color32(0, 173, 255, 255);
+                detailBox.color = new Color32(164, 235, 255, 255);
+                break;
+            case Rarity.Uncommon:
+                borderImage.color = new Color32(255, 249, 194, 255);
+                detailBox.color = new Color32(255, 198, 0, 255);
+                break;
+            case Rarity.Rare:
+                borderImage.color = new Color32(204, 0, 255, 255);
+                detailBox.color = new Color32(236, 189, 255, 255);
+                break;
+        }
         detailText.text = detail;
     }
 
-    public void SetStatus(int status){
+    public void SetStatus(int status)
+    {
         statusIcon.SetActive(true);
         icon.sprite = icons[status];
     }
 
-    public void RemoveStatus(){
+    public void RemoveStatus()
+    {
         statusIcon.SetActive(false);
     }
 
-    public void SetColor(Color color){
+    public void SetColor(Color color)
+    {
         portraitImage.color = color;
     }
 
     public void Select()
     {
-        borderImage.color = new Color32(27,188,38,255);
-        detailBox.color = new Color32(206,255,194,255);
+        borderImage.color = new Color32(27, 188, 38, 255);
+        detailBox.color = new Color32(206, 255, 194, 255);
     }
 
     public void Deselect()
     {
-        borderImage.color = new Color32(0,173,255,255);
-        detailBox.color = new Color32(194,235,255,255);
+        switch (studentData.rarity)
+        {
+            case Rarity.Common:
+                borderImage.color = new Color32(0, 173, 255, 255);
+                detailBox.color = new Color32(164, 235, 255, 255);
+                break;
+            case Rarity.Uncommon:
+                borderImage.color = new Color32(255, 249, 194, 255);
+                detailBox.color = new Color32(255, 198, 0, 255);
+                break;
+            case Rarity.Rare:
+                borderImage.color = new Color32(204, 0, 255, 255);
+                detailBox.color = new Color32(236, 189, 255, 255);
+                break;
+        }
     }
 
     public void OnPointerClick(PointerEventData data)

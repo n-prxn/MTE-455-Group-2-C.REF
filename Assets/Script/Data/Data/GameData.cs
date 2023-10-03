@@ -129,11 +129,11 @@ public class BuildingTrainingData{
         furnitureCapacity = building.FurnitureCapacity;
         
         this.students = new List<int>();
-        foreach(Student student in students){
-            if(student == null){
+        for (int i = 0 ; i < 7 ; i++){
+            if(students[i] == null){
                 this.students.Add(-1);
             }else{
-                this.students.Add(student.id);
+                this.students.Add(students[i].id);
             }
         }
     }

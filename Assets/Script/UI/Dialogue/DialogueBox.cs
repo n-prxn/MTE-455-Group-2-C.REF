@@ -41,6 +41,7 @@ public class DialogueBox : MonoBehaviour
                 {
                     nextSign.SetActive(false);
                     playableDirector.Play();
+                    Destroy(this);
                 }
                 else
                 {

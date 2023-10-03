@@ -109,7 +109,7 @@ public class StudentSelectionUI : MonoBehaviour
             unavailablePanel.SetActive(false);
         }
 
-
+        filterPanel.SetActive(false);
         InitializeStudents();
         CheckStatus();
         if (currentSelectedStudent == null)

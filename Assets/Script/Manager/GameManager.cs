@@ -73,6 +73,14 @@ public class GameManager : MonoBehaviour, IData
     {
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+
+        AudioSource audioSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
+        audioSource.loop = false;
+        if(!audioSource.isPlaying)
+        {
+            audioSource.Play();
+            StartCoroutine(AudioFade.StartFade(audioSource,2f, setting.backgroundMusic / 100f));
+        }
     }
 
     // Update is called once per frame

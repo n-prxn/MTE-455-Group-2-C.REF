@@ -144,22 +144,27 @@ public class UIDisplay : MonoBehaviour
 
         studentAmountText.text = SquadController.instance.Students.Count.ToString();
 
-        traineeAmountText.text = TrainingManager.instance.GetStudentAmountInBuilding().ToString() + " / " + TrainingManager.instance.GetCurrentBuilding().StudentCapacity.ToString();
-        furnitureAmountText.text = TrainingManager.instance.GetCurrentBuilding().CurrentFurnitureAmount.ToString();
-        switch (TrainingManager.instance.GetCurrentBuilding().BuildingType)
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay")
         {
-            case BuildingType.Dormitory:
-                bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusStaminaRested.ToString();
-                break;
-            case BuildingType.Gym:
-                bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusPHYTraining.ToString();
-                break;
-            case BuildingType.Library:
-                bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusINTTraining.ToString();
-                break;
-            case BuildingType.Cafe:
-                bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusCOMTraining.ToString();
-                break;
+            traineeAmountText.text = TrainingManager.instance.GetStudentAmountInBuilding().ToString() + " / " + TrainingManager.instance.GetCurrentBuilding().StudentCapacity.ToString();
+            furnitureAmountText.text = TrainingManager.instance.GetCurrentBuilding().CurrentFurnitureAmount.ToString();
+            switch (TrainingManager.instance.GetCurrentBuilding().BuildingType)
+            {
+                case BuildingType.Dormitory:
+                    bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusStaminaRested.ToString();
+                    break;
+                case BuildingType.Gym:
+                    bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusPHYTraining.ToString();
+                    break;
+                case BuildingType.Library:
+                    bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusINTTraining.ToString();
+                    break;
+                case BuildingType.Cafe:
+                    bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusCOMTraining.ToString();
+                    break;
+                case BuildingType.Inventory:
+                    break;
+            }
         }
         //Debug.Log(GameManager.instance.currentXP/GameManager.instance.maxXP);
 

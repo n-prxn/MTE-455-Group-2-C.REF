@@ -37,7 +37,7 @@ public class GachaPool : MonoBehaviour, IData
     public List<bool> IsNewList { get => isNewList; set => isNewList = value; }
 
     bool hasRare = false;
-        public bool HasRare { get => hasRare; set => hasRare = value; }
+    public bool HasRare { get => hasRare; set => hasRare = value; }
 
     public static GachaPool instance;
 
@@ -212,6 +212,7 @@ public class GachaPool : MonoBehaviour, IData
             hasRare = true;
             GameManager.Instance.setting.isGuaranteePull = true;
 
+            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
             gachaResultPanel.SetResultButton(1);
             ToggleGachaScene();
             StartCoroutine(CreateGachaResultCards());

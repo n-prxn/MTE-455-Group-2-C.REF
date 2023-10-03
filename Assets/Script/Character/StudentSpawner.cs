@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class StudentSpawner : MonoBehaviour
 {
@@ -43,6 +44,9 @@ public class StudentSpawner : MonoBehaviour
         if (students.Count <= 0)
             return;
 
+        List<Student> validStudents = students.Where(
+            student => student != null && student.studentModel != null && !student.IsOperating && !student.IsTraining).ToList();
+
         for (int i = 0; i < spawnAmount; i++)
         {
             Student student;
@@ -53,7 +57,7 @@ public class StudentSpawner : MonoBehaviour
             }
             else
             {
-                student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
+                student = validStudents[Mathf.FloorToInt(Random.Range(0, validStudents.Count))];
                 if (studentOnMap.Count > 0)
                     foreach (Student studentList in studentOnMap)
                     {
@@ -63,8 +67,8 @@ public class StudentSpawner : MonoBehaviour
                             do
                             {
                                 loopCount++;
-                                student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
-                            } while ((studentList.id == student.id && student == null && student.studentModel == null && student.IsOperating && (!inBuilding && student.IsTraining)) || loopCount >= 20);
+                                student = validStudents[Mathf.FloorToInt(Random.Range(0, validStudents.Count))];
+                            } while (studentList.id == student.id || loopCount <= 10);
                         }
                     }
                 studentOnMap.Add(student);

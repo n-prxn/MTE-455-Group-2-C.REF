@@ -198,7 +198,7 @@ public class TrainingManager : MonoBehaviour, IData
             BuildingType buildingType = building.BuildingType;
 
             building.IsAvailable = btData.isAvailable;
-            // building.StudentCapacity = btData.studentCapacity;
+            building.StudentCapacity = btData.studentCapacity;
             building.FurnitureCapacity = btData.furnitureCapacity;
 
             for (int i = 0; i < btData.students.Count; i++)

@@ -9,6 +9,7 @@ public class StudentSpawner : MonoBehaviour
     public int maxStudentOnMap;
     private Bounds floor;
     [SerializeField] private List<Student> studentOnMap = new List<Student>();
+    [SerializeField] List<Student> validStudents = new List<Student>();
     [SerializeField] private Transform studentParent;
     void Awake()
     {
@@ -27,8 +28,10 @@ public class StudentSpawner : MonoBehaviour
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Gameplay")
         {
             students = SquadController.instance.Students;
-            if (students.Count > 0)
-                GenerateStudentOnMap(students, students.Count <= maxStudentOnMap ? students.Count : maxStudentOnMap, false);
+            validStudents = students.Where(
+                        student => student.studentModel != null && !student.IsOperating && !student.IsTraining).ToList();
+            if (validStudents.Count > 0)
+                GenerateStudentOnMap(validStudents, validStudents.Count <= maxStudentOnMap ? validStudents.Count : maxStudentOnMap, false);
         }
         else
         {
@@ -44,9 +47,6 @@ public class StudentSpawner : MonoBehaviour
         if (students.Count <= 0)
             return;
 
-        List<Student> validStudents = students.Where(
-            student => student != null && student.studentModel != null && !student.IsOperating && !student.IsTraining).ToList();
-
         for (int i = 0; i < spawnAmount; i++)
         {
             Student student;
@@ -57,7 +57,8 @@ public class StudentSpawner : MonoBehaviour
             }
             else
             {
-                student = validStudents[Mathf.FloorToInt(Random.Range(0, validStudents.Count))];
+
+                student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
                 if (studentOnMap.Count > 0)
                     foreach (Student studentList in studentOnMap)
                     {
@@ -67,7 +68,7 @@ public class StudentSpawner : MonoBehaviour
                             do
                             {
                                 loopCount++;
-                                student = validStudents[Mathf.FloorToInt(Random.Range(0, validStudents.Count))];
+                                student = students[Mathf.FloorToInt(Random.Range(0, students.Count))];
                             } while (studentList.id == student.id || loopCount <= 10);
                         }
                     }
@@ -106,6 +107,7 @@ public class StudentSpawner : MonoBehaviour
                 Destroy(student.gameObject);
             }
         }
+        validStudents.Clear();
         studentOnMap.Clear();
     }
     public Vector3 RandomSpawnpoint()

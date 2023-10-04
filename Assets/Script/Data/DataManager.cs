@@ -47,7 +47,7 @@ public class DataManager : MonoBehaviour
             if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
             {
                 foreach(GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements")){
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
                 }
             }
         }

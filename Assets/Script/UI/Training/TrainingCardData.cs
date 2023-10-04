@@ -65,15 +65,15 @@ public class TrainingCardData : MonoBehaviour, IPointerClickHandler
             COMStat.text = student.CurrentCOMStat.ToString() + "(+" + (student.TrainedCOMStat - student.CurrentCOMStat).ToString() + ")";
             stamina.text = student.CurrentStamina.ToString() + "(+" + (student.RestedStamina - student.CurrentStamina).ToString() + ")";
 
-            currentPHYBar.fillAmount = student.CurrentPHYStat / 60f;
-            currentINTBar.fillAmount = student.CurrentINTStat / 60f;
-            currentCOMBar.fillAmount = student.CurrentCOMStat / 60f;
-            staminaBar.fillAmount = student.CurrentStamina / student.stamina;
+            currentPHYBar.fillAmount = (float)student.CurrentPHYStat / 60f;
+            currentINTBar.fillAmount = (float)student.CurrentINTStat / 60f;
+            currentCOMBar.fillAmount = (float)student.CurrentCOMStat / 60f;
+            staminaBar.fillAmount = (float)student.CurrentStamina / (float)student.stamina;
 
-            trainedPHYBar.fillAmount = (student.CurrentPHYStat + (student.TrainedPHYStat - student.CurrentPHYStat)) / 60f;
-            trainedINTBar.fillAmount = (student.CurrentINTStat + (student.TrainedINTStat - student.CurrentINTStat)) / 60f;
-            trainedCOMBar.fillAmount = (student.CurrentCOMStat + (student.TrainedCOMStat - student.CurrentCOMStat)) / 60f;
-            restedStaminaBar.fillAmount = (student.CurrentStamina + (student.RestedStamina - student.CurrentStamina)) / student.stamina;
+            trainedPHYBar.fillAmount = ((float)student.CurrentPHYStat + (float)(student.TrainedPHYStat - (float)student.CurrentPHYStat)) / 60f;
+            trainedINTBar.fillAmount = (float)(student.CurrentINTStat + ((float)student.TrainedINTStat - (float)student.CurrentINTStat)) / 60f;
+            trainedCOMBar.fillAmount = ((float)student.CurrentCOMStat + ((float)student.TrainedCOMStat - (float)student.CurrentCOMStat)) / 60f;
+            restedStaminaBar.fillAmount = ((float)student.CurrentStamina + ((float)student.RestedStamina - (float)student.CurrentStamina)) / (float)student.stamina;
 
             trainingDaysText.text = "Remaining " + student.TrainingDuration.ToString() + " Day(s)";
 

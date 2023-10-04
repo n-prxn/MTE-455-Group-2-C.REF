@@ -161,6 +161,72 @@ public class TrainingManager : MonoBehaviour, IData
         }
     }
 
+    public void UpdateTrainingProcess()
+    {
+
+    }
+
+    public void UpdateStudentTraining()
+    {
+        foreach (KeyValuePair<BuildingType, List<Student>> building in trainingGroup)
+        {
+            if (building.Key == BuildingType.Dormitory)
+                continue;
+
+            for (int i = 0; i < building.Value.ToList().Count; i++)
+            {
+                Student trainedStudent = building.Value[i];
+                if (trainedStudent == null)
+                    return;
+
+                trainedStudent.TrainingDuration--;
+                if (trainedStudent.TrainingDuration <= 0)
+                {
+                    trainedStudent.IsTraining = false;
+                    trainedStudent.UpdateTrainedStats();
+                    building.Value[i] = null;
+                }
+
+            }
+
+            /*foreach (Student trainedStudent in building.Value.ToList())
+            {
+                if (trainedStudent == null)
+                    continue;
+
+                if (trainedStudent.id == student.id)
+                {
+                    trainedStudent.ResetTrainedStat();
+                    trainedStudent.TrainingDuration = GetCurrentBuilding().TrainingDuration;
+                    trainingGroup[building.Key].Remove(trainedStudent);
+                    trainingGroup[building.Key].Add(null);
+                    return;
+                }
+            }*/
+        }
+    }
+
+    public void UpdateStudentResting()
+    {
+        for (int i = 0; i < trainingGroup[BuildingType.Dormitory].Count; i++)
+        {
+            Student restedStudent = trainingGroup[BuildingType.Dormitory][i];
+            if (restedStudent == null)
+                return;
+
+            restedStudent.TrainingDuration--;
+            if (restedStudent.TrainingDuration <= 0)
+            {
+                restedStudent.UpdateTrainedStats();
+                if (restedStudent.CurrentStamina >= restedStudent.stamina)
+                {
+                    restedStudent.IsTraining = false;
+                    trainingGroup[BuildingType.Dormitory][i] = null;
+                }
+            }
+        }
+    }
+
     public void SetStudentInBuilding(int slot, Student student)
     {
         trainingGroup[currentBuilding][slot] = student;
@@ -171,17 +237,17 @@ public class TrainingManager : MonoBehaviour, IData
         int bonus = 0, amount = buildingSO.CurrentFurnitureAmount;
 
         if (amount >= 5)
-            bonus = 6;
+            bonus = buildingSO.BuildingType == BuildingType.Dormitory ? 20 : 6;
         else if (amount >= 4)
-            bonus = 5;
+            bonus = buildingSO.BuildingType == BuildingType.Dormitory ? 15 : 5;
         else if (amount >= 3)
-            bonus = 4;
+            bonus = buildingSO.BuildingType == BuildingType.Dormitory ? 15 : 4;
         else if (amount >= 2)
-            bonus = 3;
+            bonus = buildingSO.BuildingType == BuildingType.Dormitory ? 10 : 3;
         else if (amount >= 1)
-            bonus = 2;
+            bonus = buildingSO.BuildingType == BuildingType.Dormitory ? 10 : 2;
         else if (amount >= 0)
-            bonus = 1;
+            bonus = buildingSO.BuildingType == BuildingType.Dormitory ? 5 : 1;
 
         return bonus;
     }

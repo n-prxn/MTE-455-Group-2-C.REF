@@ -11,6 +11,7 @@ public class ToggleActiveAnim : MonoBehaviour
     [SerializeField] Button Roll1Button;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] Button skipButton;
+    [SerializeField] GameObject nextSymbol;
     [SerializeField] Image loadingBar;
     [SerializeField] SettingSO setting;
     public SceneManager sceneManager;
@@ -26,6 +27,7 @@ public class ToggleActiveAnim : MonoBehaviour
         playableDirector.Pause();
         playableDirector.Play();
         skipButton.gameObject.SetActive(false);
+        nextSymbol.SetActive(false);
     }
 
     public void PauseAnim()

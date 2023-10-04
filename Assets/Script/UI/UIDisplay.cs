@@ -37,6 +37,7 @@ public class UIDisplay : MonoBehaviour
     [Header("Player Info UI")]
     [SerializeField] TMP_Text locationText;
     [SerializeField] TMP_Text rankText;
+    [SerializeField] TMP_Text XPText;
     [SerializeField] Image xpBar;
 
     [Header("Side Menu")]
@@ -138,6 +139,7 @@ public class UIDisplay : MonoBehaviour
         //Update Rank
         rankText.text = "RANK " + GameManager.Instance.rank.ToString();
         xpBar.fillAmount = (float)GameManager.Instance.currentXP / (float)GameManager.Instance.maxXP;
+        XPText.text = GameManager.Instance.currentXP.ToString() + " / 220";
 
         crimeRateText.text = GameManager.Instance.crimeRate.ToString() + "%";
         happinessText.text = GameManager.Instance.happiness.ToString() + "%";

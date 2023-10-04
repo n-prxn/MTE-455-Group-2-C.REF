@@ -429,7 +429,7 @@ public class SkillDatabase : SkillSO
 
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
         currentRequest.CurrentCredit += (int)(currentRequest.credit * 0.3f);
-        currentRequest.CurrentXP += (int)(currentRequest.credit * 0.3f);
+        currentRequest.CurrentXP += (int)(currentRequest.CurrentXP * 0.3f);
     }
 
     public void SkillAsuna()

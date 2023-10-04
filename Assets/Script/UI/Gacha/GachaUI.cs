@@ -15,7 +15,8 @@ public class GachaUI : MonoBehaviour
             gauranteeButton.SetActive(true);
     }
 
-    private void Update() {
+    private void Update()
+    {
         currentElephs.text = GameManager.Instance.elephs.ToString();
     }
 }

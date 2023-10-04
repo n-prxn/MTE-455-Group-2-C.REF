@@ -12,6 +12,10 @@ public class GachaPool : MonoBehaviour, IData
     [SerializeField] GameObject gachaCard;
     [SerializeField] GameObject gachaCardParent;
 
+    [Header("UI BTN")]
+    [SerializeField] GameObject normalGacha;
+    [SerializeField] GameObject elephsGacha;
+
     [Header("Setting")]
     private int rollCost; //Move to GameManeger
     private int elephsCost;
@@ -155,6 +159,9 @@ public class GachaPool : MonoBehaviour, IData
     //Pull by Amount
     public void Pull(int pullAmount)
     {
+        normalGacha.SetActive(true);
+        elephsGacha.SetActive(false);
+
         if (GameManager.Instance.pyroxenes >= rollCost * pullAmount)
         {
             GameManager.Instance.pyroxenes -= rollCost * pullAmount;
@@ -204,6 +211,9 @@ public class GachaPool : MonoBehaviour, IData
 
     public void GauranteePull()
     {
+        normalGacha.SetActive(false);
+        elephsGacha.SetActive(false);
+
         if (GameManager.Instance.pyroxenes >= rollCost)
         {
             GameManager.Instance.pyroxenes -= rollCost;
@@ -255,6 +265,9 @@ public class GachaPool : MonoBehaviour, IData
 
     public void ElephsPull()
     {
+        normalGacha.SetActive(false);
+        elephsGacha.SetActive(true);
+
         if (GameManager.Instance.elephs >= elephsCost)
         {
             GameManager.Instance.elephs -= elephsCost;

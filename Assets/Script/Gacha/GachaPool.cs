@@ -14,6 +14,7 @@ public class GachaPool : MonoBehaviour, IData
 
     [Header("Setting")]
     private int rollCost; //Move to GameManeger
+    private int elephsCost;
     [SerializeField] List<Student> studentsPool;
     public List<Student> StudentsPool { get => studentsPool; set => studentsPool = value; }
 
@@ -71,6 +72,7 @@ public class GachaPool : MonoBehaviour, IData
     void Start()
     {
         rollCost = GameManager.Instance.rollCost;
+        elephsCost = GameManager.Instance.elephsCost;
     }
 
     // Update is called once per frame
@@ -223,7 +225,18 @@ public class GachaPool : MonoBehaviour, IData
             }
             else
             {
-                GameManager.Instance.pyroxenes += Mathf.FloorToInt(GameManager.Instance.rollCost / 2f);
+                switch (pulledStudent.rarity)
+                {
+                    case Rarity.Common:
+                        GameManager.Instance.elephs += commonElephs;
+                        break;
+                    case Rarity.Uncommon:
+                        GameManager.Instance.elephs += unCommonElephs;
+                        break;
+                    case Rarity.Rare:
+                        GameManager.Instance.elephs += rareElephs;
+                        break;
+                }
                 isNewList.Add(false);
             }
             pulledStudent.Collected = true;
@@ -231,6 +244,55 @@ public class GachaPool : MonoBehaviour, IData
 
             hasRare = true;
             GameManager.Instance.setting.isGuaranteePull = true;
+
+            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+            gachaResultPanel.SetResultButton(1);
+            ToggleGachaScene();
+            StartCoroutine(CreateGachaResultCards());
+            //DataManager.instance.SaveGame();
+        }
+    }
+
+    public void ElephsPull()
+    {
+        if (GameManager.Instance.elephs >= elephsCost)
+        {
+            GameManager.Instance.elephs -= elephsCost;
+            pulledStudents.Clear();
+
+            Student pulledStudent;
+            do
+            {
+                pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
+            } while (pulledStudent.rarity != Rarity.Rare && pulledStudent.rarity != Rarity.Uncommon);
+
+            pulledStudents.Add(pulledStudent);
+
+            if (!pulledStudent.SquadCollect)
+            {
+                SquadController.instance.Receive(pulledStudent);
+                pulledStudent.SquadCollect = true;
+                isNewList.Add(true);
+            }
+            else
+            {
+                switch (pulledStudent.rarity)
+                {
+                    case Rarity.Common:
+                        GameManager.Instance.elephs += commonElephs;
+                        break;
+                    case Rarity.Uncommon:
+                        GameManager.Instance.elephs += unCommonElephs;
+                        break;
+                    case Rarity.Rare:
+                        GameManager.Instance.elephs += rareElephs;
+                        break;
+                }
+                isNewList.Add(false);
+            }
+            pulledStudent.Collected = true;
+            if (pulledStudent.rarity == Rarity.Rare)
+                hasRare = true;
 
             GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
             gachaResultPanel.SetResultButton(1);

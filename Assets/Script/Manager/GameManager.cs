@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour, IData
     public int happiness = 50;
     public int crimeRate = 50;
     public int rollCost = 0;
+    public int elephsCost = 0;
     [Header("Overall Stats")]
     public int successRequest = 0;
     public int failedRequest = 0;

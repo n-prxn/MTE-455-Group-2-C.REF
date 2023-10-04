@@ -64,7 +64,6 @@ public class ToggleActiveAnim : MonoBehaviour
     public void FadeOutMusic()
     {
         AudioSource audioSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
-        audioSource.loop = false;
         StartCoroutine(AudioFade.StartFade(audioSource, 2, 0));
     }
 

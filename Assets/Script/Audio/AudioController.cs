@@ -57,7 +57,7 @@ public class AudioController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0){
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0 || UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 8){
             musicAudioSource.loop = true;
         }else{
             musicAudioSource.loop = false;

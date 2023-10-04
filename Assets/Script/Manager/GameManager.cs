@@ -75,14 +75,15 @@ public class GameManager : MonoBehaviour, IData
     {
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+    }
 
+    private void OnEnable()
+    {
         AudioSource audioSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
         audioSource.loop = false;
-        if(!audioSource.isPlaying)
-        {
-            audioSource.Play();
-            StartCoroutine(AudioFade.StartFade(audioSource,2f, setting.backgroundMusic / 100f));
-        }
+
+        audioSource.Play();
+        StartCoroutine(AudioFade.StartFade(audioSource, 2f, setting.backgroundMusic / 100f));
     }
 
     // Update is called once per frame
@@ -98,21 +99,31 @@ public class GameManager : MonoBehaviour, IData
             if (currentTurn < lastTurn)
             {
                 UIDisplay.instance.PlaySplashScreen();
-                currentTurn++;
-                UpdateRequest();
-                requestPool.DecreaseDays();
-                requestPool.GenerateRequests();
-
-                ShopManager.instance.GenerateShopItems();
-                presentShopUI.InitializeItemSOShelf();
-                furnitureShopUI.InitializeFurnitureShelf();
-                TrainingProcess();
-                SquadController.instance.UpdateStudentBuff();
-
-                GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
-                Debug.Log("Success!!");
+                StartCoroutine(DelayGameProcess());
             }
         }
+    }
+
+    IEnumerator DelayGameProcess()
+    {
+        yield return new WaitForSeconds(1.5f);
+        currentTurn++;
+        happiness--;
+        crimeRate++;
+        UpdateRequest();
+        requestPool.DecreaseDays();
+        requestPool.GenerateRequests();
+
+        ShopManager.instance.GenerateShopItems();
+        presentShopUI.InitializeItemSOShelf();
+        furnitureShopUI.InitializeFurnitureShelf();
+        
+        SquadController.instance.UpdateStudentBuff();
+
+        TrainingManager.instance.UpdateStudentTraining();
+        TrainingManager.instance.UpdateStudentResting();
+
+        GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
     }
 
     public void UpdateRequest()
@@ -138,7 +149,7 @@ public class GameManager : MonoBehaviour, IData
 
     public void RankUp()
     {
-        if (currentXP >= maxXP)
+        while (currentXP >= maxXP)
         {
             rank++;
             if (rank > 10)
@@ -175,7 +186,6 @@ public class GameManager : MonoBehaviour, IData
                 case 10:
                     break;
             }
-
             currentXP -= maxXP;
             //Add Item
         }
@@ -201,7 +211,7 @@ public class GameManager : MonoBehaviour, IData
         request.IsDone = true;
     }
 
-    void TrainingProcess()
+    /*void TrainingProcess()
     {
         foreach (KeyValuePair<BuildingType, List<Student>> group in TrainingManager.instance.TrainingGroup)
         {
@@ -218,14 +228,14 @@ public class GameManager : MonoBehaviour, IData
                     {
                         student.IsTraining = false;
                         student.UpdateTrainedStats();
-                        TrainingManager.instance.RemoveStudentFromBuilding(student);
+                        TrainingManager.instance.RemoveAfterFinishTraining(student);
                     }
                 }
 
                 Debug.Log(student.name + " remains " + student.TrainingDuration + " Days");
             }
         }
-    }
+    }*/
 
     public void BackToPreviousScene()
     {
@@ -247,12 +257,6 @@ public class GameManager : MonoBehaviour, IData
         if (sceneName == "Menu")
             GameObject.Find("AudioController").GetComponent<AudioController>().PlayTitleMusic();
         sceneManager.LoadSceneAsync(sceneName);
-    }
-
-    public void IncreaseXP(int xp)
-    {
-        currentXP += xp;
-        RankUp();
     }
 
     public void QuitGame()

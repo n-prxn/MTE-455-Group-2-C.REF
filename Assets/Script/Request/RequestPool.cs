@@ -14,7 +14,7 @@ public class RequestPool : MonoBehaviour
     void Awake()
     {
         //DontDestroyOnLoad(gameObject);
-        GenerateRequests();
+        //GenerateRequests();
     }
 
     public void GenerateRequests()

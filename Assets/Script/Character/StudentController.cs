@@ -25,6 +25,7 @@ public class StudentController : MonoBehaviour
     private Bounds floor;
     private float timer;
     float rndX, rndZ;
+    Vector3 mouseDownOrigin;
     Vector3 checkBound;
 
     void Awake()
@@ -57,6 +58,7 @@ public class StudentController : MonoBehaviour
     {
         UpdateAnimation();
         Wander();
+        OnLeftClick();
     }
 
     void UpdateAnimation()
@@ -109,6 +111,41 @@ public class StudentController : MonoBehaviour
         } while (checkBound != navMeshAgent.pathEndPosition);
     }
 
+    void OnLeftClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            mouseDownOrigin = Input.mousePosition;
+        }
+        if (Input.GetMouseButtonUp(0) && mouseDownOrigin == Input.mousePosition)
+        {
+            OnClickStudent();
+        }
+    }
+
+    void OnClickStudent()
+    {
+
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Student")))
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            LookAtCam(hit.collider.gameObject);
+        }
+    }
+
+    protected void LookAtCam(GameObject clickStudent)
+    {
+        Vector3 dir = (Camera.main.transform.position - clickStudent.transform.position).normalized;
+        float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+
+        clickStudent.transform.rotation = Quaternion.Euler(0, angle, 0);
+    }
+
     void ShowStudentUI()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -130,7 +167,7 @@ public class StudentController : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {
-        if(collision.gameObject.tag == "Student")
+        if (collision.gameObject.tag == "Student")
         {
             animState = StudentAnimationState.Idle;
         }

@@ -33,7 +33,8 @@ public class DialogueBox : MonoBehaviour
 
         if (isEnded)
         {
-            nextSign.SetActive(true);
+            if (nextSign != null)
+                nextSign.SetActive(true);
             if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
             {
                 currentMessageIndex++;

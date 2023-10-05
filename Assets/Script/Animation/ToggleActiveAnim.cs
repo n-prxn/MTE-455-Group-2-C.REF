@@ -27,7 +27,7 @@ public class ToggleActiveAnim : MonoBehaviour
         playableDirector.Pause();
         playableDirector.Play();
         skipButton.gameObject.SetActive(false);
-        nextSymbol.SetActive(false);
+        Destroy(nextSymbol);
     }
 
     public void PauseAnim()

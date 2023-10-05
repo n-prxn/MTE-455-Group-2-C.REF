@@ -42,6 +42,11 @@ public class Furniture : MonoBehaviour
         get { return isPlaced; }
         set { isPlaced = value; }
     }
+    [SerializeField] private bool isPurchased = false;
+    public bool IsPurchased{
+        get {return isPurchased;}
+        set {isPurchased = value;}
+    }
     [SerializeField] private Vector3 position = new Vector3(0,0,0);
     public Vector3 Position{
         get{return position;}

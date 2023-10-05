@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour, IData
     }
 
     private DataManager dataManager;
-
     public static GameManager Instance;
 
     // Start is called before the first frame update
@@ -111,8 +110,18 @@ public class GameManager : MonoBehaviour, IData
         happiness--;
         crimeRate++;
         UpdateRequest();
-        requestPool.DecreaseDays();
-        requestPool.GenerateRequests();
+
+        if (RequestManager.instance.IsEmergency)
+        {
+            happiness--;
+            crimeRate++;
+        }
+        else
+        {
+            requestPool.DecreaseDays();
+            requestPool.GenerateRequests();
+            requestPool.GenerateEmergencyRequest();
+        }
 
         ShopManager.instance.GenerateShopItems();
         presentShopUI.InitializeItemSOShelf();
@@ -139,7 +148,8 @@ public class GameManager : MonoBehaviour, IData
                     RequestProcess(request);
                     continue;
                 }
-                if(!request.IsOperating){
+                if (!request.IsOperating)
+                {
                     continue;
                 }
                 requests.Add(request);
@@ -210,6 +220,7 @@ public class GameManager : MonoBehaviour, IData
             Debug.Log(request.name + " has failed! with " + request.SuccessRate + "%");
             failedRequest++;
         }
+
         request.IsOperating = false;
         request.IsDone = true;
     }

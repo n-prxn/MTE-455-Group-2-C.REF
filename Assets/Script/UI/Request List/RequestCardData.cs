@@ -22,22 +22,6 @@ public class RequestCardData : MonoBehaviour, IPointerClickHandler
 
     public event Action<RequestCardData> OnCardClicked;
 
-    void Awake(){
-
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void SetData(RequestSO request){
         requestData = request;
         requesterText.text = requestData.requesterName;
@@ -60,6 +44,9 @@ public class RequestCardData : MonoBehaviour, IPointerClickHandler
                 break;
             case Difficulty.Insane:
                 border.color = new Color32(121,76,207,255);
+                break;
+            case Difficulty.Emergency:
+                border.color = Color.red;
                 break;
         }
     }

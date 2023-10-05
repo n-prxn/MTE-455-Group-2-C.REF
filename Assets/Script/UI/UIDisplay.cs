@@ -47,6 +47,7 @@ public class UIDisplay : MonoBehaviour
     [SerializeField] GameObject nextButton;
     [Header("Splash Screen")]
     [SerializeField] GameObject splashScreen;
+    [SerializeField] GameObject emergencyScreen;
 
     [Header("Mode Header")]
     [SerializeField] GameObject placingMode;
@@ -55,6 +56,10 @@ public class UIDisplay : MonoBehaviour
 
     [Header("Character")]
     GameObject characterParent;
+    [Header("Condition")]
+    private bool hasPlayEmergencyScreen = false;
+    public bool HasPlayEmergencyScreen { get => hasPlayEmergencyScreen; set => hasPlayEmergencyScreen = value; }
+
     public static UIDisplay instance;
 
     void Awake()
@@ -103,6 +108,12 @@ public class UIDisplay : MonoBehaviour
             locationText.text = "Schale";
 
             buildingDetailPanel.SetActive(false);
+        }
+
+        if(GameManager.Instance.rank < 3){
+            sidePanel.transform.GetChild(4).gameObject.SetActive(false);
+        }else{
+            sidePanel.transform.GetChild(4).gameObject.SetActive(true);
         }
     }
 
@@ -315,5 +326,14 @@ public class UIDisplay : MonoBehaviour
     public void PlaySplashScreen()
     {
         splashScreen.SetActive(true);
+    }
+
+    public void PlayEmergencyScreen()
+    {
+        if(!hasPlayEmergencyScreen)
+        {
+            emergencyScreen.SetActive(true);
+            hasPlayEmergencyScreen = true;
+        }
     }
 }

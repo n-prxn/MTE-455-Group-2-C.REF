@@ -30,7 +30,7 @@ public class FurnitureShelfData : ItemShelfData
         if(GameManager.Instance.credits < furniture.Cost)
             return;
 
-        IsPurchased = true;
+        furniture.IsPurchased = true;
         InventoryManager.instance.FurnitureList.Add(furniturePrefab);
 
         GameManager.Instance.credits -= furniture.Cost;

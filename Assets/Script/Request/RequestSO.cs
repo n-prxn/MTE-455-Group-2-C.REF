@@ -65,58 +65,58 @@ public class RequestSO : ScriptableObject
     public List<Student> squad = new List<Student>();
 
     [Header("Progress")]
-    private bool isOperating = false;
+    [SerializeField] private bool isOperating = false;
     public bool IsOperating
     {
         get { return isOperating; }
         set { isOperating = value; }
     }
-    private int successRate = 0;
+    [SerializeField] private int successRate = 0;
     public int SuccessRate
     {
         get { return successRate; }
         set { successRate = value; }
     }
-    private int bonusSuccessRate = 0;
+    [SerializeField] private int bonusSuccessRate = 0;
     public int BonusSuccessRate { get => bonusSuccessRate; set => bonusSuccessRate = value; }
 
 
-    private int currentTurn = 0;
+    [SerializeField] private int currentTurn = 0;
     public int CurrentTurn
     {
         get { return currentTurn; }
         set { currentTurn = value; }
     }
 
-    private int expiredCount = 0;
+    [SerializeField] private int expiredCount = 0;
     public int ExpireCount
     {
         get { return expiredCount; }
         set { expiredCount = value; }
     }
 
-    private bool isRead = false;
+    [SerializeField] private bool isRead = false;
     public bool IsRead
     {
         get { return isRead; }
         set { isRead = value; }
     }
 
-    private bool isDone = false;
+    [SerializeField] private bool isDone = false;
     public bool IsDone
     {
         get { return isDone; }
         set { isDone = value; }
     }
 
-    private bool isShow = false;
+    [SerializeField] private bool isShow = false;
     public bool IsShow
     {
         get { return isShow; }
         set { isShow = value; }
     }
 
-    private bool isSuccess = false;
+    [SerializeField] private bool isSuccess = false;
     public bool IsSuccess
     {
         get { return isSuccess; }

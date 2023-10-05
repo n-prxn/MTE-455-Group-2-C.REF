@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -124,7 +120,14 @@ public class RequestListUI : MonoBehaviour
     public void UpdateDescription(RequestCardData data)
     {
         if (data.transform.parent.name == "GeneralList")
-            requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
+        {
+            if(data.RequestData.difficulty == Difficulty.Emergency)
+                {
+                    requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
+                }else{
+                    requestListDescription.SetDescription(data.RequestData, RequestMode.Emergency);
+                }
+        }
 
         if (data.transform.parent.name == "OngoingList")
             requestListDescription.SetDescription(data.RequestData, RequestMode.InProgress);
@@ -137,7 +140,19 @@ public class RequestListUI : MonoBehaviour
     {
         RequestCardData data = requestCardDatas.Find(x => x.RequestData.id == request.id);
         if (data.transform.parent.name == "GeneralList")
-            requestListDescription.SetDescription(request, RequestMode.Available);
+        {
+            if (RequestManager.instance.IsEmergency)
+            {
+                if(request.difficulty == Difficulty.Emergency)
+                {
+                    requestListDescription.SetDescription(request, RequestMode.Available);
+                }else{
+                    requestListDescription.SetDescription(request, RequestMode.Emergency);
+                }
+            }
+            else
+                requestListDescription.SetDescription(request, RequestMode.Available);
+        }
 
         if (data.transform.parent.name == "OngoingList")
             requestListDescription.SetDescription(request, RequestMode.InProgress);

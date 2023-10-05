@@ -20,7 +20,7 @@ public class ItemSOShelfData : ItemShelfData
         if (GameManager.Instance.credits < item.cost)
             return;
 
-        IsPurchased = true;
+        item.isPurchased = true;
         InventoryManager.instance.AddItemToInventory(item);
 
         GameManager.Instance.credits -= item.cost;

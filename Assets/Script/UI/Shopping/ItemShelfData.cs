@@ -15,13 +15,6 @@ public abstract class ItemShelfData : MonoBehaviour
     [SerializeField] protected GameObject buyButton;
     [SerializeField] protected GameObject soldButton;
 
-    protected bool isPurchased = false;
-    public bool IsPurchased
-    {
-        get { return isPurchased; }
-        set { isPurchased = value; }
-    }
-
     // Start is called before the first frame update
     void Start()
     {

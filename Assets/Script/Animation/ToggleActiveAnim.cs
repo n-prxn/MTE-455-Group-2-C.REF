@@ -84,4 +84,10 @@ public class ToggleActiveAnim : MonoBehaviour
         audioSource.Play();
         StartCoroutine(AudioFade.StartFade(audioSource, 2, setting.backgroundMusic / 100));
     }
+    
+    public void PlayEmergencyScene(){
+        if(RequestManager.instance.IsEmergency){
+            UIDisplay.instance.PlayEmergencyScreen();
+        }
+    }
 }

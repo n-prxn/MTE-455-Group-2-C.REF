@@ -658,25 +658,8 @@ public class SkillDatabase : SkillSO
             return;
 
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
-        bool hasToki = false, hasAsuna = false;
-        for (int i = 0; i < 4; i++)
-        {
-            if (currentRequest.squad[i] == null)
-                continue;
 
-            if (currentRequest.squad[i].id == 35)
-                hasToki = true;
-
-            if (currentRequest.squad[i].id == 20)
-                hasAsuna = true;
-        }
-
-        if (hasToki && hasAsuna)
-        {
-            RequestManager.instance.AddAdditionalStatus((int)(currentStudent.CurrentPHYStat * 0.3f),
-            (int)(currentStudent.CurrentINTStat * 0.3f),
-            (int)(currentStudent.CurrentCOMStat * 0.3f));
-        }
+        RequestManager.instance.AddAdditionalStatus((int)(currentRequest.intStat - currentStudent.CurrentINTStat) >= 0 ? currentRequest.intStat - currentStudent.CurrentINTStat : 0, 0, 0);
     }
 
     public void SkillToki()
@@ -685,21 +668,7 @@ public class SkillDatabase : SkillSO
             return;
 
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
-        bool hasRio = false;
-        for (int i = 0; i < 4; i++)
-        {
-            if (currentRequest.squad[i] == null)
-                continue;
-
-            if (currentRequest.squad[i].id == 32)
-                hasRio = true;
-        }
-
-        if (hasRio)
-        {
-            currentRequest.BonusSuccessRate += 10;
-        }
-        currentRequest.BonusSuccessRate += 10;
+        currentRequest.BonusSuccessRate += currentRequest.stamina;
     }
 
     public void SkillNagisa()
@@ -848,8 +817,9 @@ public class SkillDatabase : SkillSO
 
         if (hasAru)
         {
-            currentRequest.BonusSuccessRate += 10;
+            currentRequest.CurrentCredit += (int)(currentRequest.credit * 0.75f);
         }
+        currentRequest.BonusSuccessRate += 30;
     }
 
     public void SkillHoshino()
@@ -991,10 +961,11 @@ public class SkillDatabase : SkillSO
                 SRTStudent++;
         }
 
-        RequestManager.instance.AddAdditionalStatus(
-            (int)(RequestManager.instance.TotalPHYStat * 0.3f),
-            (int)(RequestManager.instance.TotalINTStat * 0.3f),
-            (int)(RequestManager.instance.TotalCOMStat * 0.3f));
+        currentRequest.BonusSuccessRate += 20;
+        if (SRTStudent > 0)
+        {
+            currentRequest.BonusSuccessRate += 20;
+        }
 
     }
 

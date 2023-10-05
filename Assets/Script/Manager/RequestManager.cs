@@ -7,6 +7,9 @@ public class RequestManager : MonoBehaviour, IData
     [Header("Capacity")]
     public int requestPerTurn = 1;
     public int maxRequestCapacity = 3;
+    private bool isEmergency = false;
+    public bool IsEmergency { get => isEmergency; set => isEmergency = value; }
+
     public static RequestManager instance;
     [SerializeField] private List<RequestSO> todayRequests = new List<RequestSO>();
     public List<RequestSO> TodayRequests
@@ -192,6 +195,7 @@ public class RequestManager : MonoBehaviour, IData
     {
         maxRequestCapacity = data.maxRequestCapacity;
         requestPerTurn = data.requestPerTurn;
+        isEmergency = data.isEmergency;
 
         todayRequests.Clear();
         OperatingRequests.Clear();
@@ -259,12 +263,6 @@ public class RequestManager : MonoBehaviour, IData
                     }
                 }
             }
-
-            /*if (request.IsShow && !request.IsOperating)
-                todayRequests.Add(request);*/
-
-            /*if (request.IsDone && !request.IsOperating && request.SquadAmount() > 0)
-                requestListUI.GenerateCompleteCard(request);*/
         }
         requestListUI.GenerateRequestCard();
     }
@@ -273,6 +271,8 @@ public class RequestManager : MonoBehaviour, IData
     {
         data.requestPerTurn = requestPerTurn;
         data.maxRequestCapacity = maxRequestCapacity;
+        data.isEmergency = isEmergency;
+        
         data.requests = new List<RequestData>();
         foreach (RequestSO request in requestPool.RequestsPool)
         {

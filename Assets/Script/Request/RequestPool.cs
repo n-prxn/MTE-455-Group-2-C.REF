@@ -8,6 +8,8 @@ public class RequestPool : MonoBehaviour
     [SerializeField] private List<RequestSO> requestsPool;
     public List<RequestSO> RequestsPool { get => requestsPool; set => requestsPool = value; }
 
+    [SerializeField] private int cooldownEmergency = 20;
+    private int emergencyTimeCount = 0;
 
     // Start is called before the first frame update
     void Awake()
@@ -18,7 +20,6 @@ public class RequestPool : MonoBehaviour
 
     public void GenerateRequests()
     {
-        Debug.Log("Gen Request");
         DeleteExpireRequests();
         for (int i = 0; i < RequestManager.instance.requestPerTurn; i++)
         {
@@ -57,6 +58,28 @@ public class RequestPool : MonoBehaviour
         }
     }
 
+    public void GenerateEmergencyRequest()
+    {
+        if (emergencyTimeCount >= cooldownEmergency)
+        {
+            int chance = GameManager.Instance.crimeRate <= 20 ? 0 : GameManager.Instance.crimeRate;
+            if (Random.Range(1, 100) <= chance)
+            {
+                RequestSO request = RequestsPool[Random.Range(101, 105)];
+                request.IsRead = false;
+                request.IsShow = true;
+                RequestManager.instance.TodayRequests.Add(request);
+
+                RequestManager.instance.IsEmergency = true;
+                emergencyTimeCount = 0;
+
+                UIDisplay.instance.HasPlayEmergencyScreen = false;
+            }
+        }else{
+            emergencyTimeCount++;
+        }
+    }
+
     public void DeleteExpireRequests()
     {
         for (int i = 0; i < RequestManager.instance.TodayRequests.Count; i++)
@@ -64,14 +87,10 @@ public class RequestPool : MonoBehaviour
             RequestSO request = RequestManager.instance.TodayRequests[i];
             if (request.ExpireCount >= request.availableDuration)
             {
-                //Debug.Log(request.name + " expired!");
-                //request.IsDone = true;
-                //request.ExpireCount = 0;
                 request.IsShow = false;
                 RequestManager.instance.TodayRequests.RemoveAt(i);
             }
         }
-        //Debug.Log(RequestManager.instance.TodayRequests);
     }
 
     public void ResetOperatedRequest()

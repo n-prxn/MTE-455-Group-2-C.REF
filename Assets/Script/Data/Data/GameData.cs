@@ -147,6 +147,36 @@ public class BuildingTrainingData
     }
 }
 
+public class FurnitureShop{
+    public int id;
+    public bool isPurchased;
+    public FurnitureShop(){}
+    public FurnitureShop(Furniture furniture){ 
+        id = furniture.ID;
+        isPurchased = furniture.IsPurchased;
+    }
+}
+
+public class PresentShop{
+    public int id;
+    public bool isPurchased;
+    public PresentShop(){}
+    public PresentShop(ItemSO item){
+        id = item.id;
+        isPurchased = item.isPurchased;
+    }
+}
+
+public class TicketShop{
+    public int id;
+    public bool isPurchased;
+    public TicketShop(){}
+    public TicketShop(ItemSO itemSO){
+        id = itemSO.id;
+        isPurchased = itemSO.isPurchased;
+    }
+}
+
 public class GameData
 {
     //General
@@ -162,6 +192,7 @@ public class GameData
     public int failedRequest { get; set; }
     public int requestPerTurn { get; set; }
     public int maxRequestCapacity { get; set; }
+    public bool isEmergency {get; set;}
 
     //Furniture
     public List<FurnitureData> furnitures { get; set; }
@@ -178,6 +209,12 @@ public class GameData
     //Gacha
     public int rollCount;
 
+    //Shop
+    public int maxItem;
+    public List<FurnitureShop> furnitureShops { get; set; }
+    public List<PresentShop> presentShops { get; set; }
+    public List<TicketShop> ticketShops { get; set; }
+
     [JsonConstructor]
     public GameData()
     {
@@ -191,16 +228,23 @@ public class GameData
         currentXP = 0;
         successRequest = 0;
         failedRequest = 0;
+        isEmergency = false;
 
         rollCount = 0;
 
         requestPerTurn = 1;
         maxRequestCapacity = 3;
+        
+        maxItem = 1;
 
         furnitures = new List<FurnitureData>();
         students = new List<StudentData>();
         requests = new List<RequestData>();
         items = new List<ItemData>();
         trainingBuildings = new List<BuildingTrainingData>();
+
+        furnitureShops = new List<FurnitureShop>();
+        presentShops = new List<PresentShop>();
+        ticketShops = new List<TicketShop>();
     }
 }

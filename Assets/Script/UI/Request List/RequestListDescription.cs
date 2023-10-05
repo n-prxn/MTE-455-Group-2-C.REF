@@ -8,7 +8,8 @@ public enum RequestMode
 {
     Available,
     InProgress,
-    WaitResult
+    WaitResult,
+    Emergency
 }
 
 public class RequestListDescription : MonoBehaviour
@@ -64,6 +65,7 @@ public class RequestListDescription : MonoBehaviour
             leftDayText.text = (request.availableDuration - request.ExpireCount).ToString() + " Left Day(s).";
             squadPanel.SetActive(false);
             acceptButton.SetActive(true);
+            acceptButton.GetComponent<Button>().interactable = true;
             resultButton.SetActive(false);
         }
 
@@ -90,6 +92,14 @@ public class RequestListDescription : MonoBehaviour
             squadPanel.SetActive(false);
             acceptButton.SetActive(false);
             resultButton.SetActive(true);
+        }
+
+        if(mode == RequestMode.Emergency){
+            leftDayText.text = "<b>You can't do this task. It's emergency situation.</b>";
+            squadPanel.SetActive(false);
+            acceptButton.SetActive(true);
+            acceptButton.GetComponent<Button>().interactable = false;
+            resultButton.SetActive(false);
         }
     }
 

@@ -33,33 +33,14 @@ public class ResultUI : MonoBehaviour
 
     private RequestSO currentSelectedRequest;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     void OnEnable()
     {
         InitializeResult();
     }
 
-    void Awake()
-    {
-        //squadParent.GetComponent<VerticalLayoutGroup>().spacing += 0.1f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //GameManager.instance.IsPlayable = false;
-    }
-
     public void InitializeResult()
     {
         currentSelectedRequest = RequestManager.instance.CurrentRequest;
-        //currentSelectedRequest.DecreaseStamina(currentSelectedRequest.stamina);
         ClearSquadInfo();
 
         for (int i = 0; i < 4; i++)
@@ -86,6 +67,9 @@ public class ResultUI : MonoBehaviour
             rewardPanel.SetActive(true);
             demeritPanel.SetActive(false);
 
+            if(currentSelectedRequest.difficulty == Difficulty.Emergency)
+                RequestManager.instance.IsEmergency = false;
+
             pyroxeneText.text = currentSelectedRequest.pyroxene.ToString();
             creditText.text = currentSelectedRequest.CurrentCredit.ToString();
             expText.text = currentSelectedRequest.CurrentXP.ToString();
@@ -105,8 +89,6 @@ public class ResultUI : MonoBehaviour
         }
 
         GameManager.Instance.RankUp();
-
-        //squadParent.GetComponent<VerticalLayoutGroup>().spacing -= 0.1f;;[\]'/
     }
 
     void ClearSquadInfo()
@@ -140,5 +122,6 @@ public class ResultUI : MonoBehaviour
     void ReceiveDemerit(RequestSO request){
         GameManager.Instance.happiness += request.demeritHappiness;
         GameManager.Instance.crimeRate += request.demeritCrimeRate;
+        RequestManager.instance.TodayRequests.Add(request);
     }
 }

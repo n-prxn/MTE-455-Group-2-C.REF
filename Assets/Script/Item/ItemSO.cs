@@ -25,6 +25,8 @@ public class ItemSO : ScriptableObject
         set { amount = value; }
     }
 
+    public bool isPurchased = false;
+
     public ItemSkillSO skill;
     [TextArea] public string skillDescription;
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : MonoBehaviour, IData
 {
     public static ShopManager instance;
     [SerializeField] private List<GameObject> furnitureWarehouse = new List<GameObject>();
@@ -94,6 +94,7 @@ public class ShopManager : MonoBehaviour
         {
             GameObject furniture;
             furniture = furnitureWarehouse[i];
+            furniture.GetComponent<Furniture>().IsPurchased = false;
             todayFurnitureWarehouse.Add(furniture);
         }
     }
@@ -106,6 +107,7 @@ public class ShopManager : MonoBehaviour
         {
             ItemSO present;
             present = presentWarehouse[i];
+            present.isPurchased = false;
             todayPresentWarehouse.Add(present);
         }
     }
@@ -118,6 +120,7 @@ public class ShopManager : MonoBehaviour
         {
             ItemSO ticket;
             ticket = ticketWarehouse[i];
+            ticket.isPurchased = false;
             todayTicketWarehouse.Add(ticket);
         }
     }
@@ -134,6 +137,52 @@ public class ShopManager : MonoBehaviour
             T temp = list[i];
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        maxItem = data.maxItem;
+
+        todayFurnitureWarehouse.Clear();
+        foreach(FurnitureShop fData in data.furnitureShops){
+            GameObject furniture = furnitureWarehouse.Find(x => x.GetComponent<Furniture>().ID == fData.id);
+            furniture.GetComponent<Furniture>().IsPurchased = fData.isPurchased;
+            todayFurnitureWarehouse.Add(furniture);
+        }
+
+        todayPresentWarehouse.Clear();
+        foreach(PresentShop pData in data.presentShops){
+            ItemSO present = presentWarehouse.Find(x => x.id == pData.id);
+            present.isPurchased = pData.isPurchased;
+            todayPresentWarehouse.Add(present);
+        }
+        
+        todayTicketWarehouse.Clear();
+        foreach(TicketShop tData in data.ticketShops){
+            ItemSO ticket = ticketWarehouse.Find(x => x.id == tData.id);
+            ticket.isPurchased = tData.isPurchased;
+            todayTicketWarehouse.Add(ticket);
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.maxItem = maxItem;
+
+        data.furnitureShops.Clear();
+        foreach(GameObject furniture in todayFurnitureWarehouse){
+            data.furnitureShops.Add(new FurnitureShop(furniture.GetComponent<Furniture>()));
+        }
+
+        data.presentShops.Clear();
+        foreach(ItemSO present in todayPresentWarehouse){
+            data.presentShops.Add(new PresentShop(present));
+        }
+
+        data.ticketShops.Clear();
+        foreach(ItemSO ticket in todayTicketWarehouse){
+            data.ticketShops.Add(new TicketShop(ticket));
         }
     }
 }

@@ -191,6 +191,7 @@ public class Student : ScriptableObject
         collected = false;
         squadCollect = false;
     }
+    [TextArea] public string cafeText;
 
     public void UpdateTrainedStats()
     {

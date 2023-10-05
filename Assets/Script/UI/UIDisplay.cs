@@ -146,7 +146,7 @@ public class UIDisplay : MonoBehaviour
 
         studentAmountText.text = SquadController.instance.Students.Count.ToString();
 
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay")
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Gameplay" && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Menu" && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Setting")
         {
             traineeAmountText.text = TrainingManager.instance.GetStudentAmountInBuilding().ToString() + " / " + TrainingManager.instance.GetCurrentBuilding().StudentCapacity.ToString();
             furnitureAmountText.text = TrainingManager.instance.GetCurrentBuilding().CurrentFurnitureAmount.ToString();

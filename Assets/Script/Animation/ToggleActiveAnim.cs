@@ -15,6 +15,7 @@ public class ToggleActiveAnim : MonoBehaviour
     [SerializeField] Image loadingBar;
     [SerializeField] SettingSO setting;
     public SceneManager sceneManager;
+
     public void SetInactive(GameObject scene)
     {
         scene.SetActive(false);

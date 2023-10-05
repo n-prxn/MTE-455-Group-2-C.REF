@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -29,10 +30,12 @@ public class StudentController : MonoBehaviour
     Vector3 checkBound;
     [SerializeField] private AudioSource audioSource;
     public AudioClip studentReactVoices;
+    private GachaPool gachaPool;
 
     void Awake()
     {
         audioSource = GameObject.FindGameObjectWithTag("Voice Audio").GetComponent<AudioSource>();
+        gachaPool = GameObject.Find("Gacha").GetComponent<GachaPool>();
         animator = transform.GetChild(0).GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         floor = GameObject.FindGameObjectWithTag("Floor").GetComponent<Renderer>().bounds;
@@ -139,11 +142,23 @@ public class StudentController : MonoBehaviour
 
             LookAtCam(hit.collider.gameObject);
             PlayStudentVoice(hit.collider.gameObject);
+            if (hit.collider.gameObject == gameObject)
+            {
+                ShowBubble();
+            }
         }
     }
 
     protected void LookAtCam(GameObject clickStudent)
     {
+        if (clickStudent == null)
+            return;
+
+        if (!clickStudent.GetComponent<NavMeshAgent>().isStopped)
+        {
+            return;
+        }
+
         Vector3 dir = (Camera.main.transform.position - clickStudent.transform.position).normalized;
         float angle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
 
@@ -152,32 +167,29 @@ public class StudentController : MonoBehaviour
 
     public void PlayStudentVoice(GameObject clickStudent)
     {
+        if (clickStudent == null)
+            return;
+
+        if (audioSource.isPlaying)
+            return;
+
         if (clickStudent.GetComponent<StudentController>().studentReactVoices != null)
         {
-            audioSource.PlayOneShot(clickStudent.GetComponent<StudentController>().studentReactVoices);
+            audioSource.Stop();
+            audioSource.clip = clickStudent.GetComponent<StudentController>().studentReactVoices;
+            audioSource.Play();
+            //audioSource.PlayOneShot(clickStudent.GetComponent<StudentController>().studentReactVoices);
         }
     }
 
-
-
-
-    void ShowStudentUI()
+    void ShowBubble()
     {
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 1000))
-        {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
-            ToggleOptionMenu();
-        }
-    }
-
-    void ToggleOptionMenu()
-    {
-        optionMenu.SetActive(!optionMenu.activeSelf);
+        if (audioSource.isPlaying)
+            return;
+            
+        int studentID = int.Parse(gameObject.name.Substring(0, 2));
+        bubble.transform.GetChild(0).GetComponent<TMP_Text>().text = gachaPool.StudentsPool.Find(x => x.id == studentID).cafeText;
+        bubble.SetActive(true);
     }
 
     void OnCollisionStay(Collision collision)

@@ -177,7 +177,7 @@ public class TrainingManager : MonoBehaviour, IData
             {
                 Student trainedStudent = building.Value[i];
                 if (trainedStudent == null)
-                    return;
+                    continue;
 
                 trainedStudent.TrainingDuration--;
                 if (trainedStudent.TrainingDuration <= 0)
@@ -212,7 +212,7 @@ public class TrainingManager : MonoBehaviour, IData
         {
             Student restedStudent = trainingGroup[BuildingType.Dormitory][i];
             if (restedStudent == null)
-                return;
+                continue;
 
             restedStudent.TrainingDuration--;
             if (restedStudent.TrainingDuration <= 0)

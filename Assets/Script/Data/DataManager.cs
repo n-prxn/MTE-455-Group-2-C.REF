@@ -16,6 +16,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] List<RequestSO> requestPool;
     [SerializeField] List<BuildingSO> buildings;
     [SerializeField] SettingSO setting;
+    [SerializeField] List<GameObject> gameplayElements = new();
     public static DataManager instance { get; private set; }
 
     private void Awake()
@@ -42,12 +43,37 @@ public class DataManager : MonoBehaviour
 
     private void Update()
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Menu")
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Menu" ||
+        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Setting" ||
+        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Collection")
         {
             if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
             {
-                foreach(GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements")){
-                    gameObject.SetActive(false);
+                if (gameplayElements.Count > 0)
+                {
+                    foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements"))
+                    {
+                        gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Gameplay")
+        {
+            if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
+            {
+                if (gameplayElements.Count <= 0)
+                {
+                    foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Gameplay Elements"))
+                    {
+                        gameplayElements.Add(gameObject);
+                    }
+                }
+
+                foreach (GameObject gameObject in gameplayElements)
+                {
+                    gameObject.SetActive(true);
                 }
             }
         }
@@ -73,6 +99,8 @@ public class DataManager : MonoBehaviour
         foreach (RequestSO request in requestPool)
         {
             request.InitializeRequest();
+            if(request.id == 0)
+                request.IsShow = true;
             gameData.requests.Add(new RequestData(request));
         }
 
@@ -118,9 +146,9 @@ public class DataManager : MonoBehaviour
         }
 
         fileHandler.Save(gameData);
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         EditorUtility.SetDirty(setting);
-        #endif
+#endif
         //Debug.Log("Data Manager Save");
     }
 

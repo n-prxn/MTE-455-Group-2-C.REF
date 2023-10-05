@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +24,7 @@ public class RequestListUI : MonoBehaviour
     [SerializeField] GameObject cardParent;
     [SerializeField] GameObject inProgressParent;
     [SerializeField] GameObject completeParent;
+    public GameObject CompleteParent { get => completeParent; set => completeParent = value; }
     [SerializeField] GameObject contentParent;
 
     List<RequestCardData> requestCardDatas = new List<RequestCardData>();
@@ -32,11 +34,12 @@ public class RequestListUI : MonoBehaviour
         get { return completeCardDatas; }
         set { completeCardDatas = value; }
     }
+
     RequestCardData currentSelectedRequest;
     // Start is called before the first frame update
     void Start()
     {
-        GenerateRequestCard();
+        //GenerateRequestCard();
     }
 
     void Awake()
@@ -62,6 +65,7 @@ public class RequestListUI : MonoBehaviour
     {
         GameObject completeCard = Instantiate(requestCardPrefab, completeParent.transform);
         RequestCardData requestCardData = completeCard.GetComponent<RequestCardData>();
+
         requestCardData.SetData(request);
         requestCardData.HideNoticeSymbol();
         requestCardData.OnCardClicked += HandleCardSelection;
@@ -169,6 +173,16 @@ public class RequestListUI : MonoBehaviour
                 if (requestCard.gameObject.GetComponent<RequestCardData>().RequestData.id == currentSelectedRequest.RequestData.id)
                     Destroy(requestCard.gameObject);
             }
+        }
+    }
+
+    public void ResetCompleteList()
+    {
+        foreach (Transform transform in completeParent.transform)
+        {
+            if (transform.GetComponent<RequestCardData>() == null)
+                continue;
+            Destroy(transform.gameObject);
         }
     }
 

@@ -71,12 +71,6 @@ public class RequestManager : MonoBehaviour, IData
         //operatingRequests.Clear();
     }
 
-    public void InitializeRequest()
-    {
-        TodayRequests.Add(requestPool.RequestsPool[0]);
-        requestPool.GenerateRequests();
-    }
-
     public void Calculate()
     {
         ClearTotalStatus();
@@ -201,13 +195,10 @@ public class RequestManager : MonoBehaviour, IData
 
         todayRequests.Clear();
         OperatingRequests.Clear();
-        if(GameManager.Instance.currentTurn == 0)
-            todayRequests.Add(requestPool.StarterRequest);
+        requestListUI.ResetCompleteList();
+
         foreach (RequestData rData in data.requests)
         {
-            if(rData.id == 0)
-                continue;
-                
             RequestSO request = requestPool.RequestsPool.Find(x => x.id == rData.id);
             request.CurrentCredit = rData.currentCredit;
             request.CurrentXP = rData.currentXP;
@@ -254,12 +245,26 @@ public class RequestManager : MonoBehaviour, IData
                 operatingRequests.Add(request);
                 //Debug.Log(request.name + "operated");
             }
+            else
+            {
+                if (request.IsDone)
+                {
+                    requestListUI.GenerateCompleteCard(request);
+                }
+                else
+                {
+                    if (request.IsShow)
+                    {
+                        todayRequests.Add(request);
+                    }
+                }
+            }
 
-            if (request.IsShow && !request.IsOperating)
-                todayRequests.Add(request);
+            /*if (request.IsShow && !request.IsOperating)
+                todayRequests.Add(request);*/
 
-            if (request.IsDone && !request.IsOperating && request.SquadAmount() > 0)
-                requestListUI.GenerateCompleteCard(request);
+            /*if (request.IsDone && !request.IsOperating && request.SquadAmount() > 0)
+                requestListUI.GenerateCompleteCard(request);*/
         }
         requestListUI.GenerateRequestCard();
     }

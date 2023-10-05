@@ -139,6 +139,9 @@ public class GameManager : MonoBehaviour, IData
                     RequestProcess(request);
                     continue;
                 }
+                if(!request.IsOperating){
+                    continue;
+                }
                 requests.Add(request);
             }
 
@@ -210,32 +213,6 @@ public class GameManager : MonoBehaviour, IData
         request.IsOperating = false;
         request.IsDone = true;
     }
-
-    /*void TrainingProcess()
-    {
-        foreach (KeyValuePair<BuildingType, List<Student>> group in TrainingManager.instance.TrainingGroup)
-        {
-            List<Student> students = group.Value;
-            foreach (Student student in students.ToList())
-            {
-                if (student == null)
-                    continue;
-
-                if (student.IsTraining)
-                {
-                    student.TrainingDuration--;
-                    if (student.TrainingDuration <= 0)
-                    {
-                        student.IsTraining = false;
-                        student.UpdateTrainedStats();
-                        TrainingManager.instance.RemoveAfterFinishTraining(student);
-                    }
-                }
-
-                Debug.Log(student.name + " remains " + student.TrainingDuration + " Days");
-            }
-        }
-    }*/
 
     public void BackToPreviousScene()
     {

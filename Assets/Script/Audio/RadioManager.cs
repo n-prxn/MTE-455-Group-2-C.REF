@@ -28,7 +28,7 @@ public class RadioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
+    void OnEnable()
     {
         audioSource.Stop();
         currentMusicIndex = Random.Range(0, radioMusics.Length - 1);

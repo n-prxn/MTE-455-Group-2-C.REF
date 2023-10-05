@@ -14,14 +14,6 @@ public class GameLoader : MonoBehaviour
         dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         studentSpawner = GameObject.FindGameObjectWithTag("Student Parent").GetComponent<StudentSpawner>();
 
-        /*AudioSource audioSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
-        audioSource.loop = false;
-        if(!audioSource.isPlaying)
-        {
-            audioSource.Play();
-            StartCoroutine(AudioFade.StartFade(audioSource,2f, setting.backgroundMusic / 100f));
-        }*/
-
         dataManager.InitializeGame();
         studentSpawner.InitializeStudents();
         Debug.Log("Load Game");

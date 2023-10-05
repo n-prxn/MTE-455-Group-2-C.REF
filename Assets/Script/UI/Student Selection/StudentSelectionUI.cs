@@ -270,7 +270,7 @@ public class StudentSelectionUI : MonoBehaviour
         currentSelectedStudent.IsAssign = true;
 
         RequestManager.instance.UpdateRequest();
-        PlayStudentVoice(currentSelectedStudent);
+        PlayStudentVoice(currentSelectedStudent, 2);
 
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
         currentSelectedStudent = null;
@@ -290,7 +290,7 @@ public class StudentSelectionUI : MonoBehaviour
         currentSelectedStudent.TrainingDuration = TrainingManager.instance.GetCurrentBuilding().TrainingDuration;
         TrainingManager.instance.Calculate();
 
-        PlayStudentVoice(currentSelectedStudent);
+        PlayStudentVoice(currentSelectedStudent, 0);
 
         studentUIDatas.Find(x => x.StudentData.id == currentSelectedStudent.id).Deselect();
 
@@ -449,11 +449,11 @@ public class StudentSelectionUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void PlayStudentVoice(Student student)
+    public void PlayStudentVoice(Student student, int voiceIndex)
     {
         if (student.studentVoices.Length > 0)
         {
-            AudioClip audioClip = student.studentVoices[2];
+            AudioClip audioClip = student.studentVoices[voiceIndex];
             audioSource.PlayOneShot(audioClip);
         }
     }

@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour, IData
         ShopManager.instance.GenerateShopItems();
         presentShopUI.InitializeItemSOShelf();
         furnitureShopUI.InitializeFurnitureShelf();
-        
+
         SquadController.instance.UpdateStudentBuff();
 
         TrainingManager.instance.UpdateStudentTraining();
@@ -263,7 +263,11 @@ public class GameManager : MonoBehaviour, IData
     {
         Application.Quit();
     }
-
+    public void AddEXP(int EXP)
+    {
+        currentXP += EXP;
+        RankUp();
+    }
     public void LoadData(GameData data)
     {
         currentTurn = data.currentTurn;

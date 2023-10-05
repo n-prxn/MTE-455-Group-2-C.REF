@@ -66,7 +66,7 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
-            if (student.IsTraining || student.IsOperating || student.IsBuff)
+            if (student.IsOperating)
                 continue;
 
             student.CurrentStamina += 100;
@@ -77,7 +77,7 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
-            if (student.IsTraining || student.IsOperating || student.IsBuff)
+            if (student.IsOperating)
                 continue;
 
             student.CurrentStamina += 50;
@@ -88,7 +88,7 @@ public class ItemSkillDatabase : ItemSkillSO
     {
         foreach (Student student in SquadController.instance.Students)
         {
-            if (student.IsTraining || student.IsOperating || student.IsBuff)
+            if (student.IsOperating)
                 continue;
 
             student.CurrentStamina += 20;

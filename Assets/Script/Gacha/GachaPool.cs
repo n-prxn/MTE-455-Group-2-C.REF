@@ -201,10 +201,10 @@ public class GachaPool : MonoBehaviour, IData
                 rollCount++;
             }
 
-            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
-            gachaResultPanel.SetResultButton(pullAmount);
             ToggleGachaScene();
             StartCoroutine(CreateGachaResultCards());
+            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+            gachaResultPanel.SetResultButton(pullAmount);
             //DataManager.instance.SaveGame();
         }
     }
@@ -255,10 +255,10 @@ public class GachaPool : MonoBehaviour, IData
             hasRare = true;
             GameManager.Instance.setting.isGuaranteePull = true;
 
-            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
-            gachaResultPanel.SetResultButton(1);
             ToggleGachaScene();
             StartCoroutine(CreateGachaResultCards());
+            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+            gachaResultPanel.SetResultButton(1);
             //DataManager.instance.SaveGame();
         }
     }
@@ -318,10 +318,10 @@ public class GachaPool : MonoBehaviour, IData
             if (pulledStudent.rarity == Rarity.Rare)
                 hasRare = true;
 
-            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
-            gachaResultPanel.SetResultButton(1);
             ToggleGachaScene();
             StartCoroutine(CreateGachaResultCards());
+            GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
+            gachaResultPanel.SetResultButton(1);
             //DataManager.instance.SaveGame();
         }
     }

@@ -27,9 +27,12 @@ public class StudentController : MonoBehaviour
     float rndX, rndZ;
     Vector3 mouseDownOrigin;
     Vector3 checkBound;
+    private AudioSource audioSource;
+    public AudioClip studentReactVoices;
 
     void Awake()
     {
+        audioSource = GameObject.FindGameObjectWithTag("Voice Audio").GetComponent<AudioSource>();
         animator = transform.GetChild(0).GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         floor = GameObject.FindGameObjectWithTag("Floor").GetComponent<Renderer>().bounds;
@@ -135,6 +138,7 @@ public class StudentController : MonoBehaviour
                 return;
 
             LookAtCam(hit.collider.gameObject);
+            PlayStudentVoice(hit.collider.gameObject);
         }
     }
 
@@ -145,6 +149,17 @@ public class StudentController : MonoBehaviour
 
         clickStudent.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
+
+    public void PlayStudentVoice(GameObject clickStudent)
+    {
+        if (clickStudent.GetComponent<StudentController>().studentReactVoices != null)
+        {
+            audioSource.PlayOneShot(clickStudent.GetComponent<StudentController>().studentReactVoices);
+        }
+    }
+
+
+
 
     void ShowStudentUI()
     {

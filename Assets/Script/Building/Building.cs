@@ -65,20 +65,27 @@ public class Building : MonoBehaviour
             }
         }
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.green);
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Building")))
+        if (!GameManager.Instance.uiIsOpen)
         {
-            GameObject obj = hit.collider.gameObject;
-            if (obj.name == gameObject.name)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 10000f, Color.green);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 10000, LayerMask.GetMask("Building")))
             {
-                if (buildingSO.IsAvailable)
+                GameObject obj = hit.collider.gameObject;
+                if (obj.name == gameObject.name)
                 {
-                    balloon.SetActive(true);
-                    balloon.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingIcon;
+                    if (buildingSO.IsAvailable)
+                    {
+                        balloon.SetActive(true);
+                        balloon.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = buildingIcon;
+                    }
+                    else
+                    {
+                        balloon.SetActive(false);
+                    }
                 }
                 else
                 {
@@ -90,9 +97,6 @@ public class Building : MonoBehaviour
                 balloon.SetActive(false);
             }
         }
-        else
-        {
-            balloon.SetActive(false);
-        }
+
     }
 }

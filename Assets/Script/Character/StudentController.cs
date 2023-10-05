@@ -27,7 +27,7 @@ public class StudentController : MonoBehaviour
     float rndX, rndZ;
     Vector3 mouseDownOrigin;
     Vector3 checkBound;
-    private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource;
     public AudioClip studentReactVoices;
 
     void Awake()

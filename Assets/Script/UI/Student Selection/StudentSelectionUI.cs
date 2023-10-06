@@ -458,6 +458,10 @@ public class StudentSelectionUI : MonoBehaviour
         }
     }
 
+    public void SelectTutorialStudent(){
+        HandleStudentSelection(studentUIDatas[0]);
+    }
+
     public void ToggleFiterPanel()
     {
         if (!filterPanel.activeSelf)

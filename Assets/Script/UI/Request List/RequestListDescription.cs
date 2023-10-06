@@ -94,7 +94,8 @@ public class RequestListDescription : MonoBehaviour
             resultButton.SetActive(true);
         }
 
-        if(mode == RequestMode.Emergency){
+        if (mode == RequestMode.Emergency)
+        {
             leftDayText.text = "<b>You can't do this task. It's emergency situation.</b>";
             squadPanel.SetActive(false);
             acceptButton.SetActive(true);

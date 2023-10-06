@@ -217,4 +217,8 @@ public class RequestUI : MonoBehaviour
         RequestManager.instance.CurrentRequest.ResetSquad();
         gameObject.SetActive(false);
     }
+
+    public void ToggleTutorialSelection(){
+        HandleSlotSelection(squadSlots[0]);
+    }
 }

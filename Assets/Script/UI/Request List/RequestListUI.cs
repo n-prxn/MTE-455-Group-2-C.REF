@@ -229,4 +229,8 @@ public class RequestListUI : MonoBehaviour
         idlePanel.SetActive(false);
         requestPanel.SetActive(true);
     }
+
+    public void ToggleTutorialRequest(){
+        HandleCardSelection(requestCardDatas[0]);
+    }
 }

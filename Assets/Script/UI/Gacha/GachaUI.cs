@@ -11,10 +11,10 @@ public class GachaUI : MonoBehaviour
     [SerializeField] Toggle toggleNextBTN;
     private void OnEnable()
     {
-        if (GameManager.Instance.setting.isGuaranteePull)
-            gauranteeButton.SetActive(false);
-        else
-            gauranteeButton.SetActive(true);
+        // if (GameManager.Instance.setting.isGuaranteePull)
+        //     gauranteeButton.SetActive(false);
+        // else
+        //     gauranteeButton.SetActive(true);
             
         if (!toggleNextBTN.isOn)
         {

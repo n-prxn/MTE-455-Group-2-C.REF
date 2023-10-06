@@ -1,12 +1,12 @@
 {
-  "rollCount": 0,
+  "rollCount": 1,
   "maxItem": 1,
-  "currentTurn": 0,
+  "currentTurn": 1,
   "credits": 100000,
-  "pyroxenes": 120,
+  "pyroxenes": 0,
   "elephs": 0,
-  "happiness": 50,
-  "crimeRate": 50,
+  "happiness": 49,
+  "crimeRate": 51,
   "rank": 0,
   "currentXP": 0,
   "successRequest": 0,
@@ -15,7 +15,19 @@
   "maxRequestCapacity": 3,
   "isEmergency": false,
   "furnitures": [],
-  "students": [],
+  "students": [
+    {
+      "id": 33,
+      "collected": true,
+      "squadCollect": true,
+      "currentPHYStat": 18,
+      "currentINTStat": 55,
+      "currentCOMStat": 40,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    }
+  ],
   "requests": [
     {
       "squad": [
@@ -32,13 +44,13 @@
       "currentDemeritHappiness": 0,
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
-      "isRead": false,
+      "isRead": true,
       "isDone": false,
       "isShow": true,
       "isSuccess": false,
       "successRate": 0,
-      "currentTurn": 0,
-      "expiredCount": 0
+      "currentTurn": 1,
+      "expiredCount": 1
     },
     {
       "squad": [
@@ -1069,7 +1081,7 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
@@ -2519,7 +2531,22 @@
       ]
     }
   ],
-  "furnitureShops": [],
-  "presentShops": [],
-  "ticketShops": []
+  "furnitureShops": [
+    {
+      "id": 27,
+      "isPurchased": false
+    }
+  ],
+  "presentShops": [
+    {
+      "id": 9,
+      "isPurchased": false
+    }
+  ],
+  "ticketShops": [
+    {
+      "id": 16,
+      "isPurchased": false
+    }
+  ]
 }

@@ -251,7 +251,7 @@ public class RequestManager : MonoBehaviour, IData
             }
             else
             {
-                if (request.IsDone)
+                if (request.IsDone && request.SquadAmount() > 0)
                 {
                     requestListUI.GenerateCompleteCard(request);
                 }

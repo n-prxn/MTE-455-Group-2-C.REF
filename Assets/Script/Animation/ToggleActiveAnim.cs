@@ -23,7 +23,8 @@ public class ToggleActiveAnim : MonoBehaviour
         Roll1Button.interactable = false;
     }
 
-    public void SkipTutorial(){
+    public void SkipTutorial()
+    {
         playableDirector.time = 9.15f;
         playableDirector.Pause();
         playableDirector.Play();
@@ -84,9 +85,19 @@ public class ToggleActiveAnim : MonoBehaviour
         audioSource.Play();
         StartCoroutine(AudioFade.StartFade(audioSource, 2, setting.backgroundMusic / 100));
     }
-    
-    public void PlayEmergencyScene(){
-        if(RequestManager.instance.IsEmergency){
+
+    public void PlaySFX(AudioClip SFX)
+    {
+        AudioSource audioSource = GameObject.FindGameObjectWithTag("FX Audio").GetComponent<AudioSource>();
+        audioSource.Stop();
+        audioSource.clip = SFX;
+        audioSource.Play();
+    }
+
+    public void PlayEmergencyScene()
+    {
+        if (RequestManager.instance.IsEmergency)
+        {
             UIDisplay.instance.PlayEmergencyScreen();
         }
     }

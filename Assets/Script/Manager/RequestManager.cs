@@ -7,7 +7,7 @@ public class RequestManager : MonoBehaviour, IData
     [Header("Capacity")]
     public int requestPerTurn = 1;
     public int maxRequestCapacity = 3;
-    private bool isEmergency = false;
+    [SerializeField] private bool isEmergency = false;
     public bool IsEmergency { get => isEmergency; set => isEmergency = value; }
 
     public static RequestManager instance;

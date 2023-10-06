@@ -28,7 +28,7 @@ public class RequestPool : MonoBehaviour
                 RequestSO request;
                 do
                 {
-                    request = RequestsPool[Random.Range(1, 100)];
+                    request = RequestsPool[Random.Range(1, 101)];
                 } while (request.IsOperating || (request.IsDone && !request.isRepeatable) || request.IsShow || !IsUnlockedDifficulty(request));
 
                 request.IsRead = false;
@@ -63,9 +63,9 @@ public class RequestPool : MonoBehaviour
         if (emergencyTimeCount >= cooldownEmergency)
         {
             int chance = GameManager.Instance.crimeRate <= 20 ? 0 : GameManager.Instance.crimeRate;
-            if (Random.Range(1, 100) <= chance)
+            if (Random.Range(1, 101) <= chance)
             {
-                RequestSO request = RequestsPool[Random.Range(101, 105)];
+                RequestSO request = RequestsPool[Random.Range(101, 106)];
                 request.IsRead = false;
                 request.IsShow = true;
                 RequestManager.instance.TodayRequests.Add(request);

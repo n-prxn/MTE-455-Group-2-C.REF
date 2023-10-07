@@ -248,7 +248,7 @@ public class StudentSelectionUI : MonoBehaviour
         if (obj.StudentData.IsTraining && selectionMode == SelectionMode.Squad)
             studentDescription.HideButton();
 
-        if(obj.StudentData.CurrentStamina < RequestManager.instance.CurrentRequest.stamina)
+        if(obj.StudentData.CurrentStamina < RequestManager.instance.CurrentRequest.stamina && selectionMode == SelectionMode.Squad)
             studentDescription.HideButton();
 
         obj.Select();

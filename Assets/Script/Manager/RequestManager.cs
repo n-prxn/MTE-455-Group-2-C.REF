@@ -151,6 +151,8 @@ public class RequestManager : MonoBehaviour, IData
             {
                 student.IsOperating = true;
                 student.CurrentStamina -= staminaComsumption;
+                if(student.CurrentStamina > student.stamina)
+                    student.CurrentStamina = student.stamina;
             }
         }
     }

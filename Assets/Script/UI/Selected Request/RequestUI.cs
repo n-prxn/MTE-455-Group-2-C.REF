@@ -50,14 +50,13 @@ public class RequestUI : MonoBehaviour
     void Awake()
     {
         InitializeSquad();
-        successRate.text = "Success Rate : 0%";
     }
 
     // Update is called once per frame
     void Update()
     {
         //GameManager.instance.IsPlayable = false;
-        //UpdateRequestInfo();
+        RequestManager.instance.UpdateRequest();
     }
 
     public void InitializeSquad()
@@ -77,7 +76,6 @@ public class RequestUI : MonoBehaviour
     }
     public void UpdateRequestInfo(RequestSO request)
     {
-
         request.CurrentTurn = request.duration;
         UpdateRequestRequirement(request);
         UpdateSquadUI(request);

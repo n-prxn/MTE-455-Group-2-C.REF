@@ -310,7 +310,7 @@ public class SkillDatabase : SkillSO
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
         currentRequest.CurrentCredit += (int)(currentRequest.credit * 0.75f);
 
-        RequestManager.instance.StaminaComsumption = (int)(RequestManager.instance.StaminaComsumption * 1.2f);
+        RequestManager.instance.StaminaComsumption += (int)(currentRequest.stamina * 0.2f);
     }
 
     public void SkillSuzumi()
@@ -621,7 +621,7 @@ public class SkillDatabase : SkillSO
         if (seminarStudent >= 2)
         {
             currentRequest.BonusSuccessRate += 80;
-            RequestManager.instance.StaminaComsumption = 100;
+            RequestManager.instance.StaminaComsumption += 100;
         }
     }
 
@@ -755,7 +755,7 @@ public class SkillDatabase : SkillSO
 
         if (Random.Range(0, 2) == 0)
         {
-            RequestManager.instance.StaminaComsumption = 0;
+            RequestManager.instance.StaminaComsumption -= 999;
         }
     }
 
@@ -830,7 +830,7 @@ public class SkillDatabase : SkillSO
         if (RequestManager.instance.CurrentRequest == null)
             return;
 
-        RequestManager.instance.StaminaComsumption /= 2;
+        RequestManager.instance.StaminaComsumption -= RequestManager.instance.CurrentRequest.stamina / 2;
     }
 
     public void SkillKizaki()
@@ -915,7 +915,7 @@ public class SkillDatabase : SkillSO
         currentRequest.BonusSuccessRate += 50;
         if(currentRequest.BonusSuccessRate < 50)
             currentRequest.BonusSuccessRate = 50;
-        RequestManager.instance.StaminaComsumption *= 2;
+        RequestManager.instance.StaminaComsumption += currentRequest.stamina;
     }
 
     public void SkillAko()

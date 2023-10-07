@@ -154,9 +154,22 @@ public class UIDisplay : MonoBehaviour
         rankText.text = "RANK " + GameManager.Instance.rank.ToString();
         xpBar.fillAmount = (float)GameManager.Instance.currentXP / (float)GameManager.Instance.maxXP;
         XPText.text = GameManager.Instance.currentXP.ToString() + " / 220";
+        
+        int crimeRate = GameManager.Instance.crimeRate;
+        int happiness = GameManager.Instance.happiness;
 
-        crimeRateText.text = GameManager.Instance.crimeRate.ToString() + "%";
-        happinessText.text = GameManager.Instance.happiness.ToString() + "%";
+        if (happiness < 0)
+            happiness = 0;
+        if (happiness > 100)
+            happiness = 100;
+
+        if (crimeRate < 0)
+            crimeRate = 0;
+        if (crimeRate > 100)
+            crimeRate = 100;
+
+        crimeRateText.text = crimeRate.ToString() + "%";
+        happinessText.text = happiness.ToString() + "%";
 
         studentAmountText.text = SquadController.instance.Students.Count.ToString();
 

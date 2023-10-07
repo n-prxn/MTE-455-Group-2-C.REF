@@ -88,6 +88,7 @@ public class ResultUI : MonoBehaviour
             deCrimeRateText.text = currentSelectedRequest.demeritCrimeRate.ToString();
         }
 
+        currentSelectedRequest.InitializeCurrentReward();
         GameManager.Instance.RankUp();
     }
 
@@ -115,8 +116,6 @@ public class ResultUI : MonoBehaviour
         GameManager.Instance.currentXP += request.id == 0 ? 250 : request.CurrentXP;
         GameManager.Instance.happiness += request.id == 0 ? 1 : request.CurrentHappiness;
         GameManager.Instance.crimeRate += request.id == 0 ? -1 : request.CurrentCrimeRate;
-
-        request.InitializeCurrentReward();
     }
 
     void ReceiveDemerit(RequestSO request)

@@ -89,6 +89,10 @@ public class StudentUIData : MonoBehaviour, IPointerClickHandler
     public void SetStatus(int status)
     {
         statusIcon.SetActive(true);
+        if(status == 3)
+            icon.color = Color.white;
+        else
+            icon.color = new Color32(180,1,1,255);
         icon.sprite = icons[status];
     }
 

@@ -375,7 +375,7 @@ public class GachaPool : MonoBehaviour, IData
         {
             student.Collected = false;
         }
-        DataManager.instance.ClearColleted();
+        // DataManager.instance.ClearColleted();
     }
 
     public void ToggleGachaScene()

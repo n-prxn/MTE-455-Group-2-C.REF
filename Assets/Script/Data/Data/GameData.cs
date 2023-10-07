@@ -58,7 +58,7 @@ public class StudentData
     public StudentData(Student student)
     {
         id = student.id;
-        collected = student.Collected;
+        // collected = student.Collected;
         squadCollect = student.SquadCollect;
         currentPHYStat = student.CurrentPHYStat;
         currentINTStat = student.CurrentINTStat;

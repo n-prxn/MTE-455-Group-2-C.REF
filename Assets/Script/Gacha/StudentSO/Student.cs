@@ -48,7 +48,7 @@ public class Student : ScriptableObject
 
     [Header("Gacha Info")]
     public Rarity rarity;
-    private bool collected;
+    [SerializeField] private bool collected;
     public bool Collected
     {
         get { return collected; }

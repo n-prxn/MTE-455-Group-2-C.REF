@@ -1,15 +1,15 @@
 {
-  "rollCount": 1,
+  "rollCount": 0,
   "maxItem": 1,
-  "currentTurn": 150,
+  "currentTurn": 0,
   "credits": 100000,
-  "pyroxenes": 0,
+  "pyroxenes": 120,
   "elephs": 0,
-  "happiness": -1,
-  "crimeRate": 101,
+  "happiness": 50,
+  "crimeRate": 50,
   "rank": 0,
   "currentXP": 0,
-  "successRequest": 1,
+  "successRequest": 0,
   "failedRequest": 0,
   "requestPerTurn": 1,
   "maxRequestCapacity": 3,
@@ -17,11 +17,550 @@
   "furnitures": [],
   "students": [
     {
+      "id": 1,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 14,
+      "currentINTStat": 32,
+      "currentCOMStat": 23,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 2,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 35,
+      "currentINTStat": 18,
+      "currentCOMStat": 15,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 3,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 12,
+      "currentINTStat": 23,
+      "currentCOMStat": 33,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 4,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 15,
+      "currentINTStat": 27,
+      "currentCOMStat": 30,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 5,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 12,
+      "currentINTStat": 25,
+      "currentCOMStat": 36,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 6,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 20,
+      "currentINTStat": 35,
+      "currentCOMStat": 11,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 7,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 13,
+      "currentINTStat": 10,
+      "currentCOMStat": 7,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 8,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 25,
+      "currentINTStat": 15,
+      "currentCOMStat": 15,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 9,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 15,
+      "currentINTStat": 21,
+      "currentCOMStat": 22,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 10,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 20,
+      "currentINTStat": 30,
+      "currentCOMStat": 20,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 11,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 28,
+      "currentINTStat": 18,
+      "currentCOMStat": 32,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 12,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 30,
+      "currentINTStat": 17,
+      "currentCOMStat": 24,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 13,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 11,
+      "currentINTStat": 25,
+      "currentCOMStat": 36,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 14,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 21,
+      "currentINTStat": 29,
+      "currentCOMStat": 22,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 15,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 18,
+      "currentINTStat": 21,
+      "currentCOMStat": 33,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 16,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 33,
+      "currentINTStat": 15,
+      "currentCOMStat": 31,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 17,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 18,
+      "currentINTStat": 12,
+      "currentCOMStat": 16,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 18,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 45,
+      "currentINTStat": 12,
+      "currentCOMStat": 21,
+      "currentStamina": 100,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 19,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 20,
+      "currentINTStat": 41,
+      "currentCOMStat": 35,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 20,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 53,
+      "currentINTStat": 15,
+      "currentCOMStat": 16,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 21,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 25,
+      "currentINTStat": 45,
+      "currentCOMStat": 16,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 22,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 20,
+      "currentINTStat": 43,
+      "currentCOMStat": 32,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 23,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 20,
+      "currentINTStat": 18,
+      "currentCOMStat": 30,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 24,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 25,
+      "currentINTStat": 30,
+      "currentCOMStat": 38,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 25,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 19,
+      "currentINTStat": 38,
+      "currentCOMStat": 36,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 26,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 38,
+      "currentINTStat": 20,
+      "currentCOMStat": 32,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 27,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 35,
+      "currentINTStat": 18,
+      "currentCOMStat": 33,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 28,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 37,
+      "currentINTStat": 26,
+      "currentCOMStat": 34,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 29,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 35,
+      "currentINTStat": 34,
+      "currentCOMStat": 37,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 30,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 34,
+      "currentINTStat": 23,
+      "currentCOMStat": 37,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 31,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 25,
+      "currentINTStat": 16,
+      "currentCOMStat": 27,
+      "currentStamina": 120,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 32,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 30,
+      "currentINTStat": 52,
+      "currentCOMStat": 32,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 33,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 18,
+      "currentINTStat": 55,
+      "currentCOMStat": 40,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 34,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 58,
+      "currentINTStat": 20,
+      "currentCOMStat": 34,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 35,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 56,
+      "currentINTStat": 23,
+      "currentCOMStat": 36,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 36,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 25,
+      "currentINTStat": 48,
+      "currentCOMStat": 49,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 37,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 60,
+      "currentINTStat": 30,
+      "currentCOMStat": 33,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 38,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 57,
+      "currentINTStat": 30,
+      "currentCOMStat": 12,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 39,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 49,
+      "currentINTStat": 40,
+      "currentCOMStat": 25,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
       "id": 40,
-      "collected": true,
-      "squadCollect": true,
+      "collected": false,
+      "squadCollect": false,
       "currentPHYStat": 58,
       "currentINTStat": 30,
+      "currentCOMStat": 30,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 41,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 45,
+      "currentINTStat": 20,
+      "currentCOMStat": 40,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 42,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 31,
+      "currentINTStat": 40,
+      "currentCOMStat": 35,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 43,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 29,
+      "currentINTStat": 49,
+      "currentCOMStat": 42,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 44,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 57,
+      "currentINTStat": 38,
+      "currentCOMStat": 26,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 45,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 21,
+      "currentINTStat": 52,
+      "currentCOMStat": 52,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 46,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 40,
+      "currentINTStat": 38,
+      "currentCOMStat": 38,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 47,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 10,
+      "currentINTStat": 55,
+      "currentCOMStat": 45,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 48,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 22,
+      "currentINTStat": 50,
+      "currentCOMStat": 48,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 49,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 50,
+      "currentINTStat": 40,
+      "currentCOMStat": 30,
+      "currentStamina": 150,
+      "isBuff": false,
+      "buffDuration": 0
+    },
+    {
+      "id": 50,
+      "collected": false,
+      "squadCollect": false,
+      "currentPHYStat": 52,
+      "currentINTStat": 43,
       "currentCOMStat": 30,
       "currentStamina": 150,
       "isBuff": false,
@@ -31,7 +570,7 @@
   "requests": [
     {
       "squad": [
-        40,
+        -1,
         -1,
         -1,
         -1
@@ -44,11 +583,11 @@
       "currentDemeritHappiness": 0,
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
-      "isRead": true,
-      "isDone": true,
+      "isRead": false,
+      "isDone": false,
       "isShow": true,
-      "isSuccess": true,
-      "successRate": 100,
+      "isSuccess": false,
+      "successRate": 0,
       "currentTurn": 0,
       "expiredCount": 0
     },
@@ -138,11 +677,11 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": true,
+      "isShow": false,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 1
+      "expiredCount": 0
     },
     {
       "squad": [
@@ -175,7 +714,7 @@
         -1
       ],
       "id": 6,
-      "currentCredit": 0,
+      "currentCredit": 8323,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
@@ -267,7 +806,7 @@
         -1
       ],
       "id": 10,
-      "currentCredit": 5844,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
@@ -290,7 +829,7 @@
         -1
       ],
       "id": 11,
-      "currentCredit": 8023,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": -1,
       "currentCrimeRate": 0,
@@ -635,7 +1174,7 @@
         -1
       ],
       "id": 26,
-      "currentCredit": 6665,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 2,
@@ -690,7 +1229,7 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": true,
+      "isShow": false,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
@@ -796,7 +1335,7 @@
         -1
       ],
       "id": 33,
-      "currentCredit": 0,
+      "currentCredit": 8512,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 1,
@@ -819,7 +1358,7 @@
         -1
       ],
       "id": 34,
-      "currentCredit": 0,
+      "currentCredit": 9716,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
@@ -865,7 +1404,7 @@
         -1
       ],
       "id": 36,
-      "currentCredit": 9158,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
@@ -1072,7 +1611,7 @@
         -1
       ],
       "id": 45,
-      "currentCredit": 8643,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": 0,
       "currentCrimeRate": 0,
@@ -1187,7 +1726,7 @@
         -1
       ],
       "id": 50,
-      "currentCredit": 6741,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": 0,
       "currentCrimeRate": 3,
@@ -1463,7 +2002,7 @@
         -1
       ],
       "id": 62,
-      "currentCredit": 0,
+      "currentCredit": 5034,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
@@ -1532,7 +2071,7 @@
         -1
       ],
       "id": 65,
-      "currentCredit": 6199,
+      "currentCredit": 0,
       "currentXP": 10,
       "currentHappiness": -2,
       "currentCrimeRate": 0,
@@ -2531,22 +3070,7 @@
       ]
     }
   ],
-  "furnitureShops": [
-    {
-      "id": 13,
-      "isPurchased": false
-    }
-  ],
-  "presentShops": [
-    {
-      "id": 0,
-      "isPurchased": false
-    }
-  ],
-  "ticketShops": [
-    {
-      "id": 14,
-      "isPurchased": false
-    }
-  ]
+  "furnitureShops": [],
+  "presentShops": [],
+  "ticketShops": []
 }

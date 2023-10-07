@@ -86,7 +86,7 @@ public class RadioManager : MonoBehaviour
         int newMusicIndex;
         do
         {
-            newMusicIndex = Random.Range(0, radioMusics.Length - 1);
+            newMusicIndex = Random.Range(0, radioMusics.Length);
         } while (newMusicIndex == currentMusicIndex);
         currentMusicIndex = newMusicIndex;
 

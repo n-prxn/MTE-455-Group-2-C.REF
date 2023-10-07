@@ -63,7 +63,7 @@ public class TutorialManager : MonoBehaviour
         tutorialPanel.SetActive(false);
         tutorialIndex++;
 
-        if(tutorialIndex > tutorials.Length - 1){
+        if(tutorialIndex >= tutorials.Length - 1){
             setting.hasPlayTutorial = true;
             gameObject.SetActive(false);
             return;

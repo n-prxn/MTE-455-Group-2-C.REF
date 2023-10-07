@@ -49,7 +49,7 @@ public class AudioController : MonoBehaviour
         if (!setting.isTitleVoicePlay)
         {
             setting.isTitleVoicePlay = true;
-            voiceAudioSource.clip = titleVoice[Random.Range(0, titleVoice.Length - 1)];
+            voiceAudioSource.clip = titleVoice[Random.Range(0, titleVoice.Length)];
             StartCoroutine(WaitForFade());
         }
     }

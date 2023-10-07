@@ -61,6 +61,8 @@ public class GachaResultCardData : MonoBehaviour
         INTText.text = s.intStat.ToString();
         COMText.text = s.comStat.ToString();
 
+        staminaText.text = s.stamina.ToString();
+
         skillIcon.sprite = s.skillIcon;
         skillNameText.text = s.skillName;
         skillDescText.text = s.skillDescription;

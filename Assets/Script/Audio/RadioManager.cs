@@ -31,7 +31,7 @@ public class RadioManager : MonoBehaviour
     void OnEnable()
     {
         audioSource.Stop();
-        currentMusicIndex = Random.Range(0, radioMusics.Length - 1);
+        currentMusicIndex = Random.Range(0, radioMusics.Length);
         audioSource.clip = radioMusics[currentMusicIndex].RadioAudio;
         audioSource.Play();
 

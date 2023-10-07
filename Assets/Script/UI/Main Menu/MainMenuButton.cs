@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.IO;
+using Palmmedia.ReportGenerator.Core;
 
 public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -20,15 +21,18 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] GameObject collectionScene;
     [SerializeField] GameObject settingScene;
     [SerializeField] GameObject quitScene;
+    [SerializeField] private SettingSO setting;
     void Awake()
     {
         SFXSource = GameObject.FindGameObjectWithTag("FX Audio").GetComponent<AudioSource>();
         string pathSaveName = Path.Combine(Application.dataPath, "GameDataSave.json");
-        
+
         if (!File.Exists(pathSaveName) && gameObject.name == "Button 2")
         {
             gameObject.SetActive(false);
-        }else{
+        }
+        else
+        {
             gameObject.SetActive(true);
         }
     }
@@ -50,7 +54,25 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void GoToNewGame()
     {
         string pathSaveName = Path.Combine(Application.dataPath, "GameDataSave.json");
-        if(File.Exists(pathSaveName)){
+
+
+        setting.hasPlayTutorial = false;
+        DataManager.instance.gameplayElements.Clear();
+        foreach (GameObject i in GetDontDestroyOnLoadObjects())
+        {
+            if (i.name == "AudioController" || i.name == "DataManager")
+            {
+                continue;
+            }
+            else
+            {
+                Destroy(i);
+            }
+        }
+
+
+        if (File.Exists(pathSaveName))
+        {
             File.Delete(pathSaveName);
             Debug.Log("Delete Old Save");
         }
@@ -76,5 +98,25 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void GoToQuit()
     {
         quitScene.SetActive(true);
+    }
+
+    public static GameObject[] GetDontDestroyOnLoadObjects()
+    {
+        GameObject temp = null;
+        try
+        {
+            temp = new GameObject();
+            Object.DontDestroyOnLoad(temp);
+            UnityEngine.SceneManagement.Scene dontDestroyOnLoad = temp.scene;
+            Object.DestroyImmediate(temp);
+            temp = null;
+
+            return dontDestroyOnLoad.GetRootGameObjects();
+        }
+        finally
+        {
+            if (temp != null)
+                Object.DestroyImmediate(temp);
+        }
     }
 }

@@ -14,7 +14,7 @@ public class TutorialManager : MonoBehaviour
 {
     [SerializeField] Tutorial[] tutorials;
     [SerializeField] private int tutorialIndex;
-        public int TutorialIndex { get => tutorialIndex; set => tutorialIndex = value; }
+    public int TutorialIndex { get => tutorialIndex; set => tutorialIndex = value; }
 
     [SerializeField] private SettingSO setting;
 
@@ -29,12 +29,13 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tutorials[tutorialIndex].tutorialPanel.SetActive(true);
+
     }
 
     private void OnEnable()
     {
         GameManager.Instance.uiIsOpen = true;
+        tutorials[tutorialIndex].tutorialPanel.SetActive(true);
     }
 
     void Update()
@@ -63,8 +64,10 @@ public class TutorialManager : MonoBehaviour
         tutorialPanel.SetActive(false);
         tutorialIndex++;
 
-        if(tutorialIndex >= tutorials.Length - 1){
+        if (tutorialIndex > tutorials.Length - 1)
+        {
             setting.hasPlayTutorial = true;
+            tutorialIndex = 0;
             gameObject.SetActive(false);
             return;
         }
@@ -73,7 +76,9 @@ public class TutorialManager : MonoBehaviour
         {
             gameObject.GetComponent<Image>().enabled = false;
             return;
-        }else{
+        }
+        else
+        {
             gameObject.GetComponent<Image>().enabled = true;
         }
 
@@ -102,7 +107,8 @@ public class TutorialManager : MonoBehaviour
         GameManager.Instance.uiIsOpen = false;
     }
 
-    public void SetInactive(){
+    public void SetInactive()
+    {
         gameObject.SetActive(false);
     }
 }

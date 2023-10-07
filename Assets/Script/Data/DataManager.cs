@@ -16,7 +16,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] List<RequestSO> requestPool;
     [SerializeField] List<BuildingSO> buildings;
     [SerializeField] SettingSO setting;
-    [SerializeField] List<GameObject> gameplayElements = new();
+    [SerializeField] public List<GameObject> gameplayElements = new();
     public static DataManager instance { get; private set; }
 
     private void Awake()

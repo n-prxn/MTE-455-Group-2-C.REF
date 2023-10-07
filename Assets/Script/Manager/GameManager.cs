@@ -80,16 +80,18 @@ public class GameManager : MonoBehaviour, IData
 
     private void OnEnable()
     {
+        dataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        GameObject.FindWithTag("Student Parent").GetComponent<StudentSpawner>().InitializeStudents();
         AudioSource audioSource = GameObject.FindGameObjectWithTag("Music Audio").GetComponent<AudioSource>();
         audioSource.loop = false;
 
         audioSource.Play();
         StartCoroutine(AudioFade.StartFade(audioSource, 2f, setting.backgroundMusic / 100f));
-    
-        if(!setting.hasPlayTutorial)
+
+        if (!setting.hasPlayTutorial)
         {
             tutorial.SetActive(true);
-            setting.hasPlayTutorial = true;
+            // setting.hasPlayTutorial = true;
         }
         else
             tutorial.SetActive(false);
@@ -109,7 +111,9 @@ public class GameManager : MonoBehaviour, IData
             {
                 UIDisplay.instance.PlaySplashScreen();
                 StartCoroutine(DelayGameProcess());
-            }else{
+            }
+            else
+            {
                 ShowEnding();
             }
         }
@@ -135,14 +139,14 @@ public class GameManager : MonoBehaviour, IData
             requestPool.GenerateEmergencyRequest();
         }
 
-        if(happiness < 0)
+        if (happiness < 0)
             happiness = 0;
-        if(happiness > 100)
+        if (happiness > 100)
             happiness = 100;
 
-        if(crimeRate < 0)
+        if (crimeRate < 0)
             crimeRate = 0;
-        if(crimeRate > 100)
+        if (crimeRate > 100)
             crimeRate = 100;
 
         ShopManager.instance.GenerateShopItems();
@@ -279,13 +283,14 @@ public class GameManager : MonoBehaviour, IData
         RankUp();
     }
 
-    public void ShowEnding(){
+    public void ShowEnding()
+    {
         int endingResult = (100 - happiness) + crimeRate;
-        if(endingResult >= 150)
+        if (endingResult >= 150)
             sceneManager.LoadScene("Bad Ending");
-        else if(endingResult <= 50)
+        else if (endingResult <= 50)
             sceneManager.LoadScene("Good Ending");
-        else   
+        else
             sceneManager.LoadScene("True Ending");
 
     }

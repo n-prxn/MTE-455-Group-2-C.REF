@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour, IData
 
     [Header("Scene")]
     public SceneManager sceneManager;
+    [Header("Reward Rank Up")]
+    public GameObject rankUpNoticePanel;
 
     [Header("Setting SO")]
     public SettingSO setting;
@@ -207,6 +209,10 @@ public class GameManager : MonoBehaviour, IData
             pyroxenes += 1200;
             credits += 40000;
 
+            //Give Item
+            ItemSO present = ShopManager.instance.PresentWarehouse[Random.Range(0,ShopManager.instance.PresentWarehouse.Count)];
+            InventoryManager.instance.AddItemToInventory(present);
+
             ShopManager.instance.MaxItem++; // Bug
             RequestManager.instance.maxRequestCapacity++;
 
@@ -236,6 +242,8 @@ public class GameManager : MonoBehaviour, IData
                     break;
             }
             currentXP -= maxXP;
+
+            UIDisplay.instance.GenerateLevelUpNotification(present);
             //Add Item
         }
     }

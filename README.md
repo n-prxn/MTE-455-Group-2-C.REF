@@ -94,7 +94,7 @@ Game Developer / Game Tester<br>
 
 Multimedia Technology, Thai - Nichi Institute of Technology<br>
 
-Special Thank<br>
+<strong>Special Thank</strong><br>
 All materials and assets is the copyright of NEXON Games Co., Ltd.,
 
 

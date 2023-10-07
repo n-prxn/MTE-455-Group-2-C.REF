@@ -43,9 +43,14 @@ public class DataManager : MonoBehaviour
 
     private void Update()
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Menu" ||
-        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Setting" ||
-        UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Collection")
+        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (sceneName == "Menu" ||
+         sceneName == "Setting" ||
+         sceneName == "Collection" ||
+         sceneName == "Good Ending" ||
+         sceneName == "True Ending" ||
+         sceneName == "Bad Ending" ||
+         sceneName == "Tutorial Cutscene")
         {
             if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
             {
@@ -99,7 +104,7 @@ public class DataManager : MonoBehaviour
         foreach (RequestSO request in requestPool)
         {
             request.InitializeRequest();
-            if(request.id == 0)
+            if (request.id == 0)
                 request.IsShow = true;
             gameData.requests.Add(new RequestData(request));
         }
@@ -114,6 +119,7 @@ public class DataManager : MonoBehaviour
             building.InitializeBuilding();
 
         setting.isGuaranteePull = false;
+        setting.hasPlayTutorial = false;
         //Debug.Log("New Game");
     }
 

@@ -267,6 +267,7 @@ public class StudentSelectionUI : MonoBehaviour
 
         RequestManager.instance.CurrentRequest.squad[slotIndex] = currentSelectedStudent;
         RequestManager.instance.Calculate();
+        Debug.Log(currentSelectedStudent.name);
         currentSelectedStudent.IsAssign = true;
 
         RequestManager.instance.UpdateRequest();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
@@ -26,6 +27,15 @@ public class ToggleActiveAnim : MonoBehaviour
     public void SkipTutorial()
     {
         playableDirector.time = 9.15f;
+        playableDirector.Pause();
+        playableDirector.Play();
+        skipButton.gameObject.SetActive(false);
+        Destroy(nextSymbol);
+    }
+
+    public void SkipGoodEnding()
+    {
+        playableDirector.time = 3f;
         playableDirector.Pause();
         playableDirector.Play();
         skipButton.gameObject.SetActive(false);
@@ -100,5 +110,24 @@ public class ToggleActiveAnim : MonoBehaviour
         {
             UIDisplay.instance.PlayEmergencyScreen();
         }
+    }
+
+    public void HideSkipButton()
+    {
+        skipButton.gameObject.SetActive(false);
+    }
+
+    public void NewGame()
+    {
+        string pathSaveName = Path.Combine(Application.dataPath, "GameDataSave.json");
+        if (File.Exists(pathSaveName))
+        {
+            File.Delete(pathSaveName);
+            Debug.Log("Delete Old Save");
+        }
+    }
+
+    public void ShowTutorial(int index){
+        TutorialManager.instance.ShowTutorial(index);
     }
 }

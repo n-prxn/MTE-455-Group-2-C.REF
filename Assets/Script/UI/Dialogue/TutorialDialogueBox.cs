@@ -11,6 +11,8 @@ public class TutorialDialogueBox : MonoBehaviour
     [SerializeField] GameObject nextSign;
     bool isTyping = false;
     bool isEnded = false;
+    public bool canShowNextTutorial = false;
+
     int currentMessageIndex = 0;
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,10 @@ public class TutorialDialogueBox : MonoBehaviour
         currentMessageIndex = 0;
         messageText.text = "";
         //nextSign.SetActive(false);
+    }
+
+    void Awake(){
+        canShowNextTutorial = false;
     }
 
     // Update is called once per frame
@@ -34,6 +40,11 @@ public class TutorialDialogueBox : MonoBehaviour
             if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0)){
                 currentMessageIndex++;
                 if(currentMessageIndex > message.Length - 1){
+                    canShowNextTutorial = true;
+
+                    if(TutorialManager.instance.TutorialIndex == 12)
+                        TutorialManager.instance.NextTutorial();
+
                     nextSign.SetActive(false);
                     gameObject.SetActive(false);
                 }else{

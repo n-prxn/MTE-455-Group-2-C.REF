@@ -1,15 +1,15 @@
 {
   "rollCount": 1,
   "maxItem": 1,
-  "currentTurn": 1,
+  "currentTurn": 150,
   "credits": 100000,
   "pyroxenes": 0,
   "elephs": 0,
-  "happiness": 49,
-  "crimeRate": 51,
+  "happiness": -1,
+  "crimeRate": 101,
   "rank": 0,
   "currentXP": 0,
-  "successRequest": 0,
+  "successRequest": 1,
   "failedRequest": 0,
   "requestPerTurn": 1,
   "maxRequestCapacity": 3,
@@ -17,12 +17,12 @@
   "furnitures": [],
   "students": [
     {
-      "id": 33,
+      "id": 40,
       "collected": true,
       "squadCollect": true,
-      "currentPHYStat": 18,
-      "currentINTStat": 55,
-      "currentCOMStat": 40,
+      "currentPHYStat": 58,
+      "currentINTStat": 30,
+      "currentCOMStat": 30,
       "currentStamina": 150,
       "isBuff": false,
       "buffDuration": 0
@@ -31,7 +31,7 @@
   "requests": [
     {
       "squad": [
-        -1,
+        40,
         -1,
         -1,
         -1
@@ -45,12 +45,12 @@
       "currentDemeritCrimeRate": 0,
       "isOperating": false,
       "isRead": true,
-      "isDone": false,
+      "isDone": true,
       "isShow": true,
-      "isSuccess": false,
-      "successRate": 0,
-      "currentTurn": 1,
-      "expiredCount": 1
+      "isSuccess": true,
+      "successRate": 100,
+      "currentTurn": 0,
+      "expiredCount": 0
     },
     {
       "squad": [
@@ -138,11 +138,11 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
-      "expiredCount": 0
+      "expiredCount": 1
     },
     {
       "squad": [
@@ -267,7 +267,7 @@
         -1
       ],
       "id": 10,
-      "currentCredit": 0,
+      "currentCredit": 5844,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
@@ -290,7 +290,7 @@
         -1
       ],
       "id": 11,
-      "currentCredit": 0,
+      "currentCredit": 8023,
       "currentXP": 10,
       "currentHappiness": -1,
       "currentCrimeRate": 0,
@@ -635,7 +635,7 @@
         -1
       ],
       "id": 26,
-      "currentCredit": 0,
+      "currentCredit": 6665,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 2,
@@ -690,7 +690,7 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": false,
+      "isShow": true,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
@@ -865,7 +865,7 @@
         -1
       ],
       "id": 36,
-      "currentCredit": 0,
+      "currentCredit": 9158,
       "currentXP": 10,
       "currentHappiness": 1,
       "currentCrimeRate": 0,
@@ -1072,7 +1072,7 @@
         -1
       ],
       "id": 45,
-      "currentCredit": 0,
+      "currentCredit": 8643,
       "currentXP": 10,
       "currentHappiness": 0,
       "currentCrimeRate": 0,
@@ -1081,7 +1081,7 @@
       "isOperating": false,
       "isRead": false,
       "isDone": false,
-      "isShow": true,
+      "isShow": false,
       "isSuccess": false,
       "successRate": 0,
       "currentTurn": 0,
@@ -1187,7 +1187,7 @@
         -1
       ],
       "id": 50,
-      "currentCredit": 0,
+      "currentCredit": 6741,
       "currentXP": 10,
       "currentHappiness": 0,
       "currentCrimeRate": 3,
@@ -1532,7 +1532,7 @@
         -1
       ],
       "id": 65,
-      "currentCredit": 0,
+      "currentCredit": 6199,
       "currentXP": 10,
       "currentHappiness": -2,
       "currentCrimeRate": 0,
@@ -2533,19 +2533,19 @@
   ],
   "furnitureShops": [
     {
-      "id": 27,
+      "id": 13,
       "isPurchased": false
     }
   ],
   "presentShops": [
     {
-      "id": 9,
+      "id": 0,
       "isPurchased": false
     }
   ],
   "ticketShops": [
     {
-      "id": 16,
+      "id": 14,
       "isPurchased": false
     }
   ]

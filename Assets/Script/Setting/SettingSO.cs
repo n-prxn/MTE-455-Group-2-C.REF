@@ -12,8 +12,8 @@ public class SettingSO : ScriptableObject
     public float backgroundMusic = 100;
     public float voice = 100;
     public float soundEffect = 100;
-    [Header("Save")]
-    public bool hasSaveGame = false;
+    [Header("Tutorial")]
+    public bool hasPlayTutorial = false;
     [Header("Title Voice")]
     public bool isTitleVoicePlay = false;
     [Header("Guarantee Pull")]

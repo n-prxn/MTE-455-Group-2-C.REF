@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour, IData
     [SerializeField] FurnitureShopUI furnitureShopUI;
     [SerializeField] ItemSOShopUI presentShopUI;
     [SerializeField] ItemSOShopUI ticketShopUI;
+    [Header("Tutorial")]
+    [SerializeField] GameObject tutorial;
 
     [Header("Scene")]
     public SceneManager sceneManager;
@@ -83,6 +85,14 @@ public class GameManager : MonoBehaviour, IData
 
         audioSource.Play();
         StartCoroutine(AudioFade.StartFade(audioSource, 2f, setting.backgroundMusic / 100f));
+    
+        if(!setting.hasPlayTutorial)
+        {
+            tutorial.SetActive(true);
+            setting.hasPlayTutorial = true;
+        }
+        else
+            tutorial.SetActive(false);
     }
 
     // Update is called once per frame
@@ -99,6 +109,8 @@ public class GameManager : MonoBehaviour, IData
             {
                 UIDisplay.instance.PlaySplashScreen();
                 StartCoroutine(DelayGameProcess());
+            }else{
+                ShowEnding();
             }
         }
     }
@@ -122,6 +134,16 @@ public class GameManager : MonoBehaviour, IData
             requestPool.GenerateRequests();
             requestPool.GenerateEmergencyRequest();
         }
+
+        if(happiness < 0)
+            happiness = 0;
+        if(happiness > 100)
+            happiness = 100;
+
+        if(crimeRate < 0)
+            crimeRate = 0;
+        if(crimeRate > 100)
+            crimeRate = 100;
 
         ShopManager.instance.GenerateShopItems();
         presentShopUI.InitializeItemSOShelf();
@@ -255,6 +277,17 @@ public class GameManager : MonoBehaviour, IData
     {
         currentXP += EXP;
         RankUp();
+    }
+
+    public void ShowEnding(){
+        int endingResult = (100 - happiness) + crimeRate;
+        if(endingResult >= 150)
+            sceneManager.LoadScene("Bad Ending");
+        else if(endingResult <= 50)
+            sceneManager.LoadScene("Good Ending");
+        else   
+            sceneManager.LoadScene("True Ending");
+
     }
     public void LoadData(GameData data)
     {

@@ -7,6 +7,6 @@ public class TutorialBTN : MonoBehaviour
 {
     public void ClickTagetBTN()
     {
-        TutorialManeger.instance.NextTutorial();
+        TutorialManager.instance.NextTutorial();
     }
 }

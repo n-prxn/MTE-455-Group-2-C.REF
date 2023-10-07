@@ -123,9 +123,9 @@ public class RequestListUI : MonoBehaviour
         {
             if(data.RequestData.difficulty == Difficulty.Emergency)
                 {
-                    requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
-                }else{
                     requestListDescription.SetDescription(data.RequestData, RequestMode.Emergency);
+                }else{
+                    requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
                 }
         }
 
@@ -145,9 +145,9 @@ public class RequestListUI : MonoBehaviour
             {
                 if(request.difficulty == Difficulty.Emergency)
                 {
-                    requestListDescription.SetDescription(request, RequestMode.Available);
-                }else{
                     requestListDescription.SetDescription(request, RequestMode.Emergency);
+                }else{
+                    requestListDescription.SetDescription(request, RequestMode.Available);
                 }
             }
             else

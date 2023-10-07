@@ -111,4 +111,11 @@ public class TutorialManager : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void SkipTutorial()
+    {
+        setting.hasPlayTutorial = true;
+        tutorialIndex = 0;
+        gameObject.SetActive(false);
+    }
 }

@@ -2,8 +2,8 @@
 
 <div align="center">
   <h1 align="center">Kure Votos</h3>
-  <a href="https://github.com/GUEST-1001/NigGet">
-    <img src="/Assets/MyAsset/logo_katitum.png" alt="Logo" width="50%" height="auto">
+  <a href="https://github.com/n-prxn/MTE-455-Group-2-C.REF">
+    <img src="/Assets/UI/Kurevotos_logo_2.png" alt="Logo" width="50%" height="auto">
   </a>
 </div>
 

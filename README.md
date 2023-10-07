@@ -81,19 +81,20 @@ We use Unity to build this Game
 <strong>C.REF Team</strong>
 
 Project Manager / Game Developer<br>
-2013210600 Nontawat Tongpron
+    2013210600   Nontawat Tongpron
 
 Game Designer / 3D Art Director<br>
-2013210212 Pongpol Paraapakul
+<t>2013210212   Pongpol Paraapakul
  
-Game Developer<br>
-2013210899 Nawat Arunsawatrerk
+Game Developer / Game Tester<br>
+    2013210899   Nawat Arunsawatrerk
 
 2D Art Director / Concept Artist<br>
-2013210915 Tanakorn Permpool
+    2013210915   Tanakorn Permpool
 
-Thank<br>
+Multimedia Technology, Thai - Nichi Institute of Technology<br>
 
+Special Thank<br>
 All materials and assets is the copyright of NEXON Games Co., Ltd.,
 
 

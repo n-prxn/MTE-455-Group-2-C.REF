@@ -90,7 +90,7 @@ public class SquadController : MonoBehaviour, IData
             student.CurrentCOMStat = sData.currentCOMStat;
             student.CurrentStamina = sData.currentStamina;
 
-            student.Collected = sData.collected;
+            // student.Collected = sData.collected;
             student.SquadCollect = sData.squadCollect;
             student.IsBuff = sData.isBuff;
             student.BuffDuration = sData.buffDuration;

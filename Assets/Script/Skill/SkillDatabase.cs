@@ -464,7 +464,7 @@ public class SkillDatabase : SkillSO
             return;
 
         RequestManager.instance.AddAdditionalStatus(
-                0, 0, (int)(RequestManager.instance.TotalCOMStat * 0.5f));
+                0, (int)(RequestManager.instance.TotalCOMStat * 0.9f), (int)(RequestManager.instance.TotalCOMStat * 0.5f));
     }
 
     public void SkillMari()

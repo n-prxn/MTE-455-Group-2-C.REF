@@ -158,14 +158,14 @@ public class DataManager : MonoBehaviour
         //Debug.Log("Data Manager Save");
     }
 
-    public void ClearColleted()
-    {
-        foreach (StudentData student in gameData.students)
-        {
-            student.collected = false;
-        }
-        fileHandler.Save(gameData);
-    }
+    // public void ClearColleted()
+    // {
+    //     foreach (StudentData student in gameData.students)
+    //     {
+    //         student.collected = false;
+    //     }
+    //     fileHandler.Save(gameData);
+    // }
 
     //call saveGame() on quit game
     private void OnApplicationQuit()

@@ -2365,6 +2365,7 @@ GameObject:
   - component: {fileID: 2029196159}
   - component: {fileID: 2029196160}
   - component: {fileID: 2029196161}
+  - component: {fileID: 2029196162}
   m_Layer: 5
   m_Name: Dialogue Box
   m_TagString: Untagged
@@ -2455,6 +2456,7 @@ MonoBehaviour:
     message: Haha... Just another peaceful day.
   nextSign: {fileID: 580933634}
   playableDirector: {fileID: 785199353}
+  currentMessageIndex: 0
 --- !u!95 &2029196161
 Animator:
   serializedVersion: 5
@@ -2476,6 +2478,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2029196162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029196157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b603822f948164aa1ee5c834c23042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  imggBG: {fileID: 1450080989}
+  endDialog: {fileID: 0}
+  myIndex: 0
 --- !u!1 &2092595754
 GameObject:
   m_ObjectHideFlags: 0

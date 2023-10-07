@@ -73,6 +73,8 @@ public class InventoryManager : MonoBehaviour, IData
             furnitureList.Add(furniture);
         }
 
+        presentList.Clear();
+        ticketList.Clear();
         foreach(ItemData iData in data.items){
             ItemSO item = ShopManager.instance.PresentWarehouse.Find(x => x.id == iData.id);
             if(item != null)

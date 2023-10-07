@@ -14,6 +14,8 @@ This Non-profit game is for education purpose.
 ### index
 <a href="/../../releases/latest/"><strong>Download »</strong> </a>
 
+<a href=""><strong>VDO Gameplay »</strong> </a>
+
 <a href="#About" ><strong>About This Project »</strong> </a>
 
 <a href="#Built" ><strong>Built With »</strong> </a>
@@ -32,7 +34,9 @@ Players must organize students to meet the status requirements for each request.
 
 <a href="https://docs.google.com/document/d/1NcLMLMp0S3COwZozvb5gWbCGRApIb6obFMbMnfvBInc/edit?usp=sharing" ><strong>Proposal »</strong> </a>
 
-<br><br>
+
+<br><be>
+Screenshot from <b>Kure-votos ver.0.1b</b>
 <div align="center">
   <a href="/screenshot/1.jpg">
     <img src="/screenshot/1.jpg" alt="Logo" width="40%" height="auto">

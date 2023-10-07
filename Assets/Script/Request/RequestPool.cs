@@ -9,7 +9,7 @@ public class RequestPool : MonoBehaviour
     public List<RequestSO> RequestsPool { get => requestsPool; set => requestsPool = value; }
 
     [SerializeField] private int cooldownEmergency = 20;
-    private int emergencyTimeCount = 0;
+    [SerializeField] private int emergencyTimeCount = 0;
 
     // Start is called before the first frame update
     void Awake()

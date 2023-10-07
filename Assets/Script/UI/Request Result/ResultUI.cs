@@ -18,7 +18,7 @@ public class ResultUI : MonoBehaviour
     [Header("Reward")]
     [SerializeField] GameObject rewardPanel;
     [SerializeField] TMP_Text creditText;
-    [SerializeField] TMP_Text pyroxeneText; 
+    [SerializeField] TMP_Text pyroxeneText;
     [SerializeField] TMP_Text expText;
     [SerializeField] TMP_Text happinessText;
     [SerializeField] TMP_Text crimeRateText;
@@ -67,7 +67,7 @@ public class ResultUI : MonoBehaviour
             rewardPanel.SetActive(true);
             demeritPanel.SetActive(false);
 
-            if(currentSelectedRequest.difficulty == Difficulty.Emergency)
+            if (currentSelectedRequest.difficulty == Difficulty.Emergency)
                 RequestManager.instance.IsEmergency = false;
 
             pyroxeneText.text = currentSelectedRequest.pyroxene.ToString();
@@ -119,9 +119,11 @@ public class ResultUI : MonoBehaviour
         request.InitializeCurrentReward();
     }
 
-    void ReceiveDemerit(RequestSO request){
+    void ReceiveDemerit(RequestSO request)
+    {
         GameManager.Instance.happiness += request.demeritHappiness;
         GameManager.Instance.crimeRate += request.demeritCrimeRate;
-        RequestManager.instance.TodayRequests.Add(request);
+        if (request.difficulty == Difficulty.Emergency)
+            RequestManager.instance.TodayRequests.Add(request);
     }
 }

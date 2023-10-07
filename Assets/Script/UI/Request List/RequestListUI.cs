@@ -121,14 +121,19 @@ public class RequestListUI : MonoBehaviour
     {
         if (data.transform.parent.name == "GeneralList")
         {
-            if (data.RequestData.difficulty == Difficulty.Emergency)
+            if (RequestManager.instance.IsEmergency)
             {
-                requestListDescription.SetDescription(data.RequestData, RequestMode.Emergency);
+                if (data.RequestData.difficulty == Difficulty.Emergency)
+                {
+                    requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
+                }
+                else
+                {
+                    requestListDescription.SetDescription(data.RequestData, RequestMode.Emergency);
+                }
             }
             else
-            {
                 requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
-            }
         }
 
         if (data.transform.parent.name == "OngoingList")
@@ -147,11 +152,11 @@ public class RequestListUI : MonoBehaviour
             {
                 if (request.difficulty == Difficulty.Emergency)
                 {
-                    requestListDescription.SetDescription(request, RequestMode.Emergency);
+                    requestListDescription.SetDescription(request, RequestMode.Available);
                 }
                 else
                 {
-                    requestListDescription.SetDescription(request, RequestMode.Available);
+                    requestListDescription.SetDescription(request, RequestMode.Emergency);
                 }
             }
             else
@@ -187,11 +192,20 @@ public class RequestListUI : MonoBehaviour
     {
         foreach (Transform requestCard in completeParent.transform)
         {
-            if (requestCard.GetComponent<RequestCardData>() != null)
+            RequestCardData requestCardTemp = requestCard.GetComponent<RequestCardData>();
+            if (requestCardTemp != null)
             {
-                if (requestCard.gameObject.GetComponent<RequestCardData>().RequestData.id == currentSelectedRequest.RequestData.id)
+                if (requestCardTemp.RequestData.id == currentSelectedRequest.RequestData.id)
                 {
-                    requestCard.gameObject.GetComponent<RequestCardData>().RequestData.IsShow = false;
+                    if (requestCardTemp.RequestData.difficulty == Difficulty.Emergency)
+                    {
+                        if (requestCardTemp.RequestData.IsSuccess)
+                            requestCardTemp.RequestData.IsShow = false;
+                    }
+                    else
+                    {
+                        requestCardTemp.RequestData.IsShow = false;
+                    }
                     Destroy(requestCard.gameObject);
                 }
             }

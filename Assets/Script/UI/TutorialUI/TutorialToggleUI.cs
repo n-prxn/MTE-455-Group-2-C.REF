@@ -14,17 +14,34 @@ public class TutorialToggleUI : MonoBehaviour
         this.GetComponent<Toggle>().onValueChanged.AddListener(
             delegate (bool isOnThis)
                 {
-                    if (!isOnThis && !altToggle.isOn)
+                    // if (!isOnThis && !altToggle.isOn)
+                    // {
+                    //     BTN.SetActive(true);
+                    //     altBTN.SetActive(true);
+                    // }
+                    // else
+                    // {
+                    //     BTN.SetActive(isOnThis);
+                    //     altBTN.SetActive(false);
+                    // }
+
+                    if (isOnThis)
                     {
-                        BTN.SetActive(true);
-                        altBTN.SetActive(true);
+                        BTN.SetActive(!isOnThis);
                     }
                     else
                     {
-                        BTN.SetActive(isOnThis);
-                        altBTN.SetActive(false);
+                        BTN.SetActive(!isOnThis);
                     }
                 }
             );
+    }
+
+    private void Update()
+    {
+        // if (this.GetComponent<Toggle>().isOn)
+        // {
+        //     altBTN.SetActive(false);
+        // }
     }
 }

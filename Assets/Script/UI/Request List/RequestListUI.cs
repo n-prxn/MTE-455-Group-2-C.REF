@@ -121,12 +121,14 @@ public class RequestListUI : MonoBehaviour
     {
         if (data.transform.parent.name == "GeneralList")
         {
-            if(data.RequestData.difficulty == Difficulty.Emergency)
-                {
-                    requestListDescription.SetDescription(data.RequestData, RequestMode.Emergency);
-                }else{
-                    requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
-                }
+            if (data.RequestData.difficulty == Difficulty.Emergency)
+            {
+                requestListDescription.SetDescription(data.RequestData, RequestMode.Emergency);
+            }
+            else
+            {
+                requestListDescription.SetDescription(data.RequestData, RequestMode.Available);
+            }
         }
 
         if (data.transform.parent.name == "OngoingList")
@@ -143,10 +145,12 @@ public class RequestListUI : MonoBehaviour
         {
             if (RequestManager.instance.IsEmergency)
             {
-                if(request.difficulty == Difficulty.Emergency)
+                if (request.difficulty == Difficulty.Emergency)
                 {
                     requestListDescription.SetDescription(request, RequestMode.Emergency);
-                }else{
+                }
+                else
+                {
                     requestListDescription.SetDescription(request, RequestMode.Available);
                 }
             }
@@ -186,7 +190,10 @@ public class RequestListUI : MonoBehaviour
             if (requestCard.GetComponent<RequestCardData>() != null)
             {
                 if (requestCard.gameObject.GetComponent<RequestCardData>().RequestData.id == currentSelectedRequest.RequestData.id)
+                {
+                    requestCard.gameObject.GetComponent<RequestCardData>().RequestData.IsShow = false;
                     Destroy(requestCard.gameObject);
+                }
             }
         }
     }
@@ -230,7 +237,8 @@ public class RequestListUI : MonoBehaviour
         requestPanel.SetActive(true);
     }
 
-    public void ToggleTutorialRequest(){
+    public void ToggleTutorialRequest()
+    {
         HandleCardSelection(requestCardDatas[0]);
     }
 }

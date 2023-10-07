@@ -223,7 +223,7 @@ public class GameData
         pyroxenes = 120;
         elephs = 0;
         happiness = 50;
-        crimeRate = 50;
+        crimeRate = 20;
         rank = 0;
         currentXP = 0;
         successRequest = 0;

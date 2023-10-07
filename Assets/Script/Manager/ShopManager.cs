@@ -140,6 +140,11 @@ public class ShopManager : MonoBehaviour, IData
         }
     }
 
+    
+    public void GiveReward(){
+        
+    }
+
     public void LoadData(GameData data)
     {
         maxItem = data.maxItem;

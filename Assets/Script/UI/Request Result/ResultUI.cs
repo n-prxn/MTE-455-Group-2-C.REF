@@ -110,11 +110,11 @@ public class ResultUI : MonoBehaviour
 
     void ReceiveRewards(RequestSO request)
     {
-        GameManager.Instance.credits += request.CurrentCredit;
-        GameManager.Instance.pyroxenes += request.pyroxene;
-        GameManager.Instance.currentXP += request.CurrentXP;
-        GameManager.Instance.happiness += request.CurrentHappiness;
-        GameManager.Instance.crimeRate += request.CurrentCrimeRate;
+        GameManager.Instance.credits += request.id == 0 ? 10000 : request.CurrentCredit;
+        GameManager.Instance.pyroxenes += request.id == 0 ? 1200 : request.pyroxene;
+        GameManager.Instance.currentXP += request.id == 0 ? 250 : request.CurrentXP;
+        GameManager.Instance.happiness += request.id == 0 ? 1 : request.CurrentHappiness;
+        GameManager.Instance.crimeRate += request.id == 0 ? -1 : request.CurrentCrimeRate;
 
         request.InitializeCurrentReward();
     }

@@ -59,6 +59,9 @@ public class UIDisplay : MonoBehaviour
     [Header("Condition")]
     private bool hasPlayEmergencyScreen = false;
     public bool HasPlayEmergencyScreen { get => hasPlayEmergencyScreen; set => hasPlayEmergencyScreen = value; }
+    [Header("Notification")]
+    [SerializeField] private GameObject levelUpPrefab;
+    [SerializeField] private GameObject notificationParent;
 
     public static UIDisplay instance;
 
@@ -335,5 +338,11 @@ public class UIDisplay : MonoBehaviour
             emergencyScreen.SetActive(true);
             hasPlayEmergencyScreen = true;
         }
+    }
+
+    public void GenerateLevelUpNotification(ItemSO itemReward){
+        GameObject levelUpPanel = Instantiate(levelUpPrefab, notificationParent.transform);
+        levelUpPanel.GetComponent<RankUpNotice>().UpdateRewardUI(itemReward);
+        ToggleBlackBackground(true);
     }
 }

@@ -22,7 +22,6 @@ This Non-profit game is for education purpose.
 
 <br><br><br>
 
-
 <a name="About"></a>
 ## About This Project
 <strong>*Kure-votos*</strong> is a fan-made management game in a turn-based format that draws inspiration from the mobile game <strong>*Blue Archive*</strong>, a tactical RPG-style game from Japan. It revolves around the daily lives of students in a world called "Kivotos." In the game, players take on the role of the main protagonist, known as <strong>*Sensei*</strong>, who is invited to work in an organization called <b>*Schale*</b> after the disappearance of the General Student Council. Various crimes begin to occur throughout Kivotos, and players must assist the students and search for the missing president.
@@ -30,6 +29,8 @@ This Non-profit game is for education purpose.
 The game takes the narrative and background from Blue Archive and develops it into a new style of gameplay. Players still play as Sensei, but the gameplay mechanics and resource management differ from the main game. Sensei must oversee and manage student squads to handle requests sent to Schale each day, all within limited human resources.
 
 Players must organize students to meet the status requirements for each request. Additionally, they can construct various facilities and train their students to improve their status. Completing missions successfully yields rewards that can be used to develop facilities and recruit new students to the team.
+
+<a href="https://docs.google.com/document/d/1NcLMLMp0S3COwZozvb5gWbCGRApIb6obFMbMnfvBInc/edit?usp=sharing" ><strong>Proposal »</strong> </a>
 
 <br><br>
 <div align="center">

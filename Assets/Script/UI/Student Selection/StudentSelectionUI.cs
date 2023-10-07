@@ -39,6 +39,7 @@ public class StudentSelectionUI : MonoBehaviour
     [SerializeField] TMP_InputField searchField;
     [SerializeField] GameObject filterPanel;
     private SortingMode currentSortingMode = SortingMode.Name;
+    private int currentSortingModeInt;
 
     [Header("Panel")]
     [SerializeField] GameObject idlePanel;
@@ -73,7 +74,7 @@ public class StudentSelectionUI : MonoBehaviour
     void OnEnable()
     {
         audioSource.Stop();
-        HandleFilterMode(0);
+        HandleFilterMode(currentSortingModeInt);
         ResetSelectionPanel();
     }
 
@@ -175,6 +176,13 @@ public class StudentSelectionUI : MonoBehaviour
                 continue;
             }
 
+            if(studentUIData.StudentData.CurrentStamina < RequestManager.instance.CurrentRequest.stamina)
+            {
+                studentUIData.SetColor(Color.gray);
+                studentUIData.SetStatus(3);
+                continue;
+            }
+
             studentUIData.SetColor(Color.white);
             studentUIData.RemoveStatus();
         }
@@ -238,6 +246,9 @@ public class StudentSelectionUI : MonoBehaviour
             studentDescription.HideButton();
 
         if (obj.StudentData.IsTraining && selectionMode == SelectionMode.Squad)
+            studentDescription.HideButton();
+
+        if(obj.StudentData.CurrentStamina < RequestManager.instance.CurrentRequest.stamina)
             studentDescription.HideButton();
 
         obj.Select();
@@ -482,34 +493,42 @@ public class StudentSelectionUI : MonoBehaviour
             case 0:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.name).ToList();
                 currentSortingMode = SortingMode.Name;
+                currentSortingModeInt = 0;
                 break;
             case 1:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.rarity).ToList();
                 currentSortingMode = SortingMode.Rarity;
+                currentSortingModeInt = 1;
                 break;
             case 2:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.school).ToList();
                 currentSortingMode = SortingMode.School;
+                currentSortingModeInt = 2;
                 break;
             case 3:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.club).ToList();
                 currentSortingMode = SortingMode.Club;
+                currentSortingModeInt = 3;
                 break;
             case 4:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentPHYStat).Reverse().ToList();
                 currentSortingMode = SortingMode.PHYStat;
+                currentSortingModeInt = 4;
                 break;
             case 5:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentINTStat).Reverse().ToList();
                 currentSortingMode = SortingMode.INTStat;
+                currentSortingModeInt = 5;
                 break;
             case 6:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentCOMStat).Reverse().ToList();
                 currentSortingMode = SortingMode.COMStat;
+                currentSortingModeInt = 6;
                 break;
             case 7:
                 selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentStamina).Reverse().ToList();
                 currentSortingMode = SortingMode.Stamina;
+                currentSortingModeInt = 7;
                 break;
             default:
                 break;

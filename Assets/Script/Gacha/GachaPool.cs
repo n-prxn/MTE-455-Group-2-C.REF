@@ -52,6 +52,7 @@ public class GachaPool : MonoBehaviour, IData
 
     bool hasRare = false;
     public bool HasRare { get => hasRare; set => hasRare = value; }
+    public bool isPullingGacha = false;
 
     public static GachaPool instance;
 
@@ -159,9 +160,15 @@ public class GachaPool : MonoBehaviour, IData
     //Pull by Amount
     public void Pull(int pullAmount)
     {
+        if(isPullingGacha)
+            return;
+
+        isPullingGacha = true;
+        
+        gachaScene.SetActive(false);
         normalGacha.SetActive(true);
         elephsGacha.SetActive(false);
-
+        
         if (GameManager.Instance.pyroxenes >= rollCost * pullAmount)
         {
             GameManager.Instance.pyroxenes -= rollCost * pullAmount;
@@ -211,6 +218,12 @@ public class GachaPool : MonoBehaviour, IData
 
     public void GauranteePull()
     {
+        if(isPullingGacha)
+            return;
+
+        isPullingGacha = true;
+
+        gachaScene.SetActive(false);
         normalGacha.SetActive(false);
         elephsGacha.SetActive(false);
 
@@ -265,6 +278,12 @@ public class GachaPool : MonoBehaviour, IData
 
     public void ElephsPull()
     {
+        if(isPullingGacha)
+            return;
+
+        isPullingGacha = true;
+        
+        gachaScene.SetActive(false);
         normalGacha.SetActive(false);
         elephsGacha.SetActive(true);
 

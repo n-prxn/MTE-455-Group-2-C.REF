@@ -627,9 +627,9 @@ public class SkillDatabase : SkillSO
 
     public void SkillHimari()
     {
-        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Gym, currentStudent))
+        if (currentStudent.IsTraining && TrainingManager.instance.isStudentAtBuilding(BuildingType.Library, currentStudent))
         {
-            foreach (Student student in TrainingManager.instance.TrainingGroup[BuildingType.Gym])
+            foreach (Student student in TrainingManager.instance.TrainingGroup[BuildingType.Library])
             {
                 if (student == null)
                     continue;
@@ -913,6 +913,8 @@ public class SkillDatabase : SkillSO
         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
 
         currentRequest.BonusSuccessRate += 50;
+        if(currentRequest.BonusSuccessRate < 50)
+            currentRequest.BonusSuccessRate = 50;
         RequestManager.instance.StaminaComsumption *= 2;
     }
 

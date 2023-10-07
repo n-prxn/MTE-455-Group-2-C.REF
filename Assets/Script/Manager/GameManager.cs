@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour, IData
     }
 
     private DataManager dataManager;
+    private bool hasButtonClicked = false;
     public static GameManager Instance;
 
     // Start is called before the first frame update
@@ -123,8 +124,13 @@ public class GameManager : MonoBehaviour, IData
     {
         yield return new WaitForSeconds(1.5f);
         currentTurn++;
-        happiness--;
-        crimeRate++;
+
+        if(currentTurn % 3 == 0)
+        {
+            happiness--;
+            crimeRate++;
+        }
+
         UpdateRequest();
 
         if (RequestManager.instance.IsEmergency)
@@ -192,7 +198,11 @@ public class GameManager : MonoBehaviour, IData
         {
             rank++;
             if (rank > 10)
+            {
                 rank = 10;
+                currentXP = 0;
+                break;
+            }
 
             pyroxenes += 1200;
             credits += 40000;
@@ -253,8 +263,19 @@ public class GameManager : MonoBehaviour, IData
 
     public void BackToPreviousScene()
     {
+        if(hasButtonClicked)
+            return;
+        
+        hasButtonClicked = true;
         dataManager.SaveGame();
         sceneManager.LoadAsyncPreviousScene();
+        StartCoroutine(WaitForAnotherClick());
+    }
+
+    IEnumerator WaitForAnotherClick()
+    {
+        yield return new WaitForSeconds(1);
+        hasButtonClicked = false;
     }
 
     public void LoadScene(int buildIndex)

@@ -7,6 +7,11 @@
   </a>
 </div>
 
+<div align="center">
+  <h4 align="center">Created By C.REF<br>
+This Non-profit game is for education purpose.</h4>
+</div>
+
 ### index
 <a href="https://github.com/GUEST-1001/NigGet/releases/latest"><strong>Download »</strong> </a>
 
@@ -88,7 +93,8 @@ Game Developer<br>
 2013210915 Tanakorn Permpool
 
 Thank<br>
-Name
+
+All materials and assets is the copyright of NEXON Games Co., Ltd.,
 
 
 <p align="right">

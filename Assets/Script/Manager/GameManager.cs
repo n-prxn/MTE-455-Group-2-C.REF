@@ -192,7 +192,11 @@ public class GameManager : MonoBehaviour, IData
         {
             rank++;
             if (rank > 10)
+            {
                 rank = 10;
+                currentXP = 0;
+                break;
+            }
 
             pyroxenes += 1200;
             credits += 40000;

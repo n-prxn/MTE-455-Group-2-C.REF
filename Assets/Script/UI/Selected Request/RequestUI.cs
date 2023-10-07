@@ -50,6 +50,7 @@ public class RequestUI : MonoBehaviour
     void Awake()
     {
         InitializeSquad();
+        successRate.text = "Success Rate : 0%";
     }
 
     // Update is called once per frame

@@ -19,7 +19,7 @@ public class EndingDialogue : MonoBehaviour
     [SerializeField] Dialogue[] dialogues;
     [SerializeField] GameObject nextSign;
     [SerializeField] PlayableDirector playableDirector;
-    private int currentMessageIndex = 0;
+    public int currentMessageIndex = 0;
     bool isTyping = false;
     bool isEnded = false;
     // Start is called before the first frame update
@@ -33,6 +33,8 @@ public class EndingDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BackgroundMove.instant.myIndex = currentMessageIndex;
+        
         if (!isTyping)
         {
             isTyping = true;

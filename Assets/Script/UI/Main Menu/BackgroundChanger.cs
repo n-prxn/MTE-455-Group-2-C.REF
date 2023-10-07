@@ -30,7 +30,7 @@ public class BackgroundChanger : MonoBehaviour
         if (timer >= changeTime)
         {
             currentIndex++;
-            if (currentIndex > backgrounds.Count)
+            if (currentIndex > backgrounds.Count - 1)
                 currentIndex = 0;
 
             backgroundImage.sprite = backgrounds[currentIndex];

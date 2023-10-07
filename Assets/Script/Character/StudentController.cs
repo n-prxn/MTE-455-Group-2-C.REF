@@ -9,7 +9,8 @@ using UnityEngine.UI;
 public enum StudentAnimationState
 {
     Idle,
-    Walking
+    Walking,
+    CafeReact
 }
 
 public class StudentController : MonoBehaviour
@@ -17,7 +18,7 @@ public class StudentController : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private Camera cam;
     private Animator animator;
-    private StudentAnimationState animState;
+    public StudentAnimationState animState;
     private Vector3 wanderPosition;
     [SerializeField] private float wanderTime = 20f;
     [SerializeField] private float distanceRadius = 0.2f;
@@ -73,11 +74,20 @@ public class StudentController : MonoBehaviour
         {
             case StudentAnimationState.Idle:
                 navMeshAgent.isStopped = true;
+                animator.Play("Cafe_Idle");
                 animator.SetBool("CafeMove", false);
+                animator.SetBool("CafeReact", false);
                 break;
             case StudentAnimationState.Walking:
                 navMeshAgent.isStopped = false;
                 animator.SetBool("CafeMove", true);
+                animator.SetBool("CafeReact", false);
+                break;
+            case StudentAnimationState.CafeReact:
+                animator.SetBool("CafeMove", false);
+                animator.SetBool("CafeReact", true);
+                StartCoroutine(PlayAndWaitForAnim("Cafe_Reaction"));
+                // animator.Play("Cafe_Reaction");
                 break;
         }
     }
@@ -139,12 +149,12 @@ public class StudentController : MonoBehaviour
         {
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
-
+            navMeshAgent.isStopped = true;
+            hit.collider.gameObject.GetComponent<StudentController>().animState = StudentAnimationState.CafeReact;
             LookAtCam(hit.collider.gameObject);
-            PlayStudentVoice(hit.collider.gameObject);
             if (hit.collider.gameObject == gameObject)
             {
-                ShowBubble();
+                ShowBubble(hit.collider.gameObject);
             }
         }
     }
@@ -182,14 +192,38 @@ public class StudentController : MonoBehaviour
         }
     }
 
-    void ShowBubble()
+    void ShowBubble(GameObject clickStudent)
     {
+        Debug.Log("show bubble");
         if (audioSource.isPlaying)
+        {
+            Debug.Log("audio os play");
             return;
-            
+        }
+
+        PlayStudentVoice(clickStudent);
+
         int studentID = int.Parse(gameObject.name.Substring(0, 2));
         bubble.transform.GetChild(0).GetComponent<TMP_Text>().text = gachaPool.StudentsPool.Find(x => x.id == studentID).cafeText;
         bubble.SetActive(true);
+    }
+
+    public IEnumerator PlayAndWaitForAnim(string stateName)
+    {
+        animator.Play(stateName);
+
+        //Wait until we enter the current state
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+        {
+            yield return null;
+        }
+
+        //Now, Wait until the current state is done playing
+        while ((animator.GetCurrentAnimatorStateInfo(0).normalizedTime) % 1 < 0.99f)
+        {
+            yield return null;
+        }
+        animState = StudentAnimationState.Idle;
     }
 
     void OnCollisionStay(Collision collision)

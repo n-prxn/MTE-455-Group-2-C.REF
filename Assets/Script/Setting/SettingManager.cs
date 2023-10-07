@@ -153,6 +153,38 @@ public class SettingManager : MonoBehaviour
 
     public void Back()
     {
+        /*DataManager.instance.gameplayElements.Clear();
+        foreach (GameObject i in GetDontDestroyOnLoadObjects())
+        {
+            if (i.name == "AudioController" || i.name == "DataManager")
+            {
+                continue;
+            }
+            else
+            {
+                Destroy(i);
+            }
+        }*/
         sceneManager.LoadPreviousScene();
+    }
+
+    public static GameObject[] GetDontDestroyOnLoadObjects()
+    {
+        GameObject temp = null;
+        try
+        {
+            temp = new GameObject();
+            Object.DontDestroyOnLoad(temp);
+            UnityEngine.SceneManagement.Scene dontDestroyOnLoad = temp.scene;
+            Object.DestroyImmediate(temp);
+            temp = null;
+
+            return dontDestroyOnLoad.GetRootGameObjects();
+        }
+        finally
+        {
+            if (temp != null)
+                Object.DestroyImmediate(temp);
+        }
     }
 }

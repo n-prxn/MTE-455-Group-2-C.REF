@@ -56,6 +56,7 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 
         setting.hasPlayTutorial = false;
+
         DataManager.instance.gameplayElements.Clear();
         foreach (GameObject i in GetDontDestroyOnLoadObjects())
         {
@@ -81,6 +82,19 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void GoToContinue()
     {
+        DataManager.instance.gameplayElements.Clear();
+        foreach (GameObject i in GetDontDestroyOnLoadObjects())
+        {
+            if (i.name == "AudioController" || i.name == "DataManager")
+            {
+                continue;
+            }
+            else
+            {
+                Destroy(i);
+            }
+        }
+        
         continueScene.SetActive(true);
     }
 

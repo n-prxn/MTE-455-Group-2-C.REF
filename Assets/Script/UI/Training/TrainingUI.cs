@@ -27,6 +27,7 @@ public class TrainingUI : MonoBehaviour
         buildingName.text = currentBuilding.ToString();
         ResetTrainingList();
         List<Student> students = TrainingManager.instance.TrainingGroup[currentBuilding];
+        
         for (int i = 0; i < TrainingManager.instance.GetCurrentBuilding().StudentCapacity; i++)
         {
             GameObject card = Instantiate(cardPrefab, cardParent.transform);

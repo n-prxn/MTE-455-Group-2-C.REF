@@ -64,7 +64,7 @@ public class DataManager : MonoBehaviour
             }
         }
 
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Gameplay")
+        if (sceneName == "Gameplay" || sceneName == "Dorm" || sceneName == "Cafe" || sceneName == "Library")
         {
             if (GameObject.FindGameObjectsWithTag("Gameplay Elements") != null)
             {
@@ -143,6 +143,7 @@ public class DataManager : MonoBehaviour
     //save All gameData from all script Have MonoBehaviour and IData interface
     public void SaveGame()
     {
+        this.dataObject = FindAllDataObject();
         if (dataObject != null)
         {
             foreach (IData dataOBJ in dataObject)
@@ -155,17 +156,8 @@ public class DataManager : MonoBehaviour
 #if UNITY_EDITOR
         EditorUtility.SetDirty(setting);
 #endif
-        //Debug.Log("Data Manager Save");
+        Debug.Log("Data Manager Save");
     }
-
-    // public void ClearColleted()
-    // {
-    //     foreach (StudentData student in gameData.students)
-    //     {
-    //         student.collected = false;
-    //     }
-    //     fileHandler.Save(gameData);
-    // }
 
     //call saveGame() on quit game
     private void OnApplicationQuit()

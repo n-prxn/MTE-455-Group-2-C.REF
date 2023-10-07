@@ -434,7 +434,10 @@ public class SkillDatabase : SkillSO
 
     public void SkillAsuna()
     {
-        // Add your code here for SkillAsuna
+         RequestSO currentRequest = RequestManager.instance.CurrentRequest;
+        RequestManager.instance.StaminaComsumption -= Random.Range(0, currentRequest.stamina + 1);
+        if(RequestManager.instance.StaminaComsumption < 0)
+            RequestManager.instance.StaminaComsumption = 0;
     }
 
     public void SkillHibiki()

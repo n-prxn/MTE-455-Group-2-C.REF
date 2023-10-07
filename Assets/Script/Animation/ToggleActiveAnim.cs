@@ -58,6 +58,8 @@ public class ToggleActiveAnim : MonoBehaviour
 
     public void LoadScene(int sceneID)
     {
+        if (sceneID == 0)
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayTitleMusic();
         StartCoroutine(LoadSceneAsync(sceneID));
     }
 

@@ -146,24 +146,19 @@ public class TrainingManager : MonoBehaviour, IData
 
     public void RemoveStudentFromBuilding(Student student)
     {
-        foreach (Student trainedStudent in trainingGroup[currentBuilding].ToList())
-        {
-            if (trainedStudent == null)
+        for(int i = 0 ; i < 7 ; i++){
+            List<Student> trainedStudent = trainingGroup[currentBuilding].ToList();
+            if(trainedStudent[i] == null)
                 continue;
 
-            if (trainedStudent.id == student.id)
-            {
-                trainedStudent.ResetTrainedStat();
-                trainedStudent.TrainingDuration = GetCurrentBuilding().TrainingDuration;
-                trainingGroup[currentBuilding].Remove(trainedStudent);
-                trainingGroup[currentBuilding].Add(null);
+            if(trainedStudent[i].id == student.id){
+                trainedStudent[i].ResetTrainedStat();
+                trainedStudent[i].IsTraining = false;
+                trainedStudent[i].TrainingDuration = GetCurrentBuilding().TrainingDuration;
+                trainedStudent[i] = null;
+                break;
             }
         }
-    }
-
-    public void UpdateTrainingProcess()
-    {
-
     }
 
     public void UpdateStudentTraining()
@@ -188,21 +183,6 @@ public class TrainingManager : MonoBehaviour, IData
                 }
 
             }
-
-            /*foreach (Student trainedStudent in building.Value.ToList())
-            {
-                if (trainedStudent == null)
-                    continue;
-
-                if (trainedStudent.id == student.id)
-                {
-                    trainedStudent.ResetTrainedStat();
-                    trainedStudent.TrainingDuration = GetCurrentBuilding().TrainingDuration;
-                    trainingGroup[building.Key].Remove(trainedStudent);
-                    trainingGroup[building.Key].Add(null);
-                    return;
-                }
-            }*/
         }
     }
 
@@ -218,6 +198,7 @@ public class TrainingManager : MonoBehaviour, IData
             if (restedStudent.TrainingDuration <= 0)
             {
                 restedStudent.UpdateTrainedStats();
+                restedStudent.TrainingDuration = GetBuilding(BuildingType.Dormitory).TrainingDuration;
                 if (restedStudent.CurrentStamina >= restedStudent.stamina)
                 {
                     restedStudent.IsTraining = false;

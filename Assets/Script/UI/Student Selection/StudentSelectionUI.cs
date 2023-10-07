@@ -73,7 +73,7 @@ public class StudentSelectionUI : MonoBehaviour
     void OnEnable()
     {
         audioSource.Stop();
-        selectableStudents = SquadController.instance.Students.OrderBy(x => x.name).ToList();
+        HandleFilterMode(0);
         ResetSelectionPanel();
     }
 
@@ -496,19 +496,19 @@ public class StudentSelectionUI : MonoBehaviour
                 currentSortingMode = SortingMode.Club;
                 break;
             case 4:
-                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentPHYStat).ToList();
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentPHYStat).Reverse().ToList();
                 currentSortingMode = SortingMode.PHYStat;
                 break;
             case 5:
-                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentINTStat).ToList();
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentINTStat).Reverse().ToList();
                 currentSortingMode = SortingMode.INTStat;
                 break;
             case 6:
-                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentCOMStat).ToList();
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentCOMStat).Reverse().ToList();
                 currentSortingMode = SortingMode.COMStat;
                 break;
             case 7:
-                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentStamina).ToList();
+                selectableStudents = SquadController.instance.Students.OrderBy(x => x.CurrentStamina).Reverse().ToList();
                 currentSortingMode = SortingMode.Stamina;
                 break;
             default:

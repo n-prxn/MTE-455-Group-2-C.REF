@@ -13,7 +13,7 @@ This Non-profit game is for education purpose.
 </div>
 
 ### index
-<a href="https://github.com/GUEST-1001/NigGet/releases/latest"><strong>Download »</strong> </a>
+<a href="/../../releases/latest/"><strong>Download »</strong> </a>
 
 <a href="#About" ><strong>About This Project »</strong> </a>
 

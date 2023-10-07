@@ -224,7 +224,7 @@ public class SkillDatabase : SkillSO
     {
         if (RequestManager.instance.CurrentRequest == null)
             return;
-        RequestManager.instance.StaminaComsumption += Random.Range(0, 1) == 0 ? 10 : -10;
+        RequestManager.instance.StaminaComsumption += Random.Range(0, 2) == 0 ? 10 : -10;
     }
 
     public void SkillMiyu()
@@ -750,7 +750,7 @@ public class SkillDatabase : SkillSO
         if (RequestManager.instance.CurrentRequest == null)
             return;
 
-        if (Random.Range(0, 1) == 0)
+        if (Random.Range(0, 2) == 0)
         {
             RequestManager.instance.StaminaComsumption = 0;
         }

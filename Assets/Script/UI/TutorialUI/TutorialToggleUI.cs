@@ -9,32 +9,32 @@ public class TutorialToggleUI : MonoBehaviour
     [SerializeField] private GameObject BTN;
     [SerializeField] private GameObject altBTN;
     [SerializeField] private Toggle altToggle;
-    private void Awake()
+    private void Start()
     {
-        this.GetComponent<Toggle>().onValueChanged.AddListener(
-            delegate (bool isOnThis)
-                {
-                    // if (!isOnThis && !altToggle.isOn)
-                    // {
-                    //     BTN.SetActive(true);
-                    //     altBTN.SetActive(true);
-                    // }
-                    // else
-                    // {
-                    //     BTN.SetActive(isOnThis);
-                    //     altBTN.SetActive(false);
-                    // }
+        // this.GetComponent<Toggle>().onValueChanged.AddListener(
+        //     delegate (bool isOnThis)
+        //         {
+        //             // if (!isOnThis && !altToggle.isOn)
+        //             // {
+        //             //     BTN.SetActive(true);
+        //             //     altBTN.SetActive(true);
+        //             // }
+        //             // else
+        //             // {
+        //             //     BTN.SetActive(isOnThis);
+        //             //     altBTN.SetActive(false);
+        //             // }
 
-                    if (isOnThis)
-                    {
-                        BTN.SetActive(!isOnThis);
-                    }
-                    else
-                    {
-                        BTN.SetActive(!isOnThis);
-                    }
-                }
-            );
+        //             if (isOnThis)
+        //             {
+        //                 BTN.SetActive(!isOnThis);
+        //             }
+        //             else
+        //             {
+        //                 BTN.SetActive(!isOnThis);
+        //             }
+        //         }
+        //     );
     }
 
     private void Update()
@@ -43,5 +43,10 @@ public class TutorialToggleUI : MonoBehaviour
         // {
         //     altBTN.SetActive(false);
         // }
+    }
+
+    public void toggleNextTutorialSummary()
+    {
+        this.GetComponent<Toggle>().isOn = true;
     }
 }

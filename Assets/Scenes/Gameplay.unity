@@ -19961,7 +19961,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
-  toggleTransition: 1
+  toggleTransition: 0
   graphic: {fileID: 0}
   m_Group: {fileID: 455496815}
   onValueChanged:
@@ -24052,7 +24052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 1
+  m_AllowSwitchOff: 0
 --- !u!1 &457517200
 GameObject:
   m_ObjectHideFlags: 0
@@ -32756,6 +32756,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 828232761}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+        m_MethodName: set_isOn
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &621057705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39950,7 +39962,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
-  toggleTransition: 1
+  toggleTransition: 0
   graphic: {fileID: 0}
   m_Group: {fileID: 455496815}
   onValueChanged:
@@ -44505,7 +44517,6 @@ GameObject:
   m_Component:
   - component: {fileID: 828232763}
   - component: {fileID: 828232761}
-  - component: {fileID: 828232762}
   m_Layer: 5
   m_Name: NextToggle
   m_TagString: Untagged
@@ -44554,28 +44565,13 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
-  toggleTransition: 1
+  toggleTransition: 0
   graphic: {fileID: 0}
   m_Group: {fileID: 455496815}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
---- !u!114 &828232762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828232760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74d0fb319228bd84ea3921ad19f6d644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BTN: {fileID: 1621523115}
-  altBTN: {fileID: 1621523115}
-  altToggle: {fileID: 839656353}
 --- !u!224 &828232763
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45225,7 +45221,6 @@ GameObject:
   m_Component:
   - component: {fileID: 839656351}
   - component: {fileID: 839656353}
-  - component: {fileID: 839656352}
   m_Layer: 5
   m_Name: PreToggle
   m_TagString: Untagged
@@ -45254,21 +45249,6 @@ RectTransform:
   m_AnchoredPosition: {x: -560.3, y: 0}
   m_SizeDelta: {x: 46.57251, y: 65.47152}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &839656352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839656350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74d0fb319228bd84ea3921ad19f6d644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BTN: {fileID: 361664730}
-  altBTN: {fileID: 361664730}
-  altToggle: {fileID: 828232761}
 --- !u!114 &839656353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45310,7 +45290,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
-  toggleTransition: 1
+  toggleTransition: 0
   graphic: {fileID: 0}
   m_Group: {fileID: 455496815}
   onValueChanged:
@@ -63751,7 +63731,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleNextBTN: {fileID: 828232761}
-  toggleNextBTNAlt: {fileID: 839656353}
+  togglePreBTN: {fileID: 839656353}
   BTN: {fileID: 1621523115}
   thisBTN: {fileID: 361664730}
 --- !u!1 &1182097152
@@ -67517,7 +67497,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
-  toggleTransition: 1
+  toggleTransition: 0
   graphic: {fileID: 0}
   m_Group: {fileID: 455496815}
   onValueChanged:

@@ -10,10 +10,6 @@
 ### index
 <a href="https://github.com/GUEST-1001/NigGet/releases/latest"><strong>Download »</strong> </a>
 
-<a href="https://youtu.be/NoYuju4vXY8" ><strong>Video Review »</strong> </a>
-
-<a href="/Export/NigetPackageV0.0.1B.unitypackage" ><strong>Package unity »</strong> </a>
-
 <a href="#About" ><strong>About This Project »</strong> </a>
 
 <a href="#Built" ><strong>Built With »</strong> </a>
@@ -25,10 +21,7 @@
 
 <a name="About"></a>
 ## About This Project
-เกมนี้นี้เป็นส่วนหนึ่งของรายวิชา MTE-415 Game Development
-
-ทางผู้จัดทำได้มีความสนใจในการทำเกม multiplayer จึงได้ศึกษา และจัดทำเกมนี้ขึ้นมาในรูปแบบเกม multiplayer<br>
-และด้วยที่มีเนื้อเรื่องจากเกมก่อนๆ ที่ผ่านมาอยู่ จึงได้จัดทำเกมนี้ออกมาเป็นภาคต่อ
+About
 
 <br><br>
 <div align="center">
@@ -80,24 +73,22 @@ We use Unity to build this Game
 <a name="Team"></a>
 ## About Team
 
-<strong>Nigget Project Team</strong>
+<strong>C.REF Team</strong>
 
-Writer<br>
-2013210212 พงศ์พล พารอาภากุล
+Project Manager / Game Developer<br>
+2013210600 Nontawat Tongpron
 
-Level Designer<br>
-2013210998 กวิน ช่วงยรรยง
+Game Designer / 3D Art Director<br>
+2013210212 Pongpol Paraapakul
  
-Programmer<br>
-2013210899 ณวรรธน์ อรุณสวัสดิ์ฤกษ์
+Game Developer<br>
+2013210899 Nawat Arunsawatrerk
 
-Game Designer<br>
-2013210337 อิทธิวัชตร นิชชากร<br>
-2013210915 ธนากรณ์ เพิ่มพูล
+2D Art Director / Concept Artist<br>
+2013210915 Tanakorn Permpool
 
-Game Artist<br>
-2013210162 เจษฎากร บินซิน<br>
-2013210444 นภจันทร์ สังสรรค์อนันต์
+Thank<br>
+Name
 
 
 <p align="right">

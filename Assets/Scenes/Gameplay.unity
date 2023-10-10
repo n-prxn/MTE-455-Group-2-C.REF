@@ -1768,7 +1768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -85, y: -183.6}
+  m_AnchoredPosition: {x: -85, y: -190.2}
   m_SizeDelta: {x: 190, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &34492225
@@ -27043,7 +27043,6 @@ GameObject:
   m_Component:
   - component: {fileID: 522938007}
   - component: {fileID: 522938009}
-  - component: {fileID: 522938010}
   m_Layer: 5
   m_Name: NextToggle
   m_TagString: Untagged
@@ -27120,21 +27119,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &522938010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522938006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74d0fb319228bd84ea3921ad19f6d644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BTN: {fileID: 1422406014}
-  altBTN: {fileID: 1233147140}
-  altToggle: {fileID: 1703350727}
 --- !u!1 &527059669
 GameObject:
   m_ObjectHideFlags: 0
@@ -28576,7 +28560,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -324.3, y: -307.1}
+  m_AnchoredPosition: {x: -324.3, y: -319.9}
   m_SizeDelta: {x: 182.15, y: 73.9107}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &551173696
@@ -31804,7 +31788,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -122.2, y: -152.4}
+  m_AnchoredPosition: {x: -122.2, y: -161.4}
   m_SizeDelta: {x: 100, y: 36.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &607012539
@@ -50769,7 +50753,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -122.6, y: -152.9}
+  m_AnchoredPosition: {x: -122.6, y: -161.4}
   m_SizeDelta: {x: 112.1, y: 41.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &952099322
@@ -63362,9 +63346,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1175676368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 817a020d3289d594683cfbd42a836dc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d78d8db4e5fa594281e644dcef8fe3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toggleNextBTN: {fileID: 522938009}
+  togglePreBTN: {fileID: 1703350727}
+  BTN: {fileID: 1233147140}
+  thisBTN: {fileID: 1422406014}
 --- !u!1 &1175836363
 GameObject:
   m_ObjectHideFlags: 0
@@ -92801,7 +92789,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1703350725}
   - component: {fileID: 1703350727}
-  - component: {fileID: 1703350728}
   m_Layer: 5
   m_Name: PreToggle
   m_TagString: Untagged
@@ -92878,21 +92865,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
---- !u!114 &1703350728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703350724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74d0fb319228bd84ea3921ad19f6d644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BTN: {fileID: 1233147140}
-  altBTN: {fileID: 1422406014}
-  altToggle: {fileID: 522938009}
 --- !u!1 &1705992955
 GameObject:
   m_ObjectHideFlags: 0
@@ -100012,7 +99984,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -324.3, y: -307.10382}
+  m_AnchoredPosition: {x: -324.3, y: -319.9}
   m_SizeDelta: {x: 182.1486, y: 64.3524}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1876124630
@@ -111261,30 +111233,6 @@ MonoBehaviour:
       - m_Target: {fileID: 1774125104}
         m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
         m_MethodName: SetInactive
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1577884465}
-        m_TargetAssemblyTypeName: UIDisplay, Assembly-CSharp
-        m_MethodName: ToggleBlackBackground
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1175676370}
-        m_TargetAssemblyTypeName: TutorialBTN, Assembly-CSharp
-        m_MethodName: ClickTagetBTN
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

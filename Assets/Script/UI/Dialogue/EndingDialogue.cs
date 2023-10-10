@@ -33,8 +33,11 @@ public class EndingDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BackgroundMove.instant.myIndex = currentMessageIndex;
-        
+        if (BackgroundMove.instant != null)
+        {
+            BackgroundMove.instant.myIndex = currentMessageIndex;
+        }
+
         if (!isTyping)
         {
             isTyping = true;

@@ -891,13 +891,13 @@ MonoBehaviour:
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 785199348}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: 
-          m_Mode: 1
+        - m_Target: {fileID: 785199349}
+          m_TargetAssemblyTypeName: ToggleActiveAnim, Assembly-CSharp
+          m_MethodName: PlayMusic
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgument: {fileID: 11400000, guid: 08df4987b7587f34da1d7f8ba77bb441, type: 2}
+            m_ObjectArgumentAssemblyTypeName: RadioMusic, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -949,7 +949,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 785199349}
           m_TargetAssemblyTypeName: ToggleActiveAnim, Assembly-CSharp
-          m_MethodName: LoadScene
+          m_MethodName: LoadSceneEnding
           m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2365,7 +2365,6 @@ GameObject:
   - component: {fileID: 2029196159}
   - component: {fileID: 2029196160}
   - component: {fileID: 2029196161}
-  - component: {fileID: 2029196162}
   m_Layer: 5
   m_Name: Dialogue Box
   m_TagString: Untagged
@@ -2478,21 +2477,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2029196162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029196157}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19b603822f948164aa1ee5c834c23042, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imggBG: {fileID: 1450080989}
-  endDialog: {fileID: 0}
-  myIndex: 0
 --- !u!1 &2092595754
 GameObject:
   m_ObjectHideFlags: 0

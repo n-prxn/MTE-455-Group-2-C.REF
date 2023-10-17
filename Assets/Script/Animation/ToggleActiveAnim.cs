@@ -122,6 +122,7 @@ public class ToggleActiveAnim : MonoBehaviour
     public void NewGame()
     {
         string pathSaveName = Path.Combine(Application.dataPath, "GameDataSave.json");
+        setting.hasPlayTutorial = false;
         if (File.Exists(pathSaveName))
         {
             File.Delete(pathSaveName);
@@ -129,7 +130,39 @@ public class ToggleActiveAnim : MonoBehaviour
         }
     }
 
-    public void ShowTutorial(int index){
+    public void ShowTutorial(int index)
+    {
         TutorialManager.instance.ShowTutorial(index);
+    }
+
+    public void LoadSceneEnding(int sceneID)
+    {
+        if (sceneID == 0)
+            GameObject.Find("AudioController").GetComponent<AudioController>().PlayTitleMusic();
+        foreach (GameObject i in GetDontDestroyOnLoadObjects())
+        {
+            Destroy(i);
+        }
+        StartCoroutine(LoadSceneAsync(sceneID));
+    }
+
+    public static GameObject[] GetDontDestroyOnLoadObjects()
+    {
+        GameObject temp = null;
+        try
+        {
+            temp = new GameObject();
+            Object.DontDestroyOnLoad(temp);
+            UnityEngine.SceneManagement.Scene dontDestroyOnLoad = temp.scene;
+            Object.DestroyImmediate(temp);
+            temp = null;
+
+            return dontDestroyOnLoad.GetRootGameObjects();
+        }
+        finally
+        {
+            if (temp != null)
+                Object.DestroyImmediate(temp);
+        }
     }
 }

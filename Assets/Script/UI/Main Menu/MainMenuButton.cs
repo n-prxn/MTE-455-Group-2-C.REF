@@ -26,9 +26,16 @@ public class MainMenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         SFXSource = GameObject.FindGameObjectWithTag("FX Audio").GetComponent<AudioSource>();
         string pathSaveName = Path.Combine(Application.dataPath, "GameDataSave.json");
 
-        if (gameObject.name == "Button 2" && (!setting.hasPlayTutorial || !File.Exists(pathSaveName)))
+        if (gameObject.name == "Button 2")
         {
-            gameObject.SetActive(false);
+            if (!setting.hasPlayTutorial || !File.Exists(pathSaveName))
+            {
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(true);
+            }
         }
         else
         {

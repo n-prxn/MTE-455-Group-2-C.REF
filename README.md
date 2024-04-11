@@ -89,7 +89,7 @@ We use Unity to build this Game
 <strong>C.REF Team</strong>
 
 Project Manager / Game Developer<br>
-    2013210600   Nontawat Tongpron
+    -------------------------------
 
 Game Designer / 3D Art Director<br>
 <t>2013210212   Pongpol Paraapakul

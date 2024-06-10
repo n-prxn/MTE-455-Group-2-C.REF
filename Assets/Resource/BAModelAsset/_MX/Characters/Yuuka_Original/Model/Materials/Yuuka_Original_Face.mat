@@ -56,6 +56,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mouth_mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -64,8 +68,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ASEOutlineWidth: 0
+    - _AdditionalLightSharpness: 5
+    - _AdditionalLightStrength: 1
     - _AdjustiveFaceShadow: 0
     - _AlphaClip: 0
     - _Blend: 0
@@ -104,9 +115,18 @@ Material:
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _Zwrite: 0
+    - __dirty: 1
+    - _frensel_hard: 1
+    - _frensel_power: 0.3368064
+    - _frensel_range: 0.5524385
+    - _shadow_clip: 0
+    - _shadow_edge: 0
     m_Colors:
+    - _ASEOutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseBrightness4: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Base_color: {r: 1, g: 1, b: 1, a: 0}
     - _CodeAddColor: {r: 0, g: 0, b: 0, a: 0}
     - _CodeAddRimColor: {r: 0, g: 0, b: 0, a: 0}
     - _CodeMultiplyColor: {r: 1, g: 1, b: 1, a: 1}
@@ -131,4 +151,7 @@ Material:
     - _ViewOffset4: {r: 0, g: 0, b: 0, a: 0}
     - _ViewPower4: {r: 1, g: 1, b: 1, a: 1}
     - _ViewStrength4: {r: 0, g: 0, b: 0, a: 0}
+    - _drak: {r: 0, g: 0, b: 0, a: 0}
+    - _frensel_color: {r: 0.3166077, g: 1, b: 0, a: 0}
+    - _light: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

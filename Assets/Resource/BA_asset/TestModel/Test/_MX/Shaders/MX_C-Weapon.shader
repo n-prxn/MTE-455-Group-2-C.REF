@@ -11,12 +11,14 @@ Shader "MX/C-Weapon" {
 		_ShadowTint ("Shadow Tint", Vector) = (0.5,0.5,0.5,1)
 		_SpecColor ("Spec Tint", Vector) = (1,1,1,1)
 		_FakeLightDir ("Light Direction", Vector) = (0.1,0.65,0,0)
-		[Header(Glow Option)] [Toggle(_GLOW_0)] _UseGlow ("use glow?", Float) = 0
+		[Header(Additional Light)] [Space(6)] _AdditionalLightStrength ("Additional Light Strength", Range(0, 2)) = 1
+		_AdditionalLightSharpness ("Additional Light Sharpness", Range(0, 100)) = 5
+		[Header(Glow Option)] [Space(6)] [Toggle(_GLOW_0)] _UseGlow ("use glow?", Float) = 0
 		_GlowMaskColor0 ("Glow Mask Color", Vector) = (1,1,1,1)
 		_GlowStrictness0 ("Glow Mask Tolerance", Range(30, 0.34)) = 3
 		[HDR] _GlowTint0 ("Glow Tint", Vector) = (0,0,0,1)
 		_GlowStrength0 ("Glow Strength", Range(0, 10)) = 0
-		[Space(10)] [Header(Outline Option)] _OutlineTint ("Outline Tint", Vector) = (0.5,0.5,0.5,1)
+		[Header(Outline Option)] [Space(6)] _OutlineTint ("Outline Tint", Vector) = (0.5,0.5,0.5,1)
 		[HideInInspector] _CodeAddColor ("_CodeAddColor", Vector) = (0,0,0,0)
 		[HideInInspector] _CodeMultiplyColor ("_CodeMultiplyColor", Vector) = (1,1,1,1)
 		[HideInInspector] _CodeAddRimColor ("_CodeAddRimColor", Vector) = (0,0,0,0)

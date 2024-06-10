@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: e8296935aeb08414690736c044841cd8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _IF_44_MOUTH_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -31,8 +32,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: d77e8d908519aed43be772b1afaf3355, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0.75, y: 0.75}
+    - _Mouth_mask:
+        m_Texture: {fileID: 2800000, guid: 5d67b7ed44d9f124997e0ae1bd3bbba8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ASEOutlineWidth: 0
+    - _AdditionalLightSharpness: 5
+    - _AdditionalLightStrength: 0.15
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -45,6 +57,8 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _GrayBrightness: 1
+    - _IF_44_mouth: 1
+    - _IF_WITH_OUT_MOUTH_ON: 0
     - _Metallic: 0
     - _MouthTileCols: 4
     - _MouthTileRows: 4
@@ -58,7 +72,16 @@ Material:
     - _WhiteIntensity: 2
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _Zwrite: 0
+    - __dirty: 1
+    - _frensel_hard: 1
+    - _frensel_power: 0.3368064
+    - _frensel_range: 0.5524385
+    - _shadow_clip: 0
+    - _shadow_edge: 0
     m_Colors:
+    - _ASEOutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Base_color: {r: 1, g: 1, b: 1, a: 0}
     - _CodeAddColor: {r: 0, g: 0, b: 0, a: 0}
     - _CodeAddRimColor: {r: 0, g: 0, b: 0, a: 0}
     - _CodeMultiplyColor: {r: 1, g: 1, b: 1, a: 1}
@@ -66,4 +89,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
+    - _drak: {r: 0, g: 0, b: 0, a: 0}
+    - _frensel_color: {r: 0.3166077, g: 1, b: 0, a: 0}
+    - _light: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

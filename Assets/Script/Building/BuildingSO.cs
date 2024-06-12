@@ -14,6 +14,9 @@ public class BuildingSO : ScriptableObject
     }
     public int unlockedRank = 1;
 
+    [TextArea]
+    [SerializeField] public string buildingHint;
+
     [Header("Capacity")]
     [SerializeField] private int studentCapacity = 3;
     public int StudentCapacity

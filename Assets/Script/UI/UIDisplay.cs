@@ -33,6 +33,7 @@ public class UIDisplay : MonoBehaviour
     [SerializeField] TMP_Text traineeAmountText;
     [SerializeField] TMP_Text furnitureAmountText;
     [SerializeField] TMP_Text bonusAmountText;
+    [SerializeField] TMP_Text buidlingHintPanel;
 
     [Header("Player Info UI")]
     [SerializeField] TMP_Text locationText;
@@ -113,9 +114,12 @@ public class UIDisplay : MonoBehaviour
             buildingDetailPanel.SetActive(false);
         }
 
-        if(GameManager.Instance.rank < 3){
+        if (GameManager.Instance.rank < 3)
+        {
             sidePanel.transform.GetChild(4).gameObject.SetActive(false);
-        }else{
+        }
+        else
+        {
             sidePanel.transform.GetChild(4).gameObject.SetActive(true);
         }
     }
@@ -154,7 +158,7 @@ public class UIDisplay : MonoBehaviour
         rankText.text = "RANK " + GameManager.Instance.rank.ToString();
         xpBar.fillAmount = (float)GameManager.Instance.currentXP / (float)GameManager.Instance.maxXP;
         XPText.text = GameManager.Instance.currentXP.ToString() + " / 220";
-        
+
         int crimeRate = GameManager.Instance.crimeRate;
         int happiness = GameManager.Instance.happiness;
 
@@ -181,15 +185,19 @@ public class UIDisplay : MonoBehaviour
             {
                 case BuildingType.Dormitory:
                     bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusStaminaRested.ToString();
+                    buidlingHintPanel.text = TrainingManager.instance.GetCurrentBuilding().buildingHint;
                     break;
                 case BuildingType.Gym:
                     bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusPHYTraining.ToString();
+                    buidlingHintPanel.text = TrainingManager.instance.GetCurrentBuilding().buildingHint;
                     break;
                 case BuildingType.Library:
                     bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusINTTraining.ToString();
+                    buidlingHintPanel.text = TrainingManager.instance.GetCurrentBuilding().buildingHint;
                     break;
                 case BuildingType.Cafe:
                     bonusAmountText.text = TrainingManager.instance.GetCurrentBuilding().BonusCOMTraining.ToString();
+                    buidlingHintPanel.text = TrainingManager.instance.GetCurrentBuilding().buildingHint;
                     break;
                 case BuildingType.Inventory:
                     break;
@@ -346,14 +354,15 @@ public class UIDisplay : MonoBehaviour
 
     public void PlayEmergencyScreen()
     {
-        if(!hasPlayEmergencyScreen)
+        if (!hasPlayEmergencyScreen)
         {
             emergencyScreen.SetActive(true);
             hasPlayEmergencyScreen = true;
         }
     }
 
-    public void GenerateLevelUpNotification(ItemSO itemReward){
+    public void GenerateLevelUpNotification(ItemSO itemReward)
+    {
         GameObject levelUpPanel = Instantiate(levelUpPrefab, notificationParent.transform);
         levelUpPanel.GetComponent<RankUpNotice>().UpdateRewardUI(itemReward);
         ToggleBlackBackground(true);

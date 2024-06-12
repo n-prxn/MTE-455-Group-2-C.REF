@@ -6,6 +6,8 @@ public class BuildingManager : MonoBehaviour
 {
     private Vector3 mouseDownOrigin;
     private Camera cam;
+
+    [SerializeField] GameObject warningPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,7 +46,14 @@ public class BuildingManager : MonoBehaviour
             Building buildingData = building.GetComponent<Building>();
 
             if (!buildingData.BuildingSO.IsAvailable)
+            {
+                // if (warningPanel = null)
+                // {
+                //     warningPanel = GameObject.Find("WarningPanel");
+                // }
+                StartCoroutine(OpenCloseWarningPanel());
                 return;
+            }
 
             if (building.tag == "Schale")
                 UIDisplay.instance.TogglePanel(UIDisplay.instance.overallPanel);
@@ -75,5 +84,13 @@ public class BuildingManager : MonoBehaviour
             }
             //StudentSpawner.instance.GenerateStudentOnMap(TrainingManager.instance.GetCurrentStudentsInBuilding());
         }
+    }
+
+    IEnumerator OpenCloseWarningPanel()
+    {
+        warningPanel.SetActive(true);
+        yield return new WaitForSeconds(3);
+        warningPanel.SetActive(false);
+
     }
 }

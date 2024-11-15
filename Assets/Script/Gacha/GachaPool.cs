@@ -295,20 +295,10 @@ public class GachaPool : MonoBehaviour, IData
 
         Student pulledStudent;
 
-        if (Random.Range(1, 101) % 2 == Random.Range(0, 2))
+        do
         {
-            do
-            {
-                pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
-            } while (pulledStudent.rarity != Rarity.Rare);
-        }
-        else
-        {
-            do
-            {
-                pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
-            } while (pulledStudent.rarity != Rarity.Uncommon);
-        }
+            pulledStudent = StudentsPool[PullStudentIndex(StudentsPool)];
+        } while (pulledStudent.rarity != Rarity.Rare);
 
         pulledStudents.Add(pulledStudent);
 

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour, IData
     [Header("Schale Rank")]
     public int currentXP = 0;
     public int maxXP = 220;
+    public int lowLevelMaxXP = 100;
     public int rank = 0;
     private bool[] rankRewardCheck = new bool[10];
 
@@ -127,7 +128,7 @@ public class GameManager : MonoBehaviour, IData
         yield return new WaitForSeconds(1.5f);
         currentTurn++;
 
-        if(currentTurn % 3 == 0)
+        if (currentTurn % 3 == 0)
         {
             happiness--;
             crimeRate++;
@@ -196,7 +197,7 @@ public class GameManager : MonoBehaviour, IData
 
     public void RankUp()
     {
-        while (currentXP >= maxXP)
+        while (currentXP >= (rank < 4 ? lowLevelMaxXP : maxXP))
         {
             rank++;
             if (rank > 10)
@@ -210,7 +211,7 @@ public class GameManager : MonoBehaviour, IData
             credits += 40000;
 
             //Give Item
-            ItemSO present = ShopManager.instance.PresentWarehouse[Random.Range(0,ShopManager.instance.PresentWarehouse.Count)];
+            ItemSO present = ShopManager.instance.PresentWarehouse[Random.Range(0, ShopManager.instance.PresentWarehouse.Count)];
             InventoryManager.instance.AddItemToInventory(present);
 
             ShopManager.instance.MaxItem++; // Bug
@@ -241,7 +242,10 @@ public class GameManager : MonoBehaviour, IData
                 case 10:
                     break;
             }
-            currentXP -= maxXP;
+            if (rank < 4)
+                currentXP -= lowLevelMaxXP;
+            else
+                currentXP -= maxXP;
 
             UIDisplay.instance.GenerateLevelUpNotification(present);
             //Add Item
@@ -271,9 +275,9 @@ public class GameManager : MonoBehaviour, IData
 
     public void BackToPreviousScene()
     {
-        if(hasButtonClicked)
+        if (hasButtonClicked)
             return;
-        
+
         hasButtonClicked = true;
         dataManager.SaveGame();
         sceneManager.LoadAsyncPreviousScene();

@@ -83,6 +83,7 @@ public class NewGetFromAnimatonEvent : MonoBehaviour
 
     public void AniEvt_InstantiateFx(GameObject obj)
     {
+        return;
         Instantiate(obj, this.transform.GetChild(0));
     }
 

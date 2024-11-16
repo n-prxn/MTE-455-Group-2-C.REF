@@ -9,6 +9,7 @@ using TMPro;
 public abstract class ItemShelfData : MonoBehaviour
 {
     [SerializeField] protected TextMeshProUGUI itemNameText;
+    [SerializeField] protected TextMeshProUGUI itemSkillText;
     [SerializeField] protected TextMeshProUGUI itemDescText;
     [SerializeField] protected TextMeshProUGUI costText;
     [SerializeField] protected Image itemImage;

@@ -10,6 +10,7 @@ public class ItemSOShelfData : ItemShelfData
         this.item = item;
 
         itemNameText.text = this.item.name;
+        itemSkillText.text = this.item.skillDescription;
         itemDescText.text = this.item.description;
         costText.text = this.item.cost.ToString();
         itemImage.sprite = this.item.sprite;

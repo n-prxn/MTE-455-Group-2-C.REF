@@ -156,8 +156,16 @@ public class UIDisplay : MonoBehaviour
 
         //Update Rank
         rankText.text = "RANK " + GameManager.Instance.rank.ToString();
-        xpBar.fillAmount = (float)GameManager.Instance.currentXP / (float)GameManager.Instance.maxXP;
-        XPText.text = GameManager.Instance.currentXP.ToString() + " / 220";
+        if (GameManager.Instance.rank < 4)
+        {
+            xpBar.fillAmount = (float)GameManager.Instance.currentXP / (float)GameManager.Instance.lowLevelMaxXP;
+            XPText.text = GameManager.Instance.currentXP.ToString() + " / " + GameManager.Instance.lowLevelMaxXP.ToString();
+        }
+        else
+        {
+            xpBar.fillAmount = (float)GameManager.Instance.currentXP / (float)GameManager.Instance.maxXP;
+            XPText.text = GameManager.Instance.currentXP.ToString() + " / " + GameManager.Instance.maxXP.ToString();
+        }
 
         int crimeRate = GameManager.Instance.crimeRate;
         int happiness = GameManager.Instance.happiness;

@@ -200,12 +200,6 @@ public class GameManager : MonoBehaviour, IData
         while (currentXP >= (rank < 4 ? lowLevelMaxXP : maxXP))
         {
             rank++;
-            if (rank > 10)
-            {
-                rank = 10;
-                currentXP = 0;
-                break;
-            }
 
             pyroxenes += 1200;
             credits += 40000;
@@ -213,6 +207,14 @@ public class GameManager : MonoBehaviour, IData
             //Give Item
             ItemSO present = ShopManager.instance.PresentWarehouse[Random.Range(0, ShopManager.instance.PresentWarehouse.Count)];
             InventoryManager.instance.AddItemToInventory(present);
+
+            if (rank > 10)
+            {
+                rank = 10;
+                currentXP -= maxXP;
+                UIDisplay.instance.GenerateLevelUpNotification(present);
+                break;
+            }
 
             ShopManager.instance.MaxItem++; // Bug
             RequestManager.instance.maxRequestCapacity++;

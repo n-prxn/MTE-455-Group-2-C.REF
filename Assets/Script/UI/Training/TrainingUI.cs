@@ -21,13 +21,19 @@ public class TrainingUI : MonoBehaviour
         InitializeTrainingStudents();
     }
 
+    public void OnNextTurn()
+    {
+        TrainingManager.instance.Calculate();
+        InitializeTrainingStudents();
+    }
+
     public void InitializeTrainingStudents()
     {
         BuildingType currentBuilding = TrainingManager.instance.CurrentBuilding;
         buildingName.text = currentBuilding.ToString();
         ResetTrainingList();
         List<Student> students = TrainingManager.instance.TrainingGroup[currentBuilding];
-        
+
         for (int i = 0; i < TrainingManager.instance.GetCurrentBuilding().StudentCapacity; i++)
         {
             GameObject card = Instantiate(cardPrefab, cardParent.transform);

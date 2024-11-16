@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour, IData
         set { isPlayable = value; }
     }
 
+    [SerializeField] private TrainingUI trainingUI;
     private DataManager dataManager;
     private bool hasButtonClicked = false;
     public static GameManager Instance;
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour, IData
             if (currentTurn < lastTurn)
             {
                 UIDisplay.instance.PlaySplashScreen();
+                trainingUI.OnNextTurn();
                 StartCoroutine(DelayGameProcess());
             }
             else

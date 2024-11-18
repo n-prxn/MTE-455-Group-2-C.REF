@@ -214,7 +214,7 @@ public class ItemSkillDatabase : ItemSkillSO
 
     public void ItemSkill13()
     {
-
+        GameManager.Instance.pyroxenes += 1200;
     }
 
     public void ItemSkill14()
